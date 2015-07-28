@@ -1,0 +1,32 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+
+security:
+    encoders:
+        Wizardalley\UserBundle\Entity\WizardUser: sha512
+
+    providers:
+        main:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        main:
+            pattern:        ^/
+            anonymous:      true
+            provider:       main
+            form_login:
+                login_path: wizardalley_user_login
+                check_path: login_check
+                default_target_path:     fos_user_profile_show
+            logout:
+                path:       logout
+                target:     wizardalley_user_login
+            remember_me:
+                key:        %secret%
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html

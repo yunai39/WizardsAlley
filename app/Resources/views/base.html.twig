@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        <style>
+            body{
+                margin:0;
+                padding:0;
+            }
+            div.nav{
+              background-color:black;
+            }
+            .nav div{
+                display:inline-block;
+                padding:10px;
+                margin:0;
+            }
+            .nav div a{
+            }
+            #title-nav{
+                margin:0;
+                padding:0;
+                width:19%;
+                color:white;
+            }
+            #nav-link{
+                margin:0;
+                padding:0;
+                width:59%;
+                
+            }
+            #nav-user{
+                padding:0;
+                margin:0;
+                width:19%;
+                
+            }
+        </style>
+       
+    <div class="nav" >
+        <div id="title-nav">
+            <h3>Wizard's Alley</h3>
+        </div>
+        <div id="nav-link">
+            
+        </div>
+        <div id="nav-user">
+            {% if app.user %}
+                <a href="{{path('fosuser_profile_show')}}">{{app.user.username}}</a>
+            {% else %}
+                <a href="{{path('wizardalley_user_login')}}">{% trans %}Login{% endtrans %}</a>
+                <a href="{{path('fos_user_registration_register')}}">{% trans %}Sign In{% endtrans %}</a>
+            {% endif %}
+        </div>
+    </div>
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

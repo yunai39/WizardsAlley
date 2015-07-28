@@ -1,0 +1,13 @@
+wizardalley_user_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: WizardalleyUserBundle:Default:index }
+
+wizardalley_user_login:
+    path:     /login
+    defaults: { _controller: WizardalleyUserBundle:Security:login }
+
+login_check:
+    pattern:   /login_check
+
+logout:
+    pattern:   /logout
