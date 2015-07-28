@@ -1,0 +1,16 @@
+wizard:
+    menu:
+        link:
+            home: Presentation
+            discover: Découverte
+            mention_legal: Mention Légal
+            blog: Blog
+            contact: Contact
+            confidentiality: Politique de Confidentialité
+            copyright: Copyright
+            search: Recherche
+            message: Message
+    register:
+        label:
+            firstname: Prénom :
+            lastname: Nom :

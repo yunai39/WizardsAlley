@@ -54,7 +54,17 @@
             <h3>Wizard's Alley</h3>
         </div>
         <div id="nav-link">
-            
+            <a href="{{path('wizardalley_default_homepage')}}">{% trans %}wizard.menu.link.home{% endtrans %}</a>
+            <a href="">{% trans %}wizard.menu.link.discover{% endtrans %}</a>
+            <a href="">{% trans %}wizard.menu.link.mention_legal{% endtrans %}</a>
+            <a href="">{% trans %}wizard.menu.link.blog{% endtrans %}</a>
+            <a href="">{% trans %}wizard.menu.link.contact{% endtrans %}</a>
+            <a href="">{% trans %}wizard.menu.link.confidentiality{% endtrans %}</a>
+            <a href="">{% trans %}wizard.menu.link.copyright{% endtrans %}</a>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a href="">{% trans %}wizard.menu.link.search{% endtrans %}</a>
+                <a href="">{% trans %}wizard.menu.link.message{% endtrans %}</a>
+            {% endif %}
         </div>
         <div id="nav-user">
             {% block userblock %}
