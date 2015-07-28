@@ -1,6 +1,3 @@
-wizardalley_user_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: WizardalleyUserBundle:Default:index }
 
 wizardalley_user_login:
     path:     /login

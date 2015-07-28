@@ -1,0 +1,3 @@
+wizardalley_default_homepage:
+    path:     /home
+    defaults: { _controller: WizardalleyDefaultBundle:Default:index }

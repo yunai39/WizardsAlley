@@ -42,6 +42,11 @@
                 width:19%;
                 
             }
+            #main{
+                width:1024px;
+                margin:auto;
+                padding:50px;
+            }
         </style>
        
     <div class="nav" >
@@ -52,15 +57,22 @@
             
         </div>
         <div id="nav-user">
-            {% if app.user %}
-                <a href="{{path('fosuser_profile_show')}}">{{app.user.username}}</a>
-            {% else %}
-                <a href="{{path('wizardalley_user_login')}}">{% trans %}Login{% endtrans %}</a>
-                <a href="{{path('fos_user_registration_register')}}">{% trans %}Sign In{% endtrans %}</a>
-            {% endif %}
+            {% block userblock %}
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                   {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                   <a href="{{ path('logout') }}">
+                       {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                   </a>
+               {% else %}
+                   <a href="{{ path('wizardalley_user_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                   <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+               {% endif %}
+            {% endblock %}
         </div>
     </div>
-        {% block body %}{% endblock %}
+        <div id="main">
+            {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

@@ -1,0 +1,4 @@
+services:
+#    wizardalley_default.example:
+#        class: Wizardalley\DefaultBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
