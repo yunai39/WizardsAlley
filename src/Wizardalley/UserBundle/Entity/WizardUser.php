@@ -33,11 +33,39 @@ class WizardUser extends BaseUser {
      * @ORM\Column(name="firstname", type="string", length=32)
      */
     private $firstname;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="twitter", type="string", length=255)
+     */
+    private $twitter;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="facebook", type="string", length=255)
+     */
+    private $facebook;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="sexe", type="boolean")
+     */
+    private $sexe;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    public $path;
+    public $pathProfile;
+    
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    public $pathCouverture;
+    
 
     public function getLastname() {
         return $this->lastname;
@@ -47,7 +75,7 @@ class WizardUser extends BaseUser {
         $this->lastname = $lastname;
         return $this;
     }
-
+    
     public function getFirstname() {
         return $this->firstname;
     }
@@ -57,16 +85,56 @@ class WizardUser extends BaseUser {
         return $this;
     }
 
-    public function getAbsolutePath() {
-        return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
+    public function getFacebook() {
+        return $this->facebook;
+    }
+
+    public function setFacebook($facebook) {
+        $this->facebook = $facebook;
+        return $this;
+    }
+    
+    public function getTwitter() {
+        return $this->twitter;
+    }
+
+    public function setTwitter($twitter) {
+        $this->twitter = $twitter;
+        return $this;
+    }
+    
+    public function getSexe() {
+        return $this->sexe;
+    }
+
+    public function setSexe($sexe) {
+        $this->sexe = $sexe;
+        return $this;
+    }
+    
+    public function getAbsolutePathProfile() {
+        return null === $this->pathProfile ? null : $this->getUploadRootDir() . '/' . $this->pathProfile;
+    }
+    
+
+    public function getAbsolutePathCouverture() {
+        return null === $this->pathCouverture ? null : $this->getUploadRootDir() . '/' . $this->pathCouverture;
     }
 
     public function getPictureProfile() {
-        return null === $this->path ? $this->getDefaultProfile() : $this->getUploadDir() . '/' . $this->path;
+        return null === $this->pathProfile ? $this->getDefaultProfile() : $this->getUploadDir() . '/' . $this->pathProfile;
     }
 
+    public function getPictureCouverture() {
+        return null === $this->pathCouverture ? $this->getDefaultCouverture() : $this->getUploadDir() . '/' . $this->pathCouverture;
+    }
+    
     protected function getDefaultProfile(){
         return 'uploads/profile/default.png';
+    }
+    
+    protected function getDefaultCouverture(){
+        return 'uploads/profile/dCouverture.png';
     }
     protected function getUploadRootDir() {
         // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
@@ -82,27 +150,35 @@ class WizardUser extends BaseUser {
     /**
      * @Assert\File(maxSize="6000000")
      */
-    public $file;
+    public $fileProfile;
+    
+    
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $fileCouverture;
 
-    public function upload() {
+    public function uploadProfile() {
         // la propriété « file » peut être vide si le champ n'est pas requis
-        if (null === $this->file) {
+        if (null === $this->fileProfile) {
             return;
         }
-
-        // utilisez le nom de fichier original ici mais
-        // vous devriez « l'assainir » pour au moins éviter
-        // quelconques problèmes de sécurité
-        // la méthode « move » prend comme arguments le répertoire cible et
-        // le nom de fichier cible où le fichier doit être déplacé
-        $this->file->move($this->getUploadRootDir(), $this->file->getClientOriginalName());
-
-        // définit la propriété « path » comme étant le nom de fichier où vous
-        // avez stocké le fichier
-        $this->path = $this->file->getClientOriginalName();
-
-        // « nettoie » la propriété « file » comme vous n'en aurez plus besoin
-        $this->file = null;
+        $ext = pathinfo($this->fileProfile->getClientOriginalName(), PATHINFO_EXTENSION);
+        $name = 'profile.'.$ext;
+        $this->fileProfile->move($this->getUploadRootDir(), $name);
+        $this->pathProfile = $name;
+        $this->fileProfile = null;
     }
 
+    public function uploadCouverture(){
+        
+        if (null === $this->fileCouverture) {
+            return;
+        }
+        $ext = pathinfo($this->fileCouverture->getClientOriginalName(), PATHINFO_EXTENSION);
+        $name = 'couverture.'.$ext;
+        $this->fileCouverture->move($this->getUploadRootDir(), $name);
+        $this->pathCouverture = $name;
+        $this->fileCouverture = null;
+    }
 }

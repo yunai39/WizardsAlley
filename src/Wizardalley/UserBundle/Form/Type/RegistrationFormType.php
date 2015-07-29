@@ -12,11 +12,18 @@ class RegistrationFormType extends BaseType {
 
         // add your custom field        
         $builder->add('lastname','text',array(
-            'label' =>'wizard.register.label.lastname',
-        ));       
-        $builder->add('firstname','text',array(
-            'label' =>'wizard.register.label.firstname',
-        ));   
+                'label' =>'wizard.register.label.lastname',
+            ))
+            ->add('firstname','text',array(
+                'label' =>'wizard.register.label.firstname',
+            ))
+            ->add('sexe','choice', array(
+                'label'     => 'wizard.register.label.sexe',
+                'choices'   => array(
+                    '0'   => 'wizard.register.field.sexe.male',
+                    '1'   => 'wizard.register.field.sexe.female',
+                ))
+            );
     }      
 
     public function getName()     

@@ -4,3 +4,8 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: wizard_user_registation }
+    wizard_alley.profile.form.type:
+        class: Wizardalley\UserBundle\Form\Type\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: wizard_user_profile_edit }

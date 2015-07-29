@@ -14,7 +14,16 @@ wizard:
         profile:
             lastname: Prénom
             firstname: Nom
+            edit: Modifier les informations
+            edit_picture: Modifier la photo de profile
     register:
         label:
             firstname: Prénom :
             lastname: Nom :
+            sexe: Genre :
+            facebook: Facebook
+            twitter: Twitter
+        field:
+            sexe:
+                male: Masculin
+                female: Féminin

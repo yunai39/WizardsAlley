@@ -87,3 +87,6 @@ fos_user:
     registration:
         form:
             type: wizard_user_registation
+    profile:
+        form:
+            type: wizard_user_profile_edit

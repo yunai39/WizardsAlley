@@ -25,7 +25,8 @@ class ProfilePictureController extends Controller
 {
     public function editProfilePictureAction(Request $request){
         $form = $this->createFormBuilder($this->getUser())
-        ->add('file')
+        ->add('fileProfile'
+        )
         ->getForm()
     ;
 
@@ -33,7 +34,7 @@ class ProfilePictureController extends Controller
         $form->handleRequest($this->getRequest());
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $this->getUser()->upload();
+            $this->getUser()->uploadProfile();
             $em->persist($this->getUser());
             $em->flush();
 
