@@ -1,3 +1,15 @@
 wizardalley_default_homepage:
     path:     /home
     defaults: { _controller: WizardalleyDefaultBundle:Default:index }
+
+wizardalley_default_copyright:
+    path:     /copyright
+    defaults: { _controller: WizardalleyDefaultBundle:Default:copyright }
+
+wizardalley_default_confidentiality:
+    path:     /confidentiality
+    defaults: { _controller: WizardalleyDefaultBundle:Default:confidentiality }
+
+wizardalley_default_mention:
+    path:     /mention
+    defaults: { _controller: WizardalleyDefaultBundle:Default:mention }

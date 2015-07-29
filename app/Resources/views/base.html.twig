@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -15,7 +15,14 @@
                 padding:0;
             }
             div.nav{
-              background-color:black;
+                background-color:black;
+            }
+            #footer{
+                background-color:black;
+                padding:10px;
+            }
+            #footer a{
+                margin:10px;
             }
             .nav div{
                 display:inline-block;
@@ -34,13 +41,13 @@
                 margin:0;
                 padding:0;
                 width:59%;
-                
+
             }
             #nav-user{
                 padding:0;
                 margin:0;
                 width:19%;
-                
+
             }
             #main{
                 width:1024px;
@@ -48,41 +55,44 @@
                 padding:50px;
             }
         </style>
-       
-    <div class="nav" >
-        <div id="title-nav">
-            <h3>Wizard's Alley</h3>
-        </div>
-        <div id="nav-link">
-            <a href="{{path('wizardalley_default_homepage')}}">{% trans %}wizard.menu.link.home{% endtrans %}</a>
-            <a href="">{% trans %}wizard.menu.link.discover{% endtrans %}</a>
-            <a href="">{% trans %}wizard.menu.link.mention_legal{% endtrans %}</a>
-            <a href="">{% trans %}wizard.menu.link.blog{% endtrans %}</a>
-            <a href="">{% trans %}wizard.menu.link.contact{% endtrans %}</a>
-            <a href="">{% trans %}wizard.menu.link.confidentiality{% endtrans %}</a>
-            <a href="">{% trans %}wizard.menu.link.copyright{% endtrans %}</a>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <a href="">{% trans %}wizard.menu.link.search{% endtrans %}</a>
-                <a href="">{% trans %}wizard.menu.link.message{% endtrans %}</a>
-            {% endif %}
-        </div>
-        <div id="nav-user">
-            {% block userblock %}
+
+        <div class="nav" >
+            <div id="title-nav">
+                <h3>Wizard's Alley</h3>
+            </div>
+            <div id="nav-link">
+                <a href="{{path('wizardalley_default_homepage')}}">{% trans %}wizard.menu.link.home{% endtrans %}</a>
+                <a href="">{% trans %}wizard.menu.link.discover{% endtrans %}</a>
+                <a href="">{% trans %}wizard.menu.link.blog{% endtrans %}</a>
+                <a href="">{% trans %}wizard.menu.link.contact{% endtrans %}</a>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                   {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-                   <a href="{{ path('logout') }}">
-                       {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                   </a>
-               {% else %}
-                   <a href="{{ path('wizardalley_user_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                   <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
-               {% endif %}
-            {% endblock %}
+                    <a href="">{% trans %}wizard.menu.link.search{% endtrans %}</a>
+                    <a href="">{% trans %}wizard.menu.link.message{% endtrans %}</a>
+                {% endif %}
+            </div>
+            <div id="nav-user">
+                {% block userblock %}
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                        <a href="{{ path('logout') }}">
+                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                        </a>
+                    {% else %}
+                        <a href="{{ path('wizardalley_user_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                        <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+                    {% endif %}
+                {% endblock %}
+            </div>
         </div>
-    </div>
         <div id="main">
-            {% block body %}{% endblock %}
+        {% block body %}{% endblock %}
+    </div>
+        <div id="footer" >
+                <a href="{{path('wizardalley_default_mention')}}">{% trans %}wizard.menu.link.mention_legal{% endtrans %}</a>
+                <a href="{{path('wizardalley_default_confidentiality')}}">{% trans %}wizard.menu.link.confidentiality{% endtrans %}</a>
+                <a href="{{path('wizardalley_default_copyright')}}">{% trans %}wizard.menu.link.copyright{% endtrans %}</a>
+            
         </div>
-        {% block javascripts %}{% endblock %}
-    </body>
+{% block javascripts %}{% endblock %}
+</body>
 </html>
