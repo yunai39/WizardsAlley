@@ -9,13 +9,16 @@ wizard:
             confidentiality: Politique de Confidentialité
             copyright: Copyright
             search: Recherche
+            wall: mur
             message: Message
+            notification: Notification
     user:
         profile:
             lastname: Prénom
             firstname: Nom
             edit: Modifier les informations
             edit_picture: Modifier la photo de profile
+            edit_picture_wall: Modifier la couverture
     register:
         label:
             firstname: Prénom :

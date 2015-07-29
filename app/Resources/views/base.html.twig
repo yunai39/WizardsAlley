@@ -67,17 +67,21 @@
                 <a href="">{% trans %}wizard.menu.link.contact{% endtrans %}</a>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <a href="">{% trans %}wizard.menu.link.search{% endtrans %}</a>
-                    <a href="">{% trans %}wizard.menu.link.message{% endtrans %}</a>
                 {% endif %}
             </div>
             <div id="nav-user">
                 {% block userblock %}
-                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    {% if app.user %}
                         {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
                         <a href="{{ path('logout') }}">
                             {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                         </a>
-                        <a href="{{ path('fos_user_profile_show') }}">{{  app.user.username }}</a>
+                        <ul>
+                            <li><a href="{{ path('fos_user_profile_show') }}">{{  app.user.username }}</a></li>
+                            <li><a href="{{ path('wizardalley_user_wall',{id: app.user.id}) }}">{% trans %}wizard.menu.link.wall{% endtrans %}</a></li>
+                            <li><a href="">{% trans %}wizard.menu.link.message{% endtrans %}</a></li>
+                            <li><a href="">{% trans %}wizard.menu.link.notification{% endtrans %}</a></li>
+                        </ul>
                     {% else %}
                         <a href="{{ path('wizardalley_user_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
                         <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>

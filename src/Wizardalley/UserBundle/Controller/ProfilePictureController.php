@@ -41,8 +41,31 @@ class ProfilePictureController extends Controller
         }
     }
 
-    return $this->render('WizardalleyUserBundle:Profile:editPicture.html.twig', array(
-        'form' => $form->createView()
-    ));
+        return $this->render('WizardalleyUserBundle:Profile:editPicture.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
+    
+     public function editCouverturePictureAction(Request $request){
+        $form = $this->createFormBuilder($this->getUser())
+        ->add('fileCouverture'
+        )
+        ->getForm()
+        ;
+
+    if ($this->getRequest()->isMethod('POST')) {
+        $form->handleRequest($this->getRequest());
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $this->getUser()->uploadCouverture();
+            $em->persist($this->getUser());
+            $em->flush();
+
+        }
+    }
+
+        return $this->render('WizardalleyUserBundle:Profile:editPictureCouverture.html.twig', array(
+            'form' => $form->createView()
+        ));
+    }   
 }

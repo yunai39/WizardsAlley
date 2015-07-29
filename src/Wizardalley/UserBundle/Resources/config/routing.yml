@@ -7,6 +7,14 @@ wizardalley_user_profile_edit_picture:
     path:   /user/editPictureProfile
     defaults: { _controller: WizardalleyUserBundle:ProfilePicture:editProfilePicture }
     
+wizardalley_user_couverture_edit_picture:
+    path:   /user/editPictureCouverture
+    defaults: { _controller: WizardalleyUserBundle:ProfilePicture:editCouverturePicture }
+
+wizardalley_user_wall:
+    path:   /wall/{id}
+    defaults: { _controller: WizardalleyUserBundle:Default:userWall }
+    
 
 login_check:
     pattern:   /login_check
