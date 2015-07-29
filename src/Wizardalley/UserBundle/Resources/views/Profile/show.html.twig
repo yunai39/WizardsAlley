@@ -1,0 +1,14 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <div class="fos_user_user_show">
+    <p>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
+    <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+    <p>{{ 'wizard.user.profile.lastname'|trans({}) }}: {{ user.lastname }}</p>
+    <p>{{ 'wizard.user.profile.firstname'|trans({}) }}: {{ user.lastname }}</p>
+    </div>
+    <div >
+        <img src="{{asset(user.getPictureProfile())}}" />
+        <a href="{{path('wizardalley_user_profile_edit_picture')}}">{% trans %}wizard.user.profile.edit_picture{% endtrans %}</a>
+    </div>
+{% endblock fos_user_content %}

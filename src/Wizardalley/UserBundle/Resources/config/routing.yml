@@ -3,6 +3,11 @@ wizardalley_user_login:
     path:     /login
     defaults: { _controller: WizardalleyUserBundle:Security:login }
 
+wizardalley_user_profile_edit_picture:
+    path:   /user/editPictureProfile
+    defaults: { _controller: WizardalleyUserBundle:ProfilePicture:editProfilePicture }
+    
+
 login_check:
     pattern:   /login_check
 
