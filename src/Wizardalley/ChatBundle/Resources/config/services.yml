@@ -1,0 +1,13 @@
+parameters:
+    security.authentication.success_handler.class: Wizardalley\ChatBundle\Handler\AuthenticationSuccessHandler
+    chat.service.class: Wizardalley\ChatBundle\Service\ChatService
+services:
+
+    security.authentication.success_handler:
+        class:  "%security.authentication.success_handler.class%"
+        arguments:  ["@security.http_utils", {},'@doctrine']
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
+    chat.service:
+        class:  "%chat.service.class%"
+        arguments:  ['@doctrine']

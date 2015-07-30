@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Wizardalley\UserBundle\WizardalleyUserBundle(),
             new Wizardalley\DefaultBundle\WizardalleyDefaultBundle(),
+            new Wizardalley\ChatBundle\WizardalleyChatBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

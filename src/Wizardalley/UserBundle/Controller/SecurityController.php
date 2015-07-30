@@ -10,7 +10,7 @@ class SecurityController extends Controller
   {
     // Si le visiteur est déjà identifié, on le redirige vers l'accueil
     if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-      return $this->redirectToRoute('wizardalley_home');
+      return $this->redirectToRoute('wizardalley_default_homepage');
     }
     
     // Le service authentication_utils permet de récupérer le nom d'utilisateur

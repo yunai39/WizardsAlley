@@ -1,0 +1,8 @@
+wizardalley_chat_homepage:
+    path:     /user/chat
+    defaults: { _controller: WizardalleyChatBundle:Default:index }
+
+
+wizardalley_chat_user_list:
+    path:     /user/chat/getUser
+    defaults: { _controller: WizardalleyChatBundle:Default:getUser }
