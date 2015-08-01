@@ -2,7 +2,6 @@
 
 namespace Wizardalley\ChatBundle\Handler;
 
-
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler;
 use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Wizardalley\ChatBundle\Entity\UserConnected;
 
 class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler {
 
@@ -36,7 +36,13 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler {
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token) {
         $user = $token->getUser();
-        return parent::onAuthenticationSuccess( $request,  $token);
+        $entity = new UserConnected();
+        $entity->setId($user);
+        $entity->setTimeConnected(new \DateTime('now'));
+        $entityManager = $this->doctrine->getManager();
+        $entityManager->merge($entity);
+        $entityManager->flush();
+        return parent::onAuthenticationSuccess($request, $token);
     }
 
 }

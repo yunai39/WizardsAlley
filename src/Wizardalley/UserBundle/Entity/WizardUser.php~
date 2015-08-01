@@ -67,7 +67,7 @@ class WizardUser extends BaseUser {
     public $pathCouverture;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Wizardalley\ChatBundle\Entity\Conversation", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity="Wizardalley\ChatBundle\Entity\conversation", mappedBy="users")
     */
     private $conversations;
     public function getLastname() {
@@ -251,10 +251,10 @@ class WizardUser extends BaseUser {
     /**
      * Add conversations
      *
-     * @param \Wizardalley\ChatBundle\Entity\Conversation $conversations
+     * @param \Wizardalley\ChatBundle\Entity\conversation $conversations
      * @return WizardUser
      */
-    public function addConversation(\Wizardalley\ChatBundle\Entity\Conversation $conversations)
+    public function addConversation(\Wizardalley\ChatBundle\Entity\conversation $conversations)
     {
         $this->conversations[] = $conversations;
 
@@ -264,9 +264,9 @@ class WizardUser extends BaseUser {
     /**
      * Remove conversations
      *
-     * @param \Wizardalley\ChatBundle\Entity\Conversation $conversations
+     * @param \Wizardalley\ChatBundle\Entity\conversation $conversations
      */
-    public function removeConversation(\Wizardalley\ChatBundle\Entity\Conversation $conversations)
+    public function removeConversation(\Wizardalley\ChatBundle\Entity\conversation $conversations)
     {
         $this->conversations->removeElement($conversations);
     }

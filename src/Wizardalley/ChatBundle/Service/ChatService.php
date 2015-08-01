@@ -17,6 +17,8 @@ class ChatService{
             'SELECT u.id,u.username
             FROM WizardalleyUserBundle:WizardUser u'
         );
+        
+        //Update timer
 
         $users = $query->getResult();
         

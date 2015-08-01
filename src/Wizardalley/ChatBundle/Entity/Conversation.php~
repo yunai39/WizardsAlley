@@ -163,27 +163,4 @@ class Conversation
     {
         $this->users->removeElement($users);
     }
-
-    /**
-     * Set multiple
-     *
-     * @param boolean $multiple
-     * @return Conversation
-     */
-    public function setMultiple($multiple)
-    {
-        $this->multiple = $multiple;
-
-        return $this;
-    }
-
-    /**
-     * Get multiple
-     *
-     * @return boolean 
-     */
-    public function getMultiple()
-    {
-        return $this->multiple;
-    }
 }
