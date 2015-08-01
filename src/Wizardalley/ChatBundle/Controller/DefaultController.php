@@ -3,8 +3,8 @@
 namespace Wizardalley\ChatBundle\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Wizardalley\ChatBundle\Entity\UserConnected;
-use Wizardalley\ChatBundle\Entity\Conversation;
+use Wizardalley\ChatBundle\Entity\ChatUserConnected;
+use Wizardalley\ChatBundle\Entity\ChatConversation;
 class DefaultController extends Controller
 {
     public function indexAction()
@@ -15,13 +15,13 @@ class DefaultController extends Controller
     public function getUserAction()
     {
         $service = $this->get('chat.service');
-        $repo = $this->getDoctrine()->getRepository('WizardalleyChatBundle:UserConnected');
+        $repo = $this->getDoctrine()->getRepository('WizardalleyChatBundle:ChatUserConnected');
         
         $users = $repo->findUserConnected($this->getUser()->getId());
         
         //Update timer
         $user = $this->getUser();
-        $entity = new UserConnected();
+        $entity = new ChatUserConnected();
         $entity->setId($user);
         $entity->setTimeConnected(new \DateTime('now'));
         $entityManager = $this->getDoctrine()->getManager();
@@ -33,32 +33,32 @@ class DefaultController extends Controller
     public function getMessageConversation2Action()
     {
         $id = $this->get('request')->request->get('user_id');
-        $repo = $this->getDoctrine()->getRepository('WizardalleyChatBundle:Conversation');
+        $repo = $this->getDoctrine()->getRepository('WizardalleyChatBundle:ChatConversation');
         $messages = $repo->findConversationBetweenUser($id,$this->getUser()->getId());
-        if(!$messages){
-            $conversation = new Conversation();
-            $conversation->setDateStart(new \DateTime('now'));
-            $conversation->setMultiple(false);
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($conversation);
-            $em->flush();
-        }
         return new JsonResponse($messages);
         
     }
     
     public function addMessageConversationAction(){
         $conversation_id = $this->get('request')->request->get('conversation_id');
+        
         $content = $this->get('request')->request->get('content');
         $user_id = $this->getUser()->getId();
         
+        if(!$conversation_id){
+            $conversation = new ChatConversation();
+            
+            die();
+            
+        }
         $em = $this->getDoctrine()->getManager();
+        
+        
         $message = new \Wizardalley\ChatBundle\Entity\ChatMessage();
         $message->setUser($this->getUser());
         $message->setContent($content);
         $message->setTimeSent(new \DateTime('now'));
-        $message->setConversation($em->getReference('WizardalleyChatBundle:Conversation', $conversation_id));
+        $message->setConversation($em->getReference('WizardalleyChatBundle:ChatConversation', $conversation_id));
         
         $em->persist($message);
         $em->flush();

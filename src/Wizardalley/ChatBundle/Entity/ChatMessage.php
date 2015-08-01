@@ -46,7 +46,7 @@ class ChatMessage
         return $this->id;
     }
     /**
-     * @ORM\ManyToOne(targetEntity="Conversation", inversedBy="messages", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="ChatConversation", inversedBy="messages", cascade={"remove"})
      * @ORM\JoinColumn(name="conversation_id", referencedColumnName="id")
     */
     private $conversation;
@@ -105,10 +105,10 @@ class ChatMessage
     /**
      * Set conversation
      *
-     * @param \Wizardalley\ChatBundle\Entity\Conversation $conversation
+     * @param \Wizardalley\ChatBundle\Entity\ChatConversation $conversation
      * @return ChatMessage
      */
-    public function setConversation(\Wizardalley\ChatBundle\Entity\Conversation $conversation = null)
+    public function setConversation(\Wizardalley\ChatBundle\Entity\ChatConversation $conversation = null)
     {
         $this->conversation = $conversation;
 
@@ -118,7 +118,7 @@ class ChatMessage
     /**
      * Get conversation
      *
-     * @return \Wizardalley\ChatBundle\Entity\Conversation 
+     * @return \Wizardalley\ChatBundle\Entity\ChatConversation 
      */
     public function getConversation()
     {

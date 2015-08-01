@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler;
 use Symfony\Component\Security\Http\HttpUtils;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Wizardalley\ChatBundle\Entity\UserConnected;
+use Wizardalley\ChatBundle\Entity\ChatUserConnected;
 
 class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler {
 
@@ -36,7 +36,7 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler {
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token) {
         $user = $token->getUser();
-        $entity = new UserConnected();
+        $entity = new ChatUserConnected();
         $entity->setId($user);
         $entity->setTimeConnected(new \DateTime('now'));
         $entityManager = $this->doctrine->getManager();

@@ -187,7 +187,7 @@
                 console.log($users);
                 $.each($users, function($index, $value) {
                     $li = $('<li>');
-                    $a = $('<a onClick="javascript:selectChat(' + $value['id_id'] + ',this,'+$value['conversation_id']+')" userId="' + $value['id'] + '">' + $value['username'] + '</a>');
+                    $a = $('<a onClick="javascript:selectChat(' + $value['id_id'] + ',this,'+$value['chat_conversation_id']+')" userId="' + $value['id'] + '">' + $value['username'] + '</a>');
 
                     $li.append($a);
                     $ul.append($li);
@@ -209,8 +209,8 @@
     function selectChat(id, object,conversation_id) {
         $('.contact li a').removeClass('selected');
         $(object).addClass('selected');
+        console.log(conversation_id);
         $('#conversation_id').val(conversation_id);
-        console.log(id);
         $.ajax({
             type: "POST",
             url: "{{path('wizardalley_chat_conversation_2_user')}}",
@@ -233,14 +233,12 @@
     function fillChat(messages) {
         ul = $('#listMessage');
         ul.empty();
-        console.log(messages);
         $.each(messages, function(index, item) {
             ul.append(addMessage(item));
         });
     }
 
     function addMessage(item){
-        console.log(item);
         if (item.user_id == current_user_id) {
             li = $('<li class="self">' + item.username + ': ' + item.content + '</li>');
         } else {
@@ -252,7 +250,6 @@
 
     function sendMessage() {
         data = $("form").serialize();
-        console.log(data);
         $.ajax({
             type: "POST",
             url: "{{path('wizardalley_chat_conversation_add_message')}}",

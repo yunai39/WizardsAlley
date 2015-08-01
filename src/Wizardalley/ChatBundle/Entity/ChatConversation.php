@@ -5,12 +5,12 @@ namespace Wizardalley\ChatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Conversation
+ * ChatConversation
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Wizardalley\ChatBundle\Entity\ConversationRepository")
+ * @ORM\Entity(repositoryClass="Wizardalley\ChatBundle\Entity\ChatConversationRepository")
  */
-class Conversation
+class ChatConversation
 {
     /**
      * @var integer
@@ -27,21 +27,24 @@ class Conversation
      * @ORM\Column(name="dateStart", type="datetime")
      */
     private $dateStart;
+    
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="lastMessage", type="datetime")
+     */
+    private $lastMessage;
     /**
     * @ORM\OneToMany(targetEntity="ChatMessage", mappedBy="conversation", cascade={"remove", "persist"})
     */
     private $messages;
     
     
-    /**
-     * @var boolean
-     *
-     * @ORM\Column(name="multiple", type="boolean")
-     */
-    private $multiple;
+
     /**
      * @ORM\ManyToMany(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="conversation")
-     * @ORM\JoinTable(name="user_conversation")
+     * @ORM\JoinTable(name="chat_user_conversation")
      */
     private $users;
     /**
@@ -58,7 +61,7 @@ class Conversation
      * Set dateStart
      *
      * @param \DateTime $dateStart
-     * @return Conversation
+     * @return ChatConversation
      */
     public function setDateStart($dateStart)
     {
@@ -81,7 +84,7 @@ class Conversation
      * Set users
      *
      * @param \Wizardalley\UserBundle\Entity\WizardUser $users
-     * @return Conversation
+     * @return ChatConversation
      */
     public function setUsers(\Wizardalley\UserBundle\Entity\WizardUser $users = null)
     {
@@ -112,7 +115,7 @@ class Conversation
      * Add messages
      *
      * @param \Wizardalley\ChatBundle\Entity\ChatMessage $messages
-     * @return Conversation
+     * @return ChatConversation
      */
     public function addMessage(\Wizardalley\ChatBundle\Entity\ChatMessage $messages)
     {
@@ -145,7 +148,7 @@ class Conversation
      * Add users
      *
      * @param \Wizardalley\UserBundle\Entity\WizardUser $users
-     * @return Conversation
+     * @return ChatConversation
      */
     public function addUser(\Wizardalley\UserBundle\Entity\WizardUser $users)
     {
@@ -164,26 +167,28 @@ class Conversation
         $this->users->removeElement($users);
     }
 
+
+
     /**
-     * Set multiple
+     * Set lastMessage
      *
-     * @param boolean $multiple
-     * @return Conversation
+     * @param \DateTime $lastMessage
+     * @return ChatConversation
      */
-    public function setMultiple($multiple)
+    public function setLastMessage($lastMessage)
     {
-        $this->multiple = $multiple;
+        $this->lastMessage = $lastMessage;
 
         return $this;
     }
 
     /**
-     * Get multiple
+     * Get lastMessage
      *
-     * @return boolean 
+     * @return \DateTime 
      */
-    public function getMultiple()
+    public function getLastMessage()
     {
-        return $this->multiple;
+        return $this->lastMessage;
     }
 }

@@ -5,12 +5,12 @@ namespace Wizardalley\ChatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UserConnected
+ * ChatUserConnected
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Wizardalley\ChatBundle\Entity\UserConnectedRepository")
+ * @ORM\Entity(repositoryClass="Wizardalley\ChatBundle\Entity\ChatUserConnectedRepository")
  */
-class UserConnected
+class ChatUserConnected
 {
     /** @ORM\Id @ORM\OneToOne(targetEntity="\Wizardalley\UserBundle\Entity\WizardUser") */
     private $id;
@@ -37,7 +37,7 @@ class UserConnected
      * Set timeConnected
      *
      * @param \DateTime $timeConnected
-     * @return UserConnected
+     * @return ChatUserConnected
      */
     public function setTimeConnected($timeConnected)
     {
@@ -60,7 +60,7 @@ class UserConnected
      * Set id
      *
      * @param \Wizardalley\UserBundle\Entity\WizardUser $id
-     * @return UserConnected
+     * @return ChatUserConnected
      */
     public function setId(\Wizardalley\UserBundle\Entity\WizardUser $id)
     {
