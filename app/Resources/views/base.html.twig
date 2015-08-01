@@ -64,7 +64,7 @@
                 <a href="{{path('wizardalley_default_homepage')}}">{% trans %}wizard.menu.link.home{% endtrans %}</a>
                 <a href="">{% trans %}wizard.menu.link.discover{% endtrans %}</a>
                 <a href="">{% trans %}wizard.menu.link.blog{% endtrans %}</a>
-                <a href="">{% trans %}wizard.menu.link.contact{% endtrans %}</a>
+                <a href="{{path('wizardalley_default_contact')}}">{% trans %}wizard.menu.link.contact{% endtrans %}</a>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <a href="">{% trans %}wizard.menu.link.search{% endtrans %}</a>
                 {% endif %}

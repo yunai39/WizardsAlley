@@ -13,3 +13,7 @@ wizardalley_default_confidentiality:
 wizardalley_default_mention:
     path:     /mention
     defaults: { _controller: WizardalleyDefaultBundle:Default:mention }
+
+wizardalley_default_contact:
+    path:     /contact
+    defaults: { _controller: WizardalleyDefaultBundle:Default:contactForm }

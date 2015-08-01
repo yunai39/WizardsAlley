@@ -30,3 +30,10 @@ wizard:
             sexe:
                 male: Masculin
                 female: Féminin
+    contact:
+        message: Merci !! Le message a bien été envoyé
+        title: Nous contacter
+        label:
+            nom: Votre nom
+            email: Email de contact
+            message: Votre message
