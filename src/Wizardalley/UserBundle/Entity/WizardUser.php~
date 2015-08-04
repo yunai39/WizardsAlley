@@ -9,7 +9,7 @@ use FOS\UserBundle\Entity\User as BaseUser;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Wizardalley\UserBundle\Entity\WizardUserRepository")
  */
 class WizardUser extends BaseUser {
 
@@ -67,9 +67,25 @@ class WizardUser extends BaseUser {
     public $pathCouverture;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Wizardalley\ChatBundle\Entity\conversation", mappedBy="users")
+     * @ORM\ManyToMany(targetEntity="Wizardalley\ChatBundle\Entity\ChatConversation", mappedBy="users")
     */
     private $conversations;
+    
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="WizardUser", mappedBy="friendsWithMe")
+     **/
+    private $friendsWithMe;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="WizardUser", inversedBy="myFriends")
+     * @ORM\JoinTable(name="friends",
+     *      joinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      )
+     **/
+    private $myFriends;
+    
     public function getLastname() {
         return $this->lastname;
     }
@@ -251,10 +267,10 @@ class WizardUser extends BaseUser {
     /**
      * Add conversations
      *
-     * @param \Wizardalley\ChatBundle\Entity\conversation $conversations
+     * @param \Wizardalley\ChatBundle\Entity\ChatConversation $conversations
      * @return WizardUser
      */
-    public function addConversation(\Wizardalley\ChatBundle\Entity\conversation $conversations)
+    public function addConversation(\Wizardalley\ChatBundle\Entity\ChatConversation $conversations)
     {
         $this->conversations[] = $conversations;
 
@@ -264,9 +280,9 @@ class WizardUser extends BaseUser {
     /**
      * Remove conversations
      *
-     * @param \Wizardalley\ChatBundle\Entity\conversation $conversations
+     * @param \Wizardalley\ChatBundle\Entity\ChatConversation $conversations
      */
-    public function removeConversation(\Wizardalley\ChatBundle\Entity\conversation $conversations)
+    public function removeConversation(\Wizardalley\ChatBundle\Entity\ChatConversation $conversations)
     {
         $this->conversations->removeElement($conversations);
     }
@@ -280,4 +296,81 @@ class WizardUser extends BaseUser {
     {
         return $this->conversations;
     }
+
+    /**
+     * Add friendsWithMe
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $friendsWithMe
+     * @return WizardUser
+     */
+    public function addFriendsWithMe(\Wizardalley\UserBundle\Entity\WizardUser $friendsWithMe)
+    {
+        $this->friendsWithMe[] = $friendsWithMe;
+
+        return $this;
+    }
+
+    /**
+     * Remove friendsWithMe
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $friendsWithMe
+     */
+    public function removeFriendsWithMe(\Wizardalley\UserBundle\Entity\WizardUser $friendsWithMe)
+    {
+        $this->friendsWithMe->removeElement($friendsWithMe);
+    }
+
+    /**
+     * Get friendsWithMe
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFriendsWithMe()
+    {
+        return $this->friendsWithMe;
+    }
+
+    /**
+     * Add myFriends
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $myFriends
+     * @return WizardUser
+     */
+    public function addMyFriend(\Wizardalley\UserBundle\Entity\WizardUser $myFriends)
+    {
+        $this->myFriends[] = $myFriends;
+
+        return $this;
+    }
+
+    /**
+     * Remove myFriends
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $myFriends
+     */
+    public function removeMyFriend(\Wizardalley\UserBundle\Entity\WizardUser $myFriends)
+    {
+        $this->myFriends->removeElement($myFriends);
+    }
+
+    /**
+     * Get myFriends
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMyFriends()
+    {
+        return $this->myFriends;
+    }
+    
+    public function isFriend($user){
+        foreach($this->friendsWithMe as $friend){
+            if($friend->getId() == $user->getId()){
+                var_dump($friend->getId());
+            }
+        }
+        return false;
+    }
+    
+
 }

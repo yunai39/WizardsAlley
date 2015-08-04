@@ -191,4 +191,5 @@ class ChatConversation
     {
         return $this->lastMessage;
     }
+    
 }

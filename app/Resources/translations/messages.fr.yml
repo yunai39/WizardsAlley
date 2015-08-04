@@ -19,6 +19,7 @@ wizard:
             edit: Modifier les informations
             edit_picture: Modifier la photo de profile
             edit_picture_wall: Modifier la couverture
+            friend_list: Liste des amis
     register:
         label:
             firstname: Prénom :
@@ -37,3 +38,5 @@ wizard:
             nom: Votre nom
             email: Email de contact
             message: Votre message
+    wall:
+        friend: Amis

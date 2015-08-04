@@ -9,7 +9,7 @@ use FOS\UserBundle\Entity\User as BaseUser;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Wizardalley\UserBundle\Entity\WizardUserRepository")
  */
 class WizardUser extends BaseUser {
 
@@ -70,6 +70,22 @@ class WizardUser extends BaseUser {
      * @ORM\ManyToMany(targetEntity="Wizardalley\ChatBundle\Entity\ChatConversation", mappedBy="users")
     */
     private $conversations;
+    
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="WizardUser", mappedBy="myFriends")
+     **/
+    private $friendsWithMe;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="WizardUser", inversedBy="friendsWithMe")
+     * @ORM\JoinTable(name="friends",
+     *      joinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      )
+     **/
+    private $myFriends;
+    
     public function getLastname() {
         return $this->lastname;
     }
@@ -280,4 +296,84 @@ class WizardUser extends BaseUser {
     {
         return $this->conversations;
     }
+
+    /**
+     * Add friendsWithMe
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $friendsWithMe
+     * @return WizardUser
+     */
+    public function addFriendsWithMe(\Wizardalley\UserBundle\Entity\WizardUser $friendsWithMe)
+    {
+        $this->friendsWithMe[] = $friendsWithMe;
+
+        return $this;
+    }
+
+    /**
+     * Remove friendsWithMe
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $friendsWithMe
+     */
+    public function removeFriendsWithMe(\Wizardalley\UserBundle\Entity\WizardUser $friendsWithMe)
+    {
+        $this->friendsWithMe->removeElement($friendsWithMe);
+    }
+
+    /**
+     * Get friendsWithMe
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFriendsWithMe()
+    {
+        return $this->friendsWithMe;
+    }
+
+    /**
+     * Add myFriends
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $myFriends
+     * @return WizardUser
+     */
+    public function addMyFriend(\Wizardalley\UserBundle\Entity\WizardUser $myFriends)
+    {
+        $this->myFriends[] = $myFriends;
+
+        return $this;
+    }
+
+    /**
+     * Remove myFriends
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $myFriends
+     */
+    public function removeMyFriend(\Wizardalley\UserBundle\Entity\WizardUser $myFriends)
+    {
+        $this->myFriends->removeElement($myFriends);
+    }
+
+    /**
+     * Get myFriends
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMyFriends()
+    {
+        return $this->myFriends;
+    }
+    
+    public function askedAsAFriend($user){
+        return ($this->myFriends->indexOf($user) !== false and $this->friendsWithMe->indexOf($user) ===false  );
+    }
+    
+    public function askingForFriendship($user){
+        return ($this->myFriends->indexOf($user) === false and $this->friendsWithMe->indexOf($user) !==false  );
+    }
+    
+    public function isFriend($user){
+        return ($this->myFriends->indexOf($user) !== false and $this->friendsWithMe->indexOf($user) !==false  );
+    }
+    
+
 }

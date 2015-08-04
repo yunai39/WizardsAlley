@@ -14,10 +14,19 @@ wizardalley_user_couverture_edit_picture:
 wizardalley_user_wall:
     path:   /wall/{id}
     defaults: { _controller: WizardalleyUserBundle:Default:userWall }
-    
 
 login_check:
     pattern:   /login_check
 
 logout:
     pattern:   /logout
+
+wizard_add_as_a_friend:
+    path:   /user/addAsAFriend/{id_user}
+    defaults: { _controller: WizardalleyUserBundle:Default:addAsAFriend }
+
+
+wizard_get_freind:
+    path:   /user/getFriends
+    defaults: { _controller: WizardalleyUserBundle:Default:friendList }
+    

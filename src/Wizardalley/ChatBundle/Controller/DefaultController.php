@@ -5,6 +5,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Wizardalley\ChatBundle\Entity\ChatUserConnected;
 use Wizardalley\ChatBundle\Entity\ChatConversation;
+
 class DefaultController extends Controller
 {
     public function indexAction()

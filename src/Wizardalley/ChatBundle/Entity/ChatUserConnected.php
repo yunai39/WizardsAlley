@@ -68,4 +68,5 @@ class ChatUserConnected
 
         return $this;
     }
+    
 }
