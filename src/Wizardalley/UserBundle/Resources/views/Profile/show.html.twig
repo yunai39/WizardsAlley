@@ -1,5 +1,10 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
+{% block javascripts %}
+    {{parent()}}
+    <script type="text/javascript" src="{{asset('js/hinclude.js')}}"> </script>
+{% endblock %}
+
 {% block fos_user_content %}
     <a href="{{path('fos_user_profile_edit')}}">{{ 'wizard.user.profile.edit'|trans({}) }}</a>
     <div class="fos_user_user_show">
@@ -23,4 +28,6 @@
     <div>
         <h3>{% trans %}wizard.profile.friend_list{% endtrans %}
     </div>
+        
+    {{render_hinclude(url('wizard_get_friend_view'))}}
 {% endblock fos_user_content %}

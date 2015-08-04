@@ -45,5 +45,15 @@ class DefaultController extends Controller {
         $friends = $repo->findFriends($user);
         return new JsonResponse($friends);
     }
+    
+    public function displayFriendListAction(){
+        $user = $this->getUser();
+        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $friends = $repo->findFriends($user);
+        
+        return $this->render('WizardalleyUserBundle:Default:friendList.html.twig', array(
+            'friends' => $friends,
+        ));
+    }
 
 }
