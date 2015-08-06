@@ -73,12 +73,15 @@ class WizardUser extends BaseUser {
     
     
     /**
-     * @ORM\ManyToMany(targetEntity="WizardUser", mappedBy="friendsWithMe")
+     * @ORM\ManyToMany(targetEntity="WizardUser", mappedBy="myFriends")
      **/
     private $friendsWithMe;
-
     /**
-     * @ORM\ManyToMany(targetEntity="WizardUser", inversedBy="myFriends")
+    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Publication", mappedBy="user", cascade={"remove", "persist"})
+    */
+    private $publications;
+    /**
+     * @ORM\ManyToMany(targetEntity="WizardUser", inversedBy="friendsWithMe")
      * @ORM\JoinTable(name="friends",
      *      joinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
@@ -363,13 +366,16 @@ class WizardUser extends BaseUser {
         return $this->myFriends;
     }
     
+    public function askedAsAFriend($user){
+        return ($this->myFriends->indexOf($user) !== false and $this->friendsWithMe->indexOf($user) ===false  );
+    }
+    
+    public function askingForFriendship($user){
+        return ($this->myFriends->indexOf($user) === false and $this->friendsWithMe->indexOf($user) !==false  );
+    }
+    
     public function isFriend($user){
-        foreach($this->friendsWithMe as $friend){
-            if($friend->getId() == $user->getId()){
-                var_dump($friend->getId());
-            }
-        }
-        return false;
+        return ($this->myFriends->indexOf($user) !== false and $this->friendsWithMe->indexOf($user) !==false  );
     }
     
 
