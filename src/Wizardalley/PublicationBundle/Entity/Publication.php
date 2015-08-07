@@ -115,9 +115,9 @@ class Publication
      */
     public function setDatePublication($datePublication)
     {
-        $this->date = $datePublication;
+        $this->datePublication = $datePublication;
 
-        return datePublication;
+        return $this;
     }
 
     /**

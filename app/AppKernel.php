@@ -22,6 +22,7 @@ class AppKernel extends Kernel {
             new Wizardalley\DefaultBundle\WizardalleyDefaultBundle(),
             new Wizardalley\ChatBundle\WizardalleyChatBundle(),
             new Wizardalley\PublicationBundle\WizardalleyPublicationBundle(),
+            new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

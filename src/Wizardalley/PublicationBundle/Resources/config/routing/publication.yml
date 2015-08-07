@@ -1,0 +1,32 @@
+
+comment_add:
+    path:     /user/comment/add/{id}
+    defaults: { _controller: "WizardalleyPublicationBundle:Publication:addComment" }
+
+
+publication_show:
+    path:     /publication/{id}/show
+    defaults: { _controller: "WizardalleyPublicationBundle:Publication:show" }
+
+publication_new:
+    path:     /user/publication/new
+    defaults: { _controller: "WizardalleyPublicationBundle:Publication:new" }
+
+publication_create:
+    path:     /user/publication/create
+    defaults: { _controller: "WizardalleyPublicationBundle:Publication:create" }
+    methods:  POST
+
+publication_edit:
+    path:     /user/publication/{id}/edit
+    defaults: { _controller: "WizardalleyPublicationBundle:Publication:edit" }
+
+publication_update:
+    path:     /user/publication/{id}/update
+    defaults: { _controller: "WizardalleyPublicationBundle:Publication:update" }
+    methods:  [POST, PUT]
+
+#publication_delete:
+#    path:     /user/publication/{id}/delete
+#    defaults: { _controller: "WizardalleyPublicationBundle:Publication:delete" }
+#    methods:  [POST, DELETE]

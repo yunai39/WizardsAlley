@@ -1,3 +1,9 @@
+wizardalley_publication_publication:
+    resource: "@WizardalleyPublicationBundle/Resources/config/routing/publication.yml"
+    prefix:   /
+
+
+
 wizardalley_publication_homepage:
     path:     /hello/{name}
     defaults: { _controller: WizardalleyPublicationBundle:Default:index }

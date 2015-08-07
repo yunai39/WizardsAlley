@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <h1>{{ entity.title }}</h1>
+    <p>Par: {{entity.user.username }}, le {{ entity.datePublication|date('Y-m-d') }}
+    <p>{{ entity.content | raw}}</p>
+    
+    {% if app.user %}
+        <div>
+            {{form(comment_form)}}
+        </div>
+    {% endif %}
+{% endblock %}
