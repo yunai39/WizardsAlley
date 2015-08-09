@@ -2,32 +2,42 @@
 
 {% block javascripts %}
     {{parent()}}
-    <script type="text/javascript" src="{{asset('js/hinclude.js')}}"> </script>
+    <script type="text/javascript" src="{{asset('js/hinclude.js')}}"></script>
 {% endblock %}
 
 {% block fos_user_content %}
-    <a href="{{path('fos_user_profile_edit')}}">{{ 'wizard.user.profile.edit'|trans({}) }}</a>
-    <div class="fos_user_user_show">
-        <p>{{ 'profile.show.username'|trans({}, 'FOSUserBundle') }}: {{ user.username }}</p>
-        <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
-        <p>{{ 'wizard.user.profile.lastname'|trans({}) }}: {{ user.lastname }}</p>
-        <p>{{ 'wizard.user.profile.firstname'|trans({}) }}: {{ user.lastname }}</p>
+    <H1>{{ user.username }}</h1>
+    <div class="row" >
+        <div class="col-md-3">
+            <div class="imgSquare">
+                <div class="imgSquareContainer">
+                    <img src="{{asset(user.getPictureProfile())}}"/>
+                </div>
+            </div>
+            <a href="{{path('wizardalley_user_profile_edit_picture')}}">{% trans %}wizard.user.profile.edit_picture{% endtrans %}</a>
+        </div>
+        <div class="col-md-9">
+            <div class="fos_user_user_show">
+                <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+                <p>{{ 'wizard.user.profile.lastname'|trans({}) }}: {{ user.lastname }}</p>
+                <p>{{ 'wizard.user.profile.firstname'|trans({}) }}: {{ user.lastname }}</p>
+            </div>
+            <div>
+                {% if user.facebook != null %}
+                    <a href="{{user.facebook}}" /><span class="icon-large icon-facebook" aria-hidden="true"></span></a>
+                {% endif %}
+                {% if user.twitter != null %}
+                    <a href="{{user.twitter}}" /><span class="icon-large icon-twitter" aria-hidden="true"></span></a>
+                {% endif %}
+            </div>
+
+            <a href="{{path('fos_user_profile_edit')}}">{{ 'wizard.user.profile.edit'|trans({}) }}</a>
+        </div>
     </div>
-    <div>
-        {% if user.facebook != null %}
-            <a href="user.facebook" />Lien Facebook</a>
-        {% endif %}
-        {% if user.twitter != null %}
-            <a href="user.twitter" />Lien Twitter</a>
-        {% endif %}
+    <div class="row">
+        <div>
+            <h3>{% trans %}wizard.profile.friend_list{% endtrans %}
+        </div>
+        {{render_hinclude(url('wizard_get_friends_view'))}}
     </div>
-    <div >
-        <img src="{{asset(user.getPictureProfile())}}" width="200px"/>
-        <a href="{{path('wizardalley_user_profile_edit_picture')}}">{% trans %}wizard.user.profile.edit_picture{% endtrans %}</a>
-    </div>
-    <div>
-        <h3>{% trans %}wizard.profile.friend_list{% endtrans %}
-    </div>
-        
-    {{render_hinclude(url('wizard_get_friends_view'))}}
 {% endblock fos_user_content %}
