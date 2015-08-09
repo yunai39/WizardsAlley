@@ -21,51 +21,50 @@ use FOS\UserBundle\Controller\ProfileController as Base;
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-class ProfilePictureController extends Controller
-{
-    public function editProfilePictureAction(Request $request){
+class ProfilePictureController extends Controller {
+
+    public function editProfilePictureAction(Request $request) {
         $form = $this->createFormBuilder($this->getUser())
-        ->add('fileProfile'
-        )
-        ->getForm()
-    ;
-
-    if ($this->getRequest()->isMethod('POST')) {
-        $form->handleRequest($this->getRequest());
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $this->getUser()->uploadProfile();
-            $em->persist($this->getUser());
-            $em->flush();
-
-        }
-    }
-
-        return $this->render('WizardalleyUserBundle:Profile:editPicture.html.twig', array(
-            'form' => $form->createView()
-        ));
-    }
-    
-     public function editCouverturePictureAction(Request $request){
-        $form = $this->createFormBuilder($this->getUser())
-        ->add('fileCouverture'
-        )
-        ->getForm()
+                ->add('fileProfile'
+                )
+                ->getForm()
         ;
 
-    if ($this->getRequest()->isMethod('POST')) {
-        $form->handleRequest($this->getRequest());
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $this->getUser()->uploadCouverture();
-            $em->persist($this->getUser());
-            $em->flush();
-
+        if ($this->getRequest()->isMethod('POST')) {
+            $form->handleRequest($this->getRequest());
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $this->getUser()->uploadProfile();
+                $em->persist($this->getUser());
+                $em->flush();
+            }
         }
+
+        return $this->render('WizardalleyUserBundle:Profile:editPicture.html.twig', array(
+                    'form' => $form->createView()
+        ));
     }
 
+    public function editCouverturePictureAction(Request $request) {
+        $form = $this->createFormBuilder($this->getUser())
+                ->add('fileCouverture'
+                )
+                ->getForm()
+        ;
+
+        if ($this->getRequest()->isMethod('POST')) {
+            $form->handleRequest($this->getRequest());
+            if ($form->isValid()) {
+                $em = $this->getDoctrine()->getManager();
+                $this->getUser()->uploadCouverture();
+                $em->persist($this->getUser());
+                $em->flush();
+            }
+        }
+
         return $this->render('WizardalleyUserBundle:Profile:editPictureCouverture.html.twig', array(
-            'form' => $form->createView()
+                    'form' => $form->createView()
         ));
-    }   
+    }
+
 }

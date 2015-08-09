@@ -31,6 +31,7 @@ class PublicationController extends Controller {
             $entity->setDatePublication(new \DateTime('now'));
             $em->persist($entity);
             $em->flush();
+            $this->get('session')->getFlashBag()->add('success', 'wizard.publication.new_success');
 
             return $this->redirect($this->generateUrl('publication_show', array('id' => $entity->getId())));
         }
@@ -162,8 +163,9 @@ class PublicationController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-
-            return $this->redirect($this->generateUrl('publication_edit', array('id' => $id)));
+            
+            $this->get('session')->getFlashBag()->add('success', 'wizard.publication.edit_success');
+            return $this->redirect($this->generateUrl('publication_show', array('id' => $id)));
         }
 
         return $this->render('WizardalleyPublicationBundle:Publication:edit.html.twig', array(
@@ -281,6 +283,23 @@ class PublicationController extends Controller {
         $limit = 2;
         $em = $this->getDoctrine()->getManager();
         return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:Comment')->findCommentsPublication($id,$page,$limit));
+        
+    }
+    /**
+     * getPublicationAction
+     * 
+     * fetch the comment for an action
+     *
+     * @param Request $request 
+     * @param $id integer user_id
+     * @param $id integer page number
+     *
+     * @return Response
+     */
+    public function getPublicationAction(Request $request, $id,$page){
+        $limit = 2;
+        $em = $this->getDoctrine()->getManager();
+        return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:Publication')->findPublications($id,$page,$limit));
         
     }
 }

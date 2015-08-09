@@ -1,10 +1,17 @@
-<ul>
-{% for friend in friends %}
-    {% if friend.path_profile %}
-        {% set path =  friend.id ~ '/' ~ friend.path_profile%}
-    {% else %}
-        {% set path = 'default.png'%}
-    {% endif %}
-    <li><img src="{{asset('uploads/profile/' ~ path )}}" />{{friend.username}}</li>
-{% endfor %}
-</ul>
+<div class="row">
+    {% for friend in friends %}
+        {% if friend.path_profile %}
+            {% set path =  friend.id ~ '/' ~ friend.path_profile%}
+        {% else %}
+            {% set path = 'default.png'%}
+        {% endif %}
+        <div class="col-md-3">
+            <div class="imgSquare">
+                <div class="imgSquareContainer">
+                    <img src="{{asset('uploads/profile/' ~ path )}}" />
+                </div>
+            </div>
+            <a href="{{path('wizardalley_user_wall', {id: friend.id})}}">{{friend.username}}</a>
+        </div>
+    {% endfor %}
+</div>

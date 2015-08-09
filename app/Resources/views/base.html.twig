@@ -16,17 +16,27 @@
             }
             .imgSquare  .imgSquareContainer{
                 position: relative;
-                width: 100%;
+                width: 90%;
+                margin:5%;
                 padding-bottom: 100%; 
                 background-color: white;
-                border-radius: 50%;
+                box-shadow: 1px 1px 12px #555;
             }
             .imgSquare  .imgSquareContainer img {
                 position: absolute;
                 width: 100%;
                 height: 100%;
                 overflow: hidden; 
+            }
+            .circle{
                 border-radius: 50%;
+                
+            }
+            
+            #main{
+                margin-bottom: 50px;
+                margin-left:0;
+                margin-right:0;
             }
         </style>
     </head>
@@ -85,13 +95,47 @@
                 </div>
             </div>
         </nav>
-        <div class="row">
+                      
+                            
+        <div class="row" >
             <div class="col-md-2"></div>
             <div class="col-md-8">
-              
-            {% block body %}{% endblock %}
+                {% if app.session.flashbag.has('error') %}
+                    <div class="alert alert-danger ">
+                        <ul>
+                        {% for error in app.session.flashbag.get('error') %}
+                            <li>{{error | trans}}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% if app.session.flashbag.has('success') %}
+                    <div class="alert alert-success">
+                        <ul>
+                        {% for success in app.session.flashbag.get('success') %}
+                            <li>{{success | trans}}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+                {% if app.session.flashbag.has('notice') %}
+                    <div class="alert alert-info">
+                        <ul>
+                        {% for notice in app.session.flashbag.get('notice') %}
+                            <li>{$notice | trans}}</li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
             </div>
             <div class="col-md-2"></div>
+        </div>      
+        <div class="row" id="main">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+            {% block body %}{% endblock %}
+            </div>
+            <div class="col-md-1"></div>
         </div>
     <nav class="navbar navbar-inverse ">
         <div class="container">

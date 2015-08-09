@@ -1,4 +1,7 @@
 wizard:
+    publication:
+        edit_success: La modification à été effectué
+        new_succes: La publication a bien été effectué
     menu:
         link:
             home: Presentation
@@ -22,9 +25,9 @@ wizard:
             friend_list: Liste des amis
     register:
         label:
-            firstname: Prénom :
-            lastname: Nom :
-            sexe: Genre :
+            firstname: Prénom 
+            lastname: Nom 
+            sexe: Genre 
             facebook: Facebook
             twitter: Twitter
         field:

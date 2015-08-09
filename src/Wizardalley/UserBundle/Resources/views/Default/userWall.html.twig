@@ -14,16 +14,34 @@
             {% endif %}
         {% endif %}
     {% endif %}
-    <div style="background-image: url('{{asset(user.getPictureCouverture)}}');background-position:100% 0%;">
-        
-        {% if app.user %}
-            {% if app.user.id == user.id %}
-                <a href="{{path('wizardalley_user_couverture_edit_picture')}}">{% trans %}wizard.user.profile.edit_picture_wall{% endtrans %}</a>
-            {% endif %}
-        {% endif %}
-        <div>
-            <h3>{{user.username}}</h3>
-            <img src="{{asset(user.getPictureProfile())}}" />
+    <div class="row" style="background-image: url('{{asset(user.getPictureCouverture)}}');background-size:100% 100%;background-repeat:no-repeat;">
+
+        <div class="col-md-2">
+            <div class="imgSquare " >
+                <div class="imgSquareContainer">
+                    <img src="{{asset(user.getPictureProfile())}}" />
+                </div>
+            </div>
         </div>
+        <div class="col-md-10">
+            <h3>{{user.username}}</h3>
+            
+            {% if app.user %}
+                {% if app.user.id == user.id %}
+                    <h6>
+                        <a href="{{path('wizardalley_user_couverture_edit_picture')}}">{% trans %}wizard.user.profile.edit_picture_wall{% endtrans %}</a>
+                    </h6>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    
+    <h2>Publication</h2>
+    <div class="row">
+        {% for publication in publications %}
+            <div class="col-md-3">
+                <h3><a href="{{path('publication_show', {id: publication.id})}}" >{{publication.title}}</a></h3>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
