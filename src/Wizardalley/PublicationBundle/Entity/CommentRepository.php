@@ -12,4 +12,26 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommentRepository extends EntityRepository
 {
+    public function findCommentsPublication( $id_publication, $page = 1, $limit = 25){
+        $firstResult = ($page - 1)*$limit;
+        
+        $qb = $this->_em->createQueryBuilder()
+            ->select('c')
+            ->from($this->_entityName, 'c');
+        $query = $qb
+                    ->join( 'c.publication','p')
+                    ->join('c.user', 'u')
+                    ->addSelect('u.pathProfile')
+                    ->addSelect('u.username')
+                    ->addSelect('u.id')
+                    ->where('p.id = :id')
+                    ->orderBy('c.dateComment','DESC')
+                    ->setFirstResult($firstResult)
+                    ->setMaxResults($limit)
+                    ->setParameter(':id', $id_publication)
+                    ->getQuery();
+        $result = $query->getArrayResult();
+        return $result;
+      
+    }
 }

@@ -3,12 +3,13 @@
 namespace Wizardalley\PublicationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Wizardalley\PublicationBundle\Entity\Publication;
 use Wizardalley\PublicationBundle\Entity\Comment;
 use Wizardalley\PublicationBundle\Form\PublicationType;
 use Wizardalley\PublicationBundle\Form\CommentType;
-
+use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Publication controller.
  *
@@ -215,6 +216,14 @@ class PublicationController extends Controller {
      * Comment
      */
 
+    /**
+     * Creates a form to add a comment.
+     *
+     * @param Comment $comment The entity comment
+     * @param Comment $comment The entity publication     
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
     private function createFormComment(Comment $comment, Publication $entity) {
         $form = $this->createForm(new CommentType(), $comment, array(
             'action' => $this->generateUrl('comment_add', array('id' => $entity->getId())),
@@ -226,6 +235,16 @@ class PublicationController extends Controller {
         return $form;
     }
 
+    /**
+     * addCommentAction
+     * 
+     * Add a coment for a specific publication
+     *
+     * @param Request $request 
+     * @param $id integer The entity publication id 
+     *
+     * @return Response
+     */
     public function addCommentAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
@@ -247,5 +266,21 @@ class PublicationController extends Controller {
         }
         return $this->redirect($this->generateUrl('publication_show', array('id' => $id)));
     }
-
+    
+    /**
+     * getCommentAction
+     * 
+     * fetch the comment for an action
+     *
+     * @param Request $request 
+     * @param $id integer The entity publication id 
+     *
+     * @return Response
+     */
+    public function getCommentAction(Request $request, $id,$page){
+        $limit = 2;
+        $em = $this->getDoctrine()->getManager();
+        return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:Comment')->findCommentsPublication($id,$page,$limit));
+        
+    }
 }

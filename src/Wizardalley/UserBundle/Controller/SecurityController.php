@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SecurityController extends Controller
 {
+    
   public function loginAction(Request $request)
   {
     // Si le visiteur est déjà identifié, on le redirige vers l'accueil

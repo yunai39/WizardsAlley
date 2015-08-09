@@ -3,6 +3,9 @@ comment_add:
     path:     /user/comment/add/{id}
     defaults: { _controller: "WizardalleyPublicationBundle:Publication:addComment" }
 
+comment_get:
+    path:     /comment/get/{id}/{page}
+    defaults: { _controller: "WizardalleyPublicationBundle:Publication:getComment", page: 1 }
 
 publication_show:
     path:     /publication/{id}/show

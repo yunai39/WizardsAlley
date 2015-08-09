@@ -101,6 +101,9 @@
         <a href="{{path('wizardalley_default_copyright')}}">{% trans %}wizard.menu.link.copyright{% endtrans %}</a>
 
     </div>
-{% block javascripts %}{% endblock %}
+{% block javascripts %}
+<script type="text/javascript" src="{{asset('js/jquery.js')}}"></script> 
+
+{% endblock %}
 </body>
 </html>

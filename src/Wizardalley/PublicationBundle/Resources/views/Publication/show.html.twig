@@ -1,13 +1,77 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
+    <style>
+        .comment_image{
+            width:7%;
+            margin:1%;
+            padding:0;
+            display: inline-block;
+        }
+        .comment_image img{
+            width:100%;
+        }
+        
+        .comment_content{
+            
+            width:87%;
+            margin:1%;
+            padding:0;
+            display: inline-block;
+        }
+        .comment_content .time{
+            font-size: 0.7em;
+        }
+        
+    </style>
     <h1>{{ entity.title }}</h1>
     <p>Par: {{entity.user.username }}, le {{ entity.datePublication|date('Y-m-d') }}
     <p>{{ entity.content | raw}}</p>
     
+    <h3>Commentaires</h3>
+    <div class="comment_block">
+        <div id="comment_content">
+
+        </div>
+        <button onclick="nextComment()">Plus de commentaires</button>
+        
     {% if app.user %}
         <div>
             {{form(comment_form)}}
         </div>
     {% endif %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script>
+    var page = 0;
+    function nextComment(){
+        page += 1;
+        $.ajax({
+            url: "{{path('comment_get',{id: entity.id})}}"+'/'+page,
+            success: function(msg){
+                
+                console.log(msg);
+                $.each(msg,function(index, value){
+                    addComment(value);
+                });
+            }
+        });
+    }
+    
+    function addComment(comment){
+        $li = $('<div>\n\
+            <div class="comment_image"><img src="{{asset('uploads/profile/')}}'+comment.id+'/'+comment.pathProfile+'"/></div>\n\
+            <div class="comment_content">\n\
+                <p class="message">'+comment[0].content+'</p>\n\
+                <p class="time">Par : '+comment.username+', le '+comment[0].dateComment.date.substr(0,19)+'</p>\n\
+            </div>\n\
+        </div>');
+        $div=$('#comment_content');
+        $div.append($li);
+    }
+    nextComment();
+    </script>
 {% endblock %}

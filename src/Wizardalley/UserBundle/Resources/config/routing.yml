@@ -26,11 +26,11 @@ wizard_add_as_a_friend:
     defaults: { _controller: WizardalleyUserBundle:Default:addAsAFriend }
 
 
-wizard_get_friend_json:
+wizard_get_friends_json:
     path:   /user/getFriendsJson
     defaults: { _controller: WizardalleyUserBundle:Default:friendList }
 
-wizard_get_friend_view:
+wizard_get_friends_view:
     path:   /user/getFriendsView
     defaults: { _controller: WizardalleyUserBundle:Default:displayFriendList }
 

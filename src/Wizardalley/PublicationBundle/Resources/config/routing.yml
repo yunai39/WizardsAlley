@@ -3,7 +3,3 @@ wizardalley_publication_publication:
     prefix:   /
 
 
-
-wizardalley_publication_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: WizardalleyPublicationBundle:Default:index }
