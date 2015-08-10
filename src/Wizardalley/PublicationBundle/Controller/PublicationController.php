@@ -30,6 +30,11 @@ class PublicationController extends Controller {
             $entity->setUser($this->getUser());
             $entity->setDatePublication(new \DateTime('now'));
             $em->persist($entity);
+            foreach($entity->getImages() as $img){
+                $img->upload();
+                $img->setPublication($entity);
+                $em->persist($img);
+            }
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', 'wizard.publication.new_success');
 

@@ -46,6 +46,11 @@ class Publication
     * @ORM\OneToMany(targetEntity="Comment", mappedBy="publication", cascade={"remove", "persist"})
     */
     private $comments;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="ImagePublication", mappedBy="publication", cascade={"remove", "persist"})
+    */
+    private $images;
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="publications" )
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -191,5 +196,38 @@ class Publication
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add images
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\ImagePublication $images
+     * @return Publication
+     */
+    public function addImage(\Wizardalley\PublicationBundle\Entity\ImagePublication $images)
+    {
+        $this->images[] = $images;
+
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\ImagePublication $images
+     */
+    public function removeImage(\Wizardalley\PublicationBundle\Entity\ImagePublication $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 }

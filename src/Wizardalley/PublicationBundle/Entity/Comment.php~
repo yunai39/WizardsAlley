@@ -123,4 +123,27 @@ class Comment
     {
         return $this->user;
     }
+
+    /**
+     * Set publication
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Publication $publication
+     * @return Comment
+     */
+    public function setPublication(\Wizardalley\PublicationBundle\Entity\Publication $publication = null)
+    {
+        $this->publication = $publication;
+
+        return $this;
+    }
+
+    /**
+     * Get publication
+     *
+     * @return \Wizardalley\PublicationBundle\Entity\Publication 
+     */
+    public function getPublication()
+    {
+        return $this->publication;
+    }
 }

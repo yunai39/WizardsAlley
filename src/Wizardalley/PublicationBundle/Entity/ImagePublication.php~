@@ -1,0 +1,100 @@
+<?php
+
+namespace Wizardalley\PublicationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ImagePublication
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Wizardalley\PublicationBundle\Entity\ImagePublicationRepository")
+ */
+class ImagePublication
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="path", type="string", length=255)
+     */
+    private $path;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="string", length=255)
+     */
+    private $description;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Publication", inversedBy="images")
+     * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
+    */
+    private $publication;
+    
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return ImagePublication
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return ImagePublication
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+}

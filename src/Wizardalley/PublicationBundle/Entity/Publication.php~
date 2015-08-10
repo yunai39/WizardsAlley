@@ -46,6 +46,11 @@ class Publication
     * @ORM\OneToMany(targetEntity="Comment", mappedBy="publication", cascade={"remove", "persist"})
     */
     private $comments;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="ImagePublication", mappedBy="publication", cascade={"remove", "persist"})
+    */
+    private $images;
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="publications" )
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
@@ -115,9 +120,9 @@ class Publication
      */
     public function setDatePublication($datePublication)
     {
-        $this->date = $datePublication;
+        $this->datePublication = $datePublication;
 
-        return datePublication;
+        return $this;
     }
 
     /**
@@ -151,5 +156,45 @@ class Publication
     public function getUser()
     {
         return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Comment $comments
+     * @return Publication
+     */
+    public function addComment(\Wizardalley\PublicationBundle\Entity\Comment $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Comment $comments
+     */
+    public function removeComment(\Wizardalley\PublicationBundle\Entity\Comment $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }
