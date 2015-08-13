@@ -37,14 +37,14 @@ class WizardUser extends BaseUser {
     /**
      * @var string
      *
-     * @ORM\Column(name="twitter", type="string", length=255)
+     * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
      */
     private $twitter;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="facebook", type="string", length=255)
+     * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
      */
     private $facebook;
     
@@ -208,6 +208,7 @@ class WizardUser extends BaseUser {
      */
     public function __construct()
     {
+        parent::__construct();
         $this->conversations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 

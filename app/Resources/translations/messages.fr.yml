@@ -30,6 +30,7 @@ wizard:
             edit_picture: Modifier la photo de profile
             edit_picture_wall: Modifier la couverture
             friend_list: Liste des amis
+            change_pwd: Changer de mot de passe
         wall:
             no_publication: Aucune publication
     register:

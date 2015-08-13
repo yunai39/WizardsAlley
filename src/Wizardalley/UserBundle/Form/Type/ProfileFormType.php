@@ -33,7 +33,10 @@ class ProfileFormType extends BaseType
             ); 
     }
 
-    
+      public function getParent()
+    {
+        return 'fos_user_registration';
+    }  
     public function getName()     
     {         
         return 'wizard_user_profile_edit';     

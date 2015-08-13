@@ -85,7 +85,18 @@ fos_user:
     db_driver:     orm 
     firewall_name: main
     user_class:    Wizardalley\UserBundle\Entity\WizardUser 
+    change_password:
+        form:
+            type:               fos_user_change_password
+            name:               fos_user_change_password_form
+            validation_groups:  [ChangePassword, Default]
     registration:
+        confirmation:
+            from_email: 
+                address:        admin@wizardalley.com
+                sender_name:    Great Wizard
+            enabled:    true # change to true for required email confirmation
+            template:   FOSUserBundle:Registration:email.txt.twig
         form:
             type: wizard_user_registation
     profile:
