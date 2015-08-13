@@ -1,31 +1,21 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    {% if app.user %}
-        {% if app.user.id != user.id %}
-            {% if app.user.isFriend(user)  %}
-                <div >{% trans %}wizard.wall.friend{% endtrans %}</div>
-            {% elseif app.user.askedAsAFriend(user) %}
-                <div>Demande en cours</div>
-            {% elseif app.user.askingForFriendship(user) %}
-                <div><a href="{{path('wizard_add_as_a_friend', {id_user: user.id})}}">Demande d'amitié, confirmer la demande</a></div>
-            {% else %}
-                <a href="{{path('wizard_add_as_a_friend', {id_user: user.id})}}" >Ajouter en tant qu'amis</a>
-            {% endif %}
-        {% endif %}
-    {% endif %}
-    <div class="row" style="background-image: url('{{asset(user.getPictureCouverture)}}');background-size:100% 100%;background-repeat:no-repeat;">
-
-        <div class="col-md-2">
-            <div class="imgSquare " >
-                <div class="imgSquareContainer">
-                    <img src="{{asset(user.getPictureProfile())}}" />
+    <div class="row" style="background-image: url('{{asset(user.getPictureCouverture)}}');background-size:100% 100%;background-repeat:no-repeat;height: 30vw;">
+        <div class="row" style="margin-top:20%;">
+            <div class="col-md-2">
+                <div class="imgSquare " >
+                    <div class="imgSquareContainer">
+                        <img src="{{asset(user.getPictureProfile())}}" />
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-10">
-            <h3>{{user.username}}</h3>
             
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" >
+            <h3>{{user.username}}</h3>
             {% if app.user %}
                 {% if app.user.id == user.id %}
                     <h6>
@@ -33,15 +23,40 @@
                     </h6>
                 {% endif %}
             {% endif %}
+
+            {% if user.facebook != null %}
+                <a href="{{user.facebook}}" /><span class="icon-large icon-facebook" aria-hidden="true"></span></a>
+            {% endif %}
+            {% if user.twitter != null %}
+                <a href="{{user.twitter}}" /><span class="icon-large icon-twitter" aria-hidden="true"></span></a>
+            {% endif %}
+
+            {% if app.user %}
+                {% if app.user.id != user.id %}
+                    {% if app.user.isFriend(user)  %}
+                        <div >{% trans %}wizard.wall.friend{% endtrans %}</div>
+                    {% elseif app.user.askedAsAFriend(user) %}
+                        <div>Demande en cours</div>
+                    {% elseif app.user.askingForFriendship(user) %}
+                        <div><a href="{{path('wizard_add_as_a_friend', {id_user: user.id})}}">Demande d'amitié, confirmer la demande</a></div>
+                    {% else %}
+                        <a href="{{path('wizard_add_as_a_friend', {id_user: user.id})}}" >Ajouter en tant qu'amis</a>
+                    {% endif %}
+                {% endif %}
+            {% endif %}
         </div>
     </div>
-    
-    <h2>Publication</h2>
-    <div class="row">
-        {% for publication in publications %}
-            <div class="col-md-3">
-                <h3><a href="{{path('publication_show', {id: publication.id})}}" >{{publication.title}}</a></h3>
-            </div>
-        {% endfor %}
-    </div>
+        <h2>Publication</h2>
+    {% if publications %}
+        <div class="row">
+            {% for publication in publications %}
+                <div class="col-md-3">
+                    <h3><a href="{{path('publication_show', {id: publication.id})}}" >{{publication.title}}</a></h3>
+                </div>
+            {% endfor %}
+            
+        </div>
+    {% else %}
+        <div class="alert-warning alert">{{ 'wizard.user.wall.no_publication' | trans}}</div>
+    {% endif %}
 {% endblock %}

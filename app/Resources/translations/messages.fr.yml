@@ -2,6 +2,13 @@ wizard:
     publication:
         edit_success: La modification à été effectué
         new_succes: La publication a bien été effectué
+    login:
+        login: Login
+        password: Mot de passe
+        title: Formulaire de connexion
+        message: >
+            Bienvenue sorcier, sorcière en tout genre.
+            Prends un peu de poudre de cheminette et prononce clairement
     menu:
         link:
             home: Presentation
@@ -23,6 +30,8 @@ wizard:
             edit_picture: Modifier la photo de profile
             edit_picture_wall: Modifier la couverture
             friend_list: Liste des amis
+        wall:
+            no_publication: Aucune publication
     register:
         label:
             firstname: Prénom 
@@ -36,7 +45,7 @@ wizard:
                 female: Féminin
     contact:
         message: Merci !! Le message a bien été envoyé
-        title: Nous contacter
+        title: Nous envoyer un hiboux
         label:
             nom: Votre nom
             email: Email de contact
