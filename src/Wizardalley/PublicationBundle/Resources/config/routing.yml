@@ -1,0 +1,4 @@
+wizardalley_publication_publication:
+    resource: "@WizardalleyPublicationBundle/Resources/config/routing/publication.yml"
+    prefix:   /
+
