@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Comment
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Wizardalley\PublicationBundle\Entity\CommentRepository")
+ * @ORM\Entity(repositoryClass="Wizardalley\PublicationBundle\Entity\CommentPublicationRepository")
  */
-class Comment
+class CommentPublication
 {
     /**
      * @var integer
@@ -59,7 +59,7 @@ class Comment
      * Set dateComment
      *
      * @param \DateTime $dateComment
-     * @return Comment
+     * @return CommentPublication
      */
     public function setDateComment($dateComment)
     {
@@ -82,7 +82,7 @@ class Comment
      * Set content
      *
      * @param string $content
-     * @return Comment
+     * @return CommentPublication
      */
     public function setContent($content)
     {
@@ -105,7 +105,7 @@ class Comment
      * Set user
      *
      * @param \Wizardalley\UserBundle\Entity\WizardUser $user
-     * @return Comment
+     * @return CommentPublication
      */
     public function setUser(\Wizardalley\UserBundle\Entity\WizardUser $user = null)
     {
@@ -128,7 +128,7 @@ class Comment
      * Set publication
      *
      * @param \Wizardalley\PublicationBundle\Entity\Publication $publication
-     * @return Comment
+     * @return CommentPublication
      */
     public function setPublication(\Wizardalley\PublicationBundle\Entity\Publication $publication = null)
     {

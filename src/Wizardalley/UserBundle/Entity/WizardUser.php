@@ -76,10 +76,7 @@ class WizardUser extends BaseUser {
      * @ORM\ManyToMany(targetEntity="WizardUser", mappedBy="myFriends")
      **/
     private $friendsWithMe;
-    /**
-    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Publication", mappedBy="user", cascade={"remove", "persist"})
-    */
-    private $publications;
+
     /**
      * @ORM\ManyToMany(targetEntity="WizardUser", inversedBy="friendsWithMe")
      * @ORM\JoinTable(name="friends",
@@ -88,6 +85,25 @@ class WizardUser extends BaseUser {
      *      )
      **/
     private $myFriends;
+    
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Page", mappedBy="creator", cascade={"remove", "persist"})
+    */
+    private $pagesCreated;
+    
+    
+    /**
+    * @ORM\ManyToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Page", mappedBy="editors")
+    */
+   private $pagesEditor;
+   
+   
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\SmallPublication", mappedBy="user", cascade={"remove", "persist"})
+    */
+    private $smallPublication;
     
     public function getLastname() {
         return $this->lastname;
@@ -380,37 +396,4 @@ class WizardUser extends BaseUser {
     }
     
 
-
-    /**
-     * Add publications
-     *
-     * @param \Wizardalley\PublicationBundle\Entity\Publication $publications
-     * @return WizardUser
-     */
-    public function addPublication(\Wizardalley\PublicationBundle\Entity\Publication $publications)
-    {
-        $this->publications[] = $publications;
-
-        return $this;
-    }
-
-    /**
-     * Remove publications
-     *
-     * @param \Wizardalley\PublicationBundle\Entity\Publication $publications
-     */
-    public function removePublication(\Wizardalley\PublicationBundle\Entity\Publication $publications)
-    {
-        $this->publications->removeElement($publications);
-    }
-
-    /**
-     * Get publications
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPublications()
-    {
-        return $this->publications;
-    }
 }

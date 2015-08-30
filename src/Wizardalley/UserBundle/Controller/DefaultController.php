@@ -31,11 +31,8 @@ class DefaultController extends Controller {
             return new \Symfony\Component\Translation\Exception\NotFoundResourceException();
         }
         
-        $repoP = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Publication');
-        $publications = $repoP->findPublications($id);
         return $this->render('WizardalleyUserBundle:Default:userWall.html.twig', array(
                     'user' => $user,
-                    'publications' => $publications,
         ));
     }
 

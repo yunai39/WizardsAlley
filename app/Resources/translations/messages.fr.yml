@@ -11,7 +11,7 @@ wizard:
             Prends un peu de poudre de cheminette et prononce clairement
     menu:
         link:
-            home: Presentation
+            home: Home
             discover: Découverte
             mention_legal: Mention Légal
             blog: Blog

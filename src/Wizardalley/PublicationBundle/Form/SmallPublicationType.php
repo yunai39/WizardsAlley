@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CommentType extends AbstractType {
+class SmallPublicationType extends AbstractType {
 
     /**
      * @param FormBuilderInterface $builder
@@ -14,12 +14,7 @@ class CommentType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('content', 'textarea', array(
-                    'attr' => array(
-                        'class' => 'tinymce',
-                        'data-theme' => 'bbcode' // Skip it if you want to use default theme
-                    )
-                ))
+                ->add('content', 'textarea')
         ;
     }
 
@@ -28,7 +23,7 @@ class CommentType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Wizardalley\PublicationBundle\Entity\Comment'
+            'data_class' => 'Wizardalley\PublicationBundle\Entity\SmallPublication'
         ));
     }
 
@@ -36,7 +31,7 @@ class CommentType extends AbstractType {
      * @return string
      */
     public function getName() {
-        return 'wizardalley_publicationbundle_comment';
+        return 'wizardalley_publicationbundle_add_small_publication';
     }
 
 }
