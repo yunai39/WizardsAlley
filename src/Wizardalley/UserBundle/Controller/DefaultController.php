@@ -103,5 +103,17 @@ class DefaultController extends Controller {
             'friends' => $friends,
         ));
     }
+    
+    public function displayPublicationPageAction($page){
+        
+        $limit = 1;
+        $offset = ($page - 1)* $limit;
+        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $publications = $repo->findPublicationUser($this->getUser(),$offset, $limit);
+        return $this->render('WizardalleyUserBundle:Default:publication.html.twig', array(
+            'publications' => $publications,
+        ));
+        
+    }
 
 }

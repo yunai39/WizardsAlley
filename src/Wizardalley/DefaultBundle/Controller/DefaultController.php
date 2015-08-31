@@ -4,6 +4,8 @@ namespace Wizardalley\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Wizardalley\DefaultBundle\Form\ContactType;
+use Wizardalley\PublicationBundle\Form\SmallPublicationType;
+use Wizardalley\PublicationBundle\Entity\SmallPublication;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,7 +23,12 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('WizardalleyDefaultBundle:Default:index.html.twig');
+        
+        $entity = new SmallPublication();
+        $formSP = $this->createSmallPublicationForm($entity);
+        return $this->render('WizardalleyDefaultBundle:Default:index.html.twig', array(
+            'formSmallPublication' => $formSP->createView()
+        ));
     }
     
     /**
@@ -108,4 +115,24 @@ class DefaultController extends Controller
         return $this->render('WizardalleyDefaultBundle:Default:contact.html.twig',array('form' => $form->createView() ));
         
     }
+    
+    /**
+     * Creates a form to create a SmallPublication entity.
+     *
+     * @param SmallPublication $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createSmallPublicationForm(SmallPublication $entity)
+    {
+        $form = $this->createForm(new SmallPublicationType(), $entity, array(
+            'action' => $this->generateUrl('user_small_publication_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
 }

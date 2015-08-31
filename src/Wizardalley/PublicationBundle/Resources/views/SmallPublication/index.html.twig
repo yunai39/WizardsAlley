@@ -15,16 +15,16 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('user_smallPublication_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('user_small_publication_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.content }}</td>
                 <td>{% if entity.datePublication %}{{ entity.datePublication|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('user_smallPublication_show', { 'id': entity.id }) }}">show</a>
+                        <a href="{{ path('user_small_publication_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('user_smallPublication_edit', { 'id': entity.id }) }}">edit</a>
+                        <a href="{{ path('user_small_publication_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>
@@ -35,7 +35,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('user_smallPublication_new') }}">
+            <a href="{{ path('user_small_publication_new') }}">
                 Create a new entry
             </a>
         </li>

@@ -1,5 +1,5 @@
 wizardalley_default_homepage:
-    path:     /home
+    path:     /user/home
     defaults: { _controller: WizardalleyDefaultBundle:Default:index }
 
 wizardalley_default_copyright:

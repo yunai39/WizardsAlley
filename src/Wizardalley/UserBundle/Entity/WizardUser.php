@@ -99,6 +99,10 @@ class WizardUser extends BaseUser {
    private $pagesEditor;
    
    
+    /**
+    * @ORM\ManyToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Page", mappedBy="followers")
+    */
+   private $pagesFollowed;
     
     /**
     * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\SmallPublication", mappedBy="user", cascade={"remove", "persist"})
@@ -396,4 +400,136 @@ class WizardUser extends BaseUser {
     }
     
 
+
+    /**
+     * Add pagesCreated
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesCreated
+     * @return WizardUser
+     */
+    public function addPagesCreated(\Wizardalley\PublicationBundle\Entity\Page $pagesCreated)
+    {
+        $this->pagesCreated[] = $pagesCreated;
+
+        return $this;
+    }
+
+    /**
+     * Remove pagesCreated
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesCreated
+     */
+    public function removePagesCreated(\Wizardalley\PublicationBundle\Entity\Page $pagesCreated)
+    {
+        $this->pagesCreated->removeElement($pagesCreated);
+    }
+
+    /**
+     * Get pagesCreated
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPagesCreated()
+    {
+        return $this->pagesCreated;
+    }
+
+    /**
+     * Add pagesEditor
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesEditor
+     * @return WizardUser
+     */
+    public function addPagesEditor(\Wizardalley\PublicationBundle\Entity\Page $pagesEditor)
+    {
+        $this->pagesEditor[] = $pagesEditor;
+
+        return $this;
+    }
+
+    /**
+     * Remove pagesEditor
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesEditor
+     */
+    public function removePagesEditor(\Wizardalley\PublicationBundle\Entity\Page $pagesEditor)
+    {
+        $this->pagesEditor->removeElement($pagesEditor);
+    }
+
+    /**
+     * Get pagesEditor
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPagesEditor()
+    {
+        return $this->pagesEditor;
+    }
+
+    /**
+     * Add pagesFollowed
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesFollowed
+     * @return WizardUser
+     */
+    public function addPagesFollowed(\Wizardalley\PublicationBundle\Entity\Page $pagesFollowed)
+    {
+        $this->pagesFollowed[] = $pagesFollowed;
+
+        return $this;
+    }
+
+    /**
+     * Remove pagesFollowed
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesFollowed
+     */
+    public function removePagesFollowed(\Wizardalley\PublicationBundle\Entity\Page $pagesFollowed)
+    {
+        $this->pagesFollowed->removeElement($pagesFollowed);
+    }
+
+    /**
+     * Get pagesFollowed
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPagesFollowed()
+    {
+        return $this->pagesFollowed;
+    }
+
+    /**
+     * Add smallPublication
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\SmallPublication $smallPublication
+     * @return WizardUser
+     */
+    public function addSmallPublication(\Wizardalley\PublicationBundle\Entity\SmallPublication $smallPublication)
+    {
+        $this->smallPublication[] = $smallPublication;
+
+        return $this;
+    }
+
+    /**
+     * Remove smallPublication
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\SmallPublication $smallPublication
+     */
+    public function removeSmallPublication(\Wizardalley\PublicationBundle\Entity\SmallPublication $smallPublication)
+    {
+        $this->smallPublication->removeElement($smallPublication);
+    }
+
+    /**
+     * Get smallPublication
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSmallPublication()
+    {
+        return $this->smallPublication;
+    }
 }

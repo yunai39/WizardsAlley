@@ -45,16 +45,16 @@ class Page
     /**
      * @var string
      *
-     * @ORM\Column(name="imgPresentation", type="string", length=255)
+     * @ORM\Column(name="pathPresentation", type="string", length=255)
      */
-    private $imgPresentation;
+    private $pathPresentation;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="imgProfile", type="string", length=255)
+     * @ORM\Column(name="pathProfile", type="string", length=255)
      */
-    private $imgProfile;
+    private $pathProfile;
 
     /**
     * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Publication", mappedBy="page", cascade={"remove", "persist"})
@@ -70,10 +70,16 @@ class Page
     
     
     /**
-    * @ORM\ManyToMany(targetEntity="Wizardalley\USerBundle\Entity\WizardUser", inversedBy="pagesEditor")
+    * @ORM\ManyToMany(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="pagesEditor")
     * @ORM\JoinTable(name="page_user_editor")
     */
    private $editors;
+   
+    /**
+    * @ORM\ManyToMany(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="pagesFollowed")
+    * @ORM\JoinTable(name="page_user_follow")
+    */
+   private $followers;
     
     public function __construct()
     {
@@ -239,5 +245,94 @@ class Page
     public function getPublications()
     {
         return $this->publications;
+    }
+
+    /**
+     * Set creator
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $creator
+     * @return Page
+     */
+    public function setCreator(\Wizardalley\UserBundle\Entity\WizardUser $creator = null)
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
+    /**
+     * Get creator
+     *
+     * @return \Wizardalley\UserBundle\Entity\WizardUser 
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * Add editors
+     *
+     * @param \Wizardalley\USerBundle\Entity\WizardUser $editors
+     * @return Page
+     */
+    public function addEditor(\Wizardalley\USerBundle\Entity\WizardUser $editors)
+    {
+        $this->editors[] = $editors;
+
+        return $this;
+    }
+
+    /**
+     * Remove editors
+     *
+     * @param \Wizardalley\USerBundle\Entity\WizardUser $editors
+     */
+    public function removeEditor(\Wizardalley\USerBundle\Entity\WizardUser $editors)
+    {
+        $this->editors->removeElement($editors);
+    }
+
+    /**
+     * Get editors
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEditors()
+    {
+        return $this->editors;
+    }
+
+    /**
+     * Add followers
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $followers
+     * @return Page
+     */
+    public function addFollower(\Wizardalley\UserBundle\Entity\WizardUser $followers)
+    {
+        $this->followers[] = $followers;
+
+        return $this;
+    }
+
+    /**
+     * Remove followers
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $followers
+     */
+    public function removeFollower(\Wizardalley\UserBundle\Entity\WizardUser $followers)
+    {
+        $this->followers->removeElement($followers);
+    }
+
+    /**
+     * Get followers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFollowers()
+    {
+        return $this->followers;
     }
 }

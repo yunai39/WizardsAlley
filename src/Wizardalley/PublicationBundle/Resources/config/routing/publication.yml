@@ -33,7 +33,3 @@ publication_update:
     defaults: { _controller: "WizardalleyPublicationBundle:Publication:update" }
     methods:  [POST, PUT]
 
-#publication_delete:
-#    path:     /user/publication/{id}/delete
-#    defaults: { _controller: "WizardalleyPublicationBundle:Publication:delete" }
-#    methods:  [POST, DELETE]

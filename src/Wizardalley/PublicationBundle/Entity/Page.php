@@ -45,16 +45,16 @@ class Page
     /**
      * @var string
      *
-     * @ORM\Column(name="imgPresentation", type="string", length=255)
+     * @ORM\Column(name="path_presentation", type="string", length=255)
      */
-    private $imgPresentation;
+    private $pathPresentation;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="imgProfile", type="string", length=255)
+     * @ORM\Column(name="path_profile", type="string", length=255)
      */
-    private $imgProfile;
+    private $pathProfile;
 
     /**
     * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Publication", mappedBy="page", cascade={"remove", "persist"})
@@ -70,10 +70,16 @@ class Page
     
     
     /**
-    * @ORM\ManyToMany(targetEntity="Wizardalley\USerBundle\Entity\WizardUser", inversedBy="pagesEditor")
+    * @ORM\ManyToMany(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="pagesEditor")
     * @ORM\JoinTable(name="page_user_editor")
     */
    private $editors;
+   
+    /**
+    * @ORM\ManyToMany(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="pagesFollowed")
+    * @ORM\JoinTable(name="page_user_follow")
+    */
+   private $followers;
     
     public function __construct()
     {
@@ -295,5 +301,84 @@ class Page
     public function getEditors()
     {
         return $this->editors;
+    }
+
+    /**
+     * Add followers
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $followers
+     * @return Page
+     */
+    public function addFollower(\Wizardalley\UserBundle\Entity\WizardUser $followers)
+    {
+        $this->followers[] = $followers;
+
+        return $this;
+    }
+
+    /**
+     * Remove followers
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $followers
+     */
+    public function removeFollower(\Wizardalley\UserBundle\Entity\WizardUser $followers)
+    {
+        $this->followers->removeElement($followers);
+    }
+
+    /**
+     * Get followers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFollowers()
+    {
+        return $this->followers;
+    }
+
+    /**
+     * Set pathPresentation
+     *
+     * @param string $pathPresentation
+     * @return Page
+     */
+    public function setPathPresentation($pathPresentation)
+    {
+        $this->pathPresentation = $pathPresentation;
+
+        return $this;
+    }
+
+    /**
+     * Get pathPresentation
+     *
+     * @return string 
+     */
+    public function getPathPresentation()
+    {
+        return $this->pathPresentation;
+    }
+
+    /**
+     * Set pathProfile
+     *
+     * @param string $pathProfile
+     * @return Page
+     */
+    public function setPathProfile($pathProfile)
+    {
+        $this->pathProfile = $pathProfile;
+
+        return $this;
+    }
+
+    /**
+     * Get pathProfile
+     *
+     * @return string 
+     */
+    public function getPathProfile()
+    {
+        return $this->pathProfile;
     }
 }

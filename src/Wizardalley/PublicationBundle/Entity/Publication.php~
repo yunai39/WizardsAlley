@@ -208,4 +208,27 @@ class Publication
     {
         return $this->images;
     }
+
+    /**
+     * Set page
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Page $page
+     * @return Publication
+     */
+    public function setPage(\Wizardalley\PublicationBundle\Entity\Page $page = null)
+    {
+        $this->page = $page;
+
+        return $this;
+    }
+
+    /**
+     * Get page
+     *
+     * @return \Wizardalley\PublicationBundle\Entity\Page 
+     */
+    public function getPage()
+    {
+        return $this->page;
+    }
 }

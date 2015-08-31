@@ -3,6 +3,7 @@
 namespace Wizardalley\PublicationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -18,29 +19,10 @@ use Wizardalley\PublicationBundle\Form\SmallPublicationType;
 class SmallPublicationController extends Controller
 {
 
-    /**
-     * Lists all SmallPublication entities.
-     *
-     * @Route("/", name="user_smallPublication")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('WizardalleyPublicationBundle:SmallPublication')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
     /**
      * Creates a new SmallPublication entity.
      *
-     * @Route("/", name="user_smallPublication_create")
-     * @Method("POST")
-     * @Template("WizardalleyPublicationBundle:SmallPublication:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -49,17 +31,17 @@ class SmallPublicationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+            $user = $this->getUser();
+            $entity->setUser($user);
+            $entity->setDatePublication(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_smallPublication_show', array('id' => $entity->getId())));
+            return new JsonResponse('true');
         }
 
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
+        return new JsonResponse('false');
     }
 
     /**
@@ -72,7 +54,7 @@ class SmallPublicationController extends Controller
     private function createCreateForm(SmallPublication $entity)
     {
         $form = $this->createForm(new SmallPublicationType(), $entity, array(
-            'action' => $this->generateUrl('user_smallPublication_create'),
+            'action' => $this->generateUrl('user_small_publication_create'),
             'method' => 'POST',
         ));
 
@@ -84,27 +66,21 @@ class SmallPublicationController extends Controller
     /**
      * Displays a form to create a new SmallPublication entity.
      *
-     * @Route("/new", name="user_smallPublication_new")
-     * @Method("GET")
-     * @Template()
      */
     public function newAction()
     {
         $entity = new SmallPublication();
         $form   = $this->createCreateForm($entity);
 
-        return array(
+        return $this->render('WizardalleyPublicationBundle:SmallPublication:new.html.twig',array(
             'entity' => $entity,
             'form'   => $form->createView(),
-        );
+        ));
     }
 
     /**
      * Finds and displays a SmallPublication entity.
      *
-     * @Route("/{id}", name="user_smallPublication_show")
-     * @Method("GET")
-     * @Template()
      */
     public function showAction($id)
     {
@@ -116,20 +92,15 @@ class SmallPublicationController extends Controller
             throw $this->createNotFoundException('Unable to find SmallPublication entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('WizardalleyPublicationBundle:SmallPublication:show.html.twig', array(
             'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
      * Displays a form to edit an existing SmallPublication entity.
      *
-     * @Route("/{id}/edit", name="user_smallPublication_edit")
-     * @Method("GET")
-     * @Template()
      */
     public function editAction($id)
     {
@@ -142,13 +113,11 @@ class SmallPublicationController extends Controller
         }
 
         $editForm = $this->createEditForm($entity);
-        $deleteForm = $this->createDeleteForm($id);
 
-        return array(
+        return $this->render('WizardalleyPublicationBundle:SmallPublication:edit.html.twig',array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        ));
     }
 
     /**
@@ -161,7 +130,7 @@ class SmallPublicationController extends Controller
     private function createEditForm(SmallPublication $entity)
     {
         $form = $this->createForm(new SmallPublicationType(), $entity, array(
-            'action' => $this->generateUrl('user_smallPublication_update', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('user_small_publication_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -172,9 +141,6 @@ class SmallPublicationController extends Controller
     /**
      * Edits an existing SmallPublication entity.
      *
-     * @Route("/{id}", name="user_smallPublication_update")
-     * @Method("PUT")
-     * @Template("WizardalleyPublicationBundle:SmallPublication:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
@@ -186,62 +152,18 @@ class SmallPublicationController extends Controller
             throw $this->createNotFoundException('Unable to find SmallPublication entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('user_smallPublication_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('user_small_publication_edit', array('id' => $id)));
         }
 
-        return array(
+        return $this->render('WizardalleyPublicationBundle:SmallPublication:edit.html.twig',array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-    /**
-     * Deletes a SmallPublication entity.
-     *
-     * @Route("/{id}", name="user_smallPublication_delete")
-     * @Method("DELETE")
-     */
-    public function deleteAction(Request $request, $id)
-    {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('WizardalleyPublicationBundle:SmallPublication')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find SmallPublication entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
-        }
-
-        return $this->redirect($this->generateUrl('user_smallPublication'));
-    }
-
-    /**
-     * Creates a form to delete a SmallPublication entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('user_smallPublication_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-        ;
+        ));
     }
 }

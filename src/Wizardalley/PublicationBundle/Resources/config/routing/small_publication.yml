@@ -1,0 +1,25 @@
+
+
+
+user_small_publication_show:
+    path:     /smallPublication/{id}/show
+    defaults: { _controller: "WizardalleyPublicationBundle:SmallPublication:show" }
+
+user_small_publication_new:
+    path:     /user/smallPublication/new
+    defaults: { _controller: "WizardalleyPublicationBundle:SmallPublication:new" }
+
+user_small_publication_create:
+    path:     /user/smallPublication/create
+    defaults: { _controller: "WizardalleyPublicationBundle:SmallPublication:create" }
+    methods:  POST
+
+user_small_publication_edit:
+    path:     /user/smallPublication/{id}/edit
+    defaults: { _controller: "WizardalleyPublicationBundle:SmallPublication:edit" }
+
+user_small_publication_update:
+    path:     /user/smallPublication/{id}/update
+    defaults: { _controller: "WizardalleyPublicationBundle:SmallPublication:update" }
+    methods:  [POST, PUT]
+

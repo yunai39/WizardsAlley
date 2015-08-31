@@ -5,10 +5,20 @@
         <div class="col-md-8">
             <div >
                 <h3>Exprimez vous</h3>
-                
+                {{ form_start(formSmallPublication, { attr: {id: 'wizardalley_publicationbundle_add_small_publication'}}) }}
+                    {{ form_row(formSmallPublication.content) }}
+                    {{ form_row(formSmallPublication.submit) }}
+
+                {{ form_end(formSmallPublication) }}
             </div>
             <div>
                 <h3>Vos publications</h3>
+                <div id="my_publication">
+                    
+                </div>
+                <div >
+                    <button id="loadMorePublication" >More</button>
+                </div>
             </div>
         </div>
         <div class="col-md-4">
@@ -24,4 +34,36 @@
             
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+        {{parent()}}
+    <script>
+        $page = 1;
+        loadMore();
+        $('#loadMorePublication').on('click', function(){
+            loadMore();
+        });
+        
+        function loadMore(){
+            $.ajax({
+                url: '{{path('wizard_get_publication_view')}}/'+$page, // Le nom du fichier indiqué dans le formulaire
+                type: 'GET', // La méthode indiquée dans le formulaire (get ou post)
+                success: function(html) { // Je récupère la réponse du fichier PHP
+                    $('#my_publication').append(html);
+                }
+            });
+            $page = $page+1;
+        };
+        $('#wizardalley_publicationbundle_add_small_publication').on('submit', function(e){
+            e.preventDefault();
+            $.ajax({
+                url: $(this).attr('action'), // Le nom du fichier indiqué dans le formulaire
+                type: $(this).attr('method'), // La méthode indiquée dans le formulaire (get ou post)
+                data: $(this).serialize(), // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                success: function(html) { // Je récupère la réponse du fichier PHP
+                }
+            });
+        });
+    </script>
 {% endblock %}

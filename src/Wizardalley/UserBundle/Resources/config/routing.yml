@@ -35,3 +35,6 @@ wizard_get_friends_view:
     defaults: { _controller: WizardalleyUserBundle:Default:displayFriendList }
 
 
+wizard_get_publication_view:
+    path:   /user/getPublication/{page}
+    defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationPage, page: 1 }
