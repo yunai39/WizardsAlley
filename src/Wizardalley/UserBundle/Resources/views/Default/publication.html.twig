@@ -9,16 +9,20 @@
                         <div class="imgSquareContainer" >
                             {% if publication.type == 'page_publication' %}
                                 <img  src="{{asset('uploads/page/'~publication.writer_id ~ '/' ~ publication.path_profile)}}" />
-
                             {% else %}
                                 <img  src="{{asset('uploads/profile/'~publication.writer_id ~ '/' ~ publication.path_profile)}}" />
-
                             {% endif %}
                         </div>
                     </div>
                 </div>
                 <div class="col-md-11">
-                    <h3>Par {{publication.name}}, le {{publication.datePublication | date('Y-m-d')}} à {{publication.datePublication | date('H:i:s')}}</h3>
+                    <h3>Par 
+                        {% if publication.type == 'page_publication' %}
+                            <a href="{{path('page_show', {'id_page': publication.writer_id})}}" >{{publication.name}}</a>
+                        {% else %}
+                            <a href="{{path('wizardalley_user_wall', {'id': publication.writer_id})}}" >{{publication.name}}</a>
+                        {% endif %}
+                        , le {{publication.datePublication | date('Y-m-d')}} à {{publication.datePublication | date('H:i:s')}}</h3>
                 </div>
             </div>
             <div class="row">

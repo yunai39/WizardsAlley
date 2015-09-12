@@ -6,3 +6,6 @@ wizardalley_publication_small_publication:
     resource: "@WizardalleyPublicationBundle/Resources/config/routing/small_publication.yml"
     prefix:   /
 
+wizardalley_page:
+    resource: "@WizardalleyPublicationBundle/Resources/config/routing/page.yml"
+    prefix:   /

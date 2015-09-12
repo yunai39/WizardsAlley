@@ -44,7 +44,7 @@ class WizardUserRepository extends EntityRepository
             join wizard_user w on w.id = pu.user_id
             join friends f1 on f1.user_id = pu.user_id
             join friends f2 on f1.friend_user_id = f2.user_id
-             where f1.user_id = :user_id_2
+             where f1.friend_user_id = :user_id_2
             )
             ORDER BY datePublication DESC
             LIMIT ".$offset.", ".$limit."

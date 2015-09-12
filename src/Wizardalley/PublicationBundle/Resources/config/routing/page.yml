@@ -1,0 +1,6 @@
+
+page_show:
+    path:     /page/show/{id_page}
+    defaults: { _controller: "WizardalleyPublicationBundle:Page:indexPage" }
+
+

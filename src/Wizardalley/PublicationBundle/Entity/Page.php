@@ -3,6 +3,7 @@
 namespace Wizardalley\PublicationBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Page
@@ -40,14 +41,14 @@ class Page
      *
      * @ORM\Column(name="urlFacebook", type="string", length=255)
      */
-    private $urlFacebook;
-
+    private $urlFacebook;    
+    
     /**
      * @var string
-     *
-     * @ORM\Column(name="path_presentation", type="string", length=255)
+     * 
+     * @ORM\Column(name="path_couverture",type="string", length=255, nullable=true)
      */
-    private $pathPresentation;
+    public $pathCouverture;
 
     /**
      * @var string
@@ -166,53 +167,6 @@ class Page
         return $this->urlFacebook;
     }
 
-    /**
-     * Set imgPresentation
-     *
-     * @param string $imgPresentation
-     * @return Page
-     */
-    public function setImgPresentation($imgPresentation)
-    {
-        $this->imgPresentation = $imgPresentation;
-
-        return $this;
-    }
-
-    /**
-     * Get imgPresentation
-     *
-     * @return string 
-     */
-    public function getImgPresentation()
-    {
-        return $this->imgPresentation;
-    }
-
-    /**
-     * Set imgProfile
-     *
-     * @param string $imgProfile
-     * @return Page
-     */
-    public function setImgProfile($imgProfile)
-    {
-        $this->imgProfile = $imgProfile;
-
-        return $this;
-    }
-
-    /**
-     * Get imgProfile
-     *
-     * @return string 
-     */
-    public function getImgProfile()
-    {
-        return $this->imgProfile;
-    }
-    
-    
 
     /**
      * Add publications
@@ -337,26 +291,26 @@ class Page
     }
 
     /**
-     * Set pathPresentation
+     * Set pathCouverture
      *
-     * @param string $pathPresentation
-     * @return Page
+     * @param string $pathCouverture
+     * @return WizardUser
      */
-    public function setPathPresentation($pathPresentation)
+    public function setPathCouverture($pathCouverture)
     {
-        $this->pathPresentation = $pathPresentation;
+        $this->pathCouverture = $pathCouverture;
 
         return $this;
     }
 
     /**
-     * Get pathPresentation
+     * Get pathCouverture
      *
      * @return string 
      */
-    public function getPathPresentation()
+    public function getPathCouverture()
     {
-        return $this->pathPresentation;
+        return $this->pathCouverture;
     }
 
     /**
@@ -380,5 +334,75 @@ class Page
     public function getPathProfile()
     {
         return $this->pathProfile;
+    }
+    
+        public function getAbsolutePathProfile() {
+        return null === $this->pathProfile ? null : $this->getUploadRootDir() . '/' . $this->pathProfile;
+    }
+    
+
+    public function getAbsolutePathCouverture() {
+        return null === $this->pathCouverture ? null : $this->getUploadRootDir() . '/' . $this->pathCouverture;
+    }
+
+    public function getPictureProfile() {
+        return null === $this->pathProfile ? $this->getDefaultProfile() : $this->getUploadDir() . '/' . $this->pathProfile;
+    }
+
+    public function getPictureCouverture() {
+        return null === $this->pathCouverture ? $this->getDefaultCouverture() : $this->getUploadDir() . '/' . $this->pathCouverture;
+    }
+    
+    protected function getDefaultProfile(){
+        return 'uploads/page/default.png';
+    }
+    
+    protected function getDefaultCouverture(){
+        return 'uploads/page/dCouverture.png';
+    }
+    protected function getUploadRootDir() {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    }
+
+    protected function getUploadDir() {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
+        // le document/image dans la vue.
+        return 'uploads/page/' . $this->id ;
+    }
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $fileProfile;
+    
+    
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $fileCouverture;
+
+    public function uploadProfile() {
+        // la propriété « file » peut être vide si le champ n'est pas requis
+        if (null === $this->fileProfile) {
+            return;
+        }
+        $ext = pathinfo($this->fileProfile->getClientOriginalName(), PATHINFO_EXTENSION);
+        $name = 'profile.'.$ext;
+        $this->fileProfile->move($this->getUploadRootDir(), $name);
+        $this->pathProfile = $name;
+        $this->fileProfile = null;
+    }
+
+    public function uploadCouverture(){
+        
+        if (null === $this->fileCouverture) {
+            return;
+        }
+        $ext = pathinfo($this->fileCouverture->getClientOriginalName(), PATHINFO_EXTENSION);
+        $name = 'couverture.'.$ext;
+        $this->fileCouverture->move($this->getUploadRootDir(), $name);
+        $this->pathCouverture = $name;
+        $this->fileCouverture = null;
     }
 }

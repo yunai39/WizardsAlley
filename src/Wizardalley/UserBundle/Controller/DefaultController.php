@@ -106,7 +106,7 @@ class DefaultController extends Controller {
     
     public function displayPublicationPageAction($page){
         
-        $limit = 1;
+        $limit = 5;
         $offset = ($page - 1)* $limit;
         $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
         $publications = $repo->findPublicationUser($this->getUser(),$offset, $limit);

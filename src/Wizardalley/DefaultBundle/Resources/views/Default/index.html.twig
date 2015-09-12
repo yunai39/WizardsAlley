@@ -55,6 +55,8 @@
             });
             $page = $page+1;
         };
+        
+        
         $('#wizardalley_publicationbundle_add_small_publication').on('submit', function(e){
             e.preventDefault();
             $.ajax({
@@ -62,6 +64,12 @@
                 type: $(this).attr('method'), // La méthode indiquée dans le formulaire (get ou post)
                 data: $(this).serialize(), // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
                 success: function(html) { // Je récupère la réponse du fichier PHP
+                    console.log(html);
+                    if(html == "true"){
+                        alert("Votre message à bien été ajouté");
+                    } else {
+                        alert("Une erreur c'est produit lors de l'ajout de votre message");
+                    }
                 }
             });
         });
