@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class PublicationRepository extends EntityRepository
 {
-        public function findPublications( $id_user, $page = 1, $limit = 4){
+    public function findPublications( $id_user, $page = 1, $limit = 4){
         $firstResult = ($page - 1)*$limit;
         
         $qb = $this->_em->createQueryBuilder()
@@ -25,6 +25,25 @@ class PublicationRepository extends EntityRepository
                     ->setFirstResult($firstResult)
                     ->setMaxResults($limit)
                     ->setParameter(':id', $id_user)
+                    ->getQuery();
+        $result = $query->getArrayResult();
+        return $result;
+      
+    }
+    
+    public function findPublicationsPage( $id_page, $page = 1, $limit = 4){
+        $firstResult = ($page - 1)*$limit;
+        
+        $qb = $this->_em->createQueryBuilder()
+            ->select('p')
+            ->from($this->_entityName, 'p');
+        $query = $qb
+                    ->join('p.page', 'pa')
+                    ->where('pa.id = :id')
+                    ->orderBy('p.datePublication','DESC')
+                    ->setFirstResult($firstResult)
+                    ->setMaxResults($limit)
+                    ->setParameter(':id', $id_page)
                     ->getQuery();
         $result = $query->getArrayResult();
         return $result;

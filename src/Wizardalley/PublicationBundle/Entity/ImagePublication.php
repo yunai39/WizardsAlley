@@ -116,7 +116,7 @@ class ImagePublication {
 
     
     
-    public function getWebPath() {
+public function getWebPath() {
         return null === $this->path ? null : $this->getUploadDir()  . $this->path;
     }
     

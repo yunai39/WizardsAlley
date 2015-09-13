@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Wizardalley\PublicationBundle\Entity\Publication;
-use Wizardalley\PublicationBundle\Entity\Comment;
+use Wizardalley\PublicationBundle\Entity\CommentPublication;
 use Wizardalley\PublicationBundle\Form\PublicationType;
 use Wizardalley\PublicationBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -92,7 +92,7 @@ class PublicationController extends Controller {
             throw $this->createNotFoundException('Unable to find Publication entity.');
         }
 
-        $comment = new Comment();
+        $comment = new CommentPublication();
         $commentForm = $this->createFormComment($comment, $entity);
 
 
@@ -231,7 +231,7 @@ class PublicationController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createFormComment(Comment $comment, Publication $entity) {
+    private function createFormComment(CommentPublication $comment, Publication $entity) {
         $form = $this->createForm(new CommentType(), $comment, array(
             'action' => $this->generateUrl('comment_add', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -260,7 +260,7 @@ class PublicationController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Publication entity.');
         }
-        $comment = new Comment();
+        $comment = new CommentPublication();
         $form = $this->createFormComment($comment, $entity);
         $form->handleRequest($request);
 
@@ -287,7 +287,7 @@ class PublicationController extends Controller {
     public function getCommentAction(Request $request, $id,$page){
         $limit = 2;
         $em = $this->getDoctrine()->getManager();
-        return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:Comment')->findCommentsPublication($id,$page,$limit));
+        return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:CommentPublication')->findCommentsPublication($id,$page,$limit));
         
     }
     /**

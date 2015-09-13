@@ -109,6 +109,11 @@ class WizardUser extends BaseUser {
     */
     private $smallPublication;
     
+        /**
+    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Publication", mappedBy="user", cascade={"remove", "persist"})
+    */
+    private $publications;
+    
     public function getLastname() {
         return $this->lastname;
     }

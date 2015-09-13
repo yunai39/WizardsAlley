@@ -1,0 +1,30 @@
+
+
+    {% for publication in publications %}
+        <div class="publication">
+            <div class="row ">
+                <div class="col-md-1">
+
+                    <div class="imgSquare">
+                        <div class="imgSquareContainer" >
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-11">
+                    <h2><a href="{{path('publication_show',{'id': publication.id })}}" >{{publication.title}}</a></h2>
+                    <h3>Le {{publication.datePublication | date('Y-m-d')}} à {{publication.datePublication | date('H:i:s')}}</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p>{{publication.content | raw}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h6>Commentaires </h6>
+                </div>
+            </div>
+                
+        </div>
+    {% endfor %}

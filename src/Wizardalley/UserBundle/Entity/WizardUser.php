@@ -109,6 +109,11 @@ class WizardUser extends BaseUser {
     */
     private $smallPublication;
     
+        /**
+    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Publication", mappedBy="user", cascade={"remove", "persist"})
+    */
+    private $publications;
+    
     public function getLastname() {
         return $this->lastname;
     }
@@ -531,5 +536,38 @@ class WizardUser extends BaseUser {
     public function getSmallPublication()
     {
         return $this->smallPublication;
+    }
+
+    /**
+     * Add publications
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Publication $publications
+     * @return WizardUser
+     */
+    public function addPublication(\Wizardalley\PublicationBundle\Entity\Publication $publications)
+    {
+        $this->publications[] = $publications;
+
+        return $this;
+    }
+
+    /**
+     * Remove publications
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\Publication $publications
+     */
+    public function removePublication(\Wizardalley\PublicationBundle\Entity\Publication $publications)
+    {
+        $this->publications->removeElement($publications);
+    }
+
+    /**
+     * Get publications
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPublications()
+    {
+        return $this->publications;
     }
 }

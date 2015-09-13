@@ -56,6 +56,13 @@ class Publication
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
     */
     private $page;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="publications" )
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+    */
+    private $user;
     /**
      * Get id
      *
@@ -230,5 +237,28 @@ class Publication
     public function getPage()
     {
         return $this->page;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @return Publication
+     */
+    public function setUser(\Wizardalley\UserBundle\Entity\WizardUser $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Wizardalley\UserBundle\Entity\WizardUser 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

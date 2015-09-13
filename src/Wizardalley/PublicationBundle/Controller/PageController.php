@@ -29,4 +29,16 @@ class PageController extends Controller {
                     'page' => $page,
         ));
     }
+    
+        
+    public function displayPublicationPageAction($id,$page){
+        
+        $limit = 2;
+        $repo = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Publication');
+        $publications = $repo->findPublicationsPage($id,$page, $limit);
+        return $this->render('WizardalleyPublicationBundle:Page:publication.html.twig', array(
+            'publications' => $publications,
+        ));
+        
+    }
 }

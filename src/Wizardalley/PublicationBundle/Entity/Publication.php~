@@ -56,6 +56,13 @@ class Publication
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
     */
     private $page;
+    
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="publications" )
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+    */
+    private $user;
     /**
      * Get id
      *

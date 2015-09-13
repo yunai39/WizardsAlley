@@ -4,3 +4,7 @@ page_show:
     defaults: { _controller: "WizardalleyPublicationBundle:Page:indexPage" }
 
 
+
+page_publication_get:
+    path:     /page/publication/get/{id}/{page}
+    defaults: { _controller: "WizardalleyPublicationBundle:Page:displayPublicationPage", page: 1 }
