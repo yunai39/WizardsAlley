@@ -36,6 +36,10 @@ class SmallPublication
     private $datePublication;
 
 
+    /**
+    * @ORM\OneToMany(targetEntity="CommentSmallPublication", mappedBy="publication", cascade={"remove", "persist"})
+    */
+    private $comments;
     
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="smallPublication")

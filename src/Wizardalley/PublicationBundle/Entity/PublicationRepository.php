@@ -39,6 +39,10 @@ class PublicationRepository extends EntityRepository
             ->from($this->_entityName, 'p');
         $query = $qb
                     ->join('p.page', 'pa')
+                    ->join('p.user' , 'u')
+                    ->join('p.images' , 'i')
+                    ->addSelect('u')
+                    ->addSelect('i')
                     ->where('pa.id = :id')
                     ->orderBy('p.datePublication','DESC')
                     ->setFirstResult($firstResult)

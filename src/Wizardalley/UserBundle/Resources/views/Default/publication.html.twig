@@ -16,18 +16,30 @@
                     </div>
                 </div>
                 <div class="col-md-11">
-                    <h3>Par 
+                    {% if publication.type == 'page_publication' %}
+                        <h3>    
+                            <a href="{{path('publication_show',{'id':publication.publication_id})}}">{{publication.title}}</a>
+                        </h3>
+                    {% endif %}
+                    <h5>Par 
                         {% if publication.type == 'page_publication' %}
                             <a href="{{path('page_show', {'id_page': publication.writer_id})}}" >{{publication.name}}</a>
                         {% else %}
                             <a href="{{path('wizardalley_user_wall', {'id': publication.writer_id})}}" >{{publication.name}}</a>
                         {% endif %}
-                        , le {{publication.datePublication | date('Y-m-d')}} à {{publication.datePublication | date('H:i:s')}}</h3>
+                        , le {{publication.datePublication | date('Y-m-d')}} à {{publication.datePublication | date('H:i:s')}}
+                    </h5>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p>{{publication.content | raw}}</p>
+                        {% if publication.type == 'page_publication' %}
+                                <p>{{publication.content | raw}}</p>
+                         {% else %}
+                                <p>{{publication.content}}</p>
+                          {% endif %}
+                         
+                            
                 </div>
             </div>
             <div class="row">

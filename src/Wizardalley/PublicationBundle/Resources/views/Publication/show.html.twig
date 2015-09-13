@@ -25,7 +25,8 @@
         
     </style>
     <h1>{{ entity.title }}</h1>
-    <p>Par: {{entity.user.username }}, le {{ entity.datePublication|date('Y-m-d') }}
+    <h2><a href="{{path('page_show',{'id_page': entity.page.id})}}" >{{entity.page.name}}</a></h2>
+    <p>Par <a href="{{path('wizardalley_user_wall', {'id': entity.user.id })}}">{{entity.user.username }}</a>, le {{ entity.datePublication|date('Y-m-d') }}
     <p>{{ entity.content | raw}}</p>
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         
@@ -44,7 +45,10 @@
             {% for image in entity.getImages() %}
                 
                 <div class="item {% if i == 0 %} active{% endif %}">
-                  <img src="{{asset(image.getWebPath())}}"   alt="{{i}}">
+                    <img src="{{asset(image.getWebPath())}}"   alt="{{i}}">
+                    <div class="carousel-caption">
+                        {{image.description}}
+                    </div>
                 </div>
                 {% set i = i + 1 %}
             {% endfor %}
@@ -97,7 +101,7 @@
             <div class="comment_image"><img src="{{asset('uploads/profile/')}}'+comment.id+'/'+comment.pathProfile+'"/></div>\n\
             <div class="comment_content">\n\
                 <p class="message">'+comment[0].content+'</p>\n\
-                <p class="time">Par : '+comment.username+', le '+comment[0].dateComment.date.substr(0,19)+'</p>\n\
+                <p class="time">Par  '+comment.username+', le '+comment[0].dateComment.date.substr(0,19)+'</p>\n\
             </div>\n\
         </div>');
         $div=$('#comment_content');

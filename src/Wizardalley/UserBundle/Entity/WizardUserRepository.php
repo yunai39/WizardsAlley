@@ -33,17 +33,19 @@ class WizardUserRepository extends EntityRepository
     
     public function findPublicationUser(WizardUser $user,$offset, $limit){
         $sql = "
-            (select pu.id as 'publication_id', pu.datePublication, pu.title, pu.content, pa.id as 'writer_id', pa.name, pa.path_profile, 'page_publication' as type
+            (select pu.id as 'publication_id', pu.datePublication, pu.title, pu.small_content as 'content', pa.id as 'writer_id', pa.name, pa.path_profile, 'page_publication' as type
             from publication pu 
               left join page pa on pu.page_id = pa.id 
               left join page_user_follow puf on puf.page_id = pa.id
+              left join comment_publication cp on cp.publication_id = pu.id
             where puf.wizard_user_id = :user_id_1)
             UNION
             (select pu.id as 'publication_id', pu.datePublication, '' as title, pu.content, w.id as 'writer_id', w.username as 'name', w.path_profile, 'user_publication' as type
             from small_publication pu
-            join wizard_user w on w.id = pu.user_id
-            join friends f1 on f1.user_id = pu.user_id
-            join friends f2 on f1.friend_user_id = f2.user_id
+            left join wizard_user w on w.id = pu.user_id
+            left join friends f1 on f1.user_id = pu.user_id
+            left join friends f2 on f1.friend_user_id = f2.user_id
+            left join comment_small_publication csp on csp.publication_id = pu.id
              where f1.friend_user_id = :user_id_2
             )
             ORDER BY datePublication DESC

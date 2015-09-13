@@ -34,6 +34,11 @@ class CommentSmallPublication
      * @ORM\Column(name="content", type="text")
      */
     private $content;
+    /**
+     * @ORM\ManyToOne(targetEntity="SmallPublication", inversedBy="comments")
+     * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
+    */
+    private $publication;
 
 
     /**

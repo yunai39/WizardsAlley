@@ -370,6 +370,10 @@ class Page
         // le document/image dans la vue.
         return 'uploads/page/' . $this->id ;
     }
+    
+    public function __toString(){
+        return $this->name;
+    }
 
     /**
      * @Assert\File(maxSize="6000000")

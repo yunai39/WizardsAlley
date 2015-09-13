@@ -1,9 +1,9 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    
-    
-    
+
+
+
     <div class="row" style="background-image: url('{{asset(page.getPictureCouverture)}}');background-size:100% 100%;background-repeat:no-repeat;height: 30vw;">
         <div class="row" style="margin-top:20%;">
             <div class="col-md-2">
@@ -13,59 +13,71 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <div class="row">
         <div class="col-md-12" >
             <h3>{{page.name}}</h3>
         </div>
-        <div class="col-md-2" >
-            {% if page.urlFacebook != null %}
-                <a href="{{page.urlFacebook}}" /><span class="icon-large icon-facebook" aria-hidden="true"></span></a>
-            {% endif %}
-        </div>
-        <div class="col-md-12">
-            <p>{{page.description}}</p>
+        <div class="row" >
+            <div class="col-md-3" >
+                <div class="col-md-12" >
+                    {% if page.urlFacebook != null %}
+                        <a href="{{page.urlFacebook}}" /><span class="icon-large icon-facebook" aria-hidden="true"></span> {{page.urlFacebook}}</a>
+                    {% endif %}
+                </div>
+                <div class="col-md-12" >
+                    <span class="icon-large icon  icon-heart"></span>  Followers {{page.followers | length}}
+                </div>
+                <div class="col-md-12" >
+                    <span class="icon-large icon icon-user"></span> Inviter des amis à suivre cette page
+                </div>
+                
+            </div>
+            <div class="col-md-9">
+                <p>{{page.description | raw}}</p>
+            </div>
         </div>
     </div>
-        
-            <div class="col-md-12">
-                <h3>Publications</h3>
-                <div id="my_publication">
-                    
-                </div>
-                <div >
-                    <button id="loadMorePublication" >More</button>
-                </div>
-            </div>
+
+    <div class="col-md-12">
+        <h3>Publications</h3>
+        <div id="my_publication">
+
+        </div>
+        <div >
+            <button id="loadMorePublication" >More</button>
+        </div>
+    </div>
 
 
 {% endblock %}
 
 
 {% block javascripts %}
-        {{parent()}}
+    {{parent()}}
     <script>
         $page = 1;
         loadMore();
-        $('#loadMorePublication').on('click', function(){
+        $('#loadMorePublication').on('click', function() {
             loadMore();
         });
-        
-        function loadMore(){
+
+        function loadMore() {
             $.ajax({
-                url: '{{path('page_publication_get', {'id': page.id})}}/'+$page, // Le nom du fichier indiqué dans le formulaire
+                url: '{{path('page_publication_get', {'id': page.id})}}/' + $page, // Le nom du fichier indiqué dans le formulaire
                 type: 'GET', // La méthode indiquée dans le formulaire (get ou post)
                 success: function(html) { // Je récupère la réponse du fichier PHP
                     $('#my_publication').append(html);
                 }
             });
-            $page = $page+1;
-        };
-        
-        
-        $('#wizardalley_publicationbundle_add_small_publication').on('submit', function(e){
+            $page = $page + 1;
+        }
+        ;
+
+
+        $('#wizardalley_publicationbundle_add_small_publication').on('submit', function(e) {
             e.preventDefault();
             $.ajax({
                 url: $(this).attr('action'), // Le nom du fichier indiqué dans le formulaire
@@ -73,7 +85,7 @@
                 data: $(this).serialize(), // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
                 success: function(html) { // Je récupère la réponse du fichier PHP
                     console.log(html);
-                    if(html == "true"){
+                    if (html == "true") {
                         alert("Votre message à bien été ajouté");
                     } else {
                         alert("Une erreur c'est produit lors de l'ajout de votre message");

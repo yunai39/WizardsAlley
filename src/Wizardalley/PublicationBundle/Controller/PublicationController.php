@@ -10,6 +10,8 @@ use Wizardalley\PublicationBundle\Entity\CommentPublication;
 use Wizardalley\PublicationBundle\Form\PublicationType;
 use Wizardalley\PublicationBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Wizardalley\PublicationBundle\Twig\HTMLLimitStripExtension;
+
 /**
  * Publication controller.
  *
@@ -30,10 +32,13 @@ class PublicationController extends Controller {
             $entity->setUser($this->getUser());
             $entity->setDatePublication(new \DateTime('now'));
             $em->persist($entity);
-            foreach($entity->getImages() as $img){
-                $img->upload();
-                $img->setPublication($entity);
-                $em->persist($img);
+            $entity->setSmallContent($entity->getContent());
+            if ($entity->getImages()) {
+                foreach ($entity->getImages() as $img) {
+                    $img->upload();
+                    $img->setPublication($entity);
+                    $em->persist($img);
+                }
             }
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', 'wizard.publication.new_success');
@@ -69,8 +74,17 @@ class PublicationController extends Controller {
      * Displays a form to create a new Publication entity.
      *
      */
-    public function newAction() {
+    public function newAction($id_page) {
         $entity = new Publication();
+
+        $em = $this->getDoctrine()->getManager();
+
+        $page = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
+
+        if (!$page) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
+        }
+        $entity->setPage($page);
         $form = $this->createCreateForm($entity);
 
         return $this->render('WizardalleyPublicationBundle:Publication:new.html.twig', array(
@@ -168,7 +182,7 @@ class PublicationController extends Controller {
 
         if ($editForm->isValid()) {
             $em->flush();
-            
+
             $this->get('session')->getFlashBag()->add('success', 'wizard.publication.edit_success');
             return $this->redirect($this->generateUrl('publication_show', array('id' => $id)));
         }
@@ -219,7 +233,7 @@ class PublicationController extends Controller {
         ;
     }
 
-    /*******
+    /*     * *****
      * Comment
      */
 
@@ -273,7 +287,7 @@ class PublicationController extends Controller {
         }
         return $this->redirect($this->generateUrl('publication_show', array('id' => $id)));
     }
-    
+
     /**
      * getCommentAction
      * 
@@ -284,12 +298,12 @@ class PublicationController extends Controller {
      *
      * @return Response
      */
-    public function getCommentAction(Request $request, $id,$page){
+    public function getCommentAction(Request $request, $id, $page) {
         $limit = 2;
         $em = $this->getDoctrine()->getManager();
-        return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:CommentPublication')->findCommentsPublication($id,$page,$limit));
-        
+        return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:CommentPublication')->findCommentsPublication($id, $page, $limit));
     }
+
     /**
      * getPublicationAction
      * 
@@ -301,10 +315,10 @@ class PublicationController extends Controller {
      *
      * @return Response
      */
-    public function getPublicationAction(Request $request, $id,$page){
+    public function getPublicationAction(Request $request, $id, $page) {
         $limit = 2;
         $em = $this->getDoctrine()->getManager();
-        return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:Publication')->findPublications($id,$page,$limit));
-        
+        return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:Publication')->findPublications($id, $page, $limit));
     }
+
 }

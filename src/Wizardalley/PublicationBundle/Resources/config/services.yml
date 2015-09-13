@@ -1,4 +1,7 @@
+
 services:
-#    wizardalley_publication.example:
-#        class: Wizardalley\PublicationBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    wizard.publication.twig.html_strip_extension:
+        class: Wizardalley\PublicationBundle\Twig\HTMLLimitStripExtension
+        tags:
+            - { name: twig.extension }
+

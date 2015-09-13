@@ -34,6 +34,11 @@ class CommentSmallPublication
      * @ORM\Column(name="content", type="text")
      */
     private $content;
+    /**
+     * @ORM\ManyToOne(targetEntity="SmallPublication", inversedBy="comments")
+     * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
+    */
+    private $publication;
 
 
     /**
@@ -90,5 +95,28 @@ class CommentSmallPublication
     public function getContent()
     {
         return $this->content;
+    }
+
+    /**
+     * Set publication
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\SmallPublication $publication
+     * @return CommentSmallPublication
+     */
+    public function setPublication(\Wizardalley\PublicationBundle\Entity\SmallPublication $publication = null)
+    {
+        $this->publication = $publication;
+
+        return $this;
+    }
+
+    /**
+     * Get publication
+     *
+     * @return \Wizardalley\PublicationBundle\Entity\SmallPublication 
+     */
+    public function getPublication()
+    {
+        return $this->publication;
     }
 }

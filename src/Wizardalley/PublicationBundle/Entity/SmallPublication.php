@@ -36,6 +36,10 @@ class SmallPublication
     private $datePublication;
 
 
+    /**
+    * @ORM\OneToMany(targetEntity="CommentSmallPublication", mappedBy="publication", cascade={"remove", "persist"})
+    */
+    private $comments;
     
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="smallPublication")
@@ -119,5 +123,45 @@ class SmallPublication
     public function getUser()
     {
         return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\CommentSmallPublication $comments
+     * @return SmallPublication
+     */
+    public function addComment(\Wizardalley\PublicationBundle\Entity\CommentSmallPublication $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\CommentSmallPublication $comments
+     */
+    public function removeComment(\Wizardalley\PublicationBundle\Entity\CommentSmallPublication $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
     }
 }

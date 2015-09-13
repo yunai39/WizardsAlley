@@ -16,7 +16,7 @@ publication_show:
     defaults: { _controller: "WizardalleyPublicationBundle:Publication:show" }
 
 publication_new:
-    path:     /user/publication/new
+    path:     /user/publication/new/{id_page}
     defaults: { _controller: "WizardalleyPublicationBundle:Publication:new" }
 
 publication_create:
