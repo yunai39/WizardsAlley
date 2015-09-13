@@ -32,7 +32,7 @@ class WizardUserRepository extends EntityRepository
     }
     
     public function findPublicationUser(WizardUser $user,$offset, $limit){
-        $sql = "
+         $sql = "
             (select pu.id as 'publication_id', pu.datePublication, pu.title, pu.small_content as 'content', pa.id as 'writer_id', pa.name, pa.path_profile, 'page_publication' as type
             from publication pu 
               left join page pa on pu.page_id = pa.id 
@@ -56,6 +56,30 @@ class WizardUserRepository extends EntityRepository
         $result = $stmt->execute(array(
             'user_id_1' => $user->getId(),
             'user_id_2' => $user->getId()
+        ));
+        return $stmt->fetchAll();
+    }
+    
+    public function findPublication(WizardUser $user,$offset, $limit){
+        $sql = "
+            (select pu.id as 'publication_id', pu.datePublication, pu.title, pu.small_content as 'content', pa.id as 'writer_id', pa.name, pa.path_profile, 'page_publication' as type
+            from publication pu 
+              left join page pa on pu.page_id = pa.id 
+            where pu.user_id = :user_id_1)
+            UNION
+            (select pu.id as 'publication_id', pu.datePublication, '' as title, pu.content, w.id as 'writer_id', w.username as 'name', w.path_profile, 'user_publication' as type
+            from small_publication pu
+            left join wizard_user w on w.id = pu.user_id
+             where pu.user_id = :user_id_2
+            )
+            ORDER BY datePublication DESC
+            LIMIT ".$offset.", ".$limit."
+            ";
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute(array(
+            'user_id_1' => $user->getId(),
+            'user_id_2' => $user->getId(),
         ));
         return $stmt->fetchAll();
     }

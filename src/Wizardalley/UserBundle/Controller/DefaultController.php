@@ -112,8 +112,19 @@ class DefaultController extends Controller {
         $publications = $repo->findPublicationUser($this->getUser(),$offset, $limit);
         return $this->render('WizardalleyUserBundle:Default:publication.html.twig', array(
             'publications' => $publications,
-        ));
+        ));   
+    }
+    
+    
+    public function displayPublicationUserAction($page){
         
+        $limit = 2;
+        $offset = ($page - 1)* $limit;
+        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $publications = $repo->findPublication($this->getUser(),$offset, $limit);
+        return $this->render('WizardalleyUserBundle:Default:publication.html.twig', array(
+            'publications' => $publications,
+        ));   
     }
 
 }
