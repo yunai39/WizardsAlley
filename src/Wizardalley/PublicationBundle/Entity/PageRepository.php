@@ -12,4 +12,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class PageRepository extends EntityRepository
 {
+    public function findLatestFollower($id_page, $limit= 9){
+        $qb = $this->_em->createQueryBuilder()
+            ->select('u')
+            ->from("WizardalleyUserBundle:WizardUser", 'u');
+        $query = $qb
+                    ->join('u.pagesFollowed', 'p')
+                    ->where('p.id = :id')
+                    ->setMaxResults($limit)
+                    ->setParameter(':id', $id_page)
+                    ->getQuery();
+        $result = $query->getArrayResult();
+        return $result;
+    }
 }

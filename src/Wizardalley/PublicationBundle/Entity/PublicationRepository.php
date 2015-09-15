@@ -32,25 +32,33 @@ class PublicationRepository extends EntityRepository
     }
     
     public function findPublicationsPage( $id_page, $page = 1, $limit = 4){
-        $firstResult = ($page - 1)*$limit;
         
-        $qb = $this->_em->createQueryBuilder()
-            ->select('p')
-            ->from($this->_entityName, 'p');
-        $query = $qb
-                    ->join('p.page', 'pa')
-                    ->join('p.user' , 'u')
-                    ->join('p.images' , 'i')
-                    ->addSelect('u')
-                    ->addSelect('i')
-                    ->where('pa.id = :id')
-                    ->orderBy('p.datePublication','DESC')
-                    ->setFirstResult($firstResult)
-                    ->setMaxResults($limit)
-                    ->setParameter(':id', $id_page)
-                    ->getQuery();
-        $result = $query->getArrayResult();
-        return $result;
-      
+
+        $firstResult = ($page - 1)*$limit;
+        $sql = "
+        select distinct w.username, w.id as 'user_id',pu.id as id, pu.title, pu.small_content, pu.datePublication,
+            (
+                SELECT
+                    path
+                FROM
+                    image_publication ip
+                WHERE
+                    ip.publication_id = pu.id
+                limit 1
+            ) as path
+            from publication pu
+                left join wizard_user w on w.id = pu.user_id 
+                left join page p on p.id = pu.page_id
+            where
+                p.id = ? 
+                order by pu.datePublication
+                limit {$firstResult},{$limit}
+                ";
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute(array($id_page));
+        return $stmt->fetchAll();
+        
+        
     }
 }

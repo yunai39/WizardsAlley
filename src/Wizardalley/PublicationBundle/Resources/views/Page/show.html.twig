@@ -33,49 +33,70 @@
                 <div class="col-md-12" >
                     <span class="icon-large icon icon-user"></span> Inviter des amis à suivre cette page
                 </div>
-                
-            </div>
-            <div class="col-md-9">
-                <p>{{page.description | raw}}</p>
-            </div>
-        </div>
-    </div>
+                <div class="col-md-12" >
+                    <h3>Followers</h3>
+                    <div class="row">
+                        {% for user in followers %}
+                            <div class="squareUser">
+                                <a href="{{path('wizardalley_user_wall',{'id': user.id})}}">   
+                                    <div class="imgSquare">
+                                        <div class="imgSquareContainer" >
+                                            <img src="{% if user.pathProfile %}
+                                                 {{asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile)}}
+                                                 {% else %}
+                                                     {{asset('uploads/profile/default.png')}}
+                                                     {% endif %}" />
+                                                     <p class="imgTitre">{{user.username}}</p>
+                                                 </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    {% endfor %}
+                                    </div>
+                                </div>
 
-    <div class="col-md-12">
-        <h3>Publications</h3>
-        <div id="my_publication">
+                            </div>
+                            <div class="col-md-9">
+                                <p>{{page.description | raw}}</p>
+                            </div>
+                        </div>
+                    </div>
 
-        </div>
-        <div >
-            <button id="loadMorePublication" >More</button>
-        </div>
-    </div>
+                    <div class="col-md-12">
+                        <h3>Publications</h3>
+                        <div id="my_publication">
 
-
-{% endblock %}
-
-
-{% block javascripts %}
-    {{parent()}}
-    <script>
-        $page = 1;
-        loadMore();
-        $('#loadMorePublication').on('click', function() {
-            loadMore();
-        });
-
-        function loadMore() {
-            $.ajax({
-                url: '{{path('page_publication_get', {'id': page.id})}}/' + $page, // Le nom du fichier indiqué dans le formulaire
-                type: 'GET', // La méthode indiquée dans le formulaire (get ou post)
-                success: function(html) { // Je récupère la réponse du fichier PHP
-                    $('#my_publication').append(html);
-                }
-            });
-            $page = $page + 1;
-        }
-        ;
+                        </div>
+                        <div >
+                            <button id="loadMorePublication" >More</button>
+                        </div>
+                    </div>
 
 
-    </script>
-{% endblock %}
+                    {% endblock %}
+
+
+                        {% block javascripts %}
+                            {{parent()}}
+                            <script>
+                                $page = 1;
+                                loadMore();
+                                $('#loadMorePublication').on('click', function() {
+                                    loadMore();
+                                });
+
+                                function loadMore() {
+                                    $.ajax({
+                                        url: '{{path('page_publication_get', {'id': page.id})}}/' + $page, // Le nom du fichier indiqué dans le formulaire
+                                        type: 'GET', // La méthode indiquée dans le formulaire (get ou post)
+                                        success: function(html) { // Je récupère la réponse du fichier PHP
+                                            $('#my_publication').append(html);
+                                        }
+                                    });
+                                    $page = $page + 1;
+                                }
+                                ;
+
+
+                            </script>
+                        {% endblock %}
