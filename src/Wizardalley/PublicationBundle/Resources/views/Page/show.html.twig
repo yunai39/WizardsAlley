@@ -20,8 +20,22 @@
         <div class="col-md-12" >
             <h3>{{page.name}}</h3>
         </div>
+        <!-- Si l'utilisateur est authorise a changer les publications -->
         <div class="row" >
             <div class="col-md-3" >
+                {% if app.user %}
+                    {% if creator_id == app.user.id %}
+                        <div class="col-md-12" >
+                            <a href=""> <span class="icon-large icon icon-lock"></span>Gestion de la page</a>
+                        </div>
+                    {% endif %}
+
+                    {% if  app.user in editors %}
+                        <div class="col-md-12" >
+                            <a href=""> <span class="icon-large icon icon-book"></span>Gestion des publications</a>
+                        </div>
+                    {% endif %}
+                {% endif %}
                 <div class="col-md-12" >
                     {% if page.urlFacebook != null %}
                         <a href="{{page.urlFacebook}}" /><span class="icon-large icon-facebook" aria-hidden="true"></span> {{page.urlFacebook}}</a>
@@ -31,72 +45,93 @@
                     <span class="icon-large icon  icon-heart"></span>  Followers {{page.followers | length}}
                 </div>
                 <div class="col-md-12" >
-                    <span class="icon-large icon icon-user"></span> Inviter des amis à suivre cette page
+                    <a href=""><span class="icon-large icon icon-user"></span> Inviter des amis à suivre cette page</a>
                 </div>
-                <div class="col-md-12" >
-                    <h3>Followers</h3>
-                    <div class="row">
-                        {% for user in followers %}
-                            <div class="squareUser">
-                                <a href="{{path('wizardalley_user_wall',{'id': user.id})}}">   
-                                    <div class="imgSquare">
-                                        <div class="imgSquareContainer" >
-                                            <img src="{% if user.pathProfile %}
-                                                 {{asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile)}}
-                                                 {% else %}
-                                                     {{asset('uploads/profile/default.png')}}
-                                                     {% endif %}" />
-                                                     <p class="imgTitre">{{user.username}}</p>
-                                                 </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    {% endfor %}
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="col-md-9">
-                                <p>{{page.description | raw}}</p>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="row" >
                     <div class="col-md-12">
-                        <h3>Publications</h3>
-                        <div id="my_publication">
-
-                        </div>
-                        <div >
-                            <button id="loadMorePublication" >More</button>
-                        </div>
+                        <h3>Followers</h3>
+                        {% for user in followers %}
+                        <div class="squareUser">
+                            <a href="{{path('wizardalley_user_wall',{'id': user.id})}}">   
+                                <div class="imgSquare">
+                                    <div class="imgSquareContainer" >
+                                        <img src="
+                                        {% if user.pathProfile %}
+                                             {{asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile)}}
+                                        {% else %}
+                                            {{asset('uploads/profile/default.png')}}
+                                        {% endif %}" />
+                                        <p class="imgTitre">{{user.username}}</p>
+                                    </div>
+                               </div>
+                           </a>
+                       </div>
+                       {% endfor %}
                     </div>
+                    <div class="col-md-12">
+                        <h3>Editeur</h3>
+                        {% for user in editors %}
+                        <div class="squareUser">
+                            <a href="{{path('wizardalley_user_wall',{'id': user.id})}}">   
+                                <div class="imgSquare">
+                                    <div class="imgSquareContainer" >
+                                        <img src="
+                                        {% if user.pathProfile %}
+                                             {{asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile)}}
+                                        {% else %}
+                                            {{asset('uploads/profile/default.png')}}
+                                        {% endif %}" />
+                                        <p class="imgTitre">{{user.username}}</p>
+                                    </div>
+                               </div>
+                           </a>
+                       </div>
+                       {% endfor %}
+                       </div>
+                   </div>
+
+                </div>
+                <div class="col-md-9">
+                    <p>{{page.description | raw}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <h3>Publications</h3>
+            <div id="my_publication">
+
+            </div>
+            <div >
+                <button id="loadMorePublication" >More</button>
+            </div>
+        </div>
 
 
-                    {% endblock %}
+        {% endblock %}
 
 
-                        {% block javascripts %}
-                            {{parent()}}
-                            <script>
-                                $page = 1;
-                                loadMore();
-                                $('#loadMorePublication').on('click', function() {
-                                    loadMore();
-                                });
+{% block javascripts %}
+    {{parent()}}
+    <script>
+        $page = 1;
+        loadMore();
+        $('#loadMorePublication').on('click', function() {
+            loadMore();
+        });
 
-                                function loadMore() {
-                                    $.ajax({
-                                        url: '{{path('page_publication_get', {'id': page.id})}}/' + $page, // Le nom du fichier indiqué dans le formulaire
-                                        type: 'GET', // La méthode indiquée dans le formulaire (get ou post)
-                                        success: function(html) { // Je récupère la réponse du fichier PHP
-                                            $('#my_publication').append(html);
-                                        }
-                                    });
-                                    $page = $page + 1;
-                                }
-                                ;
+        function loadMore() {
+            $.ajax({
+                url: '{{path('page_publication_get', {'id': page.id})}}/' + $page, // Le nom du fichier indiqué dans le formulaire
+                type: 'GET', // La méthode indiquée dans le formulaire (get ou post)
+                success: function(html) { // Je récupère la réponse du fichier PHP
+                    $('#my_publication').append(html);
+                }
+            });
+            $page = $page + 1;
+        }
+        ;
 
 
-                            </script>
-                        {% endblock %}
+    </script>
+{% endblock %}

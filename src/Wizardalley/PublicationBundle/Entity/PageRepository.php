@@ -25,4 +25,17 @@ class PageRepository extends EntityRepository
         $result = $query->getArrayResult();
         return $result;
     }
+    
+    public function findPage($id_page){
+        $qb = $this->_em->createQueryBuilder()
+            ->select('p')
+            ->from("WizardalleyPublicationBundle:Page", 'p');
+        $query = $qb
+                    ->where('p.id = :id')
+                    ->setParameter(':id', $id_page)
+                    ->getQuery();
+        $result = $query->getArrayResult();
+        return $result;
+        
+    }
 }
