@@ -100,7 +100,7 @@ class WizardUser extends BaseUser {
    
    
     /**
-    * @ORM\ManyToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Page", mappedBy="followers")
+    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\PageUserFollow", mappedBy="user")
     */
    private $pagesFollowed;
     

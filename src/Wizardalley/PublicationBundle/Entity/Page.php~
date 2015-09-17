@@ -77,8 +77,7 @@ class Page
    private $editors;
    
     /**
-    * @ORM\ManyToMany(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="pagesFollowed")
-    * @ORM\JoinTable(name="page_user_follow")
+    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\PageUserFollow", mappedBy="page")
     */
    private $followers;
     

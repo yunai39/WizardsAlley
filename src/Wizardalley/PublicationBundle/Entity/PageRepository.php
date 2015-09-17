@@ -18,7 +18,8 @@ class PageRepository extends EntityRepository
             ->from("WizardalleyUserBundle:WizardUser", 'u');
         $query = $qb
                     ->join('u.pagesFollowed', 'p')
-                    ->where('p.id = :id')
+                    ->where('p.page = :id')
+                    ->orderBy('p.dateInscription', 'desc')
                     ->setMaxResults($limit)
                     ->setParameter(':id', $id_page)
                     ->getQuery();

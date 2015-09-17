@@ -1,0 +1,11 @@
+
+page_gestion_show:
+    path:     /page/gestion/show/{id_page}
+    defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:index" }
+
+
+page_gestion_edit:
+    path:     /page/gestion/edit/{id_page}
+    defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:editPage" }
+
+

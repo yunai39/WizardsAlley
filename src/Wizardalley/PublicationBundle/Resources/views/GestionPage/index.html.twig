@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h2>{{page.name}} -  {% trans %} page.gestion.title.edit {% endtrans %}</h2>
+    {{ tinymce_init() }}
+    <div class="row">
+        <div class="col-md-3">
+            <p><a href=""><span class="glyphicon glyphicon-file"></span> &nbsp; {% trans %} page.gestion.back {% endtrans %}</a></p>
+            <p><a href=""><span class="glyphicon glyphicon-cog"></span> &nbsp; {% trans %} page.gestion.edit {% endtrans %}</a></p>
+            <p><a href=""><span class="glyphicon glyphicon-duplicate"></span> &nbsp; {% trans %} page.gestion.publication.edit {% endtrans %}</a></p>
+            <p><a href=""><span class="glyphicon glyphicon-user"></span> &nbsp; {% trans %} page.gestion.editor {% endtrans %}</a></p>
+        </div>
+        <div class="col-md-9">
+            {{form(form)}}
+        </div>
+        
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+{% endblock %}

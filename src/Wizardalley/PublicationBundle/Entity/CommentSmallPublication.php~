@@ -96,4 +96,27 @@ class CommentSmallPublication
     {
         return $this->content;
     }
+
+    /**
+     * Set publication
+     *
+     * @param \Wizardalley\PublicationBundle\Entity\SmallPublication $publication
+     * @return CommentSmallPublication
+     */
+    public function setPublication(\Wizardalley\PublicationBundle\Entity\SmallPublication $publication = null)
+    {
+        $this->publication = $publication;
+
+        return $this;
+    }
+
+    /**
+     * Get publication
+     *
+     * @return \Wizardalley\PublicationBundle\Entity\SmallPublication 
+     */
+    public function getPublication()
+    {
+        return $this->publication;
+    }
 }
