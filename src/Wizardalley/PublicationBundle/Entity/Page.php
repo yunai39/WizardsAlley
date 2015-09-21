@@ -257,6 +257,15 @@ class Page
     }
 
     /**
+     * Remove Editors
+     * 
+     */
+    public function removeAllEditor(){
+        $this->editors->clear();
+        return $this;
+    }
+    
+    /**
      * Add followers
      *
      * @param \Wizardalley\UserBundle\Entity\WizardUser $followers

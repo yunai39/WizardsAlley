@@ -43,3 +43,7 @@ wizard_get_friends_view:
 wizard_get_publication_view:
     path:   /user/getPublication/{page}
     defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationPage, page: 1 }
+
+wizard_search_user_json:
+    path:   /search/user/{search}
+    defaults: { _controller: WizardalleyUserBundle:Default:searchUserJson, search: -1}

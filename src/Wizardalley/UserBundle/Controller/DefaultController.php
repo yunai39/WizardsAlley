@@ -126,5 +126,11 @@ class DefaultController extends Controller {
             'publications' => $publications,
         ));   
     }
-
+    
+    public function searchUserJsonAction($search){
+        
+        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        return new JsonResponse($repo->searchUser($search));
+        
+    }
 }

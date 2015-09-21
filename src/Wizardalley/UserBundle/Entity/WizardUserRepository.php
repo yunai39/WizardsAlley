@@ -14,8 +14,6 @@ class WizardUserRepository extends EntityRepository
 {
 
     public function findFriends($user){
-
-
         $sql = "
         select distinct w.username, w.id,w.path_profile
             from friends f1
@@ -60,7 +58,7 @@ class WizardUserRepository extends EntityRepository
         return $stmt->fetchAll();
     }
     
-    public function findPublication(WizardUser $user,$offset, $limit){
+    public function findPublication(WizardUser $user,$offset, $limit) {
         $sql = "
             (select pu.id as 'publication_id', pu.datePublication, pu.title, pu.small_content as 'content', pa.id as 'writer_id', pa.name, pa.path_profile, 'page_publication' as type
             from publication pu 
@@ -81,6 +79,20 @@ class WizardUserRepository extends EntityRepository
             'user_id_1' => $user->getId(),
             'user_id_2' => $user->getId(),
         ));
+        return $stmt->fetchAll();
+    }
+    
+    public function searchUser($search) {
+        
+        $sql = "
+        select w.id , w.username as label, w.username as value,w.path_profile
+            from wizard_user w
+            where
+                w.username like ?
+                ";
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute(array('%'.$search.'%'));
         return $stmt->fetchAll();
     }
 }

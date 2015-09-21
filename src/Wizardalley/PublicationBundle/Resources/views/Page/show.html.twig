@@ -24,15 +24,10 @@
         <div class="row" >
             <div class="col-md-3" >
                 {% if app.user %}
-                    {% if creator_id == app.user.id %}
-                        <div class="col-md-12" >
-                            <a href=""> <span class="icon-large icon icon-lock"></span>Gestion de la page</a>
-                        </div>
-                    {% endif %}
 
-                    {% if  app.user in editors %}
+                    {% if  app.user in editors or app.user.id == creator_id %}
                         <div class="col-md-12" >
-                            <a href=""> <span class="icon-large icon icon-book"></span>Gestion des publications</a>
+                            <a href="{{path('page_gestion_show',{'id_page': page.id } ) }}"> <span class="icon-large icon icon-book"></span>{% trans %} wizard.page.gestion.edit {% endtrans %}</a>
                         </div>
                     {% endif %}
                 {% endif %}
@@ -42,14 +37,14 @@
                     {% endif %}
                 </div>
                 <div class="col-md-12" >
-                    <span class="icon-large icon  icon-heart"></span>  Followers {{page.followers | length}}
+                    <span class="icon-large icon  icon-heart"></span>  {% trans %} wizard.page.followers {% endtrans %} {{page.followers | length}}
                 </div>
                 <div class="col-md-12" >
-                    <a href=""><span class="icon-large icon icon-user"></span> Inviter des amis à suivre cette page</a>
+                    <a href=""><span class="icon-large icon icon-user"></span> {% trans %} page.invite_friend {% endtrans %}</a>
                 </div>
                 <div class="row" >
                     <div class="col-md-12">
-                        <h3>Followers</h3>
+                        <h3>{% trans %} wizard.page.followers {% endtrans %}</h3>
                         {% for user in followers %}
                         <div class="squareUser">
                             <a href="{{path('wizardalley_user_wall',{'id': user.id})}}">   
@@ -69,7 +64,7 @@
                        {% endfor %}
                     </div>
                     <div class="col-md-12">
-                        <h3>Editeur</h3>
+                        <h3>{% trans %} wizard.page.editor {% endtrans %}</h3>
                         {% for user in editors %}
                         <div class="squareUser">
                             <a href="{{path('wizardalley_user_wall',{'id': user.id})}}">   
@@ -98,7 +93,7 @@
         </div>
 
         <div class="col-md-12">
-            <h3>Publications</h3>
+            <h3>{% trans %} wizard.page.publictions {% endtrans %}</h3>
             <div id="my_publication">
 
             </div>

@@ -53,3 +53,5 @@ wizard:
             message: Votre message
     wall:
         friend: Amis
+    page:
+        edit_success: Les editeurs ont bien été modifiés

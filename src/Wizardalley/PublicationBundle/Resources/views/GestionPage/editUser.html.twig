@@ -1,0 +1,117 @@
+{% extends 'WizardalleyPublicationBundle:GestionPage:template.html.twig' %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.min.css')}}">
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.theme.min.css')}}">
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.structure.min.css')}}">
+{% endblock %}
+
+{% block gestion %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div class="row">
+
+                <div class="ui-widget">
+                    <label for="search_user">Rechercher un utilisateur</label>
+                    <input id="search_user">
+                </div>
+                {% if form.editors %}
+                    <ul class="editor" data-prototype="{{ form_widget(form.editors.vars.prototype)|e }}">
+                        {% for editor in form.editors %}
+                            <li>
+                                {{ form_errors(editor) }}
+                                {{ form_row(editor.id) }}</br>
+                                {{ form_row(editor.username) }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {{ form_row(form.submit) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    {% endblock %}
+
+
+    {% block javascripts %}
+        {{parent()}}  
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script>
+
+
+            var $collectionHolder;
+
+
+            jQuery(document).ready(function() {
+                // Get the ul that holds the collection of tags
+                $collectionHolder = $('ul.editor');
+
+                $collectionHolder.find('li').each(function() {
+                    addEditorFormDeleteLink($(this));
+                });
+
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            });
+            
+            $("#search_user").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "{{path('wizard_search_user_json')}}/" + $("#search_user").val(),
+                        dataType: "json",
+                        success: function(data) {
+                            response(data);
+                        }
+                    });
+                },
+                minLength: 3,
+                select: function(event, ui) {
+                    addEditorForm($collectionHolder,ui.item);
+                },
+            });
+            
+            function addEditorForm($collectionHolder,item) {
+                
+                // Get the data-prototype explained earlier
+                var prototype = $collectionHolder.data('prototype');
+
+                // get the new index
+                var index = $collectionHolder.data('index');
+
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                console.log(prototype);
+                var newForm = prototype.replace(/__name__/g, index);
+                newForm = newForm.replace(/_username"/g, '_username" value="'+item['value']+'"');
+                newForm = newForm.replace(/_id"/g, '_id" value="'+item['id']+'"');
+
+                console.log(newForm);
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
+
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $('<li></li>').append(newForm);
+                $collectionHolder.append($newFormLi);
+                addEditorFormDeleteLink($newFormLi);
+            }
+            
+            function addEditorFormDeleteLink($editorFormLi) {
+                var $removeFormA = $('<a href="#">delete this editor</a>');
+                $editorFormLi.append($removeFormA);
+
+                $removeFormA.on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+
+                    // remove the li for the tag form
+                    $editorFormLi.remove();
+                });
+            }
+        </script>
+    {% endblock %}

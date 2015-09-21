@@ -9,3 +9,13 @@ page_gestion_edit:
     defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:editPage" }
 
 
+page_gestion_user:
+    path:     /page/gestion/user/{id_page}
+    defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:editUserForm" }
+
+
+page_gestion_user_edit:
+    path:     /page/gestion/user/edit/{id_page}
+    defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:editUser" }
+
+
