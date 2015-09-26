@@ -1,6 +1,12 @@
-{% extends '::base.html.twig' %}
+{% extends 'WizardalleyPublicationBundle:GestionPage:template.html.twig' %}
 
-{% block body -%}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.min.css')}}">
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.theme.min.css')}}">
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.structure.min.css')}}">
+{% endblock %}
+
+{% block gestion %}
     {{ tinymce_init() }}
     <h1>Publication edit</h1>
 

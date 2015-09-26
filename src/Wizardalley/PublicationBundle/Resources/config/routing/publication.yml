@@ -20,7 +20,7 @@ publication_new:
     defaults: { _controller: "WizardalleyPublicationBundle:Publication:new" }
 
 publication_create:
-    path:     /user/publication/create
+    path:     /user/publication/create/{id_page}
     defaults: { _controller: "WizardalleyPublicationBundle:Publication:create" }
     methods:  POST
 

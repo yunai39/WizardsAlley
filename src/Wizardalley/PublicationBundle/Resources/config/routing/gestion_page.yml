@@ -19,3 +19,7 @@ page_gestion_user_edit:
     defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:editUser" }
 
 
+page_gestion_publication:
+    path:     /page/gestion/publication/{id_page}
+    defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:displayPublicationUser" }
+

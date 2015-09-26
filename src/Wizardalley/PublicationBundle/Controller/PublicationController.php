@@ -22,9 +22,16 @@ class PublicationController extends Controller {
      * Creates a new Publication entity.
      *
      */
-    public function createAction(Request $request) {
+    public function createAction(Request $request, $id_page) {
         $entity = new Publication();
-        $form = $this->createCreateForm($entity);
+        
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
+        $this->notFoundEntity($page);
+        $this->creatorEditorOnly($page);
+        
+        $entity->setPage($page);
+        $form = $this->createCreateForm($entity, $page);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -49,6 +56,7 @@ class PublicationController extends Controller {
         return $this->render('WizardalleyPublicationBundle:Publication:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
+                    'page' => $entity->getPage(),
         ));
     }
 
@@ -59,9 +67,9 @@ class PublicationController extends Controller {
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Publication $entity) {
+    private function createCreateForm(Publication $entity,$page) {
         $form = $this->createForm(new PublicationType(), $entity, array(
-            'action' => $this->generateUrl('publication_create'),
+            'action' => $this->generateUrl('publication_create',array('id_page' => $page->getId())),
             'method' => 'POST',
         ));
 
@@ -80,16 +88,16 @@ class PublicationController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $page = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
-
-        if (!$page) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
-        }
+        $this->notFoundEntity($page);
+        $this->creatorEditorOnly($page);
+        
         $entity->setPage($page);
-        $form = $this->createCreateForm($entity);
+        $form = $this->createCreateForm($entity, $page);
 
         return $this->render('WizardalleyPublicationBundle:Publication:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
+                    'page' => $entity->getPage(),
         ));
     }
 
@@ -101,10 +109,7 @@ class PublicationController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('WizardalleyPublicationBundle:Publication')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Publication entity.');
-        }
+        $this->notFoundEntity($entity);
 
         $comment = new CommentPublication();
         $commentForm = $this->createFormComment($comment, $entity);
@@ -124,11 +129,9 @@ class PublicationController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('WizardalleyPublicationBundle:Publication')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Publication entity.');
-        }
-
+        $this->notFoundEntity($entity);
+        $this->creatorPublicationOnly($entity);
+        
         if ($entity->getUser() != $this->getUser()) {
             throw $this->createAccessDeniedException('You are not allowed to edit this entity');
         }
@@ -138,6 +141,7 @@ class PublicationController extends Controller {
         return $this->render('WizardalleyPublicationBundle:Publication:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
+                    'page' => $entity->getPage(),
         ));
     }
 
@@ -168,10 +172,8 @@ class PublicationController extends Controller {
 
         $entity = $em->getRepository('WizardalleyPublicationBundle:Publication')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Publication entity.');
-        }
-
+        $this->notFoundEntity($entity);
+        $this->creatorPublicationOnly($entity);
 
         if ($entity->getUser() != $this->getUser()) {
             throw $this->createAccessDeniedException('You are not allowed to edit this entity');
@@ -190,6 +192,7 @@ class PublicationController extends Controller {
         return $this->render('WizardalleyPublicationBundle:Publication:edit.html.twig', array(
                     'entity' => $entity,
                     'edit_form' => $editForm->createView(),
+                    'page' => $entity->getPage(),
         ));
     }
 
@@ -320,5 +323,25 @@ class PublicationController extends Controller {
         $em = $this->getDoctrine()->getManager();
         return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:Publication')->findPublications($id, $page, $limit));
     }
-
+    
+    private function notFoundEntity($entity){
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Entity.');
+        }
+    }
+    
+    private function creatorPublicationOnly( $entity ){
+        $user = $this->getUser();
+        if ( !(($entity->getUser() == $user) or ($entity->getPage()->getCreator() == $user)) ) {
+           throw new AccessDeniedException; 
+        }
+    }
+    
+    private function creatorEditorOnly($page){
+        $user = $this->getUser();
+        if ( !(($page->getCreator() == $user) or ($page->getEditors()->contains($user))) ) {
+           throw new AccessDeniedException; 
+        }
+    }
+    
 }

@@ -1,6 +1,13 @@
-{% extends '::base.html.twig' %}
+{% extends 'WizardalleyPublicationBundle:GestionPage:template.html.twig' %}
 
-{% block body -%}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.min.css')}}">
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.theme.min.css')}}">
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.structure.min.css')}}">
+{% endblock %}
+
+{% block gestion %}
+
     <h1>Publication list</h1>
 
     <table class="records_list">
@@ -18,7 +25,7 @@
             <tr>
                 <td><a href="{{ path('publication_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.title }}</td>
-                <td>{{ entity.content }}</td>
+                <td>{{ entity.smallContent }}</td>
                 <td>{% if entity.datePublication %}{{ entity.datePublication|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
@@ -37,7 +44,7 @@
 
         <ul>
         <li>
-            <a href="{{ path('publication_new') }}">
+            <a href="{{ path('publication_new',{'id_page' : id_page}) }}">
                 Create a new entry
             </a>
         </li>
