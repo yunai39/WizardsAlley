@@ -77,6 +77,12 @@
             });
             
             function addEditorForm($collectionHolder,item) {
+                // test if the editor is not already in the list
+                if ( $('input[value='+item.id+']').length == 1) {
+                    alert('Element already selected');
+                    return;
+                }
+                
                 
                 // Get the data-prototype explained earlier
                 var prototype = $collectionHolder.data('prototype');
@@ -86,12 +92,10 @@
 
                 // Replace '__name__' in the prototype's HTML to
                 // instead be a number based on how many items we have
-                console.log(prototype);
                 var newForm = prototype.replace(/__name__/g, index);
                 newForm = newForm.replace(/_username"/g, '_username" value="'+item['value']+'"');
                 newForm = newForm.replace(/_id"/g, '_id" value="'+item['id']+'"');
 
-                console.log(newForm);
                 // increase the index with one for the next item
                 $collectionHolder.data('index', index + 1);
 
