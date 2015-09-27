@@ -39,4 +39,36 @@ class PageRepository extends EntityRepository
         return $result;
         
     }
+    
+    public function findPageFollowedUser($id_user,$page = 1, $limit = 2){
+        $offset = $limit * ($page - 1);
+        $query = $this->_em->createQuery("SELECT p FROM Wizardalley\PublicationBundle\Entity\Page p join p.followers puf join puf.user u WHERE u.id = ?1 ORDER BY puf.dateInscription ");
+        $query->setMaxResults($limit)
+              ->setFirstResult($offset)
+              ->setParameter(1, $id_user);
+        return $query->getScalarResult();
+           
+    }
+
+    
+    public function findPageCreatedUser($id_user,$page = 1, $limit = 2){
+        $offset = $limit * ($page - 1);
+        $query = $this->_em->createQuery("SELECT p FROM Wizardalley\PublicationBundle\Entity\Page p join p.creator u  WHERE u.id = ?1 ORDER BY p.id ");
+        $query->setMaxResults($limit)
+              ->setFirstResult($offset)
+              ->setParameter(1, $id_user);
+        return $query->getScalarResult();
+           
+    }
+    
+    public function findPageEditorUser($id_user,$page = 1, $limit = 2){
+        $offset = $limit * ($page - 1);
+        $query = $this->_em->createQuery("SELECT p FROM Wizardalley\PublicationBundle\Entity\Page p join p.editors u  WHERE u.id = ?1 ORDER BY p.id ");
+        $query->setMaxResults($limit)
+              ->setFirstResult($offset)
+              ->setParameter(1, $id_user);
+        return $query->getScalarResult();
+        
+    }
+    
 }

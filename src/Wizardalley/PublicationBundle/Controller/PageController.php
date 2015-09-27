@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  *
  */
 class PageController extends Controller {
-
+    const LIMIT_PER_PAGE = 1;
     public function indexPageAction($id_page) {
         $em = $this->getDoctrine()->getManager();
         $page = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
@@ -33,13 +33,34 @@ class PageController extends Controller {
     }
 
     public function displayPublicationPageAction($id, $page) {
-
-        $limit = 2;
         $repo = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Publication');
-        $publications = $repo->findPublicationsPage($id, $page, $limit);
+        $publications = $repo->findPublicationsPage($id, $page, self::LIMIT_PER_PAGE);
         return $this->render('WizardalleyPublicationBundle:Page:publication.html.twig', array(
                     'publications' => $publications,
         ));
     }
+    
+    public function getPageFollowedAction(Request $request, $page = 1){
+        $em = $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Page');
+        $pages = $repo->findPageFollowedUser($this->getUser(),$page, self::LIMIT_PER_PAGE);
+        return new JsonResponse($pages);
+        
+    }
+    
+    public function getPageEditorAction(Request $request, $page = 1){
+        $em = $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Page');
+        $pages = $repo->findPageEditorUser($this->getUser(),$page, self::LIMIT_PER_PAGE);
+        return new JsonResponse($pages);
+        
+    }
 
+    public function getPageCreatedAction(Request $request, $page = 1){
+        $em = $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Page');
+        $pages = $repo->findPageCreatedUser($this->getUser(),$page, self::LIMIT_PER_PAGE);
+        return new JsonResponse($pages);
+        
+    }
 }

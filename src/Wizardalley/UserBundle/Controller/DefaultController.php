@@ -74,11 +74,11 @@ class DefaultController extends Controller {
      * @param Request   $request    http request
      * @return JsonResponse
      */
-    public function friendListAction(Request $request) {
-        $numberDisplay = 24;
+    public function friendListAction(Request $request, $page = 1) {
+        $numberDisplay = 3;
         $user = $this->getUser();
         $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
-        $friends = $repo->findFriends($user);
+        $friends = $repo->findFriends($user, $page, $numberDisplay);
         return new JsonResponse($friends);
     }
     

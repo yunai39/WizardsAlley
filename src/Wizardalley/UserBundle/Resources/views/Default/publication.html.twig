@@ -42,9 +42,14 @@
                             
                 </div>
             </div>
+                          
             <div class="row">
                 <div class="col-md-12">
-                    <h6>Commentaires </h6>
+                    {% if publication.type == 'page_publication' %}
+                    <a href="{{path('publication_show',{'id':publication.publication_id})}}">{% trans %}publication.display.link{% endtrans %}</a>
+                    {% else %}
+                    <a href="{{path('user_small_publication_show',{'id':publication.publication_id})}}">{% trans %}publication.display.link{% endtrans %}</a>
+                    {% endif %}
                 </div>
             </div>
                 

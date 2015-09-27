@@ -13,7 +13,7 @@ wizardalley_user_couverture_edit_picture:
 
 wizardalley_user_wall:
     path:   /wall/{id}
-    defaults: { _controller: WizardalleyUserBundle:Default:userWall }
+    defaults: { _controller: WizardalleyUserBundle:Default:userWall, id : 1 }
 
 wizardalley_user_wall_publication:
     path:   /wall/publication/{page}
@@ -32,8 +32,8 @@ wizard_add_as_a_friend:
 
 
 wizard_get_friends_json:
-    path:   /user/getFriendsJson
-    defaults: { _controller: WizardalleyUserBundle:Default:friendList }
+    path:   /user/getFriendsJson/{page}
+    defaults: { _controller: WizardalleyUserBundle:Default:friendList, page: 1 }
 
 wizard_get_friends_view:
     path:   /user/getFriendsView

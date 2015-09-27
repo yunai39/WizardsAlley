@@ -1,9 +1,5 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
-{% block javascripts %}
-    {{parent()}}
-    <script type="text/javascript" src="{{asset('js/hinclude.js')}}"></script>
-{% endblock %}
 
 {% block fos_user_content %}
     <H1>{{ user.username }}</h1>
@@ -35,11 +31,147 @@
             <a href="{{path('fos_user_change_password')}}">{{ 'wizard.user.profile.change_pwd'|trans({}) }}</a>
         </div>
     </div>
-    <div class="row">
+    <div class="col-md-6 col-sm-12">
         <div>
-            <h3>{% trans %}wizard.user.profile.friend_list{% endtrans %}
+            <h3>{% trans %}wizard.user.profile.title.friend_list{% endtrans %}
         </div>
-        {{render_hinclude(url('wizard_get_friends_view'))}}
+        <div class="col-md-12" id="div_friend" prototype='<a href="{{path("wizardalley_user_wall")}}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/wizardsalley/web/uploads/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+        </div>
+        <div class="col-md-12" >
+            <button onClick="loadMoreFriends()" >More</button>
+        </div>
     </div>
-    
+    <div class="col-md-6 col-sm-12">
+        <div>
+            <h3>{% trans %}wizard.user.profile.title.page_followed{% endtrans %}
+        </div>
+        <div class="col-md-12" id="div_page_followed" prototype='<a href="{{path("page_show")}}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/wizardsalley/web/uploads/page/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+        </div>
+        <div class="col-md-12" >
+            <button onClick="loadMorePageFollowed()" >More</button>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div>
+            <h3>{% trans %}wizard.user.profile.title.page_creator{% endtrans %}
+        </div>
+        <div class="col-md-12" id="div_page_created" prototype='<a href="{{path("page_show")}}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/wizardsalley/web/uploads/page/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+        </div>
+        <div class="col-md-12" >
+            <button onClick="loadMorePageCreated()" >More</button>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <div>
+            <h3>{% trans %}wizard.user.profile.title.page_editor{% endtrans %}
+        </div>
+        <div class="col-md-12" id="div_page_editor" prototype='<a href="{{path("page_show")}}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/wizardsalley/web/uploads/page/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+        </div>
+        <div class="col-md-12" >
+            <button onClick="loadMorePageEditor()" >More</button>
+        </div>
+    </div>
 {% endblock fos_user_content %}
+
+{% block javascripts %}
+    {{parent()}}
+    <script>
+        $pagePageFollowed = 1;
+        $pageFriends = 1;
+        $pageCreated = 1;
+        $pageEditor = 1;
+        loadMorePageFollowed();
+        loadMoreFriends();
+        loadMorePageCreated();
+        loadMorePageEditor();
+
+        function loadMorePageFollowed() {
+            $.ajax({
+                url: '{{path('page_user_followed_get')}}/' + $pagePageFollowed, // Le nom du fichier indiqué dans le formulaire
+                type: 'GET', // La méthode indiquée dans le formulaire (get ou post)
+                success: function(json) { // Je récupère la réponse du fichier PHP
+                    array = eval(json);
+                    $.each(array, function(index,item){
+                        $prototype = $('#div_page_followed').attr('prototype');
+                        $div = $prototype.replace('__id__', item.p_id);
+                        if(item.p_pathProfile != null && item.p_pathProfile != ""){
+                            $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
+                        } else {
+                            $div = $div.replace('__picture__', 'default.png');
+                        }
+                        $div = $div.replace('__title__', item.p_name);
+                        $('#div_page_followed').append($div);
+                    });
+                }
+            });
+            $pagePageFollowed = $pagePageFollowed + 1;
+        };
+        
+        function loadMoreFriends() {
+            $.ajax({
+                url: '{{path('wizard_get_friends_json')}}/' + $pageFriends, 
+                type: 'GET', 
+                success: function(json) { // Je récupère la réponse du fichier PHP
+                    array = eval(json);
+                    $.each(array, function(index,item){
+                        $prototype = $('#div_friend').attr('prototype');
+                        $div = $prototype.replace('__id__', item.id);
+                        if(item.path_profile != null && item.path_profile != ""){
+                            $div = $div.replace('__picture__', item.id + '/' + item.path_profile);
+                        } else {
+                            $div = $div.replace('__picture__', 'default.png');
+                        }
+                        $div = $div.replace('__title__', item.username);
+                        $('#div_friend').append($div);
+                    });
+                }
+            });
+            $pageFriends = $pageFriends + 1;
+        };
+        
+        function loadMorePageCreated() {
+            $.ajax({
+                url: '{{path('page_user_created_get')}}/' + $pageCreated, 
+                type: 'GET', 
+                success: function(json) { // Je récupère la réponse du fichier PHP
+                    array = eval(json);
+                    $.each(array, function(index,item){
+                        $prototype = $('#div_page_created').attr('prototype');
+                        $div = $prototype.replace('__id__', item.p_id);
+                        if(item.p_pathProfile != null && item.p_pathProfile != ""){
+                            $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
+                        } else {
+                            $div = $div.replace('__picture__', 'default.png');
+                        }
+                        $div = $div.replace('__title__', item.p_name);
+                        $('#div_page_created').append($div);
+                    });
+                }
+            });
+            $pageCreated = $pageCreated + 1;
+        };
+        
+        
+        function loadMorePageEditor() {
+            $.ajax({
+                url: '{{path('page_user_editor_get')}}/' + $pageEditor, 
+                type: 'GET', 
+                success: function(json) { // Je récupère la réponse du fichier PHP
+                    array = eval(json);
+                    $.each(array, function(index,item){
+                        $prototype = $('#div_page_editor').attr('prototype');
+                        $div = $prototype.replace('__id__', item.p_id);
+                        if(item.p_pathProfile != null && item.p_pathProfile != ""){
+                            $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
+                        } else {
+                            $div = $div.replace('__picture__', 'default.png');
+                        }
+                        $div = $div.replace('__title__', item.p_name);
+                        $('#div_page_editor').append($div);
+                    });
+                }
+            });
+            $pageEditor = $pageEditor + 1;
+        };
+    </script>
+{% endblock %}

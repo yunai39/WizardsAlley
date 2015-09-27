@@ -1,10 +1,22 @@
 
 page_show:
     path:     /page/show/{id_page}
-    defaults: { _controller: "WizardalleyPublicationBundle:Page:indexPage" }
+    defaults: { _controller: "WizardalleyPublicationBundle:Page:indexPage" , id_page: 1}
 
 
 
 page_publication_get:
     path:     /page/publication/get/{id}/{page}
     defaults: { _controller: "WizardalleyPublicationBundle:Page:displayPublicationPage", page: 1 }
+
+page_user_created_get:
+    path:     /user/page/followed/{page}
+    defaults: { _controller: "WizardalleyPublicationBundle:Page:getPageCreated", page: 1 }
+
+page_user_editor_get:
+    path:     /user/page/editor/{page}
+    defaults: { _controller: "WizardalleyPublicationBundle:Page:getPageEditor", page: 1 }
+
+page_user_followed_get:
+    path:     /user/page/followed/{page}
+    defaults: { _controller: "WizardalleyPublicationBundle:Page:getPageFollowed", page: 1 }

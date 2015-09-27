@@ -13,7 +13,8 @@ use Doctrine\ORM\EntityRepository;
 class WizardUserRepository extends EntityRepository
 {
 
-    public function findFriends($user){
+    public function findFriends($user,  $page, $limit){
+        $offset = $limit * ($page - 1);
         $sql = "
         select distinct w.username, w.id,w.path_profile
             from friends f1
@@ -22,6 +23,7 @@ class WizardUserRepository extends EntityRepository
             where
                 f2.friend_user_id = ? and
                 f1.user_id = ?
+            limit {$offset}, {$limit}
                 ";
         $conn = $this->getEntityManager()->getConnection();
         $stmt = $conn->prepare($sql);

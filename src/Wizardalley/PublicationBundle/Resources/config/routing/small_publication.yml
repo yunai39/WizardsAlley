@@ -1,6 +1,4 @@
 
-
-
 user_small_publication_show:
     path:     /smallPublication/{id}/show
     defaults: { _controller: "WizardalleyPublicationBundle:SmallPublication:show" }
