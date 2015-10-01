@@ -10,7 +10,7 @@
     {{ tinymce_init() }}
     <h1>Publication creation</h1>
 
-<form action="{{path('publication_create')}}" method="POST" {{ form_enctype(form) }}>
+<form action="{{path('publication_create',{'id_page': page.id })}}" method="POST" {{ form_enctype(form) }}>
     {# affiche l'unique champ de la tâche : description #}
     {{ form_row(form.title) }}
     {{ form_row(form.content) }}

@@ -15,23 +15,20 @@ class PublicationType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('title')
-                ->add('content', 'textarea', array(
-                    'attr' => array(
-                        'class' => 'tinymce',
-                        'data-theme' => 'bbcode' // Skip it if you want to use default theme
-                    )
-                ))
-                ->add('images', 'collection', array(
-                    'type' => new ImageType(),
-                    'allow_add' => true,
-                    'allow_delete' => true,
-                    'by_reference' => false,
-                    ))
-                ->add('page', 'entity', array(
-                    'class' => 'WizardalleyPublicationBundle:Page'
-                ));
-        ;
+            ->add('title')
+            ->add('content', 'textarea', array(
+                'attr' => array(
+                    'class' => 'tinymce',
+                    'data-theme' => 'bbcode' // Skip it if you want to use default theme
+                )
+            ))
+            ->add('images', 'collection', array(
+                'type' => new ImageType(),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                )
+            );
     }
 
     /**

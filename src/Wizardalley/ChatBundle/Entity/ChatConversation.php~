@@ -168,4 +168,28 @@ class ChatConversation
     }
 
 
+
+    /**
+     * Set lastMessage
+     *
+     * @param \DateTime $lastMessage
+     * @return ChatConversation
+     */
+    public function setLastMessage($lastMessage)
+    {
+        $this->lastMessage = $lastMessage;
+
+        return $this;
+    }
+
+    /**
+     * Get lastMessage
+     *
+     * @return \DateTime 
+     */
+    public function getLastMessage()
+    {
+        return $this->lastMessage;
+    }
+    
 }

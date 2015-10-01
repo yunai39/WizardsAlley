@@ -51,7 +51,7 @@ class PublicationRepository extends EntityRepository
                 left join page p on p.id = pu.page_id
             where
                 p.id = ? 
-                order by pu.datePublication
+                order by pu.datePublication desc
                 limit {$firstResult},{$limit}
                 ";
         $conn = $this->getEntityManager()->getConnection();

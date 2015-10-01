@@ -83,7 +83,6 @@ class Page
     
     public function __construct()
     {
-        parent::__construct();
         $this->publications = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -373,7 +372,7 @@ class Page
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
-    protected function getUploadDir() {
+    public function getUploadDir() {
         // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
         // le document/image dans la vue.
         return 'uploads/page/' . $this->id ;

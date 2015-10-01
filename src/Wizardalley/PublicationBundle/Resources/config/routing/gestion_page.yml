@@ -1,3 +1,10 @@
+page_gestion_new:
+    path:     /user/page/new
+    defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:new" }
+
+page_gestion_create:
+    path:     /user/page/create
+    defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:create" }
 
 page_gestion_show:
     path:     /page/gestion/show/{id_page}

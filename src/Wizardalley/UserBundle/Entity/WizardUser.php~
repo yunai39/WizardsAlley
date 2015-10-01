@@ -114,6 +114,9 @@ class WizardUser extends BaseUser {
     */
     private $publications;
     
+    public function setId($id){
+        return $this;
+    }
     public function getLastname() {
         return $this->lastname;
     }

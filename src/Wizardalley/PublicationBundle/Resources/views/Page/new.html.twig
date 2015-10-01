@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.min.css')}}">
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.theme.min.css')}}">
+    <link rel="stylesheet" href="{{asset('jquery-ui/jquery-ui.structure.min.css')}}">
+{% endblock %}
+
+{% block body %}
+    <h1>{% trans %}wizard.page.title.create{% endtrans %}</h1>
+    {{ tinymce_init() }}
+
+
+    {{ form(form) }}
+    
+    
+{% endblock %}

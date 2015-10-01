@@ -11,6 +11,7 @@ use Wizardalley\PublicationBundle\Form\PublicationType;
 use Wizardalley\PublicationBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Wizardalley\PublicationBundle\Twig\HTMLLimitStripExtension;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Publication controller.
@@ -38,6 +39,7 @@ class PublicationController extends Controller {
             $em = $this->getDoctrine()->getManager();
             $entity->setUser($this->getUser());
             $entity->setDatePublication(new \DateTime('now'));
+            $entity->setPage($page);
             $em->persist($entity);
             $entity->setSmallContent($entity->getContent());
             if ($entity->getImages()) {
@@ -93,7 +95,6 @@ class PublicationController extends Controller {
         
         $entity->setPage($page);
         $form = $this->createCreateForm($entity, $page);
-
         return $this->render('WizardalleyPublicationBundle:Publication:new.html.twig', array(
                     'entity' => $entity,
                     'form' => $form->createView(),
