@@ -4,10 +4,10 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
             <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
             <link rel="stylesheet" href="{{ asset('css/bootstrap.icon-large.min.css') }}">
             <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <style>
@@ -46,9 +46,9 @@
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-inverse">
-
-            <div class="container-fluid">
+        
+    <header>
+        <nav class="navbar navbar-default"><div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
@@ -60,10 +60,10 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="{{path('wizardalley_default_homepage')}}">{% trans %}wizard.menu.link.home{% endtrans %}</a></li>
+                        <li><a {% if app.request.get('_route') == 'wizardalley_default_homepage' %} class="active" {% endif %} href="{{path('wizardalley_default_homepage')}}">{% trans %}wizard.menu.link.home{% endtrans %}</a></li>
                         <li><a href="">{% trans %}wizard.menu.link.discover{% endtrans %}</a></li>
                         <li><a href="">{% trans %}wizard.menu.link.blog{% endtrans %}</a></li>
-                        <li><a href="{{path('wizardalley_default_contact')}}">{% trans %}wizard.menu.link.contact{% endtrans %}</a></li>
+                        <li><a {% if app.request.get('_route') == 'wizardalley_default_contact' %} class="active" {% endif %} href="{{path('wizardalley_default_contact')}}">{% trans %}wizard.menu.link.contact{% endtrans %}</a></li>
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <li><a href="">{% trans %}wizard.menu.link.search{% endtrans %}</a></li>
                             {% endif %}
@@ -100,6 +100,7 @@
                 </div>
             </div>
         </nav>
+    </header>
                       
                           
         <div class="row" >

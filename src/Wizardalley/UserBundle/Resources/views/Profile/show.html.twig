@@ -150,7 +150,13 @@
             });
         }
         
+        
+        function loadMorePageEditor() {
+            $result = util.loadMore(Routing.generate('page_user_editor_get', {'page': $pageCreated}), 'GET', 'addPageEditor');
+            $pageEditor = $pageEditor + 1;
+        };
         function addPageEditor(data) {
+            console.log(data);
             $.each(data['data'], function(index,item){
                 $prototype = $('#div_page_editor').attr('prototype');
                 $div = $prototype.replace('__id__', item.p_id);
@@ -163,10 +169,5 @@
                 $('#div_page_editor').append($div);
             });
         }
-        
-        function loadMorePageEditor() {
-            $result = util.loadMore(Routing.generate('page_user_editor_get', {'page': $pageCreated}), 'GET', 'addPageCreated');
-            $pageEditor = $pageEditor + 1;
-        };
     </script>
 {% endblock %}

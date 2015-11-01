@@ -81,6 +81,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
         $em = $this->getDoctrine()->getManager();
         $repo = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Page');
         $pages = $repo->findPageEditorUser($this->getUser(),$page, self::LIMIT_PER_PAGE);
+        var_dump($pages);
         return $this->sendJsonResponse('success',$pages);
     }
 

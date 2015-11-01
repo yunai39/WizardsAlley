@@ -79,10 +79,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
         $user = $this->getUser();
         $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
         $friends = $repo->findFriends($user, $page, $numberDisplay);
-        return $this->sendJsonResponse('success', [
-            'no_message' => true,
-            'friends' => $friends
-        ]);
+        return $this->sendJsonResponse('success', $friends);
     }
     
 
@@ -139,10 +136,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
     public function searchUserJsonAction($search){
         
         $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
-        return $this->sendJsonResponse('success', [
-            'no_message' => true,
-            'users' => $repo->searchUser($search)
-        ]);
+        return $this->sendJsonResponse('success', $repo->searchUser($search));
         
     }
 }
