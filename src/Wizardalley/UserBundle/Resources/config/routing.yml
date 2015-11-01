@@ -18,7 +18,8 @@ wizardalley_user_wall:
 wizardalley_user_wall_publication:
     path:   /wall/publication/{page}
     defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationUser, page: 1 }
-
+    options:
+        expose: true
 
 login_check:
     pattern:   /login_check
@@ -34,6 +35,9 @@ wizard_add_as_a_friend:
 wizard_get_friends_json:
     path:   /user/getFriendsJson/{page}
     defaults: { _controller: WizardalleyUserBundle:Default:friendList, page: 1 }
+    options:
+        expose: true
+
 
 wizard_get_friends_view:
     path:   /user/getFriendsView
@@ -43,6 +47,9 @@ wizard_get_friends_view:
 wizard_get_publication_view:
     path:   /user/getPublication/{page}
     defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationPage, page: 1 }
+    options:
+        expose: true
+
 
 wizard_search_user_json:
     path:   /search/user/{search}

@@ -39,9 +39,15 @@
                 <div class="col-md-12" >
                     <span class="icon-large icon  icon-heart"></span>  {% trans %} wizard.page.followers {% endtrans %} {{page.followers | length}}
                 </div>
-                <div class="col-md-12" >
-                    <a href=""><span class="icon-large icon icon-user"></span> {% trans %} page.invite_friend {% endtrans %}</a>
-                </div>
+                    {% if app.user %}
+                    <div class="col-md-12" >
+                        {% if page in app.user.getPageFollowedEntity %}
+                        <a href=""><span class="icon-large icon icon-user"></span> {% trans %} page.invite_friend {% endtrans %}</a>
+                        {% else %}
+                        <a href="javascript:util.likePage({{page.id}})"><span class="icon-large icon icon-user"></span> {% trans %} page.like {% endtrans %}</a>
+                        {% endif %}
+                    </div>
+                    {% endif %}
                 <div class="row" >
                     <div class="col-md-12">
                         <h3>{% trans %} wizard.page.followers {% endtrans %}</h3>
@@ -102,31 +108,29 @@
             </div>
         </div>
 
-
         {% endblock %}
 
 
 {% block javascripts %}
     {{parent()}}
     <script>
-        $page = 1;
+        
+        
+        _$page = 1;
         loadMore();
-        $('#loadMorePublication').on('click', function() {
+        $('#loadMorePublication').on('click', function(){
             loadMore();
         });
-
-        function loadMore() {
-            $.ajax({
-                url: '{{path('page_publication_get', {'id': page.id})}}/' + $page, // Le nom du fichier indiqué dans le formulaire
-                type: 'GET', // La méthode indiquée dans le formulaire (get ou post)
-                success: function(html) { // Je récupère la réponse du fichier PHP
-                    $('#my_publication').append(html);
-                }
-            });
-            $page = $page + 1;
+        
+        function loadMore(){
+            $result = util.loadMore(Routing.generate('page_publication_get', {'id': {{page.id}} , 'page': _$page}), 'GET', 'addPublication');
+            _$page = _$page+1;
+        };
+        
+        function addPublication($data){
+            $('#my_publication').append($data['extra']['html']);
         }
-        ;
-
+        
 
     </script>
 {% endblock %}

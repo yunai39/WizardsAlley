@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * Publication controller.
  *
  */
-class PublicationController extends Controller {
+class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseController {
 
     /**
      * Creates a new Publication entity.
@@ -305,7 +305,11 @@ class PublicationController extends Controller {
     public function getCommentAction(Request $request, $id, $page) {
         $limit = 2;
         $em = $this->getDoctrine()->getManager();
-        return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:CommentPublication')->findCommentsPublication($id, $page, $limit));
+        return $this->sendJsonResponse(
+                'success', 
+                null, 200, 
+    ['data'=> $em->getRepository('WizardalleyPublicationBundle:CommentPublication')->findCommentsPublication($id, $page, $limit)
+            ]);
     }
 
     /**
@@ -322,7 +326,10 @@ class PublicationController extends Controller {
     public function getPublicationAction(Request $request, $id, $page) {
         $limit = 2;
         $em = $this->getDoctrine()->getManager();
-        return new JsonResponse($em->getRepository('WizardalleyPublicationBundle:Publication')->findPublications($id, $page, $limit));
+        return $this->sendJsonResponse('success', [
+            'no_message' => true,
+            'data' => $em->getRepository('WizardalleyPublicationBundle:Publication')->findPublications($id, $page, $limit)
+            ]);
     }
     
     private function notFoundEntity($entity){

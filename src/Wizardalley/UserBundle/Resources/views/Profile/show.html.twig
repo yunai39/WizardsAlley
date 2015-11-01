@@ -2,6 +2,7 @@
 
 
 {% block fos_user_content %}
+    <img src="{{ '/upload/page/1/couverture.png' | imagine_filter('my_thumb') }}" />
     <H1>{{ user.username }}</h1>
     <div class="row" >
         <div class="col-md-3">
@@ -90,91 +91,81 @@
         loadMorePageEditor();
 
         function loadMorePageFollowed() {
-            $.ajax({
-                url: '{{path('page_user_followed_get')}}/' + $pagePageFollowed, // Le nom du fichier indiqué dans le formulaire
-                type: 'GET', // La méthode indiquée dans le formulaire (get ou post)
-                success: function(json) { // Je récupère la réponse du fichier PHP
-                    array = eval(json);
-                    $.each(array, function(index,item){
-                        $prototype = $('#div_page_followed').attr('prototype');
-                        $div = $prototype.replace('__id__', item.p_id);
-                        if(item.p_pathProfile != null && item.p_pathProfile != ""){
-                            $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
-                        } else {
-                            $div = $div.replace('__picture__', 'default.png');
-                        }
-                        $div = $div.replace('__title__', item.p_name);
-                        $('#div_page_followed').append($div);
-                    });
-                }
-            });
+            $result = util.loadMore(Routing.generate('page_user_followed_get', {'page': $pagePageFollowed}), 'GET', 'addPageFollowed');
             $pagePageFollowed = $pagePageFollowed + 1;
         };
         
-        function loadMoreFriends() {
-            $.ajax({
-                url: '{{path('wizard_get_friends_json')}}/' + $pageFriends, 
-                type: 'GET', 
-                success: function(json) { // Je récupère la réponse du fichier PHP
-                    array = eval(json);
-                    $.each(array, function(index,item){
-                        $prototype = $('#div_friend').attr('prototype');
-                        $div = $prototype.replace('__id__', item.id);
-                        if(item.path_profile != null && item.path_profile != ""){
-                            $div = $div.replace('__picture__', item.id + '/' + item.path_profile);
-                        } else {
-                            $div = $div.replace('__picture__', 'default.png');
-                        }
-                        $div = $div.replace('__title__', item.username);
-                        $('#div_friend').append($div);
-                    });
+        function addPageFollowed(data){
+            $.each(data['data'], function(index,item){
+                $prototype = $('#div_page_followed').attr('prototype');
+                $div = $prototype.replace('__id__', item.p_id);
+                if(item.p_pathProfile != null && item.p_pathProfile != ""){
+                    $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
+                } else {
+                    $div = $div.replace('__picture__', 'default.png');
                 }
+                $div = $div.replace('__title__', item.p_name);
+                $('#div_page_followed').append($div);
             });
+        }
+        
+        function loadMoreFriends() {
+            $result = util.loadMore(Routing.generate('wizard_get_friends_json', {'page': $pageFriends}), 'GET', 'addMoreFriends');
             $pageFriends = $pageFriends + 1;
         };
         
-        function loadMorePageCreated() {
-            $.ajax({
-                url: '{{path('page_user_created_get')}}/' + $pageCreated, 
-                type: 'GET', 
-                success: function(json) { // Je récupère la réponse du fichier PHP
-                    array = eval(json);
-                    $.each(array, function(index,item){
-                        $prototype = $('#div_page_created').attr('prototype');
-                        $div = $prototype.replace('__id__', item.p_id);
-                        if(item.p_pathProfile != null && item.p_pathProfile != ""){
-                            $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
-                        } else {
-                            $div = $div.replace('__picture__', 'default.png');
-                        }
-                        $div = $div.replace('__title__', item.p_name);
-                        $('#div_page_created').append($div);
-                    });
+        
+        
+        function addMoreFriends(data) {
+            $.each(data['data'], function(index,item){
+                $prototype = $('#div_friend').attr('prototype');
+                $div = $prototype.replace('__id__', item.id);
+                if(item.path_profile != null && item.path_profile != ""){
+                    $div = $div.replace('__picture__', item.id + '/' + item.path_profile);
+                } else {
+                    $div = $div.replace('__picture__', 'default.png');
                 }
+                $div = $div.replace('__title__', item.username);
+                $('#div_friend').append($div);
             });
+        }
+        
+        function loadMorePageCreated() {
+            $result = util.loadMore(Routing.generate('page_user_created_get', {'page': $pageCreated}), 'GET', 'addPageCreated');
             $pageCreated = $pageCreated + 1;
         };
         
         
-        function loadMorePageEditor() {
-            $.ajax({
-                url: '{{path('page_user_editor_get')}}/' + $pageEditor, 
-                type: 'GET', 
-                success: function(json) { // Je récupère la réponse du fichier PHP
-                    array = eval(json);
-                    $.each(array, function(index,item){
-                        $prototype = $('#div_page_editor').attr('prototype');
-                        $div = $prototype.replace('__id__', item.p_id);
-                        if(item.p_pathProfile != null && item.p_pathProfile != ""){
-                            $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
-                        } else {
-                            $div = $div.replace('__picture__', 'default.png');
-                        }
-                        $div = $div.replace('__title__', item.p_name);
-                        $('#div_page_editor').append($div);
-                    });
+        function addPageCreated(data){
+            $.each(data['data'], function(index,item){
+                $prototype = $('#div_page_created').attr('prototype');
+                $div = $prototype.replace('__id__', item.p_id);
+                if(item.p_pathProfile != null && item.p_pathProfile != ""){
+                    $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
+                } else {
+                    $div = $div.replace('__picture__', 'default.png');
                 }
+                $div = $div.replace('__title__', item.p_name);
+                $('#div_page_created').append($div);
             });
+        }
+        
+        function addPageEditor(data) {
+            $.each(data['data'], function(index,item){
+                $prototype = $('#div_page_editor').attr('prototype');
+                $div = $prototype.replace('__id__', item.p_id);
+                if(item.p_pathProfile != null && item.p_pathProfile != ""){
+                    $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
+                } else {
+                    $div = $div.replace('__picture__', 'default.png');
+                }
+                $div = $div.replace('__title__', item.p_name);
+                $('#div_page_editor').append($div);
+            });
+        }
+        
+        function loadMorePageEditor() {
+            $result = util.loadMore(Routing.generate('page_user_editor_get', {'page': $pageCreated}), 'GET', 'addPageCreated');
             $pageEditor = $pageEditor + 1;
         };
     </script>

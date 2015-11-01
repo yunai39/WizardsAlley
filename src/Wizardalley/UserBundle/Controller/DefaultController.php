@@ -9,7 +9,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class DefaultController extends Controller {
+class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseController {
 
     /**
      * userWallAction
@@ -79,7 +79,10 @@ class DefaultController extends Controller {
         $user = $this->getUser();
         $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
         $friends = $repo->findFriends($user, $page, $numberDisplay);
-        return new JsonResponse($friends);
+        return $this->sendJsonResponse('success', [
+            'no_message' => true,
+            'friends' => $friends
+        ]);
     }
     
 
@@ -110,9 +113,12 @@ class DefaultController extends Controller {
         $offset = ($page - 1)* $limit;
         $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
         $publications = $repo->findPublicationUser($this->getUser(),$offset, $limit);
-        return $this->render('WizardalleyUserBundle:Default:publication.html.twig', array(
-            'publications' => $publications,
-        ));   
+        return $this->sendJsonResponse('success', null, 200, [
+            'html' => $this->renderView('WizardalleyUserBundle:Default:publication.html.twig', array(
+                'publications' => $publications,
+            )
+        )
+    ]);   
     }
     
     
@@ -122,15 +128,21 @@ class DefaultController extends Controller {
         $offset = ($page - 1)* $limit;
         $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
         $publications = $repo->findPublication($this->getUser(),$offset, $limit);
-        return $this->render('WizardalleyUserBundle:Default:publication.html.twig', array(
-            'publications' => $publications,
-        ));   
+        return $this->sendJsonResponse('success',null,200, [
+            'html' => $this->renderView('WizardalleyUserBundle:Default:publication.html.twig', array(
+                'publications' => $publications,
+                )
+            )
+        ]);   
     }
     
     public function searchUserJsonAction($search){
         
         $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
-        return new JsonResponse($repo->searchUser($search));
+        return $this->sendJsonResponse('success', [
+            'no_message' => true,
+            'users' => $repo->searchUser($search)
+        ]);
         
     }
 }

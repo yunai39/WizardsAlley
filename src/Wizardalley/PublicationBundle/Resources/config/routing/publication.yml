@@ -6,6 +6,8 @@ comment_add:
 comment_get:
     path:     /comment/get/{id}/{page}
     defaults: { _controller: "WizardalleyPublicationBundle:Publication:getComment", page: 1 }
+    options:
+        expose: true
 
 publication_get:
     path:     /publication/get/{id}/{page}

@@ -22,6 +22,8 @@ class AppKernel extends Kernel {
             new Wizardalley\ChatBundle\WizardalleyChatBundle(),
             new Wizardalley\PublicationBundle\WizardalleyPublicationBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
+            new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

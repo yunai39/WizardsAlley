@@ -197,6 +197,13 @@ class WizardUser extends BaseUser {
         return 'uploads/profile/' . $this->id ;
     }
 
+    public function getPageFollowedEntity() {
+        $collection = [];
+        foreach( $this->getPagesFollowed() as $p ) {
+            $collection[] = $p->getPage();
+        }
+        return $collection;
+    }
     /**
      * @Assert\File(maxSize="6000000")
      */

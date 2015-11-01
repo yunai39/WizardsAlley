@@ -16,10 +16,7 @@ use Wizardalley\PublicationBundle\Form\SmallPublicationType;
  *
  * @Route("/user/smallPublication")
  */
-class SmallPublicationController extends Controller
-{
-
-
+class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\BaseController{
     /**
      * Creates a new SmallPublication entity.
      *
@@ -37,11 +34,9 @@ class SmallPublicationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-
-            return new JsonResponse('true');
+            return $this->sendJsonResponse('success', ['message' => 'wizard.smallPublication.add.success']);
         }
-
-        return new JsonResponse('false');
+        return $this->sendJsonResponse('error', ['message' => 'wizard.smallPublication.add.error'], 500);
     }
 
     /**

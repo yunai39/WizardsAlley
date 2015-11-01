@@ -68,7 +68,7 @@
         <div id="comment_content">
 
         </div>
-        <button onclick="nextComment()">Plus de commentaires</button>
+        <button onclick="loadMore()">Plus de commentaires</button>
         
     {% if app.user %}
         <div>
@@ -81,18 +81,21 @@
 {% block javascripts %}
     {{parent()}}
     <script>
-    var page = 0;
-    function nextComment(){
-        page += 1;
-        $.ajax({
-            url: "{{path('comment_get',{id: entity.id})}}"+'/'+page,
-            success: function(msg){
-                
-                console.log(msg);
-                $.each(msg,function(index, value){
-                    addComment(value);
-                });
-            }
+    _$page = 1;
+    loadMore();
+    $('#loadMorePublication').on('click', function(){
+        loadMore();
+    });
+
+    function loadMore(){
+        $result = util.loadMore(Routing.generate('comment_get', {'id': {{entity.id}}, 'page': _$page}), 'GET', 'loadComment');
+        _$page = _$page+1;
+    };
+        
+    function loadComment(data){
+        console.log(data);
+        $.each(data['extra']['data'],function(index, value){
+            addComment(value);
         });
     }
     
@@ -107,7 +110,6 @@
         $div=$('#comment_content');
         $div.append($li);
     }
-    nextComment();
     
     $('.carousel').carousel({
         interval: 3000

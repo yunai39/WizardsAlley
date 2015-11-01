@@ -7,6 +7,7 @@
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
             <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
             <link rel="stylesheet" href="{{ asset('css/bootstrap.icon-large.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <style>
@@ -100,7 +101,7 @@
             </div>
         </nav>
                       
-                            
+                          
         <div class="row" >
             <div class="col-md-2"></div>
             <div class="col-md-8">
@@ -151,8 +152,12 @@
         </div>
     </nav>
     {% block javascripts %}
+        <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
         <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script> 
         <script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script> 
+        <script type="text/javascript" src="{{asset('js/toastr.min.js')}}"></script> 
+        <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
     {% endblock %}
 </body>
 </html>
