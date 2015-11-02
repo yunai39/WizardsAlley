@@ -46,112 +46,112 @@
         </style>
     </head>
     <body>
-        
-    <header>
-        <nav class="navbar navbar-default"><div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Wizard Alley</a>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a {% if app.request.get('_route') == 'wizardalley_default_homepage' %} class="active" {% endif %} href="{{path('wizardalley_default_homepage')}}">{% trans %}wizard.menu.link.home{% endtrans %}</a></li>
-                        <li><a href="">{% trans %}wizard.menu.link.discover{% endtrans %}</a></li>
-                        <li><a href="">{% trans %}wizard.menu.link.blog{% endtrans %}</a></li>
-                        <li><a {% if app.request.get('_route') == 'wizardalley_default_contact' %} class="active" {% endif %} href="{{path('wizardalley_default_contact')}}">{% trans %}wizard.menu.link.contact{% endtrans %}</a></li>
-                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li><a href="">{% trans %}wizard.menu.link.search{% endtrans %}</a></li>
-                            {% endif %}
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if app.user %}
-                            <li><a href="{{ path('logout') }}">
-                                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                                </a>
-                            </li>
-                            <li class="dropdown">
-                                <a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                    <div style="width:1em;display:inline-block;">
-                                        <div class="imgSquare">
-                                            <div class="imgSquareContainer" >
-                                                <img src="{{asset(app.user.getPictureProfile())}}" />
+        <div class="full-container">
+            <header>
+                <nav class="navbar navbar-default"><div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="#">Wizard Alley</a>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li><a {% if app.request.get('_route') == 'wizardalley_default_homepage' %} class="active" {% endif %} href="{{path('wizardalley_default_homepage')}}">{% trans %}wizard.menu.link.home{% endtrans %}</a></li>
+                                <li><a href="">{% trans %}wizard.menu.link.discover{% endtrans %}</a></li>
+                                <li><a href="">{% trans %}wizard.menu.link.blog{% endtrans %}</a></li>
+                                <li><a {% if app.request.get('_route') == 'wizardalley_default_contact' %} class="active" {% endif %} href="{{path('wizardalley_default_contact')}}">{% trans %}wizard.menu.link.contact{% endtrans %}</a></li>
+                                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                    <li><a href="">{% trans %}wizard.menu.link.search{% endtrans %}</a></li>
+                                    {% endif %}
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">
+                                {% if app.user %}
+                                    <li><a href="{{ path('logout') }}">
+                                            {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                        </a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <div style="width:1em;display:inline-block;">
+                                                <div class="imgSquare">
+                                                    <div class="imgSquareContainer" >
+                                                        <img src="{{asset(app.user.getPictureProfile())}}" />
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{ path('fos_user_profile_show') }}">{{  app.user.username }}</a></li>
-                                    <li><a href="{{ path('wizardalley_user_wall',{id: app.user.id}) }}">{% trans %}wizard.menu.link.wall{% endtrans %}</a></li>
-                                    <li><a href="">{% trans %}wizard.menu.link.message{% endtrans %}</a></li>
-                                    <li><a href="">{% trans %}wizard.menu.link.notification{% endtrans %}</a></li>
+                                            <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="{{ path('fos_user_profile_show') }}">{{  app.user.username }}</a></li>
+                                            <li><a href="{{ path('wizardalley_user_wall',{id: app.user.id}) }}">{% trans %}wizard.menu.link.wall{% endtrans %}</a></li>
+                                            <li><a href="">{% trans %}wizard.menu.link.message{% endtrans %}</a></li>
+                                            <li><a href="">{% trans %}wizard.menu.link.notification{% endtrans %}</a></li>
+                                        </ul>
+                                    </li>
+                                {% else %}
+                                    <li><a href="{{ path('wizardalley_user_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                                    <li><a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
+                                    {% endif %}
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+
+                <div class="row" >
+                    <div class="col-md-2"></div>
+                    <div class="col-md-8">
+                        {% if app.session.flashbag.has('error') %}
+                            <div class="alert alert-danger ">
+                                <ul>
+                                {% for error in app.session.flashbag.get('error') %}
+                                    <li>{{error | trans}}</li>
+                                {% endfor %}
                                 </ul>
-                            </li>
-                        {% else %}
-                            <li><a href="{{ path('wizardalley_user_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
-                            <li><a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a></li>
-                            {% endif %}
+                            </div>
+                        {% endif %}
+                        {% if app.session.flashbag.has('success') %}
+                            <div class="alert alert-success">
+                                <ul>
+                                {% for success in app.session.flashbag.get('success') %}
+                                    <li>{{success | trans}}</li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        {% if app.session.flashbag.has('notice') %}
+                            <div class="alert alert-info">
+                                <ul>
+                                {% for notice in app.session.flashbag.get('notice') %}
+                                    <li>{$notice | trans}}</li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-2"></div>
+                </div>      
+                <div class="container" >
+                    <div class="row"></div>
+                    {% block body %}{% endblock %}
+                    </div>
+            <nav class="navbar navbar-inverse nav-footer ">
+                <div class="container">
+
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{path('wizardalley_default_mention')}}">{% trans %}wizard.menu.link.mention_legal{% endtrans %}</a></li>
+                        <li><a href="{{path('wizardalley_default_confidentiality')}}">{% trans %}wizard.menu.link.confidentiality{% endtrans %}</a></li>
+                        <li><a href="{{path('wizardalley_default_copyright')}}">{% trans %}wizard.menu.link.copyright{% endtrans %}</a></li>
 
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </header>
-                      
-                          
-        <div class="row" >
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                {% if app.session.flashbag.has('error') %}
-                    <div class="alert alert-danger ">
-                        <ul>
-                        {% for error in app.session.flashbag.get('error') %}
-                            <li>{{error | trans}}</li>
-                        {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-                {% if app.session.flashbag.has('success') %}
-                    <div class="alert alert-success">
-                        <ul>
-                        {% for success in app.session.flashbag.get('success') %}
-                            <li>{{success | trans}}</li>
-                        {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-                {% if app.session.flashbag.has('notice') %}
-                    <div class="alert alert-info">
-                        <ul>
-                        {% for notice in app.session.flashbag.get('notice') %}
-                            <li>{$notice | trans}}</li>
-                        {% endfor %}
-                        </ul>
-                    </div>
-                {% endif %}
-            </div>
-            <div class="col-md-2"></div>
-        </div>      
-        <div class="container" >
-            <div class="row"></div>
-            {% block body %}{% endblock %}
-            </div>
+            </nav>
         </div>
-    <nav class="navbar navbar-inverse ">
-        <div class="container">
-
-            <ul class="nav navbar-nav">
-                <li><a href="{{path('wizardalley_default_mention')}}">{% trans %}wizard.menu.link.mention_legal{% endtrans %}</a></li>
-                <li><a href="{{path('wizardalley_default_confidentiality')}}">{% trans %}wizard.menu.link.confidentiality{% endtrans %}</a></li>
-                <li><a href="{{path('wizardalley_default_copyright')}}">{% trans %}wizard.menu.link.copyright{% endtrans %}</a></li>
-
-            </ul>
-        </div>
-    </nav>
     {% block javascripts %}
         <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>

@@ -21,6 +21,15 @@ box-shadow:  12px 12px 10px 10px rgb(128,128,128);
 
 }
 
+.nav-footer{
+    margin-bottom: 0;
+}
+
+.full-container{
+    margin:0;
+    padding:0;
+    width:100%;
+}
 
 .navbar-nav .nav li{
   height:50px;
@@ -105,4 +114,10 @@ header {
 
 .navbar-default {
     border: none;
+}
+
+.comment_content{
+    margin: 10px 5%;
+    padding: 2%;
+    width:90%;
 }

@@ -1,23 +1,67 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>SmallPublication</h1>
+ <div class="publication">
+            <div class="row ">
+                <div class="col-md-2">
 
-    <table class="record_properties">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ entity.id }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ entity.content }}</td>
-            </tr>
-            <tr>
-                <th>Datepublication</th>
-                <td>{{ entity.datePublication|date('Y-m-d H:i:s') }}</td>
-            </tr>
-        </tbody>
-    </table>
+                    <div class="imgSquare">
+                        <div class="imgSquareContainer" >
+                            <img  src="{{asset(entity.user.getPictureProfile )}}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <h3>Par 
+                            <a href="{{path('wizardalley_user_wall', {'id': entity.user.id})}}" >{{entity.user.username}}</a>
+                        , le {{entity.datePublication | date('Y-m-d')}} à {{entity.datePublication | date('H:i:s')}}
+                    </h3>
+                </div>
+            </div>
+                    <br/>
+            <div class="row">
+                <div class="col-md-1 "></div>
+                <div class="col-md-10">
+                    <p>{{entity.content | raw}}</p>
+                </div>
+                <div class="col-md-1 "></div>
+            </div>
+                   
+            <div class="row">
+                <div class="col-md-1 "></div>
+                <div class="col-md-10 ">
+                    <div class="col-md-12 ">
+                        <hr/>
+                        <h4>Commentaires</h4>
+                        <hr/>
+                    </div>
+                    {% for comment in entity.comments %}
+                    <div class="col-md-12 comment_content">
+                        <div class="col-md-2">
+
+                            <div class="imgSquare">
+                                <div class="imgSquareContainer" >
+                                    <img  src="{{asset(entity.user.getPictureProfile )}}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-10">
+                            <div class="col-md-12">
+                                <h5>Par 
+                                        <a href="{{path('wizardalley_user_wall', {'id': comment.user.id})}}" >{{comment.user.username}}</a>
+                                    , le {{comment.dateComment | date('Y-m-d')}} à {{comment.dateComment | date('H:i:s')}}
+                                </h5>
+                            </div>
+                            <div class="col-md-12">
+                                <p>{{comment.content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-1 "></div>
+            </div>
+                
+        </div>   
 
 {% endblock %}

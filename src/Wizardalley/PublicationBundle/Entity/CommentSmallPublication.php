@@ -40,6 +40,11 @@ class CommentSmallPublication
     */
     private $publication;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+    */
+    private $user;
 
     /**
      * Get id
@@ -118,5 +123,28 @@ class CommentSmallPublication
     public function getPublication()
     {
         return $this->publication;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @return CommentSmallPublication
+     */
+    public function setUser(\Wizardalley\UserBundle\Entity\WizardUser $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Wizardalley\UserBundle\Entity\WizardUser 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

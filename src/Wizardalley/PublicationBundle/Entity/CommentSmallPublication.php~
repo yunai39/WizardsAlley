@@ -40,6 +40,11 @@ class CommentSmallPublication
     */
     private $publication;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+    */
+    private $user;
 
     /**
      * Get id
