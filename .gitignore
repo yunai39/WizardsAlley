@@ -2,5 +2,8 @@
 *parameters.yml
 vendor/
 nbproject/
+web/uploads/
+web/bundle/
+web/uploads/*
 app/cache/
 app/logs/

@@ -1,3 +1,9 @@
+
+wizardalley_search_display:
+    path:     /search
+    defaults: { _controller: WizardalleyDefaultBundle:Search:searchDisplay }
+    
+
 wizardalley_default_homepage:
     path:     /user/home
     defaults: { _controller: WizardalleyDefaultBundle:Default:index }
