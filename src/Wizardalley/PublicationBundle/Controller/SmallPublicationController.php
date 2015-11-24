@@ -36,7 +36,12 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             $em->flush();
             return $this->sendJsonResponse('success', ['message' => 'wizard.smallPublication.add.success']);
         }
-        return $this->sendJsonResponse('error', ['message' => 'wizard.smallPublication.add.error'], 500);
+        
+        return $this->sendJsonResponse('error', 
+            [
+                'message' => 'wizard.smallPublication.add.error',
+                'error'     => $form->getErrors()
+                ], 500);
     }
 
     /**

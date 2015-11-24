@@ -14,6 +14,6 @@ class SearchController extends BaseController
             'method' => 'POST',
         ));
         $form->add('submit', 'submit', array('label' => 'Create'));
-       return $this->render('WizardalleyDefaultBundle:Default:search.html.twig', [ 'form' => $form->createView() ]);
+        return $this->render('WizardalleyDefaultBundle:Default:search.html.twig', [ 'form' => $form->createView() ]);
     }
 }

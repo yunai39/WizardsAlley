@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-optionsSuccess = {
+optionsToastr = {
   "closeButton": false,
   "debug": false,
   "newestOnTop": false,
@@ -21,6 +21,8 @@ optionsSuccess = {
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 };
+
+
 
 var util = (function(){
     return {
@@ -46,18 +48,27 @@ var util = (function(){
                     util.handleErrorResponse(jqXHR, textStatus, errorThrown);
                 },
                 success: function(data, textStatus, jqXHR){
-                    if (typeof data['message'] != 'undefined') {
-                        util.handleSuccesResponse(data, textStatus, jqXHR);
+                    if (typeof data['data'] != 'undefined' && data['data']) {
+                        if (typeof data['data']['message'] != 'undefined') {
+                            util.handleSuccesResponse(data, textStatus, jqXHR);
+                        }
                     }
                     window[_success_function](data);
                 }
             });
         },
         "handleSuccesResponse": function(data, textStatus, jqXHR) {
-                toastr.option = optionsSuccess;
+                toastr.option = optionsToastr;
                 toastr.success(data['data']['message']);
         },
         "handleErrorResponse": function(jqXHR, textStatus, errorThrown) {
+            data = JSON.parse(jqXHR.responseText);
+            if (typeof data['data'] != 'undefined' && data['data']) {
+                if (typeof data['data']['message'] != 'undefined') {
+                    toastr.option = optionsToastr;
+                    toastr.error(data['data']['message']);
+                }
+            }
         },
     }
 })();

@@ -57,6 +57,7 @@
         $('#wizardalley_publicationbundle_add_small_publication').on('submit', function(e){
             e.preventDefault();
             result = util.ajaxHandle($(this).attr('method'),$(this).serialize(), $(this).attr('action') );
+            $('#wizardalley_publicationbundle_add_small_publication textarea').val('');
         });
         
         
