@@ -3,4 +3,36 @@
 {% block body %}
     <h2>Recherche</h2>
     <div class="col-md-12">{{form(form)}}</div>
+    <div class="col-md-12" id="wizard_search_result">
+        
+    </div>
+{% endblock %}
+
+
+
+{% block javascripts %}
+        {{parent()}}
+        <script>
+            var field = null;
+            var researchType = null;
+            _$page = 1;
+            $('form').submit(function(event){
+               event.preventDefault();
+                _$page = 1;
+               field = $('#wizard_search_form_field').val();
+               researchType = $('#wizard_search_form_searchType').val();
+               loadMore();
+            });
+            
+            
+        function loadMore(){
+            $result = util.loadMore(Routing.generate('wizardalley_search_'+researchType, {'field':field , 'page': _$page}), 'GET', 'addResultSearch');
+            _$page = _$page+1;
+        }
+        function addResultSearch($data){
+            console.log($data);
+            $('#wizard_search_result').append($data['extra']['html']);
+        }
+        </script>
+        
 {% endblock %}

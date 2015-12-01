@@ -31,6 +31,25 @@ class PublicationRepository extends EntityRepository
       
     }
     
+    public function findPublicationLike($like, $page=1, $limit =4){
+        $firstResult = ($page - 1)*$limit;
+        
+        $qb = $this->_em->createQueryBuilder()
+            ->select('p')
+            ->from($this->_entityName, 'p');
+        $query = $qb
+                    ->where('p.title LIKE :like')
+                    ->orderBy('p.title','DESC')
+                    ->setFirstResult($firstResult)
+                    ->setMaxResults($limit)
+                    ->setParameter(':like', '%'.$like.'%')
+                    ->getQuery();
+        
+        $result = $query->getArrayResult();
+        return $result;
+        
+    }
+    
     public function findPublicationsPage( $id_page, $page = 1, $limit = 4){
         
 

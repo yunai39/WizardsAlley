@@ -4,6 +4,25 @@ wizardalley_search_display:
     defaults: { _controller: WizardalleyDefaultBundle:Search:searchDisplay }
     
 
+wizardalley_search_user:
+    path:     /searchUser/{field}/{page}
+    defaults: { _controller: WizardalleyDefaultBundle:Search:searchUser, page: 1 }
+    options:
+        expose: true
+
+wizardalley_search_page:
+    path:     /searchPage/{field}/{page}
+    defaults: { _controller: WizardalleyDefaultBundle:Search:searchPage, page: 1 }
+    options:
+        expose: true
+
+wizardalley_search_publication:
+    path:     /searchPublication/{field}/{page}
+    defaults: { _controller: WizardalleyDefaultBundle:Search:searchPublication, page: 1 }    
+    options:
+        expose: true
+    
+
 wizardalley_default_homepage:
     path:     /user/home
     defaults: { _controller: WizardalleyDefaultBundle:Default:index }

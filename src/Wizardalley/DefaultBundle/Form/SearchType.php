@@ -15,10 +15,15 @@ class SearchType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('friend', 'checkbox',array('label' => 'wizard.search.label.friend'))
-                ->add('page', 'checkbox',array('label' => 'wizard.search.label.page'))
-                ->add('publication', 'checkbox',array('label' => 'wizard.search.label.publication'))
-                ->add('field', 'text',array('label' => 'wizard.search.label.field'))
+                ->add('searchType', 'choice', [
+                    'label' => 'wizard.search.type.label',
+                    'choices' => [
+                        'friend' => 'wizard.search.label.friend',
+                        'page' => 'wizard.search.label.page',
+                        'publication' => 'wizard.search.label.publication',
+                    ]
+                ])
+                ->add('field', 'text',['label' => 'wizard.search.label.field'])
         ;
     }
     
