@@ -152,7 +152,7 @@
         
         
         function loadMorePageEditor() {
-            $result = util.loadMore(Routing.generate('page_user_editor_get', {'page': $pageCreated}), 'GET', 'addPageEditor');
+            $result = util.loadMore(Routing.generate('page_user_editor_get', {'page': $pageEditor}), 'GET', 'addPageEditor');
             $pageEditor = $pageEditor + 1;
         };
         function addPageEditor(data) {

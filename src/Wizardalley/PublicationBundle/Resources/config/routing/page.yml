@@ -16,7 +16,7 @@ page_publication_get:
         expose: true
 
 page_user_created_get:
-    path:     /user/page/followed/{page}
+    path:     /user/page/created/{page}
     defaults: { _controller: "WizardalleyPublicationBundle:Page:getPageCreated", page: 1 }
     options:
         expose: true
