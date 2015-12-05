@@ -71,4 +71,23 @@ class PageRepository extends EntityRepository
         
     }
     
+    
+    public function findPagesLike($like, $page=1, $limit =4){
+        $firstResult = ($page - 1)*$limit;
+        
+        $qb = $this->_em->createQueryBuilder()
+            ->select('p')
+            ->from($this->_entityName, 'p');
+        $query = $qb
+                    ->where('p.name LIKE :like')
+                    ->orderBy('p.name','DESC')
+                    ->setFirstResult($firstResult)
+                    ->setMaxResults($limit)
+                    ->setParameter(':like', '%'.$like.'%')
+                    ->getQuery();
+        
+        $result = $query->getResult();
+        return $result;
+    }
+    
 }

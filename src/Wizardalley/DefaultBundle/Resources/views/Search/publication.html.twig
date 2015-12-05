@@ -1,5 +1,14 @@
 {% for publication in publications %}
-    <div>
-        <p>{{ publication.title }}</p>
+    <div class="col-md-6 search-publication-container">
+        <div class="col-md-2" >
+            <div class="imgSquare">
+                <div class="imgSquareContainer" >
+                    <img src="{{ asset( '/uploads/publications/' ~ publication.images.0.path) }}" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <a href="{{ path('publication_show' , {'id': publication.id})}}">{{ publication.title }}</a>
+        </div>
     </div>
 {% endfor %}

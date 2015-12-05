@@ -18,7 +18,7 @@ class SearchType extends AbstractType
                 ->add('searchType', 'choice', [
                     'label' => 'wizard.search.type.label',
                     'choices' => [
-                        'friend' => 'wizard.search.label.friend',
+                        'user' => 'wizard.search.label.user',
                         'page' => 'wizard.search.label.page',
                         'publication' => 'wizard.search.label.publication',
                     ]

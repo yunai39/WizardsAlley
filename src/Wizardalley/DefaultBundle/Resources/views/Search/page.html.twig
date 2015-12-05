@@ -1,0 +1,14 @@
+{% for page in pages %}
+    <div class="col-md-6 search-pages-container">
+        <div class="col-md-2" >
+            <div class="imgSquare">
+                <div class="imgSquareContainer" >
+                    <img src="{{ asset( page.getPictureProfile() ) }}" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <a href="{{ path('page_show' , {'page_id': page.id})}}">{{ page.name }}</a>
+        </div>
+    </div>
+{% endfor %}

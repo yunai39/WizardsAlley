@@ -10,40 +10,6 @@
             <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <style>
-            .imgSquare{
-                position: relative;
-                width:100%;
-            }
-            .imgSquare  .imgSquareContainer{
-                position: relative;
-                width: 90%;
-                margin:5%;
-                padding-bottom: 100%; 
-                background-color: white;
-                box-shadow: 1px 1px 12px #555;
-            }
-            .imgSquare  .imgSquareContainer img {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                overflow: hidden; 
-            }
-            
-            .imgSquareContainer .imgTitre{
-                padding:2px;
-                position: absolute; 
-                left:0;
-            }
-            .circle{
-                border-radius: 50%;
-                
-            }
-            .squareUser div.imgSquare{
-                width:30%;
-                float:left;
-            }
-        </style>
     </head>
     <body>
         <div class="full-container">
@@ -65,8 +31,9 @@
                                 <li><a href="">{% trans %}wizard.menu.link.blog{% endtrans %}</a></li>
                                 <li><a {% if app.request.get('_route') == 'wizardalley_default_contact' %} class="active" {% endif %} href="{{path('wizardalley_default_contact')}}">{% trans %}wizard.menu.link.contact{% endtrans %}</a></li>
                                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                                    <li><a href="">{% trans %}wizard.menu.link.search{% endtrans %}</a></li>
+                                    <li><a {% if app.request.get('_route') == 'wizardalley_search_display' %} class="active" {% endif %} href="{{path('wizardalley_search_display')}}">{% trans %}wizard.menu.link.search{% endtrans %}</a></li>
                                     {% endif %}
+                                
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
                                 {% if app.user %}

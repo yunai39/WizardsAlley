@@ -7,7 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SearchController extends BaseController
 {
-    
+    /**
+     * 
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return type
+     */
     public function searchDisplayAction(Request $request)
     {
         /* @var $form Form */
@@ -19,14 +23,48 @@ class SearchController extends BaseController
         return $this->render('WizardalleyDefaultBundle:Default:search.html.twig', [ 'form' => $form->createView() ]);
     }
     
+    /**
+     * 
+     * @param type $field
+     * @param type $page
+     * @return type
+     */
     public function searchUserAction($field, $page = 1){
+        $em = $this->getDoctrine()->getManager();
+        $users =  $em->getRepository('WizardalleyUserBundle:WizardUser')
+            ->findUsersLike($field, $page,8);
+        return $this->sendJsonResponse('success', null, 200, [
+                'html' => $this->renderView('WizardalleyDefaultBundle:Search:users.html.twig', array(
+                    'users' => $users,
+                )) ]
+        );
         
     }
     
-    public function searchPageAction($field, $page1 = 1){
+    /**
+     * 
+     * @param type $field
+     * @param type $pageNb
+     * @return type
+     */
+    public function searchPageAction($field, $pageNb = 1){
+        $em = $this->getDoctrine()->getManager();
+        $pages =  $em->getRepository('WizardalleyPublicationBundle:Page')
+            ->findPagesLike($field, $pageNb,8);
+        return $this->sendJsonResponse('success', null, 200, [
+                'html' => $this->renderView('WizardalleyDefaultBundle:Search:page.html.twig', array(
+                    'pages' => $pages,
+                )) ]
+        );
         
     }
     
+    /**
+     * 
+     * @param type $field
+     * @param type $page
+     * @return type
+     */
     public function searchPublicationAction($field, $page = 1) {
         $em = $this->getDoctrine()->getManager();
         $publications =  $em->getRepository('WizardalleyPublicationBundle:Publication')

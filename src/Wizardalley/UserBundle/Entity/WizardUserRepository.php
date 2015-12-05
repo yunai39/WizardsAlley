@@ -97,4 +97,23 @@ class WizardUserRepository extends EntityRepository
         $result = $stmt->execute(array('%'.$search.'%'));
         return $stmt->fetchAll();
     }
+    
+    
+    public function findUsersLike($like, $page=1, $limit =4){
+        $firstResult = ($page - 1)*$limit;
+        
+        $qb = $this->_em->createQueryBuilder()
+            ->select('u')
+            ->from($this->_entityName, 'u');
+        $query = $qb
+                    ->where('u.username LIKE :like')
+                    ->orderBy('u.username','DESC')
+                    ->setFirstResult($firstResult)
+                    ->setMaxResults($limit)
+                    ->setParameter(':like', '%'.$like.'%')
+                    ->getQuery();
+        
+        $result = $query->getResult();
+        return $result;
+    }
 }

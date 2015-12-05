@@ -38,6 +38,8 @@ class PublicationRepository extends EntityRepository
             ->select('p')
             ->from($this->_entityName, 'p');
         $query = $qb
+                    ->addSelect('i')
+                    ->join('p.images', 'i')
                     ->where('p.title LIKE :like')
                     ->orderBy('p.title','DESC')
                     ->setFirstResult($firstResult)
@@ -47,7 +49,6 @@ class PublicationRepository extends EntityRepository
         
         $result = $query->getArrayResult();
         return $result;
-        
     }
     
     public function findPublicationsPage( $id_page, $page = 1, $limit = 4){

@@ -1,0 +1,14 @@
+{% for user in users %}
+    <div class="col-md-6 search-users-container">
+        <div class="col-md-2" >
+            <div class="imgSquare">
+                <div class="imgSquareContainer" >
+                    <img src="{{ asset( user.getPictureProfile() ) }}" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <a href="{{ path('wizardalley_user_wall' , {'id': user.id})}}">{{ user.username }}</a>
+        </div>
+    </div>
+{% endfor %}
