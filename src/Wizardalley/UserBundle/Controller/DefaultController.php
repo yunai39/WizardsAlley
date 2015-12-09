@@ -2,11 +2,7 @@
 
 namespace Wizardalley\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Serializer\Serializer;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseController {
@@ -104,6 +100,11 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
         ));
     }
     
+    /**
+     * 
+     * @param type $page
+     * @return type
+     */
     public function displayPublicationPageAction($page){
         
         $limit = 2;
@@ -118,21 +119,31 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
     ]);   
     }
     
-    
-    public function displayPublicationUserAction($page){
-        
+    /**
+     * 
+     * @param type $page
+     * @return type
+     */
+    public function displayPublicationUserAction($page = 1){
         $limit = 2;
         $offset = ($page - 1)* $limit;
         $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
         $publications = $repo->findPublication($this->getUser(),$offset, $limit);
-        return $this->sendJsonResponse('success',null,200, [
-            'html' => $this->renderView('WizardalleyUserBundle:Default:publication.html.twig', array(
-                'publications' => $publications,
+        return $this->sendJsonResponse('success',null,200, 
+            [
+                'html' => $this->renderView('WizardalleyUserBundle:Default:publication.html.twig', array(
+                    'publications' => $publications,
+                    )
                 )
-            )
-        ]);   
+            ]
+        );  
     }
     
+    /**
+     * 
+     * @param type $search
+     * @return type
+     */
     public function searchUserJsonAction($search){
         
         $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');

@@ -7,10 +7,6 @@ wizardalley_publication:
     resource: "@WizardalleyPublicationBundle/Resources/config/routing.yml"
     prefix:   /
 
-wizardalley_chat:
-    resource: "@WizardalleyChatBundle/Resources/config/routing.yml"
-    prefix:   /
-
 wizardalley_default:
     resource: "@WizardalleyDefaultBundle/Resources/config/routing.yml"
     prefix:   /

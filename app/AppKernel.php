@@ -19,7 +19,6 @@ class AppKernel extends Kernel {
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Wizardalley\UserBundle\WizardalleyUserBundle(),
             new Wizardalley\DefaultBundle\WizardalleyDefaultBundle(),
-            new Wizardalley\ChatBundle\WizardalleyChatBundle(),
             new Wizardalley\PublicationBundle\WizardalleyPublicationBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),

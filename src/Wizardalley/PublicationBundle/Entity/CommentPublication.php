@@ -40,7 +40,7 @@ class CommentPublication
     */
     private $user;
     /**
-     * @ORM\ManyToOne(targetEntity="Publication", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="AbstractPublication", inversedBy="comments")
      * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
     */
     private $publication;
@@ -127,10 +127,10 @@ class CommentPublication
     /**
      * Set publication
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Publication $publication
+     * @param \Wizardalley\PublicationBundle\Entity\AbstractPublication $publication
      * @return CommentPublication
      */
-    public function setPublication(\Wizardalley\PublicationBundle\Entity\Publication $publication = null)
+    public function setPublication(\Wizardalley\PublicationBundle\Entity\AbstractPublication $publication = null)
     {
         $this->publication = $publication;
 
@@ -140,7 +140,7 @@ class CommentPublication
     /**
      * Get publication
      *
-     * @return \Wizardalley\PublicationBundle\Entity\Publication 
+     * @return \Wizardalley\PublicationBundle\Entity\AbstractPublication 
      */
     public function getPublication()
     {

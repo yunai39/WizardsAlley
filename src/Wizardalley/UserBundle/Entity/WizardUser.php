@@ -67,12 +67,6 @@ class WizardUser extends BaseUser {
     public $pathCouverture;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Wizardalley\ChatBundle\Entity\ChatConversation", mappedBy="users")
-    */
-    private $conversations;
-    
-    
-    /**
      * @ORM\ManyToMany(targetEntity="WizardUser", mappedBy="myFriends")
      **/
     private $friendsWithMe;
@@ -303,38 +297,6 @@ class WizardUser extends BaseUser {
         return $this->pathCouverture;
     }
 
-    /**
-     * Add conversations
-     *
-     * @param \Wizardalley\ChatBundle\Entity\ChatConversation $conversations
-     * @return WizardUser
-     */
-    public function addConversation(\Wizardalley\ChatBundle\Entity\ChatConversation $conversations)
-    {
-        $this->conversations[] = $conversations;
-
-        return $this;
-    }
-
-    /**
-     * Remove conversations
-     *
-     * @param \Wizardalley\ChatBundle\Entity\ChatConversation $conversations
-     */
-    public function removeConversation(\Wizardalley\ChatBundle\Entity\ChatConversation $conversations)
-    {
-        $this->conversations->removeElement($conversations);
-    }
-
-    /**
-     * Get conversations
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getConversations()
-    {
-        return $this->conversations;
-    }
 
     /**
      * Add friendsWithMe

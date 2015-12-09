@@ -56,7 +56,7 @@ class PublicationRepository extends EntityRepository
 
         $firstResult = ($page - 1)*$limit;
         $sql = "
-        select distinct w.username, w.id as 'user_id',pu.id as id, pu.title, pu.small_content, pu.datePublication,
+        select distinct w.username, w.id as 'user_id',pu.id as id, pu.title, pu.small_content, pa.datePublication,
             (
                 SELECT
                     path
@@ -66,12 +66,15 @@ class PublicationRepository extends EntityRepository
                     ip.publication_id = pu.id
                 limit 1
             ) as path
-            from publication pu
-                left join wizard_user w on w.id = pu.user_id 
+            from
+                abstract_publication pa
+                left join publication pu
+                    on pa.id = pu.id
+                left join wizard_user w on w.id = pa.user_id 
                 left join page p on p.id = pu.page_id
             where
                 p.id = ? 
-                order by pu.datePublication desc
+                order by pa.datePublication desc
                 limit {$firstResult},{$limit}
                 ";
         $conn = $this->getEntityManager()->getConnection();

@@ -12,7 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class WizardUserRepository extends EntityRepository
 {
-
+    /**
+     * 
+     * @param type $user
+     * @param type $page
+     * @param type $limit
+     * @return type
+     */
     public function findFriends($user,  $page, $limit){
         $offset = $limit * ($page - 1);
         $sql = "
@@ -27,25 +33,55 @@ class WizardUserRepository extends EntityRepository
                 ";
         $conn = $this->getEntityManager()->getConnection();
         $stmt = $conn->prepare($sql);
-        $result = $stmt->execute(array($user->getId(),$user->getId()));
+        $stmt->execute(array($user->getId(),$user->getId()));
         return $stmt->fetchAll();
     }
     
+    /**
+     * 
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @param type $offset
+     * @param type $limit
+     * @return type
+     */
     public function findPublicationUser(WizardUser $user,$offset, $limit){
          $sql = "
-            (select pu.id as 'publication_id', pu.datePublication, pu.title, pu.small_content as 'content', pa.id as 'writer_id', pa.name, pa.path_profile, 'page_publication' as type
-            from publication pu 
+            (
+            select 
+                pu.id as 'publication_id', 
+                ap.datePublication, 
+                pu.title, 
+                pu.small_content as 'content', 
+                pa.id as 'writer_id', 
+                pa.name, pa.path_profile, 
+                'page_publication' as type
+            from 
+                abstract_publication ap
+                    left join publication pu 
+                    on ap.id = pu.id
               left join page pa on pu.page_id = pa.id 
               left join page_user_follow puf on puf.page_id = pa.id
               left join comment_publication cp on cp.publication_id = pu.id
             where puf.wizard_user_id = :user_id_1)
             UNION
-            (select pu.id as 'publication_id', pu.datePublication, '' as title, pu.content, w.id as 'writer_id', w.username as 'name', w.path_profile, 'user_publication' as type
-            from small_publication pu
-            left join wizard_user w on w.id = pu.user_id
-            left join friends f1 on f1.user_id = pu.user_id
+            (
+            select 
+                pu.id as 'publication_id', 
+                ap.datePublication, 
+                '' as title, 
+                ap.content, 
+                w.id as 'writer_id', 
+                w.username as 'name', 
+                w.path_profile, 
+                'user_publication' as type
+            from 
+                abstract_publication ap
+                    left join small_publication pu
+                    on ap.id = pu.id
+            left join wizard_user w on w.id = ap.user_id
+            left join friends f1 on f1.user_id = ap.user_id
             left join friends f2 on f1.friend_user_id = f2.user_id
-            left join comment_small_publication csp on csp.publication_id = pu.id
+            left join comment_publication csp on csp.publication_id = pu.id
              where f1.friend_user_id = :user_id_2
             )
             ORDER BY datePublication DESC
@@ -60,17 +96,45 @@ class WizardUserRepository extends EntityRepository
         return $stmt->fetchAll();
     }
     
+    /**
+     * 
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @param type $offset
+     * @param type $limit
+     * @return type
+     */
     public function findPublication(WizardUser $user,$offset, $limit) {
         $sql = "
-            (select pu.id as 'publication_id', pu.datePublication, pu.title, pu.small_content as 'content', pa.id as 'writer_id', pa.name, pa.path_profile, 'page_publication' as type
+            (
+            select 
+                pu.id as 'publication_id', 
+                pa.datePublication, 
+                pu.title, pu.small_content as 'content', 
+                pa.id as 'writer_id', 
+                p.name, 
+                p.path_profile, 
+                'page_publication' as type
             from publication pu 
-              left join page pa on pu.page_id = pa.id 
-            where pu.user_id = :user_id_1)
+                left join abstract_publication pa
+                on pa.id = pu.id
+              left join page p on pu.page_id = p.id 
+            where pa.user_id = :user_id_1)
             UNION
-            (select pu.id as 'publication_id', pu.datePublication, '' as title, pu.content, w.id as 'writer_id', w.username as 'name', w.path_profile, 'user_publication' as type
+            (
+            select 
+                pa.id as 'publication_id', 
+                pa.datePublication, 
+                '' as title, 
+                pa.content, 
+                w.id as 'writer_id', 
+                w.username as 'name', 
+                w.path_profile, 
+                'user_publication' as type
             from small_publication pu
-            left join wizard_user w on w.id = pu.user_id
-             where pu.user_id = :user_id_2
+                left join abstract_publication pa
+                on pa.id = pu.id
+            left join wizard_user w on w.id = pa.user_id
+             where pa.user_id = :user_id_2
             )
             ORDER BY datePublication DESC
             LIMIT ".$offset.", ".$limit."
@@ -84,6 +148,11 @@ class WizardUserRepository extends EntityRepository
         return $stmt->fetchAll();
     }
     
+    /**
+     * 
+     * @param type $search
+     * @return type
+     */
     public function searchUser($search) {
         
         $sql = "
@@ -98,7 +167,13 @@ class WizardUserRepository extends EntityRepository
         return $stmt->fetchAll();
     }
     
-    
+    /**
+     * 
+     * @param type $like
+     * @param type $page
+     * @param type $limit
+     * @return type
+     */
     public function findUsersLike($like, $page=1, $limit =4){
         $firstResult = ($page - 1)*$limit;
         

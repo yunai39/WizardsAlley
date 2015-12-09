@@ -12,8 +12,9 @@ wizardalley_user_couverture_edit_picture:
     defaults: { _controller: WizardalleyUserBundle:ProfilePicture:editCouverturePicture }
 
 wizardalley_user_wall:
-    path:   /wall/{id}
+    path:   /wall/display/{id}
     defaults: { _controller: WizardalleyUserBundle:Default:userWall, id : 1 }
+
 
 wizardalley_user_wall_publication:
     path:   /wall/publication/{page}

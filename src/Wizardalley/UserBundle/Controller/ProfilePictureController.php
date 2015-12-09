@@ -1,20 +1,9 @@
 <?php
 
-/*
- * This file is part of the FOSUserBundle package.
- *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Wizardalley\UserBundle\Controller;
 
-use Symfony\Component\DependencyInjection\ContainerAware;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use FOS\UserBundle\Controller\ProfileController as Base;
 
 /**
  * Controller managing the user profile
@@ -23,7 +12,11 @@ use FOS\UserBundle\Controller\ProfileController as Base;
  */
 class ProfilePictureController extends Controller {
 
-    public function editProfilePictureAction(Request $request) {
+    /**
+     * 
+     * @return type
+     */
+    public function editProfilePictureAction() {
         $form = $this->createFormBuilder($this->getUser())
                 ->add('fileProfile'
                 )
@@ -45,7 +38,11 @@ class ProfilePictureController extends Controller {
         ));
     }
 
-    public function editCouverturePictureAction(Request $request) {
+    /**
+     * 
+     * @return type
+     */
+    public function editCouverturePictureAction() {
         $form = $this->createFormBuilder($this->getUser())
                 ->add('fileCouverture'
                 )
