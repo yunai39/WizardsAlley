@@ -12,15 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Publication extends AbstractPublication
 {
+
+
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-
+    protected $id;
     /**
      * @var string
      *
@@ -28,7 +27,6 @@ class Publication extends AbstractPublication
      */
     private $title;
 
-    
     /**
     * @ORM\OneToMany(targetEntity="ImagePublication", mappedBy="publication", cascade={"remove", "persist"})
     */
@@ -45,16 +43,6 @@ class Publication extends AbstractPublication
      * @ORM\Column(name="small_content", type="text")
      */
     private $smallContent;
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set title

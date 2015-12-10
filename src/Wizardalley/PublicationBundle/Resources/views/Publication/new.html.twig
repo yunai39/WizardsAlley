@@ -14,7 +14,6 @@
     {# affiche l'unique champ de la tâche : description #}
     {{ form_row(form.title) }}
     {{ form_row(form.content) }}
-    {{ form_row(form.page, {attr: {display: 'none'} }) }}
 
     <h3>Images</h3>
     <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">

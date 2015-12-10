@@ -56,7 +56,7 @@ class GestionPageController extends Controller {
         $this->notFoundEntity($page);
         $this->creatorOnly($page);
         
-        $form = $this->editFormPage($page);
+        $form = $this->createFormUserPage($page);
         return $this->render('WizardalleyPublicationBundle:GestionPage:editUser.html.twig',array(
             'page'  => $page,
             'form'  => $form->createView(),
@@ -80,7 +80,7 @@ class GestionPageController extends Controller {
         $entity = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
         
         $this->notFoundEntity($entity);
-        $this->creatorOnly($page);
+        $this->creatorOnly($entity);
         
         $editForm = $this->createFormUserPage($entity);
         $editForm->handleRequest($request);
@@ -207,9 +207,7 @@ class GestionPageController extends Controller {
         $this->creatorEditorOnly($page);
         
         $entities = $em->getRepository('WizardalleyPublicationBundle:Publication')->findBy(array( 'page' => $page ));
-        if (!$entities) {
-            throw $this->createNotFoundException('Unable to find Page entity.');
-        }
+    
         return $this->render('WizardalleyPublicationBundle:Publication:index.html.twig', array(
                     'id_page'  => $id_page,
                     'entities' => $entities,

@@ -18,8 +18,8 @@ class AbstractPublication
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
@@ -173,7 +173,7 @@ class AbstractPublication
      * @param string $string
      * @return int
      */
-    private function strip($html,$maxLength=200) {
+    public function strip($html,$maxLength=200) {
         $isUtf8 = true;
         $printedLength = 0;
         $position = 0;
