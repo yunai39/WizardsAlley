@@ -1,16 +1,15 @@
 {% extends 'WizardalleyAdminBundle::adminBase.html.twig' %}
 
 {% block body_admin -%}
-    <h1>InformationBillet edit</h1>
+    <h1>Page creation</h1>
 
-    {{ form(edit_form) }}
+    {{ form(form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('admin_infoBillet') }}">
+        <a href="{{ path('admin_page') }}">
             Back to the list
         </a>
     </li>
-    <li>{{ form(delete_form) }}</li>
 </ul>
 {% endblock %}

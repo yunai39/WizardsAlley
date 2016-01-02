@@ -1,7 +1,7 @@
 {% extends 'WizardalleyAdminBundle::adminBase.html.twig' %}
 
 {% block body_admin -%}
-    <h1>InformationBillet</h1>
+    <h1>Page</h1>
 
     <table class="record_properties">
         <tbody>
@@ -14,24 +14,32 @@
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
-                <th>Content</th>
-                <td>{{ entity.content }}</td>
+                <th>Description</th>
+                <td>{{ entity.description }}</td>
             </tr>
             <tr>
-                <th>Datebillet</th>
-                <td>{{ entity.dateBillet|date('Y-m-d H:i:s') }}</td>
+                <th>Urlfacebook</th>
+                <td>{{ entity.urlFacebook }}</td>
+            </tr>
+            <tr>
+                <th>Pathcouverture</th>
+                <td>{{ entity.pathCouverture }}</td>
+            </tr>
+            <tr>
+                <th>Pathprofile</th>
+                <td>{{ entity.pathProfile }}</td>
             </tr>
         </tbody>
     </table>
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('admin_infoBillet') }}">
+        <a href="{{ path('admin_page') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('admin_infoBillet_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('admin_page_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>
