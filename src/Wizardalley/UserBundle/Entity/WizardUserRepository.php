@@ -148,6 +148,60 @@ class WizardUserRepository extends EntityRepository
         return $stmt->fetchAll();
     }
     
+    public function findPublicationWall(WizardUser $user, $id_last, $limit)
+    {
+        if ($id_last) {
+            $sqlLimit = "LIMIT 1,".$limit;
+            $sqlWhere = "AND pa.id < ".$id_last;
+        } else {
+            $sqlLimit = "LIMIT ".$limit;
+            $sqlWhere = "";
+        }
+        $sql = "
+            (
+            select 
+                pu.id as 'publication_id', 
+                pa.datePublication, 
+                pu.title, pu.small_content as 'content', 
+                pa.id as 'writer_id', 
+                p.name, 
+                p.path_profile, 
+                'page_publication' as type
+            from publication pu 
+                left join abstract_publication pa
+                on pa.id = pu.id
+              left join page p on pu.page_id = p.id 
+            where pa.user_id = :user_id_1 {$sqlWhere})
+            UNION
+            (
+            select 
+                pa.id as 'publication_id', 
+                pa.datePublication, 
+                '' as title, 
+                pa.content, 
+                w.id as 'writer_id', 
+                w.username as 'name', 
+                w.path_profile, 
+                'user_publication' as type
+            from small_publication pu
+                left join abstract_publication pa
+                on pa.id = pu.id
+            left join wizard_user w on w.id = pa.user_id
+             where pa.user_id = :user_id_2 {$sqlWhere}
+            )
+            ORDER BY publication_id DESC
+            {$sqlLimit}
+            ";
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $result = $stmt->execute(array(
+            'user_id_1' => $user->getId(),
+            'user_id_2' => $user->getId(),
+        ));
+        return $stmt->fetchAll();
+    }
+    
+    
     /**
      * 
      * @param type $search

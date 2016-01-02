@@ -22,6 +22,12 @@ wizardalley_user_wall_publication:
     options:
         expose: true
 
+wizardalley_user_wall_publication_json:
+    path:   /wall/publicationJson/{id}
+    defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationWall, id: null }
+    options:
+        expose: true
+
 login_check:
     pattern:   /login_check
 

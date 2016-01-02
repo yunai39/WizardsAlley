@@ -139,6 +139,17 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
         );  
     }
     
+    public function displayPublicationWallAction($id = null) {
+        $limit = 2;
+        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $publications = $repo->findPublicationWall($this->getUser(),$id, $limit);
+        return $this->sendJsonResponse('success',null,200, 
+            [
+                'extra'=> $publications
+            ]
+        );  
+    }
+    
     /**
      * 
      * @param type $search
