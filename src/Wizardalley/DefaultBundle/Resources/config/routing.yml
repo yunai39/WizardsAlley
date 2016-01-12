@@ -1,4 +1,9 @@
 
+
+wizardalley_information:
+    resource: "@WizardalleyDefaultBundle/Resources/config/routing/information.yml"
+    prefix:   /user/information
+
 wizardalley_search_display:
     path:     /search
     defaults: { _controller: WizardalleyDefaultBundle:Search:searchDisplay }
