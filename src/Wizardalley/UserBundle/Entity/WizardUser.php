@@ -103,10 +103,15 @@ class WizardUser extends BaseUser {
     */
     private $smallPublication;
     
-        /**
+    /**
     * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Publication", mappedBy="user", cascade={"remove", "persist"})
     */
     private $publications;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Wizardalley\AdminBundle\Entity\InformationBillet", mappedBy="user", cascade={"remove", "persist"})
+    */
+    private $informationBillets;
     
     public function setId($id){
         return $this;
@@ -541,5 +546,38 @@ class WizardUser extends BaseUser {
     public function getPublications()
     {
         return $this->publications;
+    }
+
+    /**
+     * Add informationBillets
+     *
+     * @param \Wizardalley\AdminBundle\Entity\InformationBillet $informationBillets
+     * @return WizardUser
+     */
+    public function addInformationBillet(\Wizardalley\AdminBundle\Entity\InformationBillet $informationBillets)
+    {
+        $this->informationBillets[] = $informationBillets;
+
+        return $this;
+    }
+
+    /**
+     * Remove informationBillets
+     *
+     * @param \Wizardalley\AdminBundle\Entity\InformationBillet $informationBillets
+     */
+    public function removeInformationBillet(\Wizardalley\AdminBundle\Entity\InformationBillet $informationBillets)
+    {
+        $this->informationBillets->removeElement($informationBillets);
+    }
+
+    /**
+     * Get informationBillets
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInformationBillets()
+    {
+        return $this->informationBillets;
     }
 }

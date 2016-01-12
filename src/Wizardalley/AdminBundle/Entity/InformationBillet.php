@@ -20,6 +20,7 @@ class InformationBillet
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
 
     /**
      * @var string
@@ -38,10 +39,28 @@ class InformationBillet
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateBillet", type="datetime")
+     * @ORM\Column(name="dateCreateBillet", type="datetime")
      */
-    private $dateBillet;
-
+    private $dateCreateBillet;
+    
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datePublicationBillet", type="datetime")
+     */
+    private $datePublicationBillet;
+    
+    /**
+     * @var \boolean
+     *
+     * @ORM\Column(name="commentsEnabled", type="boolean")
+     */
+    private $commentsEnabled;
+    
+    /**
+    * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", cascade={"remove"})
+    */
+    private $user;
 
     /**
      * Get id
@@ -100,25 +119,95 @@ class InformationBillet
     }
 
     /**
-     * Set dateBillet
+     * Set dateCreateBillet
      *
-     * @param \DateTime $dateBillet
+     * @param \DateTime $dateCreateBillet
      * @return InformationBillet
      */
-    public function setDateBillet($dateBillet)
+    public function setDateCreateBillet($dateCreateBillet)
     {
-        $this->dateBillet = $dateBillet;
+        $this->dateCreateBillet = $dateCreateBillet;
 
         return $this;
     }
 
     /**
-     * Get dateBillet
+     * Get dateCreateBillet
      *
      * @return \DateTime 
      */
-    public function getDateBillet()
+    public function getDateCreateBillet()
     {
-        return $this->dateBillet;
+        return $this->dateCreateBillet;
+    }
+
+    /**
+     * Set datePublicationBillet
+     *
+     * @param \DateTime $datePublicationBillet
+     * @return InformationBillet
+     */
+    public function setDatePublicationBillet($datePublicationBillet)
+    {
+        $this->datePublicationBillet = $datePublicationBillet;
+
+        return $this;
+    }
+
+    /**
+     * Get datePublicationBillet
+     *
+     * @return \DateTime 
+     */
+    public function getDatePublicationBillet()
+    {
+        return $this->datePublicationBillet;
+    }
+
+    /**
+     * Set commentsEnabled
+     *
+     * @param boolean $commentsEnabled
+     * @return InformationBillet
+     */
+    public function setCommentsEnabled($commentsEnabled)
+    {
+        $this->commentsEnabled = $commentsEnabled;
+
+        return $this;
+    }
+
+    /**
+     * Get commentsEnabled
+     *
+     * @return boolean 
+     */
+    public function getCommentsEnabled()
+    {
+        return $this->commentsEnabled;
+    }
+
+
+    /**
+     * Set user
+     *
+     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @return InformationBillet
+     */
+    public function setUser(\Wizardalley\UserBundle\Entity\WizardUser $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Wizardalley\UserBundle\Entity\WizardUser 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
