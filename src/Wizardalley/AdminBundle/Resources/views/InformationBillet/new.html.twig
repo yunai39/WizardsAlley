@@ -1,6 +1,7 @@
 {% extends 'WizardalleyAdminBundle::adminBase.html.twig' %}
 
 {% block body_admin -%}
+    
     <h1>InformationBillet creation</h1>
 
     {{ form(form) }}
@@ -11,5 +12,7 @@
             Back to the list
         </a>
     </li>
+    {{ tinymce_init() }}
+    
 </ul>
 {% endblock %}

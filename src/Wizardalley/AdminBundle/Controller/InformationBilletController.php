@@ -50,6 +50,7 @@ class InformationBilletController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->setDateCreateBillet(new \DateTime);
             $em->persist($entity);
             $em->flush();
 
