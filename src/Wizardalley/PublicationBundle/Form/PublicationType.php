@@ -36,7 +36,7 @@ class PublicationType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Wizardalley\PublicationBundle\Entity\Publication'
+            'data_class' => 'Wizardalley\CoreBundle\Entity\Publication'
         ));
     }
 

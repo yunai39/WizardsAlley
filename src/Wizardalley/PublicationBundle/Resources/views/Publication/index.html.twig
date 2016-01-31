@@ -19,7 +19,7 @@
                 <th>Actions</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="admin-table-tbody">
         {% for entity in entities %}
             <tr>
                 <td><a href="{{ path('publication_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
@@ -36,10 +36,10 @@
                 </ul>
                 </td>
             </tr>
+            {% set last_id = entity.id %}
         {% endfor %}
         </tbody>
     </table>
-
         <ul>
         <li>
             <a href="{{ path('publication_new',{'id_page' : id_page}) }}">

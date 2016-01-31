@@ -24,7 +24,7 @@ class ImageType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Wizardalley\PublicationBundle\Entity\ImagePublication'
+            'data_class' => 'Wizardalley\CoreBundle\Entity\ImagePublication'
         ));
     }
 

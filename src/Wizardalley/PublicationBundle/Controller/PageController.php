@@ -23,8 +23,8 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     {
         /* @var $em \Doctrine\ORM\EntityManager */
         $em   = $this->getDoctrine()->getManager();
-        /* @var $page \Wizardalley\PublicationBundle\Entity\Page */
-        $page = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
+        /* @var $page \Wizardalley\CoreBundle\Entity\Page */
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
         if ( !$page ) {
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
@@ -46,7 +46,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
      */
     public function displayPublicationPageAction($id, $page)
     {
-        $repo         = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Publication');
+        $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Publication');
         $publications = $repo->findPublicationsPage($id, $page, self::LIMIT_PER_PAGE);
         return $this->sendJsonResponse('success', null, 200, [
                 'html' => $this->renderView('WizardalleyPublicationBundle:Page:publication.html.twig', array(
@@ -64,7 +64,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     public function getPageFollowedAction(Request $request, $page = 1)
     {
         $em    = $this->getDoctrine()->getManager();
-        $repo  = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Page');
+        $repo  = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Page');
         $pages = $repo->findPageFollowedUser($this->getUser(), $page, self::LIMIT_PER_PAGE);
         return $this->sendJsonResponse('success', $pages
         );
@@ -78,9 +78,9 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
      */
     public function getPageEditorAction(Request $request, $page = 1)
     {
-        /* @var $repo \Wizardalley\PublicationBundle\Entity\PageRepository */
-        $repo  = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Page');
-        /* @var $pages \Wizardalley\PublicationBundle\Entity\Page[] */
+        /* @var $repo \Wizardalley\CoreBundle\Entity\PageRepository */
+        $repo  = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Page');
+        /* @var $pages \Wizardalley\CoreBundle\Entity\Page[] */
         $pages = $repo->findPageEditorUser($this->getUser(), $page, self::LIMIT_PER_PAGE);
         return $this->sendJsonResponse('success', $pages);
     }
@@ -93,7 +93,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     public function getPageCreatedAction(Request $request, $page = 1)
     {
         $em    = $this->getDoctrine()->getManager();
-        $repo  = $this->getDoctrine()->getRepository('WizardalleyPublicationBundle:Page');
+        $repo  = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Page');
         $pages = $repo->findPageCreatedUser($this->getUser(), $page, self::LIMIT_PER_PAGE);
         return $this->sendJsonResponse('success', $pages);
     }
@@ -107,7 +107,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
         $page_id = $request->request->get('page_id');
 
         $em           = $this->getDoctrine()->getManager();
-        $page         = $em->getReference('Wizardalley\PublicationBundle\Entity\Page', $page_id);
+        $page         = $em->getReference('Wizardalley\CoreBundle\Entity\Page', $page_id);
         $pageFollowed = new \Wizardalley\PublicationBundle\Entity\PageUserFollow();
         $pageFollowed->setPage($page)->setUser($this->getUser());
         $pageFollowed->setDateInscription(new \DateTime('now'));

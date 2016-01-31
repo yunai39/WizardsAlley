@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Wizardalley\PublicationBundle\Entity\Page;
+use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\PublicationBundle\Form\PageType;
 
 /**
@@ -29,7 +29,7 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('WizardalleyPublicationBundle:Page')->findAll();
+        $entities = $em->getRepository('WizardalleyCoreBundle:Page')->findAll();
 
         return array(
             'entities' => $entities,
@@ -110,7 +110,7 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -135,7 +135,7 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -180,7 +180,7 @@ class PageController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Page entity.');
@@ -215,7 +215,7 @@ class PageController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id);
+            $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Page entity.');

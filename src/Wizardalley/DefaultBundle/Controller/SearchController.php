@@ -49,7 +49,7 @@ class SearchController extends BaseController
      */
     public function searchPageAction($field, $pageNb = 1){
         $em = $this->getDoctrine()->getManager();
-        $pages =  $em->getRepository('WizardalleyPublicationBundle:Page')
+        $pages =  $em->getRepository('WizardalleyCoreBundle:Page')
             ->findPagesLike($field, $pageNb,8);
         return $this->sendJsonResponse('success', null, 200, [
                 'html' => $this->renderView('WizardalleyDefaultBundle:Search:page.html.twig', array(
@@ -67,7 +67,7 @@ class SearchController extends BaseController
      */
     public function searchPublicationAction($field, $page = 1) {
         $em = $this->getDoctrine()->getManager();
-        $publications =  $em->getRepository('WizardalleyPublicationBundle:Publication')
+        $publications =  $em->getRepository('WizardalleyCoreBundle:Publication')
             ->findPublicationLike($field, $page,8);
         return $this->sendJsonResponse('success', null, 200, [
                 'html' => $this->renderView('WizardalleyDefaultBundle:Search:publication.html.twig', array(

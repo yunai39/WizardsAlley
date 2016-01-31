@@ -5,7 +5,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets 
-        '@WizardalleyDefaultBundle/Resources/public/css/*' %}
+        '@WizardalleyDefaultBundle/Resources/public/css/*' filter='cssrewrite'%}
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}

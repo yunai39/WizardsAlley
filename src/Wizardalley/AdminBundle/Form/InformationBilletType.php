@@ -35,7 +35,7 @@ class InformationBilletType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Wizardalley\AdminBundle\Entity\InformationBillet'
+            'data_class' => 'Wizardalley\CoreBundle\Entity\InformationBillet'
         ));
     }
 

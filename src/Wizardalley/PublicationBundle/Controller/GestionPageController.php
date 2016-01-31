@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Wizardalley\PublicationBundle\Form\PageType;
 use Wizardalley\PublicationBundle\Form\PageEditorType;
-use Wizardalley\PublicationBundle\Entity\Page;
+use Wizardalley\CoreBundle\Entity\Page;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -29,7 +29,7 @@ class GestionPageController extends Controller
     public function indexAction($id_page)
     {
         $em   = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
@@ -54,7 +54,7 @@ class GestionPageController extends Controller
     public function editUserFormAction($id_page)
     {
         $em   = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
         $this->notFoundEntity($page);
         $this->creatorOnly($page);
@@ -79,7 +79,7 @@ class GestionPageController extends Controller
     public function editUserAction(Request $request, $id_page)
     {
         $em     = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
         $this->notFoundEntity($entity);
         $this->creatorOnly($entity);
@@ -118,7 +118,7 @@ class GestionPageController extends Controller
     public function editPageAction(Request $request, $id_page)
     {
         $em     = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
         $this->notFoundEntity($entity);
         $this->creatorEditorOnly($entity);
@@ -197,12 +197,12 @@ class GestionPageController extends Controller
     public function displayPublicationUserAction( $id_page)
     {
         $em   = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
 
-        $entities = $em->getRepository('WizardalleyPublicationBundle:Publication')->findBy(array( 'page' => $page ));
+        $entities = $em->getRepository('WizardalleyCoreBundle:Publication')->findBy(array( 'page' => $page ));
 
         return $this->render('WizardalleyPublicationBundle:Publication:index.html.twig', array(
                 'id_page'  => $id_page,

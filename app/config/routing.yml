@@ -1,3 +1,18 @@
+wizard_alley_front:
+    resource: "@WizardAlleyFrontBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+wizardalley_webservice:
+    resource: "@WizardalleyWebserviceBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+wizardalley_core:
+    resource: "@WizardalleyCoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 wizardalley_admin:
     resource: "@WizardalleyAdminBundle/Controller/"
     type:     annotation

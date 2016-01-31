@@ -7,6 +7,11 @@ namespace Wizardalley\UserBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Symfony\Component\Validator\Constraints as Assert;
+use Wizardalley\CoreBundle\Entity\Page;
+use Wizardalley\CoreBundle\Entity\PageUserFollow;
+use Wizardalley\CoreBundle\Entity\Publication;
+use Wizardalley\CoreBundle\Entity\SmallPublication;
+use Wizardalley\CoreBundle\Entity\InformationBillet;
 
 /**
  * @ORM\Entity(repositoryClass="Wizardalley\UserBundle\Entity\WizardUserRepository")
@@ -82,34 +87,34 @@ class WizardUser extends BaseUser {
     
     
     /**
-    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Page", mappedBy="creator", cascade={"remove", "persist"})
+    * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Page", mappedBy="creator", cascade={"remove", "persist"})
     */
     private $pagesCreated;
     
     
     /**
-    * @ORM\ManyToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Page", mappedBy="editors")
+    * @ORM\ManyToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Page", mappedBy="editors")
     */
    private $pagesEditor;
    
    
     /**
-    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\PageUserFollow", mappedBy="user")
+    * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\PageUserFollow", mappedBy="user")
     */
    private $pagesFollowed;
     
     /**
-    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\SmallPublication", mappedBy="user", cascade={"remove", "persist"})
+    * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\SmallPublication", mappedBy="user", cascade={"remove", "persist"})
     */
     private $smallPublication;
     
     /**
-    * @ORM\OneToMany(targetEntity="Wizardalley\PublicationBundle\Entity\Publication", mappedBy="user", cascade={"remove", "persist"})
+    * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Publication", mappedBy="user", cascade={"remove", "persist"})
     */
     private $publications;
     
     /**
-    * @ORM\OneToMany(targetEntity="Wizardalley\AdminBundle\Entity\InformationBillet", mappedBy="user", cascade={"remove", "persist"})
+    * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\InformationBillet", mappedBy="user", cascade={"remove", "persist"})
     */
     private $informationBillets;
     
@@ -386,10 +391,10 @@ class WizardUser extends BaseUser {
     /**
      * Add pagesCreated
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesCreated
+     * @param Page $pagesCreated
      * @return WizardUser
      */
-    public function addPagesCreated(\Wizardalley\PublicationBundle\Entity\Page $pagesCreated)
+    public function addPagesCreated(Page $pagesCreated)
     {
         $this->pagesCreated[] = $pagesCreated;
 
@@ -399,9 +404,9 @@ class WizardUser extends BaseUser {
     /**
      * Remove pagesCreated
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesCreated
+     * @param Page $pagesCreated
      */
-    public function removePagesCreated(\Wizardalley\PublicationBundle\Entity\Page $pagesCreated)
+    public function removePagesCreated(Page $pagesCreated)
     {
         $this->pagesCreated->removeElement($pagesCreated);
     }
@@ -419,10 +424,10 @@ class WizardUser extends BaseUser {
     /**
      * Add pagesEditor
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesEditor
+     * @param Page $pagesEditor
      * @return WizardUser
      */
-    public function addPagesEditor(\Wizardalley\PublicationBundle\Entity\Page $pagesEditor)
+    public function addPagesEditor(Page $pagesEditor)
     {
         $this->pagesEditor[] = $pagesEditor;
 
@@ -432,9 +437,9 @@ class WizardUser extends BaseUser {
     /**
      * Remove pagesEditor
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesEditor
+     * @param Page $pagesEditor
      */
-    public function removePagesEditor(\Wizardalley\PublicationBundle\Entity\Page $pagesEditor)
+    public function removePagesEditor(Page $pagesEditor)
     {
         $this->pagesEditor->removeElement($pagesEditor);
     }
@@ -452,10 +457,10 @@ class WizardUser extends BaseUser {
     /**
      * Add pagesFollowed
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesFollowed
+     * @param Page $pagesFollowed
      * @return WizardUser
      */
-    public function addPagesFollowed(\Wizardalley\PublicationBundle\Entity\Page $pagesFollowed)
+    public function addPagesFollowed(Page $pagesFollowed)
     {
         $this->pagesFollowed[] = $pagesFollowed;
 
@@ -465,9 +470,9 @@ class WizardUser extends BaseUser {
     /**
      * Remove pagesFollowed
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Page $pagesFollowed
+     * @param Page $pagesFollowed
      */
-    public function removePagesFollowed(\Wizardalley\PublicationBundle\Entity\Page $pagesFollowed)
+    public function removePagesFollowed(Page $pagesFollowed)
     {
         $this->pagesFollowed->removeElement($pagesFollowed);
     }
@@ -485,10 +490,10 @@ class WizardUser extends BaseUser {
     /**
      * Add smallPublication
      *
-     * @param \Wizardalley\PublicationBundle\Entity\SmallPublication $smallPublication
+     * @param SmallPublication $smallPublication
      * @return WizardUser
      */
-    public function addSmallPublication(\Wizardalley\PublicationBundle\Entity\SmallPublication $smallPublication)
+    public function addSmallPublication(SmallPublication $smallPublication)
     {
         $this->smallPublication[] = $smallPublication;
 
@@ -498,9 +503,9 @@ class WizardUser extends BaseUser {
     /**
      * Remove smallPublication
      *
-     * @param \Wizardalley\PublicationBundle\Entity\SmallPublication $smallPublication
+     * @param SmallPublication $smallPublication
      */
-    public function removeSmallPublication(\Wizardalley\PublicationBundle\Entity\SmallPublication $smallPublication)
+    public function removeSmallPublication(SmallPublication $smallPublication)
     {
         $this->smallPublication->removeElement($smallPublication);
     }
@@ -518,10 +523,10 @@ class WizardUser extends BaseUser {
     /**
      * Add publications
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Publication $publications
+     * @param Publication $publications
      * @return WizardUser
      */
-    public function addPublication(\Wizardalley\PublicationBundle\Entity\Publication $publications)
+    public function addPublication(Publication $publications)
     {
         $this->publications[] = $publications;
 
@@ -531,9 +536,9 @@ class WizardUser extends BaseUser {
     /**
      * Remove publications
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Publication $publications
+     * @param Publication $publications
      */
-    public function removePublication(\Wizardalley\PublicationBundle\Entity\Publication $publications)
+    public function removePublication(Publication $publications)
     {
         $this->publications->removeElement($publications);
     }
@@ -551,10 +556,10 @@ class WizardUser extends BaseUser {
     /**
      * Add informationBillets
      *
-     * @param \Wizardalley\AdminBundle\Entity\InformationBillet $informationBillets
+     * @param InformationBillet $informationBillets
      * @return WizardUser
      */
-    public function addInformationBillet(\Wizardalley\AdminBundle\Entity\InformationBillet $informationBillets)
+    public function addInformationBillet(InformationBillet $informationBillets)
     {
         $this->informationBillets[] = $informationBillets;
 
@@ -564,9 +569,9 @@ class WizardUser extends BaseUser {
     /**
      * Remove informationBillets
      *
-     * @param \Wizardalley\AdminBundle\Entity\InformationBillet $informationBillets
+     * @param InformationBillet $informationBillets
      */
-    public function removeInformationBillet(\Wizardalley\AdminBundle\Entity\InformationBillet $informationBillets)
+    public function removeInformationBillet(InformationBillet $informationBillets)
     {
         $this->informationBillets->removeElement($informationBillets);
     }

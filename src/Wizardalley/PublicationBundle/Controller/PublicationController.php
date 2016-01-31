@@ -5,8 +5,8 @@ namespace Wizardalley\PublicationBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Wizardalley\PublicationBundle\Entity\Publication;
-use Wizardalley\PublicationBundle\Entity\CommentPublication;
+use Wizardalley\CoreBundle\Entity\Publication;
+use Wizardalley\CoreBundle\Entity\CommentPublication;
 use Wizardalley\PublicationBundle\Form\PublicationType;
 use Wizardalley\PublicationBundle\Form\CommentType;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -27,7 +27,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         $entity = new Publication();
         
         $em = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
         
@@ -89,7 +89,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
         $em = $this->getDoctrine()->getManager();
 
-        $page = $em->getRepository('WizardalleyPublicationBundle:Page')->find($id_page);
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
         
@@ -109,7 +109,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyPublicationBundle:Publication')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
         $this->notFoundEntity($entity);
 
         $comment = new CommentPublication();
@@ -129,7 +129,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyPublicationBundle:Publication')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
         $this->notFoundEntity($entity);
         $this->creatorPublicationOnly($entity);
         
@@ -171,7 +171,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
     public function updateAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyPublicationBundle:Publication')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
 
         $this->notFoundEntity($entity);
         $this->creatorPublicationOnly($entity);
@@ -197,12 +197,6 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         ));
     }
 
-
-
-
-    /*     * *****
-     * Comment
-     */
 
     /**
      * Creates a form to add a comment.
@@ -236,7 +230,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
     public function addCommentAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyPublicationBundle:Publication')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Publication entity.');
@@ -271,7 +265,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         return $this->sendJsonResponse(
                 'success', 
                 null, 200, 
-    ['data'=> $em->getRepository('WizardalleyPublicationBundle:CommentPublication')->findCommentsPublication($id, $page, $limit)
+    ['data'=> $em->getRepository('WizardalleyCoreBundle:CommentPublication')->findCommentsPublication($id, $page, $limit)
             ]);
     }
 
@@ -291,7 +285,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         $em = $this->getDoctrine()->getManager();
         return $this->sendJsonResponse('success', [
             'no_message' => true,
-            'data' => $em->getRepository('WizardalleyPublicationBundle:Publication')->findPublications($id, $page, $limit)
+            'data' => $em->getRepository('WizardalleyCoreBundle:Publication')->findPublications($id, $page, $limit)
             ]);
     }
     

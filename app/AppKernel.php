@@ -24,6 +24,9 @@ class AppKernel extends Kernel {
             new Liip\ImagineBundle\LiipImagineBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Wizardalley\AdminBundle\WizardalleyAdminBundle(),
+            new Wizardalley\CoreBundle\WizardalleyCoreBundle(),
+            new Wizardalley\WebserviceBundle\WizardalleyWebserviceBundle(),
+            new WizardAlley\FrontBundle\WizardAlleyFrontBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -7,15 +7,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Wizardalley\AdminBundle\Entity\InformationBillet;
+use Wizardalley\CoreBundle\Entity\InformationBillet;
 use Wizardalley\AdminBundle\Form\InformationBilletType;
+use Wizardalley\DefaultBundle\Controller\BaseController;
 
 /**
  * InformationBillet controller.
  *
  * @Route("/admin/infoBillet")
  */
-class InformationBilletController extends Controller
+class InformationBilletController extends BaseController
 {
 
     /**
@@ -29,7 +30,7 @@ class InformationBilletController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('WizardalleyAdminBundle:InformationBillet')->findAll();
+        $entities = $em->getRepository('WizardalleyCoreBundle:InformationBillet')->findMore();
 
         return array(
             'entities' => $entities,
@@ -181,7 +182,7 @@ class InformationBilletController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyAdminBundle:InformationBillet')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:InformationBillet')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find InformationBillet entity.');
@@ -216,7 +217,7 @@ class InformationBilletController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('WizardalleyAdminBundle:InformationBillet')->find($id);
+            $entity = $em->getRepository('WizardalleyCoreBundle:InformationBillet')->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find InformationBillet entity.');
@@ -244,5 +245,20 @@ class InformationBilletController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+    
+    /**
+     * 
+     * @Route("/loadMore/billet/{lastId}", name="load_more_entity_billet", options={"expose"=true})
+     * @Method("GET")
+     * @param type $lastId
+     * @return type
+     */
+    public function loadMoreBilletAction($lastId)
+    {
+            $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('WizardalleyCoreBundle:InformationBillet');
+        $result = $repo->findMore($lastId);
+        return $this->sendJsonResponse('success', $result);
     }
 }

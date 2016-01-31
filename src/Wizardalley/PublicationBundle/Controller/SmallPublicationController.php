@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Wizardalley\PublicationBundle\Entity\SmallPublication;
+use Wizardalley\CoreBundle\Entity\SmallPublication;
 use Wizardalley\PublicationBundle\Form\SmallPublicationType;
 
 /**
@@ -86,7 +86,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyPublicationBundle:SmallPublication')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:SmallPublication')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find SmallPublication entity.');
@@ -106,7 +106,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyPublicationBundle:SmallPublication')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:SmallPublication')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find SmallPublication entity.');
@@ -146,7 +146,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyPublicationBundle:SmallPublication')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:SmallPublication')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find SmallPublication entity.');

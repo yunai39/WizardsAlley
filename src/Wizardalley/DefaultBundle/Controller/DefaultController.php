@@ -5,7 +5,7 @@ namespace Wizardalley\DefaultBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Wizardalley\DefaultBundle\Form\ContactType;
 use Wizardalley\PublicationBundle\Form\SmallPublicationType;
-use Wizardalley\PublicationBundle\Entity\SmallPublication;
+use Wizardalley\CoreBundle\Entity\SmallPublication;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -30,7 +30,10 @@
             {% block body_admin %}
 
             {% endblock %}
-
+            {% block javascripts %}
+                {{parent()}}
+            <script src="{{ asset('/bundles/wizardalleyadmin/js/admin-manager.js') }}"></script>
+            {% endblock %}
         </div>
     </div>
 {% endblock %}
