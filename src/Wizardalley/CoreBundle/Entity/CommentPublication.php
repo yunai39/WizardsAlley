@@ -35,7 +35,7 @@ class CommentPublication
      */
     private $content;
     /**
-     * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser")
+     * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
     */
     private $user;
@@ -104,10 +104,10 @@ class CommentPublication
     /**
      * Set user
      *
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
      * @return CommentPublication
      */
-    public function setUser(\Wizardalley\UserBundle\Entity\WizardUser $user = null)
+    public function setUser(\Wizardalley\CoreBundle\Entity\WizardUser $user = null)
     {
         $this->user = $user;
 
@@ -117,7 +117,7 @@ class CommentPublication
     /**
      * Get user
      *
-     * @return \Wizardalley\UserBundle\Entity\WizardUser 
+     * @return \Wizardalley\CoreBundle\Entity\WizardUser 
      */
     public function getUser()
     {

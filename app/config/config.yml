@@ -85,7 +85,7 @@ swiftmailer:
 fos_user:
     db_driver:     orm 
     firewall_name: main
-    user_class:    Wizardalley\UserBundle\Entity\WizardUser 
+    user_class:    Wizardalley\CoreBundle\Entity\WizardUser 
     change_password:
         form:
             type:               fos_user_change_password

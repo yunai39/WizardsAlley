@@ -1,4 +1,4 @@
-Wizardalley\UserBundle\Entity\WizardUser:
+Wizardalley\CoreBundle\Entity\WizardUser:
     properties:
         fileProfile:
             - Image:

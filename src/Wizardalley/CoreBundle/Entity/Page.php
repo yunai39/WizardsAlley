@@ -64,14 +64,14 @@ class Page
     
     
     /**
-     * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="pagesCreated")
+     * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesCreated")
      * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
     */
     private $creator;
     
     
     /**
-    * @ORM\ManyToMany(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="pagesEditor")
+    * @ORM\ManyToMany(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesEditor")
     * @ORM\JoinTable(name="page_user_editor")
     */
    private $editors;
@@ -202,10 +202,10 @@ class Page
     /**
      * Set creator
      *
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $creator
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $creator
      * @return Page
      */
-    public function setCreator(\Wizardalley\UserBundle\Entity\WizardUser $creator = null)
+    public function setCreator(\Wizardalley\CoreBundle\Entity\WizardUser $creator = null)
     {
         $this->creator = $creator;
 
@@ -215,7 +215,7 @@ class Page
     /**
      * Get creator
      *
-     * @return \Wizardalley\UserBundle\Entity\WizardUser 
+     * @return \Wizardalley\CoreBundle\Entity\WizardUser 
      */
     public function getCreator()
     {
@@ -225,10 +225,10 @@ class Page
     /**
      * Add editors
      *
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $editors
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $editors
      * @return Page
      */
-    public function addEditor(\Wizardalley\UserBundle\Entity\WizardUser $editors)
+    public function addEditor(\Wizardalley\CoreBundle\Entity\WizardUser $editors)
     {
         $this->editors[] = $editors;
 
@@ -238,9 +238,9 @@ class Page
     /**
      * Remove editors
      *
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $editors
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $editors
      */
-    public function removeEditor(\Wizardalley\USerBundle\Entity\WizardUser $editors)
+    public function removeEditor(\Wizardalley\CoreBundle\Entity\WizardUser $editors)
     {
         $this->editors->removeElement($editors);
     }
@@ -267,10 +267,10 @@ class Page
     /**
      * Add followers
      *
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $followers
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $followers
      * @return Page
      */
-    public function addFollower(\Wizardalley\UserBundle\Entity\WizardUser $followers)
+    public function addFollower(\Wizardalley\CoreBundle\Entity\WizardUser $followers)
     {
         $this->followers[] = $followers;
 
@@ -280,9 +280,9 @@ class Page
     /**
      * Remove followers
      *
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $followers
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $followers
      */
-    public function removeFollower(\Wizardalley\UserBundle\Entity\WizardUser $followers)
+    public function removeFollower(\Wizardalley\CoreBundle\Entity\WizardUser $followers)
     {
         $this->followers->removeElement($followers);
     }

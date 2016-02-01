@@ -1,7 +1,7 @@
 <?php
 
-namespace Wizardalley\UserBundle\Entity;
-use Wizardalley\UserBundle\Entity\WizardUser;
+namespace Wizardalley\CoreBundle\Entity;
+use Wizardalley\CoreBundle\Entity\WizardUser;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -39,7 +39,7 @@ class WizardUserRepository extends EntityRepository
     
     /**
      * 
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
      * @param type $offset
      * @param type $limit
      * @return type
@@ -98,7 +98,7 @@ class WizardUserRepository extends EntityRepository
     
     /**
      * 
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
      * @param type $offset
      * @param type $limit
      * @return type

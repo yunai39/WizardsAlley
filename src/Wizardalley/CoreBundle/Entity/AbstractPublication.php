@@ -43,7 +43,7 @@ class AbstractPublication
     private $comments;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="publications" )
+     * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="publications" )
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
     */
     private $user;
@@ -149,10 +149,10 @@ class AbstractPublication
     /**
      * Set user
      *
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
      * @return Publication
      */
-    public function setUser(\Wizardalley\UserBundle\Entity\WizardUser $user = null)
+    public function setUser(\Wizardalley\CoreBundle\Entity\WizardUser $user = null)
     {
         $this->user = $user;
 
@@ -162,7 +162,7 @@ class AbstractPublication
     /**
      * Get user
      *
-     * @return \Wizardalley\UserBundle\Entity\WizardUser 
+     * @return \Wizardalley\CoreBundle\Entity\WizardUser 
      */
     public function getUser()
     {

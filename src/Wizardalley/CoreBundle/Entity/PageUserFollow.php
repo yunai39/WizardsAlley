@@ -31,7 +31,7 @@ class PageUserFollow
     private $page;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", inversedBy="pagesFollowed")
+     * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesFollowed")
      * @ORM\JoinColumn(name="wizard_user_id", referencedColumnName="id")
     */
     private $user;
@@ -78,10 +78,10 @@ class PageUserFollow
     /**
      * Set user
      *
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
      * @return PageFollower
      */
-    public function setUser(\Wizardalley\UserBundle\Entity\WizardUser $user = null)
+    public function setUser(\Wizardalley\CoreBundle\Entity\WizardUser $user = null)
     {
         $this->user = $user;
 
@@ -91,7 +91,7 @@ class PageUserFollow
     /**
      * Get user
      *
-     * @return \Wizardalley\UserBundle\Entity\WizardUser 
+     * @return \Wizardalley\CoreBundle\Entity\WizardUser 
      */
     public function getUser()
     {

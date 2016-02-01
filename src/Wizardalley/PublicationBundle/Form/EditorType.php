@@ -26,7 +26,7 @@ class EditorType extends AbstractType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => 'Wizardalley\UserBundle\Entity\WizardUser',
+            'data_class' => 'Wizardalley\CoreBundle\Entity\WizardUser',
         ));
     }
 

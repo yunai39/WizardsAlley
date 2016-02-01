@@ -58,7 +58,7 @@ class InformationBillet
     private $commentsEnabled;
     
     /**
-    * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser", cascade={"remove"})
+    * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", cascade={"remove"})
     */
     private $user;
 
@@ -191,10 +191,10 @@ class InformationBillet
     /**
      * Set user
      *
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
      * @return InformationBillet
      */
-    public function setUser(\Wizardalley\UserBundle\Entity\WizardUser $user = null)
+    public function setUser(\Wizardalley\CoreBundle\Entity\WizardUser $user = null)
     {
         $this->user = $user;
 
@@ -204,7 +204,7 @@ class InformationBillet
     /**
      * Get user
      *
-     * @return \Wizardalley\UserBundle\Entity\WizardUser 
+     * @return \Wizardalley\CoreBundle\Entity\WizardUser 
      */
     public function getUser()
     {
