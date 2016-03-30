@@ -1,6 +1,6 @@
 <?php
 
-namespace WizardAlley\FrontBundle\Tests\Controller;
+namespace Wizardalley\FrontBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

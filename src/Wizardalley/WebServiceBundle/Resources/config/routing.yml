@@ -1,0 +1,4 @@
+wizard_alley_webservice:
+    resource: "@WizardalleyWebServiceBundle/Controller/"
+    type:     annotation
+    prefix:   /

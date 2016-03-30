@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizardalley\WebserviceBundle\DependencyInjection;
+namespace Wizardalley\WebServiceBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Loader;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class WizardalleyWebserviceExtension extends Extension
+class WizardalleyWebServiceExtension extends Extension
 {
     /**
      * {@inheritdoc}
@@ -22,7 +22,7 @@ class WizardalleyWebserviceExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader->load('services.xml');
     }
 }

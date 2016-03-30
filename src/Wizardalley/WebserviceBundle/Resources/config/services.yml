@@ -1,4 +1,0 @@
-
-services:
-    authentification_service:
-        class: Wizardalley\WebserviceBundle\Service\AuthentificationService    

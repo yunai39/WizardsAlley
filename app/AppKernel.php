@@ -17,16 +17,17 @@ class AppKernel extends Kernel {
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Wizardalley\UserBundle\WizardalleyUserBundle(),
-            new Wizardalley\DefaultBundle\WizardalleyDefaultBundle(),
-            new Wizardalley\PublicationBundle\WizardalleyPublicationBundle(),
             new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
             new Liip\ImagineBundle\LiipImagineBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Escape\WSSEAuthenticationBundle\EscapeWSSEAuthenticationBundle(),
+            new Wizardalley\UserBundle\WizardalleyUserBundle(),
+            new Wizardalley\DefaultBundle\WizardalleyDefaultBundle(),
+            new Wizardalley\PublicationBundle\WizardalleyPublicationBundle(),
             new Wizardalley\AdminBundle\WizardalleyAdminBundle(),
             new Wizardalley\CoreBundle\WizardalleyCoreBundle(),
-            new Wizardalley\WebserviceBundle\WizardalleyWebserviceBundle(),
-            new WizardAlley\FrontBundle\WizardAlleyFrontBundle(),
+            new Wizardalley\FrontBundle\WizardalleyFrontBundle(),
+            new Wizardalley\WebServiceBundle\WizardalleyWebServiceBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

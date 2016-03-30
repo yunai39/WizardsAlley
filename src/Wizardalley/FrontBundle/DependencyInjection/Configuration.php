@@ -1,6 +1,6 @@
 <?php
 
-namespace WizardAlley\FrontBundle\DependencyInjection;
+namespace Wizardalley\FrontBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

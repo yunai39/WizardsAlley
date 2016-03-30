@@ -1,9 +1,9 @@
 <?php
 
-namespace WizardAlley\FrontBundle;
+namespace Wizardalley\FrontBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class WizardAlleyFrontBundle extends Bundle
+class WizardalleyFrontBundle extends Bundle
 {
 }
