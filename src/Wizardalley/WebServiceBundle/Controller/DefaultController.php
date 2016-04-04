@@ -9,11 +9,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/authentificationWsdl")
+     * @Route("/test")
      * @Template()
      */
     public function authentificationAction()
     {
-        return [];
+        return [ "contenu" => "Ceci est un test"];
     }
 }

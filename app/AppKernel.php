@@ -21,6 +21,7 @@ class AppKernel extends Kernel {
             new Liip\ImagineBundle\LiipImagineBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
             new Escape\WSSEAuthenticationBundle\EscapeWSSEAuthenticationBundle(),
+            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new Wizardalley\UserBundle\WizardalleyUserBundle(),
             new Wizardalley\DefaultBundle\WizardalleyDefaultBundle(),
             new Wizardalley\PublicationBundle\WizardalleyPublicationBundle(),

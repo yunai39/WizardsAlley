@@ -12,12 +12,22 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-        
-        wsse_secured:
-            pattern:   ^/api/.*
-            stateless:    true
-            wsse: true
-            anonymous : true
+        login:
+            pattern:  ^/api/login
+            provider:       main
+            stateless: true
+            anonymous: true
+            form_login:
+                check_path:               /api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+
+        api:
+            pattern:   ^/api
+            stateless: true
+            provider:       main
+            lexik_jwt: ~
         main:
             pattern:        ^/
             anonymous:      true
@@ -31,7 +41,11 @@ security:
                 target:     wizardalley_user_login
             remember_me:
                 key:        %secret%
+
+
     access_control:
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/user/, role: ROLE_USER }
