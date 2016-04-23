@@ -2,16 +2,20 @@
 
 namespace Wizardalley\PublicationBundle\Controller;
 
+use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Wizardalley\PublicationBundle\Form\PageType;
 use Wizardalley\PublicationBundle\Form\PageEditorType;
 use Wizardalley\CoreBundle\Entity\Page;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Page controller.
- *
+ * Class GestionPageController
+ * @package Wizardalley\PublicationBundle\Controller
  */
 class GestionPageController extends Controller
 {
@@ -23,7 +27,8 @@ class GestionPageController extends Controller
      * 
      * pattern: /page/gestion/show/{id_page}
      * road_name: page_gestion_show
-     * 
+     *
+     * @param int $id_page
      * @return Response
      */
     public function indexAction($id_page)
@@ -48,7 +53,8 @@ class GestionPageController extends Controller
      * 
      * pattern: /page/gestion/user/{id_page}
      * road_name: page_gestion_user
-     * 
+     *
+     * @param int $id_page
      * @return Response
      */
     public function editUserFormAction($id_page)
@@ -68,19 +74,25 @@ class GestionPageController extends Controller
 
     /**
      * editUserFormAction
-     * 
+     *
      * This action will record the edition for the user management of the page
-     * 
+     *
      * pattern: /page/gestion/user/edit/{id_page}
      * road_name: page_gestion_user_edit
-     * 
-     * @return Response
+     *
+     * @param Request $request
+     * @param int $id_page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @throws EntityNotFoundException
      */
     public function editUserAction(Request $request, $id_page)
     {
         $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
+        if(! $entity instanceof Page) {
+            throw new EntityNotFoundException();
+        }
         $this->notFoundEntity($entity);
         $this->creatorOnly($entity);
 
@@ -112,13 +124,20 @@ class GestionPageController extends Controller
      * 
      * pattern: /page/gestion/edit/{id_page}
      * road_name: page_gestion_edit
-     * 
-     * @return Response
+     *
+     * @param Request $request
+     * @param int $id_page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @throws EntityNotFoundException
      */
     public function editPageAction(Request $request, $id_page)
     {
         $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
+
+        if(! $entity instanceof Page) {
+            throw new EntityNotFoundException();
+        }
 
         $this->notFoundEntity($entity);
         $this->creatorEditorOnly($entity);
@@ -141,7 +160,7 @@ class GestionPageController extends Controller
 
     /**
      * Displays a form to create a new Publication entity.
-     *
+     * @return Response
      */
     public function newAction()
     {
@@ -156,13 +175,13 @@ class GestionPageController extends Controller
 
     /**
      * Creates a new Publication entity.
-     *
+     * @param Request $request
+     * @return Response
      */
     public function createAction(Request $request)
     {
         $entity = new Page();
 
-        $em   = $this->getDoctrine()->getManager();
         $form = $this->createFormPage($entity);
         $form->handleRequest($request);
 
@@ -191,7 +210,8 @@ class GestionPageController extends Controller
      * 
      * pattern: /page/gestion/publication/{id_page}
      * road_name: page_gestion_publication
-     * 
+     *
+     * @param int $id_page
      * @return Response
      */
     public function displayPublicationUserAction( $id_page)
@@ -217,6 +237,7 @@ class GestionPageController extends Controller
      * This function will return the form for the creation of the page
      * 
      * @param Page $page
+     * @return Form
      */
     private function createFormPage(Page $page)
     {
@@ -236,6 +257,7 @@ class GestionPageController extends Controller
      * This function will return the form for the edition of the page
      * 
      * @param Page $page
+     * @return Form
      */
     private function editFormPage(Page $page)
     {
@@ -255,6 +277,7 @@ class GestionPageController extends Controller
      * This function will return the form for the edition of the editor of the page
      * 
      * @param Page $page
+     * @return Form
      */
     private function createFormUserPage(Page $page)
     {
@@ -272,8 +295,8 @@ class GestionPageController extends Controller
      * notFoundEntity
      * Throw an exception in case the entity does not existe
      * 
-     * @param type $entity
-     * @throws NotFoundException
+     * @param Page $entity
+     * @throws NotFoundHttpException
      */
     private function notFoundEntity($entity)
     {
@@ -286,7 +309,7 @@ class GestionPageController extends Controller
      * creatorOnly
      * Throw an exception in case the user is not allowed creator only
      * 
-     * @param type $page
+     * @param Page $page
      * @throws AccessDeniedException
      */
     private function creatorOnly($page)
@@ -301,7 +324,7 @@ class GestionPageController extends Controller
      * creatorEditorOnly
      * Throw an exception in case the user is not allowed, creator end editor only
      * 
-     * @param type $page
+     * @param Page $page
      * @throws AccessDeniedException
      */
     private function creatorEditorOnly($page)

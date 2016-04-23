@@ -3,12 +3,12 @@
 namespace Wizardalley\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Wizardalley\DefaultBundle\Form\ContactType;
-use Wizardalley\PublicationBundle\Form\SmallPublicationType;
-use Wizardalley\PublicationBundle\Entity\SmallPublication;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class InformationController
+ * @package Wizardalley\DefaultBundle\Controller
+ */
 class InformationController extends Controller
 {
     /**
@@ -23,12 +23,7 @@ class InformationController extends Controller
      */
     public function listAction($id = null)
     {
-        
         $em = $this->getDoctrine()->getManager();
-        $repo =  $em->getRepository('WizardalleyAdminBundle:InformationBillet');
-        
+        $repo =  $em->getRepository('WizardalleyCoreBundle:InformationBillet');
     }
-    
-    
-
 }

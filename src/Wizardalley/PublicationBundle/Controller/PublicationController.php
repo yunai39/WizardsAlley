@@ -4,13 +4,11 @@ namespace Wizardalley\PublicationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\Publication;
 use Wizardalley\CoreBundle\Entity\CommentPublication;
 use Wizardalley\PublicationBundle\Form\PublicationType;
 use Wizardalley\PublicationBundle\Form\CommentType;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Wizardalley\PublicationBundle\Twig\HTMLLimitStripExtension;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -21,7 +19,9 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
     /**
      * Creates a new Publication entity.
-     *
+     * @param Request $request
+     * @param $id_page
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function createAction(Request $request, $id_page) {
         $entity = new Publication();
@@ -66,7 +66,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
      * Creates a form to create a Publication entity.
      *
      * @param Publication $entity The entity
-     *
+     * @param int $page
      * @return \Symfony\Component\Form\Form The form
      */
     private function createCreateForm(Publication $entity,$page) {
@@ -82,7 +82,8 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
     /**
      * Displays a form to create a new Publication entity.
-     *
+     * @param int $id_page
+     * @return Response
      */
     public function newAction($id_page) {
         $entity = new Publication();
@@ -104,7 +105,8 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
     /**
      * Finds and displays a Publication entity.
-     *
+     * @param int $id
+     * @return Response
      */
     public function showAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -124,7 +126,8 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
     /**
      * Displays a form to edit an existing Publication entity.
-     *
+     * @param int $id
+     * @return Response
      */
     public function editAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -288,21 +291,31 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
             'data' => $em->getRepository('WizardalleyCoreBundle:Publication')->findPublications($id, $page, $limit)
             ]);
     }
-    
+
+    /**
+     * @param $entity
+     */
     private function notFoundEntity($entity){
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Entity.');
         }
     }
-    
-    private function creatorPublicationOnly( $entity ){
+
+    /**
+     * @param Page $entity
+     * @throws AccessDeniedException
+     */
+    private function creatorPublicationOnly(Page $entity ){
         $user = $this->getUser();
         if ( !(($entity->getUser() == $user) or ($entity->getPage()->getCreator() == $user)) ) {
            throw new AccessDeniedException; 
         }
     }
-    
-    private function creatorEditorOnly($page){
+
+    /**
+     * @param Page $page
+     */
+    private function creatorEditorOnly(Page $page){
         $user = $this->getUser();
         if ( !(($page->getCreator() == $user) or ($page->getEditors()->contains($user))) ) {
            throw new AccessDeniedException; 

@@ -5,7 +5,8 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets 
-        '@WizardalleyDefaultBundle/Resources/public/css/*' filter='cssrewrite'%}
+                'bundles/wizardalleydefault/css/*'
+            filter='cssrewrite'%}
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
@@ -124,16 +125,17 @@
                    
     {% block javascripts %}     
         {% javascripts
-        '@WizardalleyDefaultBundle/Resources/public/js/jquery.js'
-        '@WizardalleyDefaultBundle/Resources/public/jquery-ui/jquery-ui.min.js'
-        '@WizardalleyDefaultBundle/Resources/public/js/bootstrap.min.js'
-        '@WizardalleyDefaultBundle/Resources/public/js/toastr.min.js'
-        '@WizardalleyDefaultBundle/Resources/public/js/underscore.min.js'
-        '@WizardalleyDefaultBundle/Resources/public/js/main.js'
+        'bundles/wizardalleydefault/js/jquery.js'
+        'bundles/wizardalleydefault/js/js.cookie.js'
+        'bundles/wizardalleydefault/js/bootstrap.min.js'
+        'bundles/wizardalleydefault/js/toastr.min.js'
+        'bundles/wizardalleydefault/js/underscore.min.js'
+        'bundles/wizardalleydefault/js/main.js'
+        'bundles/wizardalleyfront/js/rest.js'
+        'bundles/fosjsrouting/js/router.js'
         %}
-            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
             <script src="{{ asset_url }}"></script>
+            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
         {% endjavascripts %}
     {% endblock %}
 </body>

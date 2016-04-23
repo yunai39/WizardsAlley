@@ -3,21 +3,22 @@
 namespace Wizardalley\PublicationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
- * Page controller.
- *
+ * Class PageController
+ * @package Wizardalley\PublicationBundle\Controller
  */
 class PageController extends \Wizardalley\DefaultBundle\Controller\BaseController
 {
-
     const LIMIT_PER_PAGE = 1;
 
     /**
      * 
-     * @param type $id_page
-     * @return type
-     * @throws type
+     * @param int $id_page
+     * @return Response
+     * @throws NotFoundHttpException
      */
     public function indexPageAction($id_page)
     {
@@ -39,10 +40,9 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     }
 
     /**
-     * 
-     * @param type $id
-     * @param type $page
-     * @return type
+     * @param int $id
+     * @param int $page
+     * @return Response
      */
     public function displayPublicationPageAction($id, $page)
     {
@@ -56,14 +56,11 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     }
 
     /**
-     * 
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param type $page
-     * @return type
+     * @param int $page
+     * @return Response
      */
-    public function getPageFollowedAction(Request $request, $page = 1)
+    public function getPageFollowedAction($page = 1)
     {
-        $em    = $this->getDoctrine()->getManager();
         $repo  = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Page');
         $pages = $repo->findPageFollowedUser($this->getUser(), $page, self::LIMIT_PER_PAGE);
         return $this->sendJsonResponse('success', $pages
@@ -71,12 +68,10 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     }
 
     /**
-     * 
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param type $page
-     * @return type
+     * @param int $page
+     * @return Response
      */
-    public function getPageEditorAction(Request $request, $page = 1)
+    public function getPageEditorAction( $page = 1)
     {
         /* @var $repo \Wizardalley\CoreBundle\Entity\PageRepository */
         $repo  = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Page');
@@ -86,13 +81,11 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param type $page
-     * @return type
+     * @param int $page
+     * @return Response
      */
-    public function getPageCreatedAction(Request $request, $page = 1)
+    public function getPageCreatedAction($page = 1)
     {
-        $em    = $this->getDoctrine()->getManager();
         $repo  = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Page');
         $pages = $repo->findPageCreatedUser($this->getUser(), $page, self::LIMIT_PER_PAGE);
         return $this->sendJsonResponse('success', $pages);
@@ -100,7 +93,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return type
+     * @return Response
      */
     public function likePageAction(Request $request)
     {
@@ -108,7 +101,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
 
         $em           = $this->getDoctrine()->getManager();
         $page         = $em->getReference('Wizardalley\CoreBundle\Entity\Page', $page_id);
-        $pageFollowed = new \Wizardalley\PublicationBundle\Entity\PageUserFollow();
+        $pageFollowed = new \Wizardalley\CoreBundle\Entity\PageUserFollow();
         $pageFollowed->setPage($page)->setUser($this->getUser());
         $pageFollowed->setDateInscription(new \DateTime('now'));
         $em->persist($pageFollowed);

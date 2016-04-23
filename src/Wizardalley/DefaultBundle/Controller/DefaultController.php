@@ -9,6 +9,10 @@ use Wizardalley\CoreBundle\Entity\SmallPublication;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class DefaultController
+ * @package Wizardalley\DefaultBundle\Controller
+ */
 class DefaultController extends Controller
 {
     /**

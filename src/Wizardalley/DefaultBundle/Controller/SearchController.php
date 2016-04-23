@@ -2,15 +2,21 @@
 
 namespace Wizardalley\DefaultBundle\Controller;
 
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\DefaultBundle\Form\SearchType;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class SearchController
+ * @package Wizardalley\DefaultBundle\Controller
+ */
 class SearchController extends BaseController
 {
     /**
-     * 
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return type
+     * @param Request $request
+     * @return Response
      */
     public function searchDisplayAction(Request $request)
     {
@@ -22,12 +28,11 @@ class SearchController extends BaseController
         
         return $this->render('WizardalleyDefaultBundle:Default:search.html.twig', [ 'form' => $form->createView() ]);
     }
-    
+
     /**
-     * 
-     * @param type $field
-     * @param type $page
-     * @return type
+     * @param $field
+     * @param int $page
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function searchUserAction($field, $page = 1){
         $em = $this->getDoctrine()->getManager();
@@ -40,12 +45,11 @@ class SearchController extends BaseController
         );
         
     }
-    
+
     /**
-     * 
-     * @param type $field
-     * @param type $pageNb
-     * @return type
+     * @param $field
+     * @param int $pageNb
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function searchPageAction($field, $pageNb = 1){
         $em = $this->getDoctrine()->getManager();
@@ -58,12 +62,11 @@ class SearchController extends BaseController
         );
         
     }
-    
+
     /**
-     * 
-     * @param type $field
-     * @param type $page
-     * @return type
+     * @param $field
+     * @param int $page
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function searchPublicationAction($field, $page = 1) {
         $em = $this->getDoctrine()->getManager();

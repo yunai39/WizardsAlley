@@ -7,8 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\InformationBillet;
 use Wizardalley\AdminBundle\Form\InformationBilletType;
+use Wizardalley\CoreBundle\Entity\InformationBilletRepository;
 use Wizardalley\DefaultBundle\Controller\BaseController;
 
 /**
@@ -251,12 +253,13 @@ class InformationBilletController extends BaseController
      * 
      * @Route("/loadMore/billet/{lastId}", name="load_more_entity_billet", options={"expose"=true})
      * @Method("GET")
-     * @param type $lastId
-     * @return type
+     * @param int $lastId
+     * @return Response
      */
     public function loadMoreBilletAction($lastId)
     {
-            $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
+        /** @var InformationBilletRepository $repo */
         $repo = $em->getRepository('WizardalleyCoreBundle:InformationBillet');
         $result = $repo->findMore($lastId);
         return $this->sendJsonResponse('success', $result);
