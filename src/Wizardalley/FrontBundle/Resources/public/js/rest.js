@@ -40,16 +40,46 @@
                 data: { _password: _password, _username: _username },
                 success: function (data, textStatus, jqXHR) {
                     _this.writeToken(data['token']);
+                    _this.loadPage(
+                        Routing.generate('api_test'),
+                        '',
+                        $('.wizardsalley-main-container'),
+                        '<%= contenu %>'
+                    )
                 }
             });
 
         },
+
+
+        loadPage: function(url, data, $remplacementBlock, templateHtml) {
+            var _this = this;
+            $.ajax({
+                method: "POST",
+                data: data,
+                beforeSend: function (request)
+                {
+                    request.setRequestHeader('Authorization', _this.getToken());
+                },
+                url: url,
+                success: function(data){
+                    // recuperer le contenu
+                    var content = data['content'],
+                        compiledTemplate = _.template(templateHtml);
+                    $remplacementBlock.html(compiledTemplate(data));
+                },
+                complete: function(data){
+                    console.log(data);
+                }
+            });
+        },
+
         /**
          * Recuperer le token
          * @returns token
          */
         getToken: function() {
-            return Cookies.get('wizard_token');
+            return 'Bearer ' + Cookies.get('wizard_token');
         },
         /**
          * Setter le token

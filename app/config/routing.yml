@@ -30,6 +30,10 @@ wizardalley_user:
     resource: "@WizardalleyUserBundle/Resources/config/routing.yml"
     prefix:   /
 
+wizardalley_webservice:
+    resource: "@WizardalleyWebServiceBundle/Resources/config/routing.yml"
+    prefix:   /api
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 

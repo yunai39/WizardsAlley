@@ -5,15 +5,15 @@ namespace Wizardalley\WebServiceBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/test")
-     * @Template()
+     * @Route("/test", name="api_test", options={"expose"=true})
      */
-    public function authentificationAction()
+    public function testAction()
     {
-        return [ "contenu" => "Ceci est un test"];
+        return new JsonResponse([ "contenu" => "Ceci est un test"]);
     }
 }
