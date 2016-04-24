@@ -15,7 +15,6 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     const LIMIT_PER_PAGE = 1;
 
     /**
-     * 
      * @param int $id_page
      * @return Response
      * @throws NotFoundHttpException

@@ -12,6 +12,7 @@
     // The actual plugin constructor
     function Plugin ( element, options ) {
         var _this = this;
+        this._$currentPlugin = null;
         this._$element = $(element);
         this.settings = $.extend( {}, defaults, options );
         this._defaults = defaults;
@@ -54,7 +55,8 @@
                     _this.displayPage(
                         $('.wizardsalley-main-container'),
                         'home-base-template'
-                    )
+                    );
+                    _this.loadHomePage();
                 }
             });
 
@@ -91,12 +93,19 @@
                     // recuperer le contenu
                     var content = data['content'],
                         compiledTemplate = _.template($('#' + templateId).html());
-                    $remplacementBlock.html(compiledTemplate(data));
+                    $remplacementBlock.html(compiledTemplate(content));
                 },
                 complete: function(data){
                     console.log(data);
                 }
             });
+        },
+
+        loadHomePage: function(){
+            if( this._$currentPlugin != null) {
+                this._$currentPlugin.remove();
+            }
+            this._$currentPlugin = $('.wizardsalley-main-container').homePagePlugin();
         },
 
         /**

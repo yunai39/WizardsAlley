@@ -11,28 +11,31 @@
 
     // The actual plugin constructor
     function Plugin ( element, options ) {
-        var _this = this;
         this._$element = $(element);
         this.settings = $.extend( {}, defaults, options );
         this._defaults = defaults;
         this._name = pluginName;
 
-        this._$element.find('.wizardsalley-home-button-loadMore').on('click', function(){
-           _this.loadMorePublication();
-        });
-
-
-        this._$element.find('form#wizardalley_publicationbundle_add_small_publication').on('submit', function(e){
-            e.preventDefault();
-            _this.addSmallPublication(this);
-        });
         this.init();
     }
 
     // Avoid Plugin.prototype conflicts
     $.extend( Plugin.prototype, {
-        init: function() {
 
+        remove: function(){
+            this._destroy();
+        },
+        init: function() {
+            var _this = this;
+            this._$element.find('.wizardsalley-home-button-loadMore').on('click', function(){
+                _this.loadMorePublication();
+            });
+
+
+            this._$element.find('form#wizardalley_publicationbundle_add_small_publication').on('submit', function(e){
+                e.preventDefault();
+                _this.addSmallPublication(this);
+            });
         },
 
         addSmallPublication: function(form) {
@@ -40,7 +43,12 @@
         },
 
         loadMorePublication: function(){
-
+            $(document).data('plugin_restPlugin').loadPage(
+                Routing.generate('wizard_api_get_publication_view', {'page': 1}),
+                {},
+                this._$element.find('.wizardsalley-home-container-publication'),
+                'home-publication-container-mini'
+            );
         }
     } );
 

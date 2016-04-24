@@ -131,7 +131,7 @@
         'bundles/wizardalleydefault/js/toastr.min.js'
         'bundles/wizardalleydefault/js/underscore.min.js'
         'bundles/wizardalleydefault/js/main.js'
-        'bundles/wizardalleyfront/js/rest.js'
+        'bundles/wizardalleyfront/js/*'
         'bundles/fosjsrouting/js/router.js'
         %}
             <script src="{{ asset_url }}"></script>
@@ -139,5 +139,6 @@
         {% endjavascripts %}
     {% endblock %}
     {% include 'WizardalleyFrontBundle:Home:tmp_base.html.twig' %}
+    {% include 'WizardalleyFrontBundle:Home:tmp_publication_mini.html.twig' %}
 </body>
 </html>
