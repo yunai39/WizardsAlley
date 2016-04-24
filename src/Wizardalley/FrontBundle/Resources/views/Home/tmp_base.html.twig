@@ -1,0 +1,45 @@
+
+<script id="home-base-template" type="text/template">
+    <div class="row">
+        <div class="col-md-8">
+            <div >
+                <h3>Exprimez vous</h3>
+                <form method="POST" id="wizardalley_publicationbundle_add_small_publication">
+
+                    <div class="form-group">
+                        <label class="control-label required" for="wizardalley_publicationbundle_add_small_publication_contact">
+                            Contenu
+                        </label>
+                        <textarea type="text" id="wizardalley_publicationbundle_add_small_publication_contact" name="wizardalley_publicationbundle_add_small_publication[content]" required="required" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="wizardalley_publicationbundle_add_small_publication_submit" name="wizardalley_publicationbundle_add_small_publication[submit]" class="btn-default btn">
+                            Create
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div>
+                <h3>Vos publications</h3>
+                <div id="my_publication">
+
+                </div>
+                <div >
+                    <button id="loadMorePublication" >More</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div>
+                <h3>Suggestion d'amis</h3>
+            </div>
+            <div>
+                <h3>Sujet les plus commentés</h3>
+            </div>
+            <div>
+                <h3>Information</h3>
+            </div>
+
+        </div>
+    </div>
+</script>

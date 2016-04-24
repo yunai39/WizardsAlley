@@ -40,11 +40,9 @@
                 data: { _password: _password, _username: _username },
                 success: function (data, textStatus, jqXHR) {
                     _this.writeToken(data['token']);
-                    _this.loadPage(
-                        Routing.generate('api_test'),
-                        '',
+                    _this.displayPage(
                         $('.wizardsalley-main-container'),
-                        '<%= contenu %>'
+                        'home-base-template'
                     )
                 }
             });
@@ -52,20 +50,25 @@
         },
 
 
-        loadPage: function(url, data, $remplacementBlock, templateHtml) {
+        displayPage: function($remplacementBlock, templateId){
+            var compiledTemplate = _.template($('#' + templateId).html());
+            $remplacementBlock.html(compiledTemplate({}));
+        },
+
+        loadPage: function(url, data, $remplacementBlock, templateId) {
             var _this = this;
             $.ajax({
                 method: "POST",
                 data: data,
                 beforeSend: function (request)
                 {
-                    request.setRequestHeader('Authorization', _this.getToken());
+                    request.setRequestHeader('Authorization', 'Bearer ' + _this.getToken());
                 },
                 url: url,
                 success: function(data){
                     // recuperer le contenu
                     var content = data['content'],
-                        compiledTemplate = _.template(templateHtml);
+                        compiledTemplate = _.template($('#' + templateId).html());
                     $remplacementBlock.html(compiledTemplate(data));
                 },
                 complete: function(data){
@@ -79,7 +82,7 @@
          * @returns token
          */
         getToken: function() {
-            return 'Bearer ' + Cookies.get('wizard_token');
+            return Cookies.get('wizard_token');
         },
         /**
          * Setter le token
