@@ -28,9 +28,20 @@
 
     // Avoid Plugin.prototype conflicts
     $.extend( Plugin.prototype, {
+        /**
+         *
+         */
         init: function() {
+            //Si l'utilisateur a un token on affiche la page en fonction du href
 
+            // Sinon affichage du login
         },
+
+        /**
+         *
+         * @param _password
+         * @param _username
+         */
         authentificate: function(_password, _username) {
             var _this = this,
                 route = Routing.generate('api_login_check');
@@ -49,12 +60,23 @@
 
         },
 
-
+        /**
+         *
+         * @param $remplacementBlock
+         * @param templateId
+         */
         displayPage: function($remplacementBlock, templateId){
             var compiledTemplate = _.template($('#' + templateId).html());
             $remplacementBlock.html(compiledTemplate({}));
         },
 
+        /**
+         *
+         * @param url
+         * @param data
+         * @param $remplacementBlock
+         * @param templateId
+         */
         loadPage: function(url, data, $remplacementBlock, templateId) {
             var _this = this;
             $.ajax({
@@ -84,6 +106,7 @@
         getToken: function() {
             return Cookies.get('wizard_token');
         },
+
         /**
          * Setter le token
          * @param _token
@@ -91,11 +114,19 @@
         writeToken: function(_token) {
             Cookies.set('wizard_token', _token);
         },
+
         /**
          *
          */
         removeToken: function() {
             Cookies.remove('wizard_token');
+        },
+
+        /**
+         * Fonction permettant de charger les informations utilisateurs
+         */
+        getInfoUser: function(){
+
         }
     } );
 
