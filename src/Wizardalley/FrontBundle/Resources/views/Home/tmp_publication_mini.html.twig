@@ -6,22 +6,28 @@
     <div class="publication">
         <div class="row ">
             <div class="col-md-2">
-
                 <div class="imgSquare">
                     <div class="imgSquareContainer" >
-
+                        <img  src="<%- publication.img_profile %>" />
                     </div>
                 </div>
             </div>
             <div class="col-md-10">
-                <h5>
+                <% if (publication.type == "page_publication") { %>
+                <h3>
+                    <a href="<%- publication.path_publication %>"><%- publication.title %></a>
+                </h3>
+                <% } %>
+                <h5>Par
+                    <a href="<%- publication.writer_link %>" ><%- publication.name %></a>
+
                 </h5>
             </div>
         </div>
         <br/>
         <div class="row">
             <div class="col-md-12">
-                <%- publication.content %>
+                <%= publication.content %>
             </div>
         </div>
 

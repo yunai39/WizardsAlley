@@ -93,7 +93,10 @@
                     // recuperer le contenu
                     var content = data['content'],
                         compiledTemplate = _.template($('#' + templateId).html());
-                    $remplacementBlock.html(compiledTemplate(content));
+                    $remplacementBlock.html(compiledTemplate(content,{
+                        escape: false, // use a false evaluated value
+                        evaluate: /(.)^/ // or a not matching regex
+                    }));
                 },
                 complete: function(data){
                     console.log(data);
