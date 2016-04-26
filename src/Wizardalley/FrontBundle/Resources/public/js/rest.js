@@ -73,7 +73,6 @@
         },
 
         /**
-         *
          * @param url
          * @param data
          * @param $remplacementBlock
@@ -94,6 +93,37 @@
                     var content = data['content'],
                         compiledTemplate = _.template($('#' + templateId).html());
                     $remplacementBlock.html(compiledTemplate(content,{
+                        escape: false, // use a false evaluated value
+                        evaluate: /(.)^/ // or a not matching regex
+                    }));
+                },
+                complete: function(data){
+                    console.log(data);
+                }
+            });
+        },
+
+        /**
+         * @param url
+         * @param data
+         * @param $remplacementBlock
+         * @param templateId
+         */
+        addPanel: function(url, data, $remplacementBlock, templateId) {
+            var _this = this;
+            $.ajax({
+                method: "POST",
+                data: data,
+                beforeSend: function (request)
+                {
+                    request.setRequestHeader('Authorization', 'Bearer ' + _this.getToken());
+                },
+                url: url,
+                success: function(data){
+                    // recuperer le contenu
+                    var content = data['content'],
+                        compiledTemplate = _.template($('#' + templateId).html());
+                    $remplacementBlock.append(compiledTemplate(content,{
                         escape: false, // use a false evaluated value
                         evaluate: /(.)^/ // or a not matching regex
                     }));
