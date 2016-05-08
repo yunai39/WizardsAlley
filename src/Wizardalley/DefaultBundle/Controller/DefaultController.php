@@ -27,7 +27,6 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        
         $entity = new SmallPublication();
         $formSP = $this->createSmallPublicationForm($entity);
         return $this->render('WizardalleyDefaultBundle:Default:index.html.twig', array(

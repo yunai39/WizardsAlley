@@ -33,14 +33,46 @@
             });
 
 
-            this._$element.find('form#wizardalley_publicationbundle_add_small_publication').on('submit', function(e){
+            // Charger le token
+            $.ajax({
+                method: "GET",
+                beforeSend: function (request)
+                {
+                    request.setRequestHeader('Authorization', 'Bearer ' + $(document).data('plugin_restPlugin').getToken());
+                },
+                url: Routing.generate('wizard_api_get_csrf_token'),
+                success: function(data){
+                    var token = data['content']['token'];
+                    $('#wizardalley_publicationbundle_add_small_publication_token').val(token);
+                },
+            });
+
+            $('#wizardalley_publicationbundle_add_small_publication').on('submit', function(e){
                 e.preventDefault();
                 _this.addSmallPublication(this);
             });
+            this.loadMorePublication();
         },
 
         addSmallPublication: function(form) {
-
+            var _this = this,
+                token = $(document).data('plugin_restPlugin').getToken(),
+                url = Routing.generate('wizard_api_add_small_publication');
+            $.ajax({
+                method: "POST",
+                data: $(form).serialize(),
+                beforeSend: function (request)
+                {
+                    request.setRequestHeader('Authorization', 'Bearer ' + $(document).data('plugin_restPlugin').getToken());
+                },
+                url: url,
+                success: function(data){
+                    console.log(data);
+                },
+                complete: function(data){
+                    console.log(data);
+                }
+            });
         },
 
         /**
@@ -63,8 +95,9 @@
                 success: function(data){
                     _this._lastId = data.last_id;
                     // recuperer le contenu
-                    var content = data['content'],
-                        compiledTemplate = _.template($('#' + templateId).html());
+                    var content = data['content'];
+                    content['token'] = token;
+                    var compiledTemplate = _.template($('#' + templateId).html());
                     $remplacementBlock.append(compiledTemplate(content,{
                         escape: false, // use a false evaluated value
                         evaluate: /(.)^/ // or a not matching regex
@@ -79,7 +112,7 @@
         /**
          * @param id_publication
          */
-        loadMorePublication: function(){
+        loadMorePublication: function(token){
             this.addPanel(
                 Routing.generate('wizard_api_get_publication_view', {'publication_id': this._lastId}),
                 {},

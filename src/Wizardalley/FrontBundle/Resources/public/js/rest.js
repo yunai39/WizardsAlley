@@ -3,6 +3,7 @@
 ;
 ( function( $, window, document, undefined ) {
 
+
     "use strict";
     var pluginName = "restPlugin",
         defaults = {
@@ -17,13 +18,6 @@
         this.settings = $.extend( {}, defaults, options );
         this._defaults = defaults;
         this._name = pluginName;
-        this._login_form = this._$element.find('.wizardsalley-login-form');
-        this._login_form.find('input.wizardsalley-login-form-submit').on('click', function(event){
-            event.preventDefault();
-            var login =  _this._login_form.find("input[name='_username']").val(),
-                password =  _this._login_form.find("input[name='_password']").val();
-            _this.authentificate(login, password);
-        });
         this.init();
     }
 
@@ -33,8 +27,25 @@
          *
          */
         init: function() {
+            var _this = this;
             //Si l'utilisateur a un token on affiche la page en fonction du href
+            var page = window.location.hash;
+            if(page == '#login') {
+                // Afficher la page de login
+                this.displayPage($('.wizardsalley-main-container'),  'login-template');
+                this._login_form = this._$element.find('.wizardsalley-login-form');
+                this._login_form.find('input.wizardsalley-login-form-submit').on('click', function(event){
+                    event.preventDefault();
+                    var login =  _this._login_form.find("input[name='_username']").val(),
+                        password =  _this._login_form.find("input[name='_password']").val();
+                    _this.authentificate(login, password);
+                });
+            } else if(page == '#home'){
+                if(this.getToken()) {
+                    _this.loadHomePage();
+                }
 
+            }
             // Sinon affichage du login
         },
 
@@ -71,6 +82,7 @@
             var compiledTemplate = _.template($('#' + templateId).html());
             $remplacementBlock.html(compiledTemplate({}));
         },
+
 
         /**
          * @param url
@@ -138,7 +150,9 @@
             if( this._$currentPlugin != null) {
                 this._$currentPlugin.remove();
             }
-            this._$currentPlugin = $('.wizardsalley-main-container').homePagePlugin();
+            $('.wizardsalley-main-container').homePagePlugin();
+            this._$currentPlugin = $('.wizardsalley-main-container').data('plugin_homePagePlugin');
+            console.log(this._$currentPlugin);
         },
 
         /**
@@ -148,6 +162,7 @@
         getToken: function() {
             return Cookies.get('wizard_token');
         },
+
 
         /**
          * Setter le token

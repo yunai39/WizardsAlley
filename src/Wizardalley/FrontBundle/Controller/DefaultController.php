@@ -12,13 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends Controller
 {
     /**
-     * @Route("/hello/{name}")
+     * @Route("/wizardalley")
      * @Template()
      * @param string $name
      * @return array
      */
-    public function indexAction($name)
+    public function indexAction()
     {
-        return array('name' => $name);
+        return [];
     }
 }
