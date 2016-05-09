@@ -2,17 +2,17 @@
 
 namespace Wizardalley\WebServiceBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Templating\Helper\AssetsHelper;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Wizardalley\CoreBundle\Entity\SmallPublication;
+use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\CoreBundle\Entity\WizardUserRepository;
 use Wizardalley\PublicationBundle\Form\SmallPublicationType;
 
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
     /**
      * @Route("/test", name="api_test", options={"expose"=true})
@@ -30,11 +30,7 @@ class DefaultController extends Controller
     {
         $csrf = $this->get('form.csrf_provider'); //Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider by default
         $token = $csrf->generateCsrfToken(''); //Intention should be empty string, if you did not define it in parameters
-        return new JsonResponse([
-                'result' => 'success',
-                'content' => ['token' => $token]
-            ]
-        );
+        return $this->buildSuccessResponse(['token' => $token]);
     }
 
 
@@ -109,15 +105,29 @@ class DefaultController extends Controller
                 'message' => 'wizard.smallPublication.add.success'
             ]);
         }
-        return new JsonResponse([
-                'result' => 'error',
-                'message' => 'wizard.smallPublication.add.error',
-                'error'     => $form->getErrors()
-            ],
-            500
-        );
+        return $this->buildErrorResponse($form->getErrors(), 'wizard.smallPublication.add.error');
     }
 
+
+
+    /**
+     * Creates a new SmallPublication entity.
+     * @Route("/getUserInfo", name="wizard_api_get_user_info", options={"expose"=true})
+     */
+    public function getUserInfo()
+    {
+        /** @var WizardUser $user */
+        $user = $this->getUser();
+        return $this->buildSuccessResponse([
+            'id' => $user->getId(),
+            'username' => $user->getUsername(),
+            'firstname' => $user->getFirstname(),
+            'email' => $user->getEmail(),
+            'lastname' => $user->getLastname(),
+            'pathCover' => $user->getWebPathCouverture(),
+            'pathProfile' => $user->getWebPathProfile(),
+        ]);
+    }
 
     /**
      * Creates a form to create a SmallPublication entity.
@@ -137,5 +147,4 @@ class DefaultController extends Controller
 
         return $form;
     }
-
 }

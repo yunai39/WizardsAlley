@@ -18,6 +18,7 @@
         this.settings = $.extend( {}, defaults, options );
         this._defaults = defaults;
         this._name = pluginName;
+        this._user = null;
         this.init();
     }
 
@@ -41,10 +42,14 @@
                     _this.authentificate(login, password);
                 });
             } else if(page == '#home'){
-                if(this.getToken()) {
+                _this.getInfoUser();
+                if(_this.getToken()) {
+                    _this.displayPage(
+                        $('.wizardsalley-main-container'),
+                        'home-base-template'
+                    );
                     _this.loadHomePage();
                 }
-
             }
             // Sinon affichage du login
         },
@@ -62,7 +67,9 @@
                 url: route,
                 data: { _password: _password, _username: _username },
                 success: function (data, textStatus, jqXHR) {
+                    window.location.href = '#home';
                     _this.writeToken(data['token']);
+                    _this.getInfoUser();
                     _this.displayPage(
                         $('.wizardsalley-main-container'),
                         'home-base-template'
@@ -152,7 +159,6 @@
             }
             $('.wizardsalley-main-container').homePagePlugin();
             this._$currentPlugin = $('.wizardsalley-main-container').data('plugin_homePagePlugin');
-            console.log(this._$currentPlugin);
         },
 
         /**
@@ -162,7 +168,6 @@
         getToken: function() {
             return Cookies.get('wizard_token');
         },
-
 
         /**
          * Setter le token
@@ -183,7 +188,19 @@
          * Fonction permettant de charger les informations utilisateurs
          */
         getInfoUser: function(){
-
+            var url = Routing.generate('wizard_api_get_user_info'),
+                _this = this;
+            $.ajax({
+                method: "GET",
+                beforeSend: function (request)
+                {
+                    request.setRequestHeader('Authorization', 'Bearer ' + _this.getToken());
+                },
+                url: url,
+                success: function(data){
+                    _this._user = data;
+                },
+            });
         }
     } );
 

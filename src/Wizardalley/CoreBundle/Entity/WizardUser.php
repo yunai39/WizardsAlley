@@ -117,90 +117,179 @@ class WizardUser extends BaseUser {
     * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\InformationBillet", mappedBy="user", cascade={"remove", "persist"})
     */
     private $informationBillets;
-    
+
+    /**
+     * @param $id
+     * @return $this
+     */
     public function setId($id){
         return $this;
     }
+
+    /**
+     * @return string
+     */
     public function getLastname() {
         return $this->lastname;
     }
 
+    /**
+     * @param $lastname
+     * @return $this
+     */
     public function setLastname($lastname) {
         $this->lastname = $lastname;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getFirstname() {
         return $this->firstname;
     }
 
+    /**
+     * @param $firstname
+     * @return $this
+     */
     public function setFirstname($firstname) {
         $this->firstname = $firstname;
         return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getFacebook() {
         return $this->facebook;
     }
 
+    /**
+     * @param $facebook
+     * @return $this
+     */
     public function setFacebook($facebook) {
         $this->facebook = $facebook;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getTwitter() {
         return $this->twitter;
     }
 
+    /**
+     * @param $twitter
+     * @return $this
+     */
     public function setTwitter($twitter) {
         $this->twitter = $twitter;
         return $this;
     }
-    
+
+    /**
+     * @return string
+     */
     public function getSexe() {
         return $this->sexe;
     }
 
+    /**
+     * @param $sexe
+     * @return $this
+     */
     public function setSexe($sexe) {
         $this->sexe = $sexe;
         return $this;
     }
-    
+
+    /**
+     * @return null|string
+     */
     public function getAbsolutePathProfile() {
         return null === $this->pathProfile ? null : $this->getUploadRootDir() . '/' . $this->pathProfile;
     }
-    
 
+    /**
+     * @return null|string
+     */
     public function getAbsolutePathCouverture() {
         return null === $this->pathCouverture ? null : $this->getUploadRootDir() . '/' . $this->pathCouverture;
     }
 
+    /**
+     * @return string
+     */
+    public function getWebPathProfile(){
+        if(empty($this->getPathProfile())){
+            return $this->getDefaultProfile();
+        } else {
+            return $this->getUploadDir() . '/' . $this->getPathProfile();
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getWebPathCouverture(){
+        if(empty($this->getPathCouverture())){
+            return $this->getDefaultCouverture();
+        } else {
+            return $this->getUploadDir() . '/' . $this->getPathCouverture();
+        }
+    }
+
+    /**
+     * @return string
+     */
     public function getPictureProfile() {
         return null === $this->pathProfile ? $this->getDefaultProfile() : $this->getUploadDir() . '/' . $this->pathProfile;
     }
 
+    /**
+     * @return string
+     */
     public function getPictureCouverture() {
         return null === $this->pathCouverture ? $this->getDefaultCouverture() : $this->getUploadDir() . '/' . $this->pathCouverture;
     }
-    
+
+    /**
+     * @return string
+     */
     protected function getDefaultProfile(){
         return 'uploads/profile/default.png';
     }
-    
+
+    /**
+     * @return string
+     */
     protected function getDefaultCouverture(){
         return 'uploads/profile/dCouverture.png';
     }
+
+    /**
+     * @return string
+     */
     protected function getUploadRootDir() {
         // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
+    /**
+     * @return string
+     */
     protected function getUploadDir() {
         // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
         // le document/image dans la vue.
         return 'uploads/profile/' . $this->id ;
     }
 
+    /**
+     * @return array
+     */
     public function getPageFollowedEntity() {
         $collection = [];
         foreach( $this->getPagesFollowed() as $p ) {

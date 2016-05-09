@@ -38,7 +38,7 @@
                 method: "GET",
                 beforeSend: function (request)
                 {
-                    request.setRequestHeader('Authorization', 'Bearer ' + $(document).data('plugin_restPlugin').getToken());
+                    request.setRequestHeader('Authorization', 'Bearer ' + _this.getToken());
                 },
                 url: Routing.generate('wizard_api_get_csrf_token'),
                 success: function(data){
@@ -56,14 +56,14 @@
 
         addSmallPublication: function(form) {
             var _this = this,
-                token = $(document).data('plugin_restPlugin').getToken(),
+                token = _this.getToken(),
                 url = Routing.generate('wizard_api_add_small_publication');
             $.ajax({
                 method: "POST",
                 data: $(form).serialize(),
                 beforeSend: function (request)
                 {
-                    request.setRequestHeader('Authorization', 'Bearer ' + $(document).data('plugin_restPlugin').getToken());
+                    request.setRequestHeader('Authorization', 'Bearer ' + _this.getToken());
                 },
                 url: url,
                 success: function(data){
@@ -83,7 +83,7 @@
          */
         addPanel: function(url, data, $remplacementBlock, templateId) {
             var _this = this,
-                token = $(document).data('plugin_restPlugin').getToken();
+                token = _this.getToken();
             $.ajax({
                 method: "POST",
                 data: data,
@@ -119,8 +119,16 @@
                 this._$element.find('.wizardsalley-home-container-publication'),
                 'home-publication-container-mini'
             );
+        },
+
+        /**
+         * Recuperer le token
+         * @returns token
+         */
+        getToken: function() {
+            return Cookies.get('wizard_token');
         }
-    } );
+    });
 
 
 
