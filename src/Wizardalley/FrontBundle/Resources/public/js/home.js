@@ -40,7 +40,7 @@
                 {
                     request.setRequestHeader('Authorization', 'Bearer ' + _this.getToken());
                 },
-                url: Routing.generate('wizard_api_get_csrf_token'),
+                url: Routing.generate('wizard_api_get_csrf_token', {'form_name': 'wizardalley_publicationbundle_add_small_publication'}),
                 success: function(data){
                     var token = data['content']['token'];
                     $('#wizardalley_publicationbundle_add_small_publication_token').val(token);

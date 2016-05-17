@@ -24,13 +24,13 @@ class DefaultController extends BaseController
 
 
     /**
-     * @Route("/getCsrfToken", name="wizard_api_get_csrf_token", options={"expose"=true})
+     * @Route("/getCsrfToken/{form_name}", name="wizard_api_get_csrf_token", options={"expose"=true})
      */
-    public function getCsrfTokenAction(Request $request)
+    public function getCsrfTokenAction(Request $request, $form_name)
     {
-        $csrf = $this->get('form.csrf_provider'); //Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider by default
-        $token = $csrf->generateCsrfToken(''); //Intention should be empty string, if you did not define it in parameters
-        return $this->buildSuccessResponse(['token' => $token]);
+        $csrf = $this->get('security.csrf.token_manager'); //Symfony\Component\Form\Extension\Csrf\CsrfProvider\SessionCsrfProvider by default
+        $token = $csrf->refreshToken($form_name); //Intention should be empty string, if you did not define it in parameters
+        return $this->buildSuccessResponse(['token' => $token->getValue()]);
     }
 
 
@@ -91,7 +91,6 @@ class DefaultController extends BaseController
         $entity = new SmallPublication();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
-
         if ($form->isValid()) {
             $user = $this->getUser();
             $entity->setUser($user);
@@ -105,7 +104,12 @@ class DefaultController extends BaseController
                 'message' => 'wizard.smallPublication.add.success'
             ]);
         }
-        return $this->buildErrorResponse($form->getErrors(), 'wizard.smallPublication.add.error');
+        $errors = [];
+        /** @var \Symfony\Component\Form\FormError $error */
+        foreach($form->getErrors(true) as $error){
+            $errors[$error->getOrigin()->getName()] = $error->getMessage();
+        }
+        return $this->buildErrorResponse($errors, 'wizard.smallPublication.add.error');
     }
 
 
