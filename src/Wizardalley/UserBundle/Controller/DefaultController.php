@@ -106,11 +106,11 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      * @return type
      */
     public function displayPublicationPageAction($page){
-        
+
         $limit = 2;
         $offset = ($page - 1)* $limit;
         $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
-        $publications = $repo->findPublicationUser($this->getUser(),$offset, $limit);
+        $publications = $repo->findPublication($this->getUser(),$offset, $limit);
         return $this->sendJsonResponse('success', null, 200, [
             'html' => $this->renderView('WizardalleyUserBundle:Default:publication.html.twig', array(
                 'publications' => $publications,
@@ -118,11 +118,10 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
         )
     ]);   
     }
-    
+
     /**
-     * 
-     * @param type $page
-     * @return type
+     * @param int $page
+     * @return JsonResponse
      */
     public function displayPublicationUserAction($page = 1){
         $limit = 2;
