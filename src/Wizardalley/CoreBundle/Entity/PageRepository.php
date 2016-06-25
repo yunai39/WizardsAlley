@@ -15,7 +15,7 @@ class PageRepository extends EntityRepository
     public function findLatestFollower($id_page, $limit= 9){
         $qb = $this->_em->createQueryBuilder()
             ->select('u')
-            ->from("WizardalleyUserBundle:WizardUser", 'u');
+            ->from("WizardalleyCoreBundle:WizardUser", 'u');
         $query = $qb
                     ->join('u.pagesFollowed', 'p')
                     ->where('p.page = :id')

@@ -21,7 +21,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      */
     public function userWallAction(Request $request, $id) {
         //
-        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $user = $repo->find($id);
         if (!$user) {
             return new \Symfony\Component\Translation\Exception\NotFoundResourceException();
@@ -45,7 +45,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      * @return Response
      */
     public function addAsAFriendAction(Request $request, $id_user) {
-        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $friend = $repo->find($id_user);
         if (!$friend) {
             return new \Symfony\Component\Translation\Exception\NotFoundResourceException();
@@ -73,7 +73,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
     public function friendListAction(Request $request, $page = 1) {
         $numberDisplay = 3;
         $user = $this->getUser();
-        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $friends = $repo->findFriends($user, $page, $numberDisplay);
         return $this->sendJsonResponse('success', $friends);
     }
@@ -92,7 +92,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      */
     public function displayFriendListAction(){
         $user = $this->getUser();
-        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $friends = $repo->findFriends($user);
         
         return $this->render('WizardalleyUserBundle:Default:friendList.html.twig', array(
@@ -109,7 +109,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
         
         $limit = 2;
         $offset = ($page - 1)* $limit;
-        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $publications = $repo->findPublicationUser($this->getUser(),$offset, $limit);
         return $this->sendJsonResponse('success', null, 200, [
             'html' => $this->renderView('WizardalleyUserBundle:Default:publication.html.twig', array(
@@ -127,7 +127,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
     public function displayPublicationUserAction($page = 1){
         $limit = 2;
         $offset = ($page - 1)* $limit;
-        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $publications = $repo->findPublication($this->getUser(),$offset, $limit);
         return $this->sendJsonResponse('success',null,200, 
             [
@@ -141,7 +141,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
     
     public function displayPublicationWallAction($id = null) {
         $limit = 2;
-        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $publications = $repo->findPublicationWall($this->getUser(),$id, $limit);
         return $this->sendJsonResponse('success',null,200, 
             [
@@ -157,7 +157,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      */
     public function searchUserJsonAction($search){
         
-        $repo = $this->getDoctrine()->getRepository('WizardalleyUserBundle:WizardUser');
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         return $this->sendJsonResponse('success', $repo->searchUser($search));
         
     }

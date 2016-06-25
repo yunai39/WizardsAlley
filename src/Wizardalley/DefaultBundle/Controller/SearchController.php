@@ -36,7 +36,7 @@ class SearchController extends BaseController
      */
     public function searchUserAction($field, $page = 1){
         $em = $this->getDoctrine()->getManager();
-        $users =  $em->getRepository('WizardalleyUserBundle:WizardUser')
+        $users =  $em->getRepository('WizardalleyCoreBundle:WizardUser')
             ->findUsersLike($field, $page,8);
         return $this->sendJsonResponse('success', null, 200, [
                 'html' => $this->renderView('WizardalleyDefaultBundle:Search:users.html.twig', array(

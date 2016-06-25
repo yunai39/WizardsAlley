@@ -103,7 +103,7 @@ class GestionPageController extends Controller
             $entity->removeAllEditor();
             $editors = $request->get('wizardalley_publicationbundle_page_editor');
             foreach ( $editors[ 'editors' ] as $editor ) {
-                $entity->addEditor($em->getReference('WizardalleyUserBundle:WizardUser', $editor[ 'id' ]));
+                $entity->addEditor($em->getReference('WizardalleyCoreBundle:WizardUser', $editor[ 'id' ]));
             }
 
             $em->persist($entity);
