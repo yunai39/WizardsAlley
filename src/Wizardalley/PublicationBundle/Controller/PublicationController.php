@@ -305,7 +305,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
      * @param Page $entity
      * @throws AccessDeniedException
      */
-    private function creatorPublicationOnly(Page $entity ){
+    private function creatorPublicationOnly(Publication $entity ){
         $user = $this->getUser();
         if ( !(($entity->getUser() == $user) or ($entity->getPage()->getCreator() == $user)) ) {
            throw new AccessDeniedException; 

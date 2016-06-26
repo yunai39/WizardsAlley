@@ -11,19 +11,24 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class InformationController extends Controller
 {
+
+
     /**
-     * listAction
-     * 
+     * getInformationsAction
+     *
      * This action will return the list of information
-     * 
-     * pattern: /user/information/list
-     * road_name: wizardalley_information_list
-     * 
+     *
+     * pattern: /user/information/{page}
+     * road_name: wizardalley_information_page
+     *
+     * @param $page
      * @return Response
      */
-    public function listAction($id = null)
+    public function getInformationsAction($page)
     {
         $em = $this->getDoctrine()->getManager();
         $repo =  $em->getRepository('WizardalleyCoreBundle:InformationBillet');
+        $informations = $repo->findInformationLimit($page,4);
+        return $this->render('WizardalleyDefaultBundle:Information:list.html.twig', ['informations' => $informations]);
     }
 }

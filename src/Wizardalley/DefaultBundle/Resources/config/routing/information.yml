@@ -1,5 +1,5 @@
 
-wizardalley_information_list:
-    path:     /list
-    defaults: { _controller: WizardalleyDefaultBundle:Information:list }
-    
+wizardalley_information_page:
+    path:     /{page}
+    defaults: { _controller: WizardalleyDefaultBundle:Information:getInformations }
+

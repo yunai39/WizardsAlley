@@ -21,10 +21,18 @@
             <div>
                 <ul>
                     {% if user.facebook != null %}
-                        <li><a href="{{user.facebook}}" /><span class="icon-large icon-facebook" aria-hidden="true"></span></a></li>
+                        <li>
+                            <a href="{{user.facebook}}" >
+                                <span class="icon-large icon-facebook" aria-hidden="true"></span>&nbsp;{{user.facebook}}
+                            </a>
+                        </li>
                     {% endif %}
                     {% if user.twitter != null %}
-                        <li><a href="{{user.twitter}}" /><span class="icon-large icon-twitter" aria-hidden="true"></span></a></li>
+                        <li>
+                            <a href="{{user.twitter}}" >
+                                <span class="icon-large icon-twitter" aria-hidden="true"></span>&nbsp;{{user.twitter}}
+                            </a>
+                        </li>
                     {% endif %}
                     <li><a href="{{path('wizardalley_user_profile_edit_picture')}}">{% trans %}wizard.user.profile.edit_picture{% endtrans %}</a></li>
                     <li><a href="{{path('fos_user_profile_edit')}}">{{ 'wizard.user.profile.edit'|trans({}) }}</a></li>

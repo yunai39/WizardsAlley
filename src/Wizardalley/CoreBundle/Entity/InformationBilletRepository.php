@@ -2,8 +2,6 @@
 
 namespace Wizardalley\CoreBundle\Entity;
 
-use Doctrine\ORM\EntityRepository;
-
 /**
  * InformationBilletRepository
  *
@@ -12,4 +10,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class InformationBilletRepository extends AdminRepository
 {
+    /**
+     * @param int $page
+     * @param int $number
+     * @return array
+     */
+    public function findInformationLimit($page, $number = 1)
+    {
+        $firstResult = ($page - 1) * $number;
+        $qb = $this->_em->createQueryBuilder()
+            ->select('i')
+            ->from($this->_entityName, 'i');
+        $query = $qb
+            ->orderBy('i.datePublicationBillet','DESC')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($number)
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

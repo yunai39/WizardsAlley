@@ -131,15 +131,11 @@
         'bundles/wizardalleydefault/js/toastr.min.js'
         'bundles/wizardalleydefault/js/underscore.min.js'
         'bundles/wizardalleydefault/js/main.js'
-        'bundles/wizardalleyfront/js/*'
         'bundles/fosjsrouting/js/router.js'
         %}
             <script src="{{ asset_url }}"></script>
             <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
         {% endjavascripts %}
     {% endblock %}
-    {% include 'WizardalleyFrontBundle:Home:tmp_base.html.twig' %}
-    {% include 'WizardalleyFrontBundle:Home:tmp_publication_mini.html.twig' %}
-    {% include 'WizardalleyFrontBundle:Default:tmp_login.html.twig' %}
 </body>
 </html>

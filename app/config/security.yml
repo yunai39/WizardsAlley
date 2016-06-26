@@ -12,22 +12,7 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-        login:
-            pattern:  ^/api/login
-            provider:       main
-            stateless: true
-            anonymous: true
-            form_login:
-                check_path:               /api/login_check
-                success_handler:          lexik_jwt_authentication.handler.authentication_success
-                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
-                require_previous_session: false
 
-        api:
-            pattern:   ^/api
-            stateless: true
-            provider:       main
-            lexik_jwt: ~
         main:
             pattern:        ^/
             anonymous:      true
