@@ -13,23 +13,29 @@
             </div>
             <div>
                 <h3>Vos publications</h3>
-                <div id="my_publication">
+                <div class="publication-block-wrapper">
                     
                 </div>
                 <div >
-                    <button id="loadMorePublication" >More</button>
+                    <button class="load-more-publication" >More</button>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div>
-                <h3>Suggestion d'amis</h3>
+            <div class="row">
+                <h3 class="col-md-12">Suggestion d'amis</h3>
             </div>
-            <div>
-                <h3>Sujet les plus commentés</h3>
+            <div class="row">
+                <h3 class="col-md-12">Sujet les plus commentés</h3>
             </div>
-            <div>
-                <h3>Information</h3>
+            <div class="row">
+                <h3 class="col-md-12">Information</h3>
+                <div class="information-block-wrapper col-md-12">
+
+                </div>
+                <div class="col-md-12">
+                    <button class="load-more-information">Load More</button>
+                </div>
             </div>
             
         </div>
@@ -40,26 +46,31 @@
         {{parent()}}
     <script>
         _$page = 1;
+        _$pageInformation = 1;
         loadMore();
-        $('#loadMorePublication').on('click', function(){
+        loadMoreInformation();
+        $('.load-more-publication').on('click', function(){
             loadMore();
         });
-        
+        $('.load-more-information').on('click', function(){
+            loadMoreInformation();
+        });
+
         function loadMore(){
-            $result = util.loadMore(Routing.generate('wizard_get_publication_view', {'page': _$page}), 'GET', 'addPublication');
+            $result = util.loadMorePublicationHome(_$page);
             _$page = _$page+1;
         };
-        
-        function addPublication($data){
-            $('#my_publication').append($data['extra']['html']);
-        }
+
+        function loadMoreInformation(){
+            $result = util.loadMoreInfo(_$pageInformation);
+            _$pageInformation = _$pageInformation+1;
+        };
         
         $('#wizardalley_publicationbundle_add_small_publication').on('submit', function(e){
             e.preventDefault();
             result = util.ajaxHandle($(this).attr('method'),$(this).serialize(), $(this).attr('action') );
             $('#wizardalley_publicationbundle_add_small_publication textarea').val('');
         });
-        
         
     </script>
 {% endblock %}

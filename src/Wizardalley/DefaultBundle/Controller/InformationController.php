@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class InformationController
  * @package Wizardalley\DefaultBundle\Controller
  */
-class InformationController extends Controller
+class InformationController extends BaseController
 {
 
 
@@ -28,7 +28,10 @@ class InformationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $repo =  $em->getRepository('WizardalleyCoreBundle:InformationBillet');
-        $informations = $repo->findInformationLimit($page,4);
-        return $this->render('WizardalleyDefaultBundle:Information:list.html.twig', ['informations' => $informations]);
+        $informations = $repo->findInformationLimit($page,1);
+        return $this->sendJsonResponse(
+            200,
+            ['contenu' =>$this->renderView('WizardalleyDefaultBundle:Information:list.html.twig', ['informations' => $informations])]
+        );
     }
 }

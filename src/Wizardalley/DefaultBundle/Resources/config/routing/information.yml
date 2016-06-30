@@ -2,4 +2,6 @@
 wizardalley_information_page:
     path:     /{page}
     defaults: { _controller: WizardalleyDefaultBundle:Information:getInformations }
+    options:
+        expose: true
 

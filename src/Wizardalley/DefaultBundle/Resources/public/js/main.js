@@ -26,19 +26,55 @@ optionsToastr = {
 
 var util = (function(){
     return {
+        /**
+         *
+         */
         "init": function() {
 
         },
+        /**
+         *
+         * @param page_id
+         */
         "likePage": function(page_id) {
             util.ajaxHandle('POST', "page_id="+page_id+"", Routing.generate('page_like'));
         },
+        /**
+         *
+         * @param _id
+         */
         "loadMorePublication": function(_id) {
             util.loadMore(Routing.generate('page_publication_get', {'id': _id}), 'GET', null);
         },
+        /**
+         *
+         * @param _url
+         * @param _method
+         * @param _handler
+         * @returns {*}
+         */
         "loadMore": function(_url,_method,_handler){
             $result = util.ajaxHandle(_method,null, _url,_handler);
             return $result;
         },
+        /**
+         *
+         * @param _page
+         */
+        "loadMorePublicationHome": function(_page){
+            var _handler = function(data) {
+                console.log(data);
+                $('.publication-block-wrapper').append(data['extra']['html']);
+            };
+            util.ajaxHandle('GET',null,Routing.generate('wizard_get_publication_view', {'page': _page}), _handler);
+        },
+        /**
+         *
+         * @param _method
+         * @param _data
+         * @param _url
+         * @param _success_function
+         */
         "ajaxHandle": function(_method, _data, _url, _success_function) {
             $.ajax({
                 method: _method,
@@ -53,14 +89,47 @@ var util = (function(){
                             util.handleSuccesResponse(data, textStatus, jqXHR);
                         }
                     }
-                    window[_success_function](data);
+                    _success_function(data);
+                    //window[_success_function](data);
                 }
             });
         },
+        /**
+         *
+         * @param _page
+         * @returns {*}
+         */
+        "loadMoreInfo": function(_page){
+
+            var handler = function(_data){
+                console.log(_data);
+                $('.information-block-wrapper').append(_data['data']['contenu']);
+            };
+            $result = util.ajaxHandle(
+                "GET",
+                null,
+                Routing.generate('wizardalley_information_page', {'page': _page}),
+                handler
+            );
+            return $result;
+
+        },
+        /**
+         *
+         * @param data
+         * @param textStatus
+         * @param jqXHR
+         */
         "handleSuccesResponse": function(data, textStatus, jqXHR) {
                 toastr.option = optionsToastr;
                 toastr.success(data['data']['message']);
         },
+        /**
+         *
+         * @param jqXHR
+         * @param textStatus
+         * @param errorThrown
+         */
         "handleErrorResponse": function(jqXHR, textStatus, errorThrown) {
             data = JSON.parse(jqXHR.responseText);
             if (typeof data['data'] != 'undefined' && data['data']) {
