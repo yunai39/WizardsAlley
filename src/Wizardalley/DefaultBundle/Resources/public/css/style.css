@@ -21,6 +21,12 @@ box-shadow:  12px 12px 10px 10px rgb(128,128,128);
 
 }
 
+.information-block-wrapper {
+    height: 500px;
+    overflow-y: scroll;
+}
+
+
 .nav-footer{
     margin-bottom: 0;
 }

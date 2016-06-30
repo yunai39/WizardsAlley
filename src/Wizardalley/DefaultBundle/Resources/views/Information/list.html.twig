@@ -1,10 +1,9 @@
 {% for information in informations %}
 <div class="row">
-    <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="col-md-12">
+        <div class="publication">
             <h3>{{ information.name }}</h3>
-        </div>
-        <div class="panel-body">
+            <hr>
             <p>{{ information.content }}</p>
         </div>
     </div>
