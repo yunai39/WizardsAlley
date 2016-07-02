@@ -37,7 +37,7 @@ class SearchController extends BaseController
     public function searchUserAction($field, $page = 1){
         $em = $this->getDoctrine()->getManager();
         $users =  $em->getRepository('WizardalleyCoreBundle:WizardUser')
-            ->findUsersLike($field, $page,8);
+            ->findUsersLike($field, $page,2);
         return $this->sendJsonResponse('success', null, 200, [
                 'html' => $this->renderView('WizardalleyDefaultBundle:Search:users.html.twig', array(
                     'users' => $users,
@@ -51,10 +51,10 @@ class SearchController extends BaseController
      * @param int $pageNb
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function searchPageAction($field, $pageNb = 1){
+    public function searchPageAction($field, $page = 1){
         $em = $this->getDoctrine()->getManager();
         $pages =  $em->getRepository('WizardalleyCoreBundle:Page')
-            ->findPagesLike($field, $pageNb,8);
+            ->findPagesLike($field, $page,2);
         return $this->sendJsonResponse('success', null, 200, [
                 'html' => $this->renderView('WizardalleyDefaultBundle:Search:page.html.twig', array(
                     'pages' => $pages,
@@ -71,7 +71,7 @@ class SearchController extends BaseController
     public function searchPublicationAction($field, $page = 1) {
         $em = $this->getDoctrine()->getManager();
         $publications =  $em->getRepository('WizardalleyCoreBundle:Publication')
-            ->findPublicationLike($field, $page,8);
+            ->findPublicationLike($field, $page,2);
         return $this->sendJsonResponse('success', null, 200, [
                 'html' => $this->renderView('WizardalleyDefaultBundle:Search:publication.html.twig', array(
                     'publications' => $publications,

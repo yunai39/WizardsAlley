@@ -18,17 +18,20 @@
             _$page = 1;
             $('form').submit(function(event){
                event.preventDefault();
-                _$page = 1;
                field = $('#wizard_search_form_field').val();
                researchType = $('#wizard_search_form_searchType').val();
                loadMore();
             });
+
+            $('#wizard_search_form_searchType').on('change', function() {
+                $('#wizard_search_result').html('');
+                _$page = 1;
+            });
             
-            
-        function loadMore(){
-            $result = util.loadMoreSearch(researchType,field ,  _$page);
-            _$page = _$page+1;
-        }
+            function loadMore(){
+                $result = util.loadMoreSearch(researchType,field ,  _$page);
+                _$page = _$page+1;
+            }
         </script>
         
 {% endblock %}
