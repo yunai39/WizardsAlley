@@ -37,14 +37,22 @@ var util = (function(){
          * @param page_id
          */
         "likePage": function(page_id) {
-            util.ajaxHandle('POST', "page_id="+page_id+"", Routing.generate('page_like'));
+            this.ajaxHandle('POST', "page_id="+page_id+"", Routing.generate('page_like'));
         },
         /**
          *
          * @param _id
          */
         "loadMorePublication": function(_id) {
-            util.loadMore(Routing.generate('page_publication_get', {'id': _id}), 'GET', null);
+            this.loadMore(Routing.generate('page_publication_get', {'id': _id}), 'GET', null);
+        },
+
+        "loadMoreSearch": function(researchType, _field, _page) {
+            var _handler = function(data) {
+                $('#wizard_search_result').append(data['extra']['html']);
+            };
+            this.loadMore(Routing.generate('wizardalley_search_'+researchType, {'field':_field , 'page': _page}), 'GET', _handler);
+
         },
         /**
          *

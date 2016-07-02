@@ -69,7 +69,10 @@
         
 
         function loadMore(){
-            $result = util.loadMore(Routing.generate('wizardalley_user_wall_publication', {'page': _$page}), 'GET', 'addPublication');
+            var _handler = function($data){
+                $('#my_publication').append($data['extra']['html']);
+            };
+            $result = util.loadMore(Routing.generate('wizardalley_user_wall_publication', {'page': _$page}), 'GET', _handler);
             _$page = _$page+1;
         };
         

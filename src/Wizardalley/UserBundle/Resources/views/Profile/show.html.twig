@@ -99,83 +99,80 @@
         loadMorePageEditor();
 
         function loadMorePageFollowed() {
-            $result = util.loadMore(Routing.generate('page_user_followed_get', {'page': $pagePageFollowed}), 'GET', 'addPageFollowed');
+            var _handler = function(data) {
+                var $divPageFollowed = $('#div_page_followed');
+                $.each(data['data'], function(index,item){
+                    $prototype = $divPageFollowed.attr('prototype');
+                    $div = $prototype.replace('__id__', item.p_id);
+                    if(item.p_pathProfile != null && item.p_pathProfile != ""){
+                        $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
+                    } else {
+                        $div = $div.replace('__picture__', 'default.png');
+                    }
+                    $div = $div.replace('__title__', item.p_name);
+                    $divPageFollowed.append($div);
+                });
+            };
+            $result = util.loadMore(Routing.generate('page_user_followed_get', {'page': $pagePageFollowed}), 'GET', _handler);
             $pagePageFollowed = $pagePageFollowed + 1;
         };
         
-        function addPageFollowed(data){
-            $.each(data['data'], function(index,item){
-                $prototype = $('#div_page_followed').attr('prototype');
-                $div = $prototype.replace('__id__', item.p_id);
-                if(item.p_pathProfile != null && item.p_pathProfile != ""){
-                    $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
-                } else {
-                    $div = $div.replace('__picture__', 'default.png');
-                }
-                $div = $div.replace('__title__', item.p_name);
-                $('#div_page_followed').append($div);
-            });
-        }
-        
         function loadMoreFriends() {
-            $result = util.loadMore(Routing.generate('wizard_get_friends_json', {'page': $pageFriends}), 'GET', 'addMoreFriends');
+            var _handler = function(data) {
+                var $divFriend = $('#div_friend');
+                $.each(data['data'], function(index,item){
+                    $prototype = $divFriend.attr('prototype');
+                    $div = $prototype.replace('__id__', item.id);
+                    if(item.path_profile != null && item.path_profile != ""){
+                        $div = $div.replace('__picture__', item.id + '/' + item.path_profile);
+                    } else {
+                        $div = $div.replace('__picture__', 'default.png');
+                    }
+                    $div = $div.replace('__title__', item.username);
+                    $divFriend.append($div);
+                });
+            }
+            $result = util.loadMore(Routing.generate('wizard_get_friends_json', {'page': $pageFriends}), 'GET', _handler);
             $pageFriends = $pageFriends + 1;
         };
-        
-        
-        
-        function addMoreFriends(data) {
-            $.each(data['data'], function(index,item){
-                $prototype = $('#div_friend').attr('prototype');
-                $div = $prototype.replace('__id__', item.id);
-                if(item.path_profile != null && item.path_profile != ""){
-                    $div = $div.replace('__picture__', item.id + '/' + item.path_profile);
-                } else {
-                    $div = $div.replace('__picture__', 'default.png');
-                }
-                $div = $div.replace('__title__', item.username);
-                $('#div_friend').append($div);
-            });
-        }
+
         
         function loadMorePageCreated() {
-            $result = util.loadMore(Routing.generate('page_user_created_get', {'page': $pageCreated}), 'GET', 'addPageCreated');
+            var $divPageCreated = $('#div_page_created');
+            var _handler = function (data){
+                $.each(data['data'], function(index,item){
+                    $prototype = $divPageCreated.attr('prototype');
+                    $div = $prototype.replace('__id__', item.p_id);
+                    if(item.p_pathProfile != null && item.p_pathProfile != ""){
+                        $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
+                    } else {
+                        $div = $div.replace('__picture__', 'default.png');
+                    }
+                    $div = $div.replace('__title__', item.p_name);
+                    $divPageCreated.append($div);
+                });
+            };
+            $result = util.loadMore(Routing.generate('page_user_created_get', {'page': $pageCreated}), 'GET', _handler);
             $pageCreated = $pageCreated + 1;
         };
         
-        
-        function addPageCreated(data){
-            $.each(data['data'], function(index,item){
-                $prototype = $('#div_page_created').attr('prototype');
-                $div = $prototype.replace('__id__', item.p_id);
-                if(item.p_pathProfile != null && item.p_pathProfile != ""){
-                    $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
-                } else {
-                    $div = $div.replace('__picture__', 'default.png');
-                }
-                $div = $div.replace('__title__', item.p_name);
-                $('#div_page_created').append($div);
-            });
-        }
-        
-        
         function loadMorePageEditor() {
-            $result = util.loadMore(Routing.generate('page_user_editor_get', {'page': $pageEditor}), 'GET', 'addPageEditor');
+            var _handler = function (data){
+                var $divPageEditor = $('#div_page_editor');
+                $.each(data['data'], function(index,item){
+                    $prototype = $divPageEditor.attr('prototype');
+                    $div = $prototype.replace('__id__', item.p_id);
+                    if(item.p_pathProfile != null && item.p_pathProfile != ""){
+                        $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
+                    } else {
+                        $div = $div.replace('__picture__', 'default.png');
+                    }
+                    $div = $div.replace('__title__', item.p_name);
+                    $divPageEditor.append($div);
+                });
+            };
+            $result = util.loadMore(Routing.generate('page_user_editor_get', {'page': $pageEditor}), 'GET', _handler);
             $pageEditor = $pageEditor + 1;
         };
-        function addPageEditor(data) {
-            console.log(data);
-            $.each(data['data'], function(index,item){
-                $prototype = $('#div_page_editor').attr('prototype');
-                $div = $prototype.replace('__id__', item.p_id);
-                if(item.p_pathProfile != null && item.p_pathProfile != ""){
-                    $div = $div.replace('__picture__', item.p_id + '/' + item.p_pathProfile);
-                } else {
-                    $div = $div.replace('__picture__', 'default.png');
-                }
-                $div = $div.replace('__title__', item.p_name);
-                $('#div_page_editor').append($div);
-            });
-        }
     </script>
 {% endblock %}

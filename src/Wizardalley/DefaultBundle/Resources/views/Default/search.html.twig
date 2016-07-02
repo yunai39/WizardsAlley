@@ -26,11 +26,8 @@
             
             
         function loadMore(){
-            $result = util.loadMore(Routing.generate('wizardalley_search_'+researchType, {'field':field , 'page': _$page}), 'GET', 'addResultSearch');
+            $result = util.loadMoreSearch(researchType,field ,  _$page);
             _$page = _$page+1;
-        }
-        function addResultSearch($data){
-            $('#wizard_search_result').append($data['extra']['html']);
         }
         </script>
         
