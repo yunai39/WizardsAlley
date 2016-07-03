@@ -2,7 +2,7 @@
 namespace Wizardalley\UserBundle\Form\Type;  
 
 use Symfony\Component\Form\FormBuilderInterface; 
-use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;  
+use FOS\UserBundle\Form\Type\RegistrationFormType as BaseType;
 
 class RegistrationFormType extends BaseType {     
 
@@ -24,10 +24,10 @@ class RegistrationFormType extends BaseType {
                     '1'   => 'wizard.register.field.sexe.female',
                 ))
             );
-    }      
+    }
 
     public function getName()     
     {         
-        return 'wizard_user_registation';     
+        return 'wizard_user_registation';
     } 
 }

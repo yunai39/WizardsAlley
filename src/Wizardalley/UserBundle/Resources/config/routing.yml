@@ -57,7 +57,24 @@ wizard_get_publication_view:
     options:
         expose: true
 
-
 wizard_search_user_json:
     path:   /search/user/{search}
     defaults: { _controller: WizardalleyUserBundle:Default:searchUserJson, search: -1}
+
+
+
+fos_user_profile_show:
+    path: /profile/
+    defaults: { _controller: FOSUserBundle:Profile:show }
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile

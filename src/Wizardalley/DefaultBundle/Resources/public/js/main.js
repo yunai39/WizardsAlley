@@ -49,7 +49,7 @@ var util = (function(){
 
         "loadMoreSearch": function(researchType, _field, _page) {
             var _handler = function(data) {
-                $('#wizard_search_result').append(data['extra']['html']);
+                $('#wizard_search_result').prepend(data['extra']['html']);
             };
             this.loadMore(Routing.generate('wizardalley_search_'+researchType, {'field':_field , 'page': _page}), 'GET', _handler);
 

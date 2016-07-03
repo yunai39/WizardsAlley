@@ -11,36 +11,51 @@
 
 namespace Wizardalley\UserBundle\Form\Type; 
 
-use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-use FOS\UserBundle\Form\Type\ProfileFormType as BaseType; 
-
-class ProfileFormType extends BaseType
+/**
+ * Class ProfileFormType
+ * @package Wizardalley\UserBundle\Form\Type
+ */
+class ProfileFormType extends Form
 {
-
-
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);       
-        $builder->add('facebook','text',array(
+        $builder
+            ->add('facebook','text',array(
                 'label' =>'wizard.register.label.facebook',
-            ))
+                )
+            )
             ->add('twitter','text',array(
                 'label' =>'wizard.register.label.twitter',
+                )
             )
-            ); 
+
+        ;
+
     }
 
-      public function getParent()
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return 'fos_user_registration';
-    }  
+        $resolver->setDefaults(array(
+            'data_class' => 'WizardalleyCoreBundle:WizardUser',
+        ));
+    }
+
+    /**
+     * @return string
+     */
     public function getName()     
     {         
         return 'wizard_user_profile_edit';     
-    } 
-
-    
+    }
 }
