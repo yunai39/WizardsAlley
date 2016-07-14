@@ -1,9 +1,6 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-
-
-
     <div class="row" style="background-image: url('{{asset(page.getPictureCouverture)}}');background-size:100% 100%;background-repeat:no-repeat;height: 30vw;">
         <div class="row" style="margin-top:20%;">
             <div class="col-md-2">
@@ -104,7 +101,7 @@
 
             </div>
             <div >
-                <button id="loadMorePublication" >More</button>
+                <button class="load-more-publication" >More</button>
             </div>
         </div>
 
@@ -114,23 +111,18 @@
 {% block javascripts %}
     {{parent()}}
     <script>
-        
-        
         _$page = 1;
         loadMore();
-        $('#loadMorePublication').on('click', function(){
+        $('.load-more-publication').on('click', function(){
             loadMore();
         });
         
         function loadMore(){
-            $result = util.loadMore(Routing.generate('page_publication_get', {'id': {{page.id}} , 'page': _$page}), 'GET', 'addPublication');
+            var _handler = function($data){
+                $('#my_publication').append($data['extra']['html']);
+            };
+            $result = util.loadMore(Routing.generate('page_publication_get', {'id': {{page.id}} , 'page': _$page}), 'GET', _handler);
             _$page = _$page+1;
         };
-        
-        function addPublication($data){
-            $('#my_publication').append($data['extra']['html']);
-        }
-        
-
     </script>
 {% endblock %}
