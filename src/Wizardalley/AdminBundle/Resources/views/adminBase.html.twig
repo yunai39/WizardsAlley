@@ -30,10 +30,13 @@
             {% block body_admin %}
 
             {% endblock %}
-            {% block javascripts %}
-                {{parent()}}
-            <script src="{{ asset('/bundles/wizardalleyadmin/js/admin-manager.js') }}"></script>
-            {% endblock %}
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="{{ asset('/bundles/wizardalleyadmin/js/admin-manager.js') }}"></script>
+    <script src="{{ asset('/bundles/wizardalleydefault/jquery-ui/jquery-ui.js') }}"></script>
+    <script src="{{ asset('/bundles/wizardalleyadmin/js/wizard.dataTable.js') }}"></script>
 {% endblock %}

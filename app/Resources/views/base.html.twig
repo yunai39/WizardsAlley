@@ -123,7 +123,7 @@
         </div>
         {% endblock %}
                    
-    {% block javascripts %}     
+    {% block javascripts %}
         {% javascripts
         'bundles/wizardalleydefault/js/jquery.js'
         'bundles/wizardalleydefault/js/js.cookie.js'
@@ -132,10 +132,12 @@
         'bundles/wizardalleydefault/js/underscore.min.js'
         'bundles/wizardalleydefault/js/main.js'
         'bundles/fosjsrouting/js/router.js'
+
         %}
             <script src="{{ asset_url }}"></script>
-            <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
         {% endjavascripts %}
+        <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
     {% endblock %}
 </body>
 </html>
