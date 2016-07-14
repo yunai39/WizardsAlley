@@ -2,11 +2,13 @@
 
 namespace Wizardalley\AdminBundle\Table;
 
-use Symfony\Component\HttpFoundation\Request;
 use Wizardalley\CoreBundle\Entity\Publication;
 
 class PublicationTable extends AbstractTable
 {
+    public function getTableName() {
+        return 'WizardalleyCoreBundle:Publication';
+    }
     public function generateTable()
     {
         $this
@@ -22,16 +24,5 @@ class PublicationTable extends AbstractTable
     public function getName()
     {
         return 'publication';
-    }
-
-    /**
-     * @param Request $request
-     * @return array|\Wizardalley\CoreBundle\Entity\Publication[]
-     */
-    public function getResult(Request $request)
-    {
-        $repo = $this->em->getRepository('WizardalleyCoreBundle:Publication');
-
-        return $repo->findAll();
     }
 }

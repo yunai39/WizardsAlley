@@ -1,21 +1,32 @@
 {% extends 'WizardalleyAdminBundle::adminBase.html.twig' %}
 
 {% block body_admin -%}
-    <div id="wizardDataTable">
-        <table class="table" data-datatable-option="{{ config['datatable']|json_encode() }}">
-            <thead>
-                <tr>
-                    {% for column in config['column'] %}
-                        <th>{{ column.label }}</th>
-                    {% endfor %}
-                    {% for action in config['action'] %}
-                        <th>{{ action.label }}</th>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {% set title = 'wizard.table.' ~ name ~ '.title' %}
+            <h3>{{  title|trans() }}</h3>
+        </div>
+        <div class="panel-body">
+            <div id="wizardDataTable">
+                <table class="table" data-datatable-option="{{ config['datatable']|json_encode() }}">
+                    <thead>
+                    <tr>
+                        {% for column in config['column'] %}
+                            <th>{{ column.label }}</th>
+                        {% endfor %}
+                        {% if config['action'] is defined %}
+                            {% for action in config['action'] %}
+                                <th>{{ action.label }}</th>
+                            {% endfor %}
+                        {% endif %}
+                    </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
     {%  block tableTemplate %}
         <script type="text/template" class="template-render-column">
             <p><%- data %></p>

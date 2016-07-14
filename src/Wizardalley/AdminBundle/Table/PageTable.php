@@ -12,6 +12,13 @@ use Wizardalley\CoreBundle\Entity\Publication;
  */
 class PageTable extends AbstractTable
 {
+    /**
+     * @return string
+     */
+    public function getTableName() {
+        return 'Wizardalley\CoreBundle\Entity\Page';
+    }
+
     public function generateTable()
     {
         $this
@@ -64,16 +71,5 @@ class PageTable extends AbstractTable
     public function getName()
     {
         return 'page';
-    }
-
-    /**
-     * @param Request $request
-     * @return array|\Wizardalley\CoreBundle\Entity\Publication[]
-     */
-    public function getResult(Request $request)
-    {
-        $repo = $this->em->getRepository('Wizardalley\CoreBundle\Entity\Page');
-
-        return $repo->findAll();
     }
 }

@@ -5,12 +5,11 @@ namespace Wizardalley\AdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Wizardalley\AdminBundle\Table\AbstractTable;
+use Wizardalley\AdminBundle\Table\TableHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Wizardalley\AdminBundle\Table\TableHelper;
 
 /**
  * Class TableController
@@ -52,8 +51,8 @@ class TableController extends Controller
         return new JsonResponse(
             [
                 "draw" => 1,
-                "recordsTotal"=> 6,
-                "recordsFiltered"=> 6,
+                "recordsTotal"=> $table->getTotal(),
+                "recordsFiltered"=> $table->getTotal(),
                 'data' => $table->getArrayResult($request)
             ]
         );

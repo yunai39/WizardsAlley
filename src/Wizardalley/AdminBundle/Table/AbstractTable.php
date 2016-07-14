@@ -68,7 +68,26 @@ abstract class AbstractTable
      * @param Request $request
      * @return Collection
      */
-    abstract public function getResult(Request $request);
+    public function getResult(Request $request) {
+        $repo = $this->em->getRepository($this->getTableName());
+        $limit = $request->query->get('iDisplayLength');
+        $page = $request->query->get('sEcho');
+        $offset = ($page-1) * $limit;
+        return $repo->createQueryBuilder('r')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->getQuery()
+            ->getResult();
+
+    }
+
+    /**
+     * @return int
+     */
+    public function getTotal(){
+        $repo = $this->em->getRepository($this->getTableName());
+        return count($repo->findAll());
+    }
 
     /**
      * @return array
@@ -90,6 +109,7 @@ abstract class AbstractTable
         $config['datatable'] = [
             "bProcessing" => true,
             "bServerSide" => true,
+            "paging" => true,
             "sAjaxSource" => $this->router->generate('admin_list_json', ['name' => $this->getName()]),
         ];
         foreach( $this->columns as $column) {
@@ -150,6 +170,11 @@ abstract class AbstractTable
             'data' => $column->getData($data)
         ];
     }
+
+    /**
+     * @return string
+     */
+    abstract protected function getTableName();
 
     /**
      * @return string

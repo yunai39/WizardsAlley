@@ -1,0 +1,8 @@
+wizard:
+  table:
+    page:
+      title: Administration des pages
+    publication:
+      title: Administration des publications
+    user:
+      title: Administration des utilisateurs
