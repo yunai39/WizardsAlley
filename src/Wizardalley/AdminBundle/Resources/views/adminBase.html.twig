@@ -15,10 +15,10 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li><a>Utilisateur</a></li>
-                            <li><a href='{{ path('admin_page') }}'>Page</a></li>
-                            <li><a href='{{ path('admin_infoBillet') }}'>Informations</a></li>
-                            <li><a>Contact</a></li>
+                            <li><a href="{{ path('admin_list_page', {tableName: 'user'}) }}">Utilisateur</a></li>
+                            <li><a href="{{ path('admin_list_page', {tableName: 'page'}) }}">Page</a></li>
+                            <li><a href="{{ path('admin_list_page', {tableName: 'information'}) }}">Information</a></li>
+                            <li><a href="{{ path('admin_list_page', {tableName: 'publication'}) }}">Publication</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                         </ul>
@@ -36,7 +36,7 @@
 {% block javascripts %}
     {{parent()}}
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="{{ asset('/bundles/wizardalleyadmin/js/admin-manager.js') }}"></script>
-    <script src="{{ asset('/bundles/wizardalleydefault/jquery-ui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('/bundles/wizardalleyadmin/js/wizard.dataTable.js') }}"></script>
+    <script src="/bundles/wizardalleyadmin/js/admin-manager.js"></script>
+    <script src="/bundles/wizardalleydefault/jquery-ui/jquery-ui.js"></script>
+    <script src="/bundles/wizardalleyadmin/js/wizard.dataTable.js"></script>
 {% endblock %}

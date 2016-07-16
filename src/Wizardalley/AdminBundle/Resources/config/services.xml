@@ -17,5 +17,9 @@
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="router"/>
         </service>
+        <service id="wizardalley.admin.table.information" class="Wizardalley\AdminBundle\Table\InformationTable">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="router"/>
+        </service>
     </services>
 </container>

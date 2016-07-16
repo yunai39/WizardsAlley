@@ -4,6 +4,7 @@ namespace Wizardalley\AdminBundle\Table;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGenerator;
@@ -66,9 +67,9 @@ abstract class AbstractTable
 
     /**
      * @param Request $request
-     * @return Collection
+     * @return Query
      */
-    public function getResult(Request $request) {
+    public function getQueryResult(Request $request) {
         $repo = $this->em->getRepository($this->getTableName());
         $limit = $request->query->get('iDisplayLength');
         $page = $request->query->get('sEcho');
@@ -76,8 +77,7 @@ abstract class AbstractTable
         return $repo->createQueryBuilder('r')
             ->setMaxResults($limit)
             ->setFirstResult($offset)
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
 
     }
 
@@ -127,7 +127,7 @@ abstract class AbstractTable
      * @return array
      */
     public function getArrayResult(Request $request){
-        $datas = $this->getResult($request);
+        $datas = $this->getQueryResult($request)->getResult();
         $array = [];
         /** @var Object $data */
         foreach($datas as $data) {

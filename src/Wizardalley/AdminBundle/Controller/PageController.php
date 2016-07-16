@@ -17,24 +17,6 @@ use Wizardalley\PublicationBundle\Form\PageType;
  */
 class PageController extends Controller
 {
-
-    /**
-     * Lists all Page entities.
-     *
-     * @Route("/", name="admin_page")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('WizardalleyCoreBundle:Page')->findAll();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
     /**
      * Creates a new Page entity.
      *
@@ -225,7 +207,7 @@ class PageController extends Controller
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_page'));
+        return $this->redirect($this->generateUrl('admin_list_page', ['tableName' => 'page']));
     }
 
     /**
