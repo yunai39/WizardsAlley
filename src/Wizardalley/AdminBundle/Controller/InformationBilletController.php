@@ -20,24 +20,6 @@ use Wizardalley\DefaultBundle\Controller\BaseController;
  */
 class InformationBilletController extends BaseController
 {
-
-    /**
-     * Lists all InformationBillet entities.
-     *
-     * @Route("/", name="admin_infoBillet")
-     * @Method("GET")
-     * @Template()
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('WizardalleyCoreBundle:InformationBillet')->findMore();
-
-        return array(
-            'entities' => $entities,
-        );
-    }
     /**
      * Creates a new InformationBillet entity.
      *
@@ -114,7 +96,7 @@ class InformationBilletController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyAdminBundle:InformationBillet')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:InformationBillet')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find InformationBillet entity.');
@@ -139,7 +121,8 @@ class InformationBilletController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('WizardalleyAdminBundle:InformationBillet')->find($id);
+        /** @var InformationBillet $entity */
+        $entity = $em->getRepository('WizardalleyCoreBundle:InformationBillet')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find InformationBillet entity.');
@@ -229,7 +212,7 @@ class InformationBilletController extends BaseController
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('admin_infoBillet'));
+        return $this->redirect($this->generateUrl('admin_list_page', ['tableName' => 'information']));
     }
 
     /**
@@ -248,7 +231,18 @@ class InformationBilletController extends BaseController
             ->getForm()
         ;
     }
-    
+
+    /**
+     * @return Response
+     */
+    public function renderFormDeleteTemplateAction(){
+        $form =  $this->createFormBuilder()
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
+        return $this->render('WizardalleyAdminBundle:Table:renderForm.html.twig', ['form' => $form->createView()]);
+    }
+
     /**
      * 
      * @Route("/loadMore/billet/{lastId}", name="load_more_entity_billet", options={"expose"=true})

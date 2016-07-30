@@ -24,7 +24,9 @@ class InformationBilletType extends AbstractType
                     )
                 )
             )
-            ->add('datePublicationBillet')
+            ->add('datePublicationBillet', 'date', [
+                'format' => 'yyyy-MM-dd'
+            ])
             ->add('commentsEnabled')
         ;
     }

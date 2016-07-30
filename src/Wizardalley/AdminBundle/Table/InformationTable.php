@@ -13,9 +13,11 @@ class InformationTable extends AbstractTable
     /**
      * @return string
      */
-    public function getTableName() {
+    public function getTableName()
+    {
         return 'WizardalleyCoreBundle:InformationBillet';
     }
+
     public function generateTable()
     {
         $this
@@ -25,19 +27,21 @@ class InformationTable extends AbstractTable
                 'type' => TableAction::ACTION_LINK,
                 'render' => 'renderEdit'
             ])
-            ->addAction('delete', [
-                'type' => TableAction::ACTION_LINK,
-                'render' => 'renderDelete'
-            ])
-        ;
+            ->addModalAction('delete', [
+                'type' => TableAction::ACTION_MODAL_CONFIRM,
+                'template' => 'template-render-modal-delete',
+                'render' => 'renderDeleteLink',
+                'title' => 'Suppression du billet d\'information'
+            ]);
     }
 
     /**
      * @param TableAction $action
-     * @param Page $page
+     * @param InformationBillet $page
      * @return array
      */
-    public function renderEdit(TableAction $action, InformationBillet $informatioNBillet) {
+    public function renderEdit(TableAction $action, InformationBillet $informatioNBillet)
+    {
         return [
             'icon' => 'icon-pencil',
             'href' => $this->router->generate(
@@ -47,19 +51,28 @@ class InformationTable extends AbstractTable
         ];
     }
 
+
     /**
      * @param TableAction $action
-     * @param Page $page
+     * @param InformationBillet $info
      * @return array
      */
-    public function renderDelete(TableAction $action, InformationBillet $informatioNBillet) {
+    public function renderDeleteLink(TableAction $action, InformationBillet $info)
+    {
         return [
+            'data' => $action->getData(),
+            'action' => $this->router->generate('admin_infoBillet_delete', ['id' => $info->getId()]),
+            'template' => $action->getTemplate(),
             'icon' => 'icon-trash',
-            'href' => $this->router->generate(
-                'admin_infoBillet_delete',
-                ['id' => $informatioNBillet->getId()]
-            )
+            'title' => $this->translator->trans("wizard.table." . $this->getName() . ".action." . $action->getName())
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplate(){
+        return 'WizardalleyAdminBundle:InformationBillet:list.html.twig';
     }
 
     /**

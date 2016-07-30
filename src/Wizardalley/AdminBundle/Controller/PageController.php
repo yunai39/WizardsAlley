@@ -213,12 +213,15 @@ class PageController extends Controller
         return $this->redirect($this->generateUrl('admin_list_page', ['tableName' => 'page']));
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function renderFormDeleteTemplateAction(){
         $form =  $this->createFormBuilder()
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm();
-        return $this->render('WizardalleyAdminBundle:Page:renderForm.html.twig', ['form' => $form->createView()]);
+        return $this->render('WizardalleyAdminBundle:Table:renderForm.html.twig', ['form' => $form->createView()]);
     }
 
     /**
