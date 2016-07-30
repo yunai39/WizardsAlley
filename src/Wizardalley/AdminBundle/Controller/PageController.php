@@ -184,6 +184,9 @@ class PageController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
+
+
+
     /**
      * Deletes a Page entity.
      *
@@ -208,6 +211,14 @@ class PageController extends Controller
         }
 
         return $this->redirect($this->generateUrl('admin_list_page', ['tableName' => 'page']));
+    }
+
+    public function renderFormDeleteTemplateAction(){
+        $form =  $this->createFormBuilder()
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
+        return $this->render('WizardalleyAdminBundle:Page:renderForm.html.twig', ['form' => $form->createView()]);
     }
 
     /**

@@ -8,18 +8,22 @@
         <service id="wizardalley.admin.table.publication" class="Wizardalley\AdminBundle\Table\PublicationTable">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="router"/>
+            <argument type="service" id="translator.default"/>
         </service>
         <service id="wizardalley.admin.table.page" class="Wizardalley\AdminBundle\Table\PageTable">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="router"/>
+            <argument type="service" id="translator.default"/>
         </service>
         <service id="wizardalley.admin.table.user" class="Wizardalley\AdminBundle\Table\UserTable">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="router"/>
+            <argument type="service" id="translator.default"/>
         </service>
         <service id="wizardalley.admin.table.information" class="Wizardalley\AdminBundle\Table\InformationTable">
             <argument type="service" id="doctrine.orm.entity_manager"/>
             <argument type="service" id="router"/>
+            <argument type="service" id="translator.default"/>
         </service>
     </services>
 </container>

@@ -11,9 +11,12 @@ class TableAction
     const ACTION_MODAL_CONFIRM = 'table.action.modal_confirm';
     const ACTION_LINK = 'table.action.link';
     const ACTION_TEMPLATE = 'template-render-action';
+    const ACTION_MODAL_TEMPLATE = 'template-render-button-modal';
     protected $actionType = self::ACTION_LINK;
     protected $actionRender = null;
     protected $name;
+    protected $data;
+    protected $template;
 
     /**
      * TableAction constructor.
@@ -49,5 +52,41 @@ class TableAction
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param mixed $data
+     * @return TableAction
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTemplate()
+    {
+        return $this->template;
+    }
+
+    /**
+     * @param mixed $template
+     * @return TableAction
+     */
+    public function setTemplate($template)
+    {
+        $this->template = $template;
+        return $this;
     }
 }

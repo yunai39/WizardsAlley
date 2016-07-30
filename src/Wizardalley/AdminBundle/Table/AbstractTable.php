@@ -8,6 +8,7 @@ use Doctrine\ORM\Query;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGenerator;
+use Symfony\Component\Translation\Translator;
 
 /**
  * Class AbstractTable
@@ -27,13 +28,17 @@ abstract class AbstractTable
     /** @var Router */
     protected $router;
 
+    /** @var Translator */
+    protected $translator;
+
     /**
      * AbstractTable constructor.
      * @param EntityManager $em
      */
-    public function __construct(EntityManager $em, Router $router){
+    public function __construct(EntityManager $em, Router $router, Translator $translator){
         $this->em = $em;
         $this->router = $router;
+        $this->translator = $translator;
 
         $this->generateTable();
     }
@@ -51,7 +56,7 @@ abstract class AbstractTable
      * @param $options
      * @return AbstractTable
      */
-    protected function addColumn($name, $label, $options = []){
+    protected function addColumn($name, $label, $options = []) {
         $this->columns[$name] = new TableColumn($name,$label, $options);
         return $this;
     }
@@ -59,11 +64,28 @@ abstract class AbstractTable
     /**
      * @param $name
      * @param $options
+     * @return AbstractTable
      */
-    protected function addAction($name, $options){
+    protected function addAction($name, $options) {
         $this->actions[$name] = new TableAction($name, $options['type'], $options['render']);
         return $this;
     }
+
+    /**
+     * @param $name
+     * @param $options
+     * @return $this
+     */
+    protected function addModalAction($name, $options) {
+        $action = new TableAction($name, $options['type'], $options['render']);
+        $action->setTemplate($options['template']);
+        if(isset($options['data'])) {
+            $action->setData($options['data']);
+        }
+        $this->actions[$name] = $action;
+        return $this;
+    }
+
 
     /**
      * @param Request $request
@@ -146,10 +168,15 @@ abstract class AbstractTable
             /** @var TableAction $action */
             foreach($this->actions as $action) {
                 $renderFunction = $action->getActionRender();
+                if($action->getActionType() == TableAction::ACTION_MODAL_CONFIRM) {
+                    $template = TableAction::ACTION_MODAL_TEMPLATE;
+                } else {
+                    $template = TableAction::ACTION_TEMPLATE;
+                }
                 $columnAction = [
                     'data' => $action->getName(),
                     'action' => $action->getActionType(),
-                    'template' => TableAction::ACTION_TEMPLATE,
+                    'template' => $template,
                     'render' => $this->$renderFunction($action, $data)
                 ];
                 $row[$action->getName()] = $columnAction;
@@ -168,6 +195,21 @@ abstract class AbstractTable
     protected function columnRenderDefault(TableColumn $column, $data){
         return [
             'data' => $column->getData($data)
+        ];
+    }
+
+    /**
+     * @param TableAction $action
+     * @param $data
+     * @return array
+     */
+    protected function actionRenderModal(TableAction $action, $data){
+        $actionRender = $action->getActionRender();
+        return [
+            'data' => $action->getData(),
+            'action' => $this->$actionRender($action, $data),
+            'template' => $action->getTemplate(),
+            'title' => $this->translator->trans("wizard.admin.table.action.".$action->getName())
         ];
     }
 

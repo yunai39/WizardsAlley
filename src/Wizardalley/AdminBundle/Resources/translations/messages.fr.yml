@@ -6,3 +6,5 @@ wizard:
       title: Administration des publications
     user:
       title: Administration des utilisateurs
+    confirm.delete: Etes vous sur de vouloir supprimer cette page
+    action.delete: Supprimer une page

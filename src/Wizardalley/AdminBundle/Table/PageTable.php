@@ -28,9 +28,11 @@ class PageTable extends AbstractTable
                 'type' => TableAction::ACTION_LINK,
                 'render' => 'renderEdit'
             ])
-            ->addAction('delete', [
-                'type' => TableAction::ACTION_LINK,
-                'render' => 'renderDelete'
+            ->addModalAction('delete', [
+                'type' => TableAction::ACTION_MODAL_CONFIRM,
+                'template' => 'template-render-modal-delete',
+                'render' => 'renderDeleteLink',
+                'title' => 'Suppression de la page'
             ])
         ;
     }
@@ -55,14 +57,21 @@ class PageTable extends AbstractTable
      * @param Page $page
      * @return array
      */
-    public function renderDelete(TableAction $action, Page $page) {
+    public function renderDeleteLink(TableAction $action, Page $page) {
         return [
+            'data' => $action->getData(),
+            'action' => $this->router->generate('admin_page_delete', ['id' => $page->getId()]),
+            'template' => $action->getTemplate(),
             'icon' => 'icon-trash',
-            'href' => $this->router->generate(
-                'admin_page_delete',
-                ['id' => $page->getId()]
-            )
+            'title' => $this->translator->trans("wizard.table.action.".$action->getName())
         ];
+    }
+
+    /**
+     * @return string
+     */
+    public function getTemplate(){
+        return 'WizardalleyAdminBundle:Page:list.html.twig';
     }
 
     /**
