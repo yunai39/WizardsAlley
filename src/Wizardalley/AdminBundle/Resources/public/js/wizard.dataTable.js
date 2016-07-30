@@ -26,6 +26,9 @@
 
         init: function() {
             var renderColumn = function ( data, type, row ) {
+                if(data['render'] == false) {
+                    return '';
+                }
                 var templateName = data['template'],
                     template = _.template(
                         $( "script." + templateName ).html()
