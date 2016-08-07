@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Wizardalley\AdminBundle\Form\AdministrateurForm;
 use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\PublicationBundle\Form\PageType;
@@ -18,6 +19,70 @@ use Wizardalley\PublicationBundle\Form\PageType;
  */
 class UserController extends Controller
 {
+
+    /**
+     * Form to create a new administrator
+     *
+     * @Route("/newAdministrateur", name="admin_administrateur_new")
+     * @Method("GET")
+     * @Template()
+     */
+    public function newAction(){
+        $entity = new WizardUser();
+        $form   = $this->createCreateForm($entity);
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+    }
+    /**
+     * Form to create a new administrator
+     *
+     * @Route("/newAdministrateur", name="admin_administrateur_create")
+     * @Method("POST")
+     */
+    public function createAdministrateurAction(Request $request){
+        $entity = new WizardUser();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $entity->setLocked(false);
+            $entity->addRole('ROLE_ADMIN');
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_list_page', array('tableName' => 'user')));
+        }
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+    }
+
+
+    /**
+     * Creates a form to create a WizardUser entity.
+     *
+     * @param WizardUser $entity The entity
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createCreateForm(WizardUser $entity)
+    {
+        $form = $this->createForm(new AdministrateurForm(), $entity, array(
+            'action' => $this->generateUrl('admin_administrateur_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
     /**
      * Lock a user.
      *

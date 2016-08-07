@@ -22,6 +22,9 @@ class UserTable extends AbstractTable
             ->addColumn('username', 'Username')
             ->addColumn('firstname', 'Firstname')
             ->addColumn('lastname', 'Lastname')
+            ->addColumn('roles', 'Roles', [
+                'render' => "renderRoles"
+            ])
             ->addColumn('email', 'Email')
             ->addModalAction('lock', [
                 'type' => TableAction::ACTION_MODAL_CONFIRM,
@@ -36,6 +39,18 @@ class UserTable extends AbstractTable
                 'title' => 'Débloquer l\'utilisateur'
             ])
         ;
+    }
+
+    /**
+     * @param TableColumn $column
+     * @param WizardUser  $user
+     * @return array
+     */
+    public function renderRoles(TableColumn $column, $user){
+        return [
+            'data' => $user->getRoles()
+        ];
+
     }
 
     public function renderLockLink(TableAction $action, WizardUser $user) {
