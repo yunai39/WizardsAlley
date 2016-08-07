@@ -65,6 +65,20 @@ class UserController extends Controller
 
 
     /**
+     * Edit a current user
+     *
+     * @Route("/{id}/edit", name="admin_user_edit")
+     * @Template()
+     */
+    public function editAction(request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var WizardUser $entity */
+        $entity = $em->getRepository('WizardalleyCoreBundle:WizardUser')->find($id);
+        return ['user' => $entity];
+    }
+
+    /**
      * Creates a form to create a WizardUser entity.
      *
      * @param WizardUser $entity The entity

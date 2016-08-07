@@ -38,7 +38,28 @@ class UserTable extends AbstractTable
                 'render' => 'renderUnlockLink',
                 'title' => 'Débloquer l\'utilisateur'
             ])
+            ->addAction('edit', [
+                'type' => TableAction::ACTION_LINK,
+                'render' => 'renderEdit'
+            ])
         ;
+    }
+
+
+    /**
+     * @param TableAction $action
+     * @param WizardUser  $user
+     * @return array
+     */
+    public function renderEdit(TableAction $action, WizardUser $user)
+    {
+        return [
+            'icon' => 'icon-pencil',
+            'href' => $this->router->generate(
+                'admin_user_edit',
+                ['id' => $user->getId()]
+            )
+        ];
     }
 
     /**
