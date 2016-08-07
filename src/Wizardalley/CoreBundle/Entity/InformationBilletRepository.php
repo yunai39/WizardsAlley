@@ -22,6 +22,8 @@ class InformationBilletRepository extends AdminRepository
             ->select('i')
             ->from($this->_entityName, 'i');
         $query = $qb
+            ->where('i.datePublicationBillet <= :dateNow' )
+            ->setParameter('dateNow', (new \DateTime('now'))->format('Y-m-d'))
             ->orderBy('i.datePublicationBillet','DESC')
             ->setFirstResult($firstResult)
             ->setMaxResults($number)

@@ -1,6 +1,13 @@
 {% extends 'WizardalleyAdminBundle:Table:defaultList.html.twig' %}
 
 
+{% block headerAdmin %}
+    <div class="pull-right">
+        <a href="{{ path('admin_infoBillet_new') }}">
+            <i class="icon-large icon-plus-sign"></i>
+        </a>
+    </div>
+{%  endblock %}
 {%  block tableTemplateExtra %}
 
     <script type="text/template" class="template-render-modal-delete">
@@ -8,3 +15,4 @@
         {{ render(controller('WizardalleyAdminBundle:InformationBillet:renderFormDeleteTemplate')) }}
     </script>
 {%  endblock %}
+

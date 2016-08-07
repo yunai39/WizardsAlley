@@ -1,13 +1,16 @@
 {% extends 'WizardalleyAdminBundle::adminBase.html.twig' %}
 
 {% block body_admin -%}
+
     <div class="panel panel-default">
         <div class="panel-heading">
             {% set title = 'wizard.table.' ~ name ~ '.title' %}
-            <h3>{{  title|trans() }}</h3>
+            <h3>{{  title|trans() }}{% block headerAdmin %}{% endblock %}</h3>
+
         </div>
         <div class="panel-body">
             <div id="wizardDataTable">
+
                 <table class="table" data-datatable-option="{{ config['datatable']|json_encode() }}">
                     <thead>
                     <tr>

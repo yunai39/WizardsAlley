@@ -58,7 +58,7 @@ class InformationBillet
     private $commentsEnabled;
     
     /**
-    * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", cascade={"remove"})
+    * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser")
     */
     private $user;
 

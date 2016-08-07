@@ -36,10 +36,11 @@ class InformationBilletController extends BaseController
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setDateCreateBillet(new \DateTime);
+            $entity->setUser($this->getUser());
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('admin_infoBillet_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('admin_list_page', array('tableName' => 'information')));
         }
 
         return array(

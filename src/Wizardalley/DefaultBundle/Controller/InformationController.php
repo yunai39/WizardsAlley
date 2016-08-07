@@ -4,6 +4,7 @@ namespace Wizardalley\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Wizardalley\CoreBundle\Entity\InformationBilletRepository;
 
 /**
  * Class InformationController
@@ -27,6 +28,7 @@ class InformationController extends BaseController
     public function getInformationsAction($page)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var InformationBilletRepository $repo */
         $repo =  $em->getRepository('WizardalleyCoreBundle:InformationBillet');
         $informations = $repo->findInformationLimit($page,1);
         return $this->sendJsonResponse(

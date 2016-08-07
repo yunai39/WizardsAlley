@@ -16,7 +16,6 @@ class InformationBilletType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('user')
             ->add('content','textarea', array(
                     'attr' => array(
                         'class' => 'tinymce',
@@ -27,7 +26,9 @@ class InformationBilletType extends AbstractType
             ->add('datePublicationBillet', 'date', [
                 'format' => 'yyyy-MM-dd'
             ])
-            ->add('commentsEnabled')
+            ->add('commentsEnabled', 'checkbox', [
+                'required' => false,
+            ])
         ;
     }
     
