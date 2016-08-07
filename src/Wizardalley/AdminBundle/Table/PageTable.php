@@ -2,6 +2,7 @@
 
 namespace Wizardalley\AdminBundle\Table;
 
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\Publication;
@@ -23,7 +24,7 @@ class PageTable extends AbstractTable
     {
         $this
             ->addColumn('id', 'Id')
-            ->addColumn('name', 'Name')
+            ->addColumn('name', 'Name',['search' => true])
             ->addAction('edit', [
                 'type' => TableAction::ACTION_LINK,
                 'render' => 'renderEdit'
@@ -36,6 +37,19 @@ class PageTable extends AbstractTable
             ])
         ;
     }
+
+
+    /**
+     * @param QueryBuilder $query
+     * @param string $search
+     * @return QueryBuilder
+     */
+    public function searchQuery(QueryBuilder $query, $search) {
+        $query->orWhere('r.description like :description');
+        $query->setParameter('description', '%'.$search.'%');
+        return $query;
+    }
+
 
     /**
      * @param TableAction $action

@@ -2,6 +2,7 @@
 
 namespace Wizardalley\AdminBundle\Table;
 
+use Doctrine\ORM\QueryBuilder;
 use Wizardalley\CoreBundle\Entity\InformationBillet;
 
 /**
@@ -22,7 +23,7 @@ class InformationTable extends AbstractTable
     {
         $this
             ->addColumn('id', 'Id')
-            ->addColumn('name', 'Nom')
+            ->addColumn('name', 'Nom', ['search' => true])
             ->addAction('edit', [
                 'type' => TableAction::ACTION_LINK,
                 'render' => 'renderEdit'
@@ -33,6 +34,18 @@ class InformationTable extends AbstractTable
                 'render' => 'renderDeleteLink',
                 'title' => 'Suppression du billet d\'information'
             ]);
+    }
+
+
+    /**
+     * @param QueryBuilder $query
+     * @param string $search
+     * @return QueryBuilder
+     */
+    public function searchQuery(QueryBuilder $query, $search) {
+        $query->orWhere('r.content like :content');
+        $query->setParameter('content', '%'.$search.'%');
+        return $query;
     }
 
     /**

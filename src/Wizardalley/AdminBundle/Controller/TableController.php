@@ -50,7 +50,7 @@ class TableController extends Controller
         $table = $this->container->get('wizardalley.admin.table.'.$name);
         return new JsonResponse(
             [
-                "draw" => 1,
+                "draw" => $request->query->get('sEcho'),
                 "recordsTotal"=> $table->getTotal(),
                 "recordsFiltered"=> $table->getTotal(),
                 'data' => $table->getArrayResult($request)

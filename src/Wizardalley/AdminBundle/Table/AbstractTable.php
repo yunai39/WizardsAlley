@@ -5,6 +5,7 @@ namespace Wizardalley\AdminBundle\Table;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGenerator;
@@ -67,7 +68,13 @@ abstract class AbstractTable
      * @return AbstractTable
      */
     protected function addAction($name, $options) {
-        $this->actions[$name] = new TableAction($name, $options['type'], $options['render']);
+
+        $this->actions[$name] = new TableAction(
+            $name,
+            $options['type'],
+            $options['render'],
+            isset($options['template']) ? $options['template']: TableAction::ACTION_TEMPLATE
+        );
         return $this;
     }
 
@@ -94,19 +101,56 @@ abstract class AbstractTable
     public function getQueryResult(Request $request) {
         $repo = $this->em->getRepository($this->getTableName());
         $limit = $request->query->get('iDisplayLength');
-        $page = $request->query->get('sEcho');
-        $offset = ($page-1) * $limit;
-        return $repo->createQueryBuilder('r')
+        $offset = $request->query->get('iDisplayStart');
+        /** @var QueryBuilder $query */
+        $query = $repo->createQueryBuilder('r')
             ->setMaxResults($limit)
-            ->setFirstResult($offset)
-            ->getQuery();
+            ->setFirstResult($offset);
+        // Si on a un champs de recherche
+        if ($request->query->has('sSearch') && !empty($request->query->get('sSearch'))) {
+            $search = $request->query->get('sSearch');
+            // Pour chaque columns si on
+            /** @var TableColumn $column */
+            foreach( $this->columns as $column) {
+                if ($column->getSearch()) {
+                    $query->orWhere('r.'.$column->getName() .'  LIKE :'.$column->getName());
+                    $query->setParameter($column->getName(), '%'.$search.'%');
+                }
 
+            }
+            $query = $this->searchQuery($query, $search);
+
+        }
+
+        return $query->getQuery();
+
+    }
+
+    /**
+     * Fonction a surcharger pour modifier la recherche sur des champs qui ne sont pas presents dans les columns
+     * @param QueryBuilder $query
+     * @param string $search
+     * @return QueryBuilder
+     */
+    public function searchQuery(QueryBuilder $query, $search) {
+        return $query;
     }
 
     /**
      * @return int
      */
     public function getTotal(){
+        $repo = $this->em->getRepository($this->getTableName());
+        return count($repo->findAll());
+    }
+
+
+
+
+    /**
+     * @return int
+     */
+    public function getTotalFiltered(Request $request){
         $repo = $this->em->getRepository($this->getTableName());
         return count($repo->findAll());
     }
@@ -171,7 +215,11 @@ abstract class AbstractTable
                 if($action->getActionType() == TableAction::ACTION_MODAL_CONFIRM) {
                     $template = TableAction::ACTION_MODAL_TEMPLATE;
                 } else {
-                    $template = TableAction::ACTION_TEMPLATE;
+                    if($action->getTemplate()) {
+                        $template = $action->getTemplate();
+                    } else {
+                        $template = TableAction::ACTION_TEMPLATE;
+                    }
                 }
                 $columnAction = [
                     'data' => $action->getName(),
@@ -183,7 +231,6 @@ abstract class AbstractTable
             }
             $array[] = $row;
         }
-
         return $array;
     }
 

@@ -25,6 +25,11 @@ class PublicationTable extends AbstractTable
         $this
             ->addColumn('id', 'Id')
             ->addColumn('title', 'Titre')
+            ->addAction('user', [
+                'type' => TableAction::ACTION_LINK,
+                'render' => 'renderUser',
+                'template' => 'template-render-user-link'
+            ])
             ->addModalAction('delete', [
                 'type' => TableAction::ACTION_MODAL_CONFIRM,
                 'template' => 'template-render-modal-delete',
@@ -32,6 +37,23 @@ class PublicationTable extends AbstractTable
                 'title' => 'Suppression de la publication'
             ])
         ;
+    }
+
+
+
+    /**
+     * @param TableAction $action
+     * @param Publication $publication
+     * @return array
+     */
+    public function renderUser(TableAction $action, Publication $publication) {
+        return [
+            'username' => $publication->getUser()->getUsername(),
+            'href' => $this->router->generate(
+                'admin_user_edit',
+                ['id' => $publication->getUser()->getId()]
+            )
+        ];
     }
 
     /**

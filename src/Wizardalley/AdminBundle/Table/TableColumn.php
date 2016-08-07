@@ -14,6 +14,9 @@ class TableColumn
     /** @var string */
     protected $label;
 
+    /** @var bool */
+    protected $search = false;
+
     /** @var string */
     protected $renderFunction = 'columnRenderDefault';
 
@@ -31,6 +34,9 @@ class TableColumn
         }
         if(isset($options['render'])) {
             $this->renderFunction = $options['render'];
+        }
+        if(isset($options['search'])) {
+            $this->search = $options['search'];
         }
     }
 
@@ -55,6 +61,13 @@ class TableColumn
      */
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSearch() {
+        return $this->search;
     }
 
     /**

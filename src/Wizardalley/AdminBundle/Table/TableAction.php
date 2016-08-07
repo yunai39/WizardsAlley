@@ -22,12 +22,14 @@ class TableAction
      * TableAction constructor.
      * @param $actionType
      * @param $actionRender
+     * @param $template
      */
-    public function __construct($name, $actionType, $actionRender)
+    public function __construct($name, $actionType, $actionRender, $template = self::ACTION_TEMPLATE)
     {
         $this->name = $name;
         $this->actionType = $actionType;
         $this->actionRender = $actionRender;
+        $this->template = $template;
     }
 
     /**
