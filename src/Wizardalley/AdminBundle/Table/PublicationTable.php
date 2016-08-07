@@ -2,6 +2,7 @@
 
 namespace Wizardalley\AdminBundle\Table;
 
+use Doctrine\ORM\QueryBuilder;
 use Wizardalley\CoreBundle\Entity\Publication;
 
 /**
@@ -24,7 +25,7 @@ class PublicationTable extends AbstractTable
     {
         $this
             ->addColumn('id', 'Id')
-            ->addColumn('title', 'Titre')
+            ->addColumn('title', 'Titre', ['search' => true])
             ->addAction('user', [
                 'type' => TableAction::ACTION_LINK,
                 'render' => 'renderUser',
@@ -40,6 +41,18 @@ class PublicationTable extends AbstractTable
     }
 
 
+    /**
+     * @param QueryBuilder $query
+     * @param string $search
+     * @return QueryBuilder
+     */
+    public function searchQuery(QueryBuilder $query, $search) {
+        $query->orWhere('r.smallContent like :smallContent');
+        $query->setParameter('smallContent', '%'.$search.'%');
+        $query->orWhere('r.content like :content');
+        $query->setParameter('content', '%'.$search.'%');
+        return $query;
+    }
 
     /**
      * @param TableAction $action

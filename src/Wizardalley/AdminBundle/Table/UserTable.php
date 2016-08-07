@@ -19,13 +19,13 @@ class UserTable extends AbstractTable
     {
         $this
             ->addColumn('id', 'Id')
-            ->addColumn('username', 'Username')
-            ->addColumn('firstname', 'Firstname')
-            ->addColumn('lastname', 'Lastname')
+            ->addColumn('username', 'Username', ['search' => true])
+            ->addColumn('firstname', 'Firstname', ['search' => true])
+            ->addColumn('lastname', 'Lastname', ['search' => true])
+            ->addColumn('email', 'Email',['search' => true])
             ->addColumn('roles', 'Roles', [
                 'render' => "renderRoles"
             ])
-            ->addColumn('email', 'Email')
             ->addModalAction('lock', [
                 'type' => TableAction::ACTION_MODAL_CONFIRM,
                 'template' => 'template-render-modal-lock',
