@@ -176,6 +176,9 @@ abstract class AbstractTable
             "bProcessing" => true,
             "bServerSide" => true,
             "paging" => true,
+            "oStdClasses" => [
+                "sFilter" => 'form-control',
+            ],
             "sAjaxSource" => $this->router->generate('admin_list_json', ['name' => $this->getName()]),
         ];
         foreach( $this->columns as $column) {
@@ -183,6 +186,32 @@ abstract class AbstractTable
         }
         foreach( $this->actions as $action) {
             $config['datatable']['columns'][] = ['data' => $action->getName()];
+        }
+        $config['yadcf'] = $this->getYadcfConfig();
+
+        return $config;
+    }
+
+    public function getYadcfConfig(){
+        $config = [];
+        $i = 0;
+        foreach ($this->columns as $column) {
+            if ($column->getFilter()) {
+                if ($column->getFilter() == TableColumn::FILTER_SELECT_MULTIPLE_TYPE) {
+                    $config[] = [
+                        'column_number' => $i,
+                        'filter_type' => 'multi_select',
+                        'style_class' => 'form-control',
+                    ];
+                } elseif ($column->getFilter() == TableColumn::FILTER_TEXT_TYPE) {
+                    $config[] = [
+                        'column_number' => $i,
+                        'filter_type' => 'text',
+                        'style_class' => 'form-control',
+                    ];
+                }
+            }
+            $i++;
         }
 
         return $config;

@@ -1,5 +1,15 @@
 {% extends 'WizardalleyAdminBundle::adminBase.html.twig' %}
 
+
+{% block stylesheets %}
+    {% stylesheets
+    'bundles/wizardalleyadmin/css/*'
+    filter='cssrewrite'%}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
+    {{ parent() }}
+{% endblock %}
+
 {% block body_admin -%}
 
     <div class="panel panel-default">
@@ -11,7 +21,11 @@
         <div class="panel-body">
             <div id="wizardDataTable">
 
-                <table class="table" data-datatable-option="{{ config['datatable']|json_encode() }}">
+                <table class="table table-striped table-bordered"
+                       cellspacing="0" width="100%"
+                       data-datatable-option="{{ config['datatable']|json_encode() }}"
+                       data-yadcf-datatable-option="{{ config['yadcf']|json_encode() }}"
+                >
                     <thead>
                     <tr>
                         {% for column in config['column'] %}

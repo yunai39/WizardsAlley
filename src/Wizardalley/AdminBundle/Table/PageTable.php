@@ -24,7 +24,11 @@ class PageTable extends AbstractTable
     {
         $this
             ->addColumn('id', 'Id')
-            ->addColumn('name', 'Name',['search' => true])
+            ->addColumn('name', 'Name',[
+                    'search' => true,
+                    'filter' => TableColumn::FILTER_TEXT_TYPE
+                ]
+            )
             ->addAction('edit', [
                 'type' => TableAction::ACTION_LINK,
                 'render' => 'renderEdit'

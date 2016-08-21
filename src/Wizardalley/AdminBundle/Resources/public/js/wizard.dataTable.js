@@ -36,15 +36,19 @@
                 return template(data['render']);
             };
             var option = this.$table.data('datatable-option'),
+                yadcfDatatable = this.$table.data('yadcf-datatable-option'),
                 tmp = [],
-                self = this;
+                self = this,
+                dataTableInstance;
+            console.log(yadcfDatatable);
             $.each(option['columns'], function(index,data) {
                 tmp.push({"data": data['data'], "render": renderColumn});
             });
             option['columns'] = tmp;
             this.datatableOption = option;
             this.modal = $('#modal-wizard');
-            this.$table.DataTable(this.datatableOption);
+            dataTableInstance = this.$table.DataTable(this.datatableOption);
+            yadcf.init(dataTableInstance, yadcfDatatable);
             console.log(this.$table);
             this.$table.on('click', 'a.link-modal', function(){
                 self.displayModal($(this));

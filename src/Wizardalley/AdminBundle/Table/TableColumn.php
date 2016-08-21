@@ -5,6 +5,8 @@ namespace Wizardalley\AdminBundle\Table;
 
 class TableColumn
 {
+    const FILTER_TEXT_TYPE = 'filter-text';
+    const FILTER_SELECT_MULTIPLE_TYPE = 'filter-select-multiple';
     /** @var string */
     protected $templateJsColumn = "template-render-column";
 
@@ -14,8 +16,11 @@ class TableColumn
     /** @var string */
     protected $label;
 
-    /** @var bool */
+    /** @var bool|string */
     protected $search = false;
+
+    /** @var bool|string */
+    protected $filter = false;
 
     /** @var string */
     protected $renderFunction = 'columnRenderDefault';
@@ -37,6 +42,9 @@ class TableColumn
         }
         if(isset($options['search'])) {
             $this->search = $options['search'];
+        }
+        if(isset($options['filter'])) {
+            $this->filter = $options['filter'];
         }
     }
 
@@ -71,10 +79,17 @@ class TableColumn
     }
 
     /**
-     * @return string
+     * @return bool|string
      */
     public function getLabel() {
         return $this->label;
+    }
+
+    /**
+     * @return bool|string
+     */
+    public function getFilter() {
+        return $this->filter;
     }
 
     /**

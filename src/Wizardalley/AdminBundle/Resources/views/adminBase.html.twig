@@ -1,5 +1,13 @@
 {% extends '::base.html.twig' %}
 
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="/bundles/wizardalleyadmin/js/yadcf/jquery.dataTables.yadcf.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+
+{% endblock %}
+
 {% block before_body %}
     <div class="full-container">
         <header>
@@ -36,6 +44,7 @@
 {% block javascripts %}
     {{parent()}}
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="/bundles/wizardalleyadmin/js/yadcf/jquery.dataTables.yadcf.js"></script>
     <script src="/bundles/wizardalleyadmin/js/admin-manager.js"></script>
     <script src="/bundles/wizardalleydefault/jquery-ui/jquery-ui.js"></script>
     <script src="/bundles/wizardalleyadmin/js/wizard.dataTable.js"></script>
