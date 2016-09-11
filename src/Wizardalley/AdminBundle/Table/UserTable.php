@@ -24,7 +24,8 @@ class UserTable extends AbstractTable
             ->addColumn('lastname', 'Lastname', ['search' => true])
             ->addColumn('email', 'Email',['search' => true])
             ->addColumn('roles', 'Roles', [
-                'render' => "renderRoles"
+                'render' => "renderRoles",
+                'filter' => TableColumn::FILTER_TEXT_TYPE
             ])
             ->addModalAction('lock', [
                 'type' => TableAction::ACTION_MODAL_CONFIRM,

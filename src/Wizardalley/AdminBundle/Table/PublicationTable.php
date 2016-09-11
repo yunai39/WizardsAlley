@@ -14,7 +14,8 @@ class PublicationTable extends AbstractTable
     /**
      * @return string
      */
-    public function getTableName() {
+    public function getTableName()
+    {
         return 'WizardalleyCoreBundle:Publication';
     }
 
@@ -26,10 +27,10 @@ class PublicationTable extends AbstractTable
         $this
             ->addColumn('id', 'Id')
             ->addColumn('title', 'Titre', ['search' => true])
-            ->addAction('user', [
+            ->addColumn('user', 'user', [
                 'type' => TableAction::ACTION_LINK,
                 'render' => 'renderUser',
-                'template' => 'template-render-user-link'
+                'template-name' => 'template-render-user-link'
             ])
             ->addModalAction('delete', [
                 'type' => TableAction::ACTION_MODAL_CONFIRM,
@@ -43,23 +44,27 @@ class PublicationTable extends AbstractTable
 
     /**
      * @param QueryBuilder $query
-     * @param string $search
+     * @param string       $search
+     *
      * @return QueryBuilder
      */
-    public function searchQuery(QueryBuilder $query, $search) {
+    public function searchQuery(QueryBuilder $query, $search)
+    {
         $query->orWhere('r.smallContent like :smallContent');
-        $query->setParameter('smallContent', '%'.$search.'%');
+        $query->setParameter('smallContent', '%' . $search . '%');
         $query->orWhere('r.content like :content');
-        $query->setParameter('content', '%'.$search.'%');
+        $query->setParameter('content', '%' . $search . '%');
         return $query;
     }
 
     /**
-     * @param TableAction $action
+     * @param TableColumn $column
      * @param Publication $publication
+     *
      * @return array
      */
-    public function renderUser(TableAction $action, Publication $publication) {
+    public function renderUser(TableColumn $column, Publication $publication)
+    {
         return [
             'username' => $publication->getUser()->getUsername(),
             'href' => $this->router->generate(
@@ -72,22 +77,25 @@ class PublicationTable extends AbstractTable
     /**
      * @return string
      */
-    public function getTemplate(){
+    public function getTemplate()
+    {
         return 'WizardalleyAdminBundle:Publication:list.html.twig';
     }
 
     /**
      * @param TableAction $action
      * @param Publication $publication
+     *
      * @return array
      */
-    public function renderDeleteLink(TableAction $action, Publication $publication) {
+    public function renderDeleteLink(TableAction $action, Publication $publication)
+    {
         return [
             'data' => $action->getData(),
             'action' => $this->router->generate('admin_publication_delete', ['id' => $publication->getId()]),
             'template' => $action->getTemplate(),
             'icon' => 'icon-trash',
-            'title' => $this->translator->trans("wizard.table.information.action.".$action->getName())
+            'title' => $this->translator->trans("wizard.table.information.action." . $action->getName())
         ];
     }
 
