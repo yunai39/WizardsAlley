@@ -43,35 +43,100 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <p><strong>Nombre de page suivi </strong><span class="pull-right">{{ user.getPageFollowedEntity()|length }}</span></p>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Nombre de page suivi </strong><span class="pull-right">{{ user.getPageFollowedEntity()|length }}</span></p>
+                </div>
+                <div class="col-md-6">
+                    <button class="list-button"
+                            data-url="{{ path('admin_user_list_page_followed', {'userId': user.getId}) }}"
+                            data-template="template-render-page-followed"
+                    >Liste des pages suivi</button>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Nombre d'amis</strong><span class="pull-right">{{ user.friendsWithMe()|length }}</span></p>
+                </div>
+                <div class="col-md-6">
+                    <button class="list-button"
+                            data-url="{{ path('admin_user_list_friends', {'userId': user.getId}) }}"
+                            data-template="template-render-friend"
+                    >Liste des amis</button>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Nombre de page créer</strong><span class="pull-right">{{ user.pagesCreated()|length }}</span></p>
+                </div>
+                <div class="col-md-6">
+                    <button class="list-button"
+                            data-url="{{ path('admin_user_list_page_created', {'userId': user.getId}) }}"
+                            data-template="template-render-page-followed"
+                    >Liste des page créer</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Nombre de page éditeur</strong><span class="pull-right">{{ user.pagesEditor()|length }}</span></p>
+                </div>
+                <div class="col-md-6">
+                    <button class="list-button"
+                            data-url="{{ path('admin_user_list_page_editor', {'userId': user.getId}) }}"
+                            data-template="template-render-page-followed"
+                    >Liste des page éditeur</button>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            <a>Liste des pages suivi</a>
-        </div>
+        <div class="col-md-12 table-information"></div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
-            <p><strong>Nombre d'amis</strong><span class="pull-right">{{ user.friendsWithMe()|length }}</span></p>
-        </div>
-        <div class="col-md-6">
-            <a>Liste des amis</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <p><strong>Nombre de page créer</strong><span class="pull-right">{{ user.pagesCreated()|length }}</span></p>
-        </div>
-        <div class="col-md-6">
-            <a>Liste des page créer</a>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <p><strong>Nombre de page éditeur</strong><span class="pull-right">{{ user.pagesEditor()|length }}</span></p>
-        </div>
-        <div class="col-md-6">
-            <a>Liste des page éditeur</a>
-        </div>
-    </div>
+
+
+
 {%  endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="/bundles/wizardalleyadmin/js/user-edit.js"></script>
+    <script type="text/template" class="template-render-friend">
+        <table class="table">
+            <thead>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Lien</th>
+            </thead>
+            <tbody>
+            <%_.each(data,function(item,key,list){ %>
+            <tr>
+                <td><%= item.firstname %></td>
+                <td><%= item.lastname %></td>
+                <td><%= item.email %></td>
+                <td><%= item.id %></td>
+            </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </script>
+
+    <script type="text/template" class="template-render-page-followed">
+        <table class="table">
+            <thead>
+            <th>Nom</th>
+            <th>Lien</th>
+            </thead>
+            <tbody>
+            <%_.each(data,function(item,key,list){ %>
+            <tr>
+                <td><%= item.name %></td>
+                <td><%= item.id %></td>
+            </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </script>
+{% endblock %}

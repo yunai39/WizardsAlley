@@ -40,7 +40,6 @@
                 tmp = [],
                 self = this,
                 dataTableInstance;
-            console.log(yadcfDatatable);
             $.each(option['columns'], function(index,data) {
                 tmp.push({"data": data['data'], "render": renderColumn});
             });
@@ -49,7 +48,6 @@
             this.modal = $('#modal-wizard');
             dataTableInstance = this.$table.DataTable(this.datatableOption);
             yadcf.init(dataTableInstance, yadcfDatatable);
-            console.log(this.$table);
             this.$table.on('click', 'a.link-modal', function(){
                 self.displayModal($(this));
             });
