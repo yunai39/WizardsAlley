@@ -23,6 +23,12 @@ class Page
     private $id;
 
     /**
+     * @var PageFavorite
+     * @ORM\OneToOne(targetEntity="PageFavorite", mappedBy="page")
+     */
+    private $favorite;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
@@ -41,11 +47,11 @@ class Page
      *
      * @ORM\Column(name="urlFacebook", type="string", length=255)
      */
-    private $urlFacebook;    
-    
+    private $urlFacebook;
+
     /**
      * @var string
-     * 
+     *
      * @ORM\Column(name="path_couverture",type="string", length=255, nullable=true)
      */
     public $pathCouverture;
@@ -68,32 +74,51 @@ class Page
      * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
     */
     private $creator;
-    
-    
+
+
     /**
-    * @ORM\ManyToMany(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesEditor")
-    * @ORM\JoinTable(name="page_user_editor")
-    */
-   private $editors;
-   
+     * @ORM\ManyToMany(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesEditor")
+     * @ORM\JoinTable(name="page_user_editor")
+     */
+    private $editors;
+
     /**
-    * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PageUserFollow", mappedBy="page")
-    */
-   private $followers;
-    
+     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PageUserFollow", mappedBy="page")
+     */
+    private $followers;
+
     public function __construct()
     {
         $this->publications = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return PageFavorite
+     */
+    public function getFavorite()
+    {
+        return $this->favorite;
+    }
+
+    /**
+     * @param PageFavorite $favorite
+     *
+     * @return Page
+     */
+    public function setFavorite($favorite)
+    {
+        $this->favorite = $favorite;
+        return $this;
     }
 
     /**
@@ -112,7 +137,7 @@ class Page
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -135,7 +160,7 @@ class Page
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -158,7 +183,7 @@ class Page
     /**
      * Get urlFacebook
      *
-     * @return string 
+     * @return string
      */
     public function getUrlFacebook()
     {
@@ -192,7 +217,7 @@ class Page
     /**
      * Get publications
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPublications()
     {
@@ -215,7 +240,7 @@ class Page
     /**
      * Get creator
      *
-     * @return \Wizardalley\CoreBundle\Entity\WizardUser 
+     * @return \Wizardalley\CoreBundle\Entity\WizardUser
      */
     public function getCreator()
     {
@@ -248,7 +273,7 @@ class Page
     /**
      * Get editors
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getEditors()
     {
@@ -257,9 +282,10 @@ class Page
 
     /**
      * Remove Editors
-     * 
+     *
      */
-    public function removeAllEditor(){
+    public function removeAllEditor()
+    {
         $this->editors->clear();
         return $this;
     }
@@ -290,7 +316,7 @@ class Page
     /**
      * Get followers
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getFollowers()
     {
@@ -313,7 +339,7 @@ class Page
     /**
      * Get pathCouverture
      *
-     * @return string 
+     * @return string
      */
     public function getPathCouverture()
     {
@@ -336,49 +362,61 @@ class Page
     /**
      * Get pathProfile
      *
-     * @return string 
+     * @return string
      */
     public function getPathProfile()
     {
         return $this->pathProfile;
     }
-    
-        public function getAbsolutePathProfile() {
+
+    public function getAbsolutePathProfile()
+    {
         return null === $this->pathProfile ? null : $this->getUploadRootDir() . '/' . $this->pathProfile;
     }
-    
 
-    public function getAbsolutePathCouverture() {
+
+    public function getAbsolutePathCouverture()
+    {
         return null === $this->pathCouverture ? null : $this->getUploadRootDir() . '/' . $this->pathCouverture;
     }
 
-    public function getPictureProfile() {
-        return null === $this->pathProfile ? $this->getDefaultProfile() : $this->getUploadDir() . '/' . $this->pathProfile;
+    public function getPictureProfile()
+    {
+        return null === $this->pathProfile ?
+            $this->getDefaultProfile() : $this->getUploadDir() . '/' . $this->pathProfile;
     }
 
-    public function getPictureCouverture() {
-        return null === $this->pathCouverture ? $this->getDefaultCouverture() : $this->getUploadDir() . '/' . $this->pathCouverture;
+    public function getPictureCouverture()
+    {
+        return null === $this->pathCouverture ?
+            $this->getDefaultCouverture() : $this->getUploadDir() . '/' . $this->pathCouverture;
     }
-    
-    protected function getDefaultProfile(){
+
+    protected function getDefaultProfile()
+    {
         return 'uploads/page/default.png';
     }
-    
-    protected function getDefaultCouverture(){
+
+    protected function getDefaultCouverture()
+    {
         return 'uploads/page/dCouverture.png';
     }
-    protected function getUploadRootDir() {
+
+    protected function getUploadRootDir()
+    {
         // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
-    public function getUploadDir() {
+    public function getUploadDir()
+    {
         // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
         // le document/image dans la vue.
-        return 'uploads/page/' . $this->id ;
+        return 'uploads/page/' . $this->id;
     }
-    
-    public function __toString(){
+
+    public function __toString()
+    {
         return $this->name;
     }
 
@@ -386,32 +424,33 @@ class Page
      * @Assert\File(maxSize="6000000")
      */
     public $fileProfile;
-    
-    
+
+
     /**
      * @Assert\File(maxSize="6000000")
      */
     public $fileCouverture;
 
-    public function uploadProfile() {
+    public function uploadProfile()
+    {
         // la propriété « file » peut être vide si le champ n'est pas requis
         if (null === $this->fileProfile) {
             return;
         }
-        $ext = pathinfo($this->fileProfile->getClientOriginalName(), PATHINFO_EXTENSION);
-        $name = 'profile.'.$ext;
+        $ext  = pathinfo($this->fileProfile->getClientOriginalName(), PATHINFO_EXTENSION);
+        $name = 'profile.' . $ext;
         $this->fileProfile->move($this->getUploadRootDir(), $name);
         $this->pathProfile = $name;
         $this->fileProfile = null;
     }
 
-    public function uploadCouverture(){
-        
+    public function uploadCouverture()
+    {
         if (null === $this->fileCouverture) {
             return;
         }
-        $ext = pathinfo($this->fileCouverture->getClientOriginalName(), PATHINFO_EXTENSION);
-        $name = 'couverture.'.$ext;
+        $ext  = pathinfo($this->fileCouverture->getClientOriginalName(), PATHINFO_EXTENSION);
+        $name = 'couverture.' . $ext;
         $this->fileCouverture->move($this->getUploadRootDir(), $name);
         $this->pathCouverture = $name;
         $this->fileCouverture = null;

@@ -12,14 +12,18 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Publication extends AbstractPublication
 {
-
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var PublicationFavorite
+     * @ORM\OneToOne(targetEntity="PublicationFavorite", mappedBy="publication")
+     */
+    private $favorite;
     /**
      * @var string
      *
@@ -54,6 +58,25 @@ class Publication extends AbstractPublication
     {
         $this->title = $title;
 
+        return $this;
+    }
+
+    /**
+     * @return PublicationFavorite
+     */
+    public function getFavorite()
+    {
+        return $this->favorite;
+    }
+
+    /**
+     * @param PublicationFavorite $favorite
+     *
+     * @return Publication
+     */
+    public function setFavorite($favorite)
+    {
+        $this->favorite = $favorite;
         return $this;
     }
 

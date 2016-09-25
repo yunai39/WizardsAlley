@@ -46,11 +46,24 @@ class PublicationController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function renderFormDeleteTemplateAction(){
-        $form =  $this->createFormBuilder()
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm();
+    public function renderFormDeleteTemplateAction()
+    {
+        $form = $this->createFormBuilder()
+                     ->setMethod('DELETE')
+                     ->add('submit', 'submit', array('label' => 'Delete'))
+                     ->getForm();
+        return $this->render('WizardalleyAdminBundle:Table:renderForm.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderFormToogleFavoriteTemplateAction()
+    {
+        $form = $this->createFormBuilder()
+                     ->setMethod('PUT')
+                     ->add('submit', 'submit', array('label' => 'Delete'))
+                     ->getForm();
         return $this->render('WizardalleyAdminBundle:Table:renderForm.html.twig', ['form' => $form->createView()]);
     }
 

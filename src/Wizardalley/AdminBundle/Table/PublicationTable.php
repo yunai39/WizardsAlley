@@ -4,6 +4,7 @@ namespace Wizardalley\AdminBundle\Table;
 
 use Doctrine\ORM\QueryBuilder;
 use Wizardalley\CoreBundle\Entity\Publication;
+use Wizardalley\CoreBundle\Entity\PublicationFavorite;
 
 /**
  * Class PublicationTable
@@ -31,6 +32,12 @@ class PublicationTable extends AbstractTable
                 'type' => TableAction::ACTION_LINK,
                 'render' => 'renderUser',
                 'template-name' => 'template-render-user-link'
+            ])
+            ->addModalAction('toogleFavorite', [
+                'type' => TableAction::ACTION_MODAL_CONFIRM,
+                'template' => 'template-render-modal-toogle-favorite',
+                'render' => 'renderFavoriteLink',
+                'title' => 'Passer la publication en favoris'
             ])
             ->addModalAction('delete', [
                 'type' => TableAction::ACTION_MODAL_CONFIRM,
@@ -95,6 +102,27 @@ class PublicationTable extends AbstractTable
             'action' => $this->router->generate('admin_publication_delete', ['id' => $publication->getId()]),
             'template' => $action->getTemplate(),
             'icon' => 'icon-trash',
+            'title' => $this->translator->trans("wizard.table.information.action." . $action->getName())
+        ];
+    }
+
+    /**
+     * @param TableAction $action
+     * @param Publication $publication
+     *
+     * @return array
+     */
+    public function renderFavoriteLink(TableAction $action, Publication $publication)
+    {
+        $icon = 'icon-star-empty';
+        if ($publication->getFavorite() instanceof PublicationFavorite) {
+            $icon = 'icon-star';
+        }
+        return [
+            'data' => $action->getData(),
+            'action' => $this->router->generate('admin_publication_delete', ['id' => $publication->getId()]),
+            'template' => $action->getTemplate(),
+            'icon' => $icon,
             'title' => $this->translator->trans("wizard.table.information.action." . $action->getName())
         ];
     }
