@@ -23,18 +23,6 @@ h1, h2, h3, h4, h5, h6 {
 .navbar-brand span.text-title {
   display: none; }
 
-.navbar-brand .glyphicon {
-  display: inline-block;
-  font-size: 36px;
-  color: #fff;
-  vertical-align: middle;
-  margin-right: 20px;
-  position: relative;
-  top: -2px; }
-
-.navbar-collapse {
-  border: none; }
-
 .navbar-nav li {
   margin-left: 10px; }
 
@@ -84,5 +72,35 @@ header {
 .search-publication-container {
   padding: 10px;
   margin-top: 10px; }
+
+.defaut-label {
+  background-color: #454a72; }
+
+.label {
+  padding: 3.75px;
+  margin: 3.75px; }
+  .label a {
+    color: white;
+    font-style: none; }
+    .label a > :focus, .label a:hover {
+      color: white; }
+
+.text-align-right {
+  text-align: right; }
+
+.text-align-left {
+  text-align: left; }
+
+.margin-right {
+  margin-right: 15px; }
+
+.margin-left {
+  margin-left: 15px; }
+
+.padding-right {
+  padding-right: 15px; }
+
+.padding-left {
+  padding-left: 15px; }
 
 /*# sourceMappingURL=main.css.map */
