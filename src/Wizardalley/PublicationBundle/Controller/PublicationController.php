@@ -132,6 +132,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
         return $this->render('WizardalleyPublicationBundle:Publication:show.html.twig', array(
             'entity' => $entity,
+            'entity_id' => $id,
             'comment_form' => $commentForm->createView(),
         ));
     }

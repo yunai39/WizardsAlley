@@ -133,5 +133,4 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
             'message' => 'wizard.page.like.success'
         ]);
     }
-
 }

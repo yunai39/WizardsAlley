@@ -68,7 +68,7 @@
         <div id="comment_content">
 
         </div>
-        <button onclick="loadMore()">Plus de commentaires</button>
+        <button class="wizard-load-comments">Plus de commentaires</button>
         
     {% if app.user %}
         <div>
@@ -81,23 +81,36 @@
 {% block javascripts %}
     {{parent()}}
     <script>
-    _$page = 1;
-    loadMore();
-    $('#loadMorePublication').on('click', function(){
-        loadMore();
-    });
+    var _$page = 1;
 
-    function loadMore(){
-        $result = util.loadMore(Routing.generate('comment_get', {'id': {{entity.id}}, 'page': _$page}), 'GET', 'loadComment');
-        _$page = _$page+1;
-    };
-        
     function loadComment(data){
         console.log(data);
         $.each(data['extra']['data'],function(index, value){
             addComment(value);
         });
     }
+
+    function loadMore(){
+        _handler = function(data){
+            console.log(data);
+            $.each(data['extra']['data'],function(index, value){
+                addComment(value);
+            });
+        };
+        $result = util.loadMore(
+                Routing.generate('comment_get', {'id': {{entity_id}}, 'page': _$page}),
+                'GET',
+                _handler
+        );
+        _$page = _$page+1;
+    };
+
+    loadMore();
+
+    $('.wizard-load-comments').on('click', function(){
+        loadMore();
+    });
+
     
     function addComment(comment){
         $li = $('<div>\n\
