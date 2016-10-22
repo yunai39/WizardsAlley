@@ -4,3 +4,12 @@ publication:
   comments: Commentaires
   like: Aimer
   ilike: J'aime
+wizard:
+  search:
+    type.label: 'Type de recherche'
+    label:
+      field: 'Recherche'
+      user: 'Utilisateur'
+      page: 'Page'
+      publication: 'Publication de page'
+    action: 'Rechercher'
