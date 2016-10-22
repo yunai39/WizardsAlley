@@ -38,15 +38,15 @@ class Publication extends AbstractPublication
     private $title;
 
     /**
-    * @ORM\OneToMany(targetEntity="ImagePublication", mappedBy="publication", cascade={"remove", "persist"})
-    */
+     * @ORM\OneToMany(targetEntity="ImagePublication", mappedBy="publication", cascade={"remove", "persist"})
+     */
     private $images;
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\Page", inversedBy="publications" )
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
-    */
+     */
     private $page;
-    
+
     /**
      * @var string
      *
@@ -58,6 +58,7 @@ class Publication extends AbstractPublication
      * Set title
      *
      * @param string $title
+     *
      * @return Publication
      */
     public function setTitle($title)
@@ -89,7 +90,7 @@ class Publication extends AbstractPublication
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -97,18 +98,10 @@ class Publication extends AbstractPublication
     }
 
     /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    
-    /**
      * Add images
      *
      * @param \Wizardalley\CoreBundle\Entity\ImagePublication $images
+     *
      * @return Publication
      */
     public function addImage(\Wizardalley\CoreBundle\Entity\ImagePublication $images)
@@ -131,7 +124,7 @@ class Publication extends AbstractPublication
     /**
      * Get images
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getImages()
     {
@@ -142,6 +135,7 @@ class Publication extends AbstractPublication
      * Set page
      *
      * @param \Wizardalley\CoreBundle\Entity\Page $page
+     *
      * @return Publication
      */
     public function setPage(\Wizardalley\CoreBundle\Entity\Page $page = null)
@@ -154,24 +148,23 @@ class Publication extends AbstractPublication
     /**
      * Get page
      *
-     * @return \Wizardalley\CoreBundle\Entity\Page 
+     * @return \Wizardalley\CoreBundle\Entity\Page
      */
     public function getPage()
     {
         return $this->page;
     }
 
-    
-
     /**
      * Set smallContent
      *
      * @param string $smallContent
+     *
      * @return Publication
      */
     public function setSmallContent($smallContent)
     {
-        $this->smallContent = $this->strip($smallContent,200);
+        $this->smallContent = $this->strip($smallContent, 200);
 
         return $this;
     }
@@ -179,7 +172,7 @@ class Publication extends AbstractPublication
     /**
      * Get smallContent
      *
-     * @return string 
+     * @return string
      */
     public function getSmallContent()
     {
@@ -190,7 +183,7 @@ class Publication extends AbstractPublication
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -201,6 +194,7 @@ class Publication extends AbstractPublication
      * Add usersLiking
      *
      * @param \Wizardalley\CoreBundle\Entity\PublicationUserLike $usersLiking
+     *
      * @return Publication
      */
     public function addUsersLiking(\Wizardalley\CoreBundle\Entity\PublicationUserLike $usersLiking)
@@ -223,7 +217,7 @@ class Publication extends AbstractPublication
     /**
      * Get usersLiking
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getUsersLiking()
     {

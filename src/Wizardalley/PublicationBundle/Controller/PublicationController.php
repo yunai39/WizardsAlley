@@ -15,22 +15,26 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * Publication controller.
  *
  */
-class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseController {
+class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseController
+{
 
     /**
      * Creates a new Publication entity.
+     *
      * @param Request $request
-     * @param $id_page
+     * @param         $id_page
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function createAction(Request $request, $id_page) {
+    public function createAction(Request $request, $id_page)
+    {
         $entity = new Publication();
-        
-        $em = $this->getDoctrine()->getManager();
+
+        $em   = $this->getDoctrine()->getManager();
         $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
-        
+
         $entity->setPage($page);
         $form = $this->createCreateForm($entity, $page);
         $form->handleRequest($request);
@@ -56,9 +60,9 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         }
 
         return $this->render('WizardalleyPublicationBundle:Publication:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-                    'page' => $entity->getPage(),
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'page' => $entity->getPage(),
         ));
     }
 
@@ -66,12 +70,14 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
      * Creates a form to create a Publication entity.
      *
      * @param Publication $entity The entity
-     * @param int $page
+     * @param int         $page
+     *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createCreateForm(Publication $entity,$page) {
+    private function createCreateForm(Publication $entity, $page)
+    {
         $form = $this->createForm(new PublicationType(), $entity, array(
-            'action' => $this->generateUrl('publication_create',array('id_page' => $page->getId())),
+            'action' => $this->generateUrl('publication_create', array('id_page' => $page->getId())),
             'method' => 'POST',
         ));
 
@@ -82,10 +88,13 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
     /**
      * Displays a form to create a new Publication entity.
+     *
      * @param int $id_page
+     *
      * @return Response
      */
-    public function newAction($id_page) {
+    public function newAction($id_page)
+    {
         $entity = new Publication();
 
         $em = $this->getDoctrine()->getManager();
@@ -93,49 +102,55 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
-        
+
         $entity->setPage($page);
         $form = $this->createCreateForm($entity, $page);
         return $this->render('WizardalleyPublicationBundle:Publication:new.html.twig', array(
-                    'entity' => $entity,
-                    'form' => $form->createView(),
-                    'page' => $entity->getPage(),
+            'entity' => $entity,
+            'form' => $form->createView(),
+            'page' => $entity->getPage(),
         ));
     }
 
     /**
      * Finds and displays a Publication entity.
+     *
      * @param int $id
+     *
      * @return Response
      */
-    public function showAction($id) {
+    public function showAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
         $this->notFoundEntity($entity);
 
-        $comment = new CommentPublication();
-        $commentForm = $this->createFormComment($comment, $entity);
+        $comment     = new CommentPublication();
+        $commentForm = $this->createFormComment($comment, $id);
 
 
         return $this->render('WizardalleyPublicationBundle:Publication:show.html.twig', array(
-                    'entity' => $entity,
-                    'comment_form' => $commentForm->createView(),
+            'entity' => $entity,
+            'comment_form' => $commentForm->createView(),
         ));
     }
 
     /**
      * Displays a form to edit an existing Publication entity.
+     *
      * @param int $id
+     *
      * @return Response
      */
-    public function editAction($id) {
+    public function editAction($id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
         $this->notFoundEntity($entity);
         $this->creatorPublicationOnly($entity);
-        
+
         if ($entity->getUser() != $this->getUser()) {
             throw $this->createAccessDeniedException('You are not allowed to edit this entity');
         }
@@ -143,9 +158,9 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         $editForm = $this->createEditForm($entity);
 
         return $this->render('WizardalleyPublicationBundle:Publication:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'page' => $entity->getPage(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'page' => $entity->getPage(),
         ));
     }
 
@@ -156,7 +171,8 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createEditForm(Publication $entity) {
+    private function createEditForm(Publication $entity)
+    {
         $form = $this->createForm(new PublicationType(), $entity, array(
             'action' => $this->generateUrl('publication_update', array('id' => $entity->getId())),
             'method' => 'PUT',
@@ -171,7 +187,8 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
      * Edits an existing Publication entity.
      *
      */
-    public function updateAction(Request $request, $id) {
+    public function updateAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
@@ -194,9 +211,9 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         }
 
         return $this->render('WizardalleyPublicationBundle:Publication:edit.html.twig', array(
-                    'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
-                    'page' => $entity->getPage(),
+            'entity' => $entity,
+            'edit_form' => $editForm->createView(),
+            'page' => $entity->getPage(),
         ));
     }
 
@@ -204,14 +221,15 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
     /**
      * Creates a form to add a comment.
      *
-     * @param Comment $comment The entity comment
-     * @param Comment $comment The entity publication     
+     * @param CommentPublication $comment       The entity comment
+     * @param int                $publicationId The id of the entity publication
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createFormComment(CommentPublication $comment, Publication $entity) {
+    private function createFormComment(CommentPublication $comment, $publicationId)
+    {
         $form = $this->createForm(new CommentType(), $comment, array(
-            'action' => $this->generateUrl('comment_add', array('id' => $entity->getId())),
+            'action' => $this->generateUrl('comment_add', array('id' => $publicationId)),
             'method' => 'PUT',
         ));
 
@@ -222,15 +240,16 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
     /**
      * addCommentAction
-     * 
+     *
      * Add a coment for a specific publication
      *
-     * @param Request $request 
-     * @param $id integer The entity publication id 
+     * @param Request $request
+     * @param         $id integer The entity publication id
      *
      * @return Response
      */
-    public function addCommentAction(Request $request, $id) {
+    public function addCommentAction(Request $request, $id)
+    {
         $em = $this->getDoctrine()->getManager();
 
         $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
@@ -239,7 +258,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
             throw $this->createNotFoundException('Unable to find Publication entity.');
         }
         $comment = new CommentPublication();
-        $form = $this->createFormComment($comment, $entity);
+        $form    = $this->createFormComment($comment, $id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -254,48 +273,53 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
     /**
      * getCommentAction
-     * 
+     *
      * fetch the comment for an action
      *
-     * @param Request $request 
-     * @param $id integer The entity publication id 
+     * @param Request $request
+     * @param         $id integer The entity publication id
      *
      * @return Response
      */
-    public function getCommentAction(Request $request, $id, $page) {
+    public function getCommentAction(Request $request, $id, $page)
+    {
         $limit = 2;
-        $em = $this->getDoctrine()->getManager();
+        $em    = $this->getDoctrine()->getManager();
         return $this->sendJsonResponse(
-                'success', 
-                null, 200, 
-    ['data'=> $em->getRepository('WizardalleyCoreBundle:CommentPublication')->findCommentsPublication($id, $page, $limit)
+            'success',
+            null, 200,
+            [
+                'data' => $em->getRepository('WizardalleyCoreBundle:CommentPublication')->findCommentsPublication($id,
+                    $page, $limit)
             ]);
     }
 
     /**
      * getPublicationAction
-     * 
+     *
      * fetch the comment for an action
      *
-     * @param Request $request 
-     * @param $id integer user_id
-     * @param $id integer page number
+     * @param Request $request
+     * @param         $id integer user_id
+     * @param         $id integer page number
      *
      * @return Response
      */
-    public function getPublicationAction(Request $request, $id, $page) {
+    public function getPublicationAction(Request $request, $id, $page)
+    {
         $limit = 2;
-        $em = $this->getDoctrine()->getManager();
+        $em    = $this->getDoctrine()->getManager();
         return $this->sendJsonResponse('success', [
             'no_message' => true,
             'data' => $em->getRepository('WizardalleyCoreBundle:Publication')->findPublications($id, $page, $limit)
-            ]);
+        ]);
     }
 
     /**
      * @param $entity
      */
-    private function notFoundEntity($entity){
+    private function notFoundEntity($entity)
+    {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Entity.');
         }
@@ -303,23 +327,26 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
     /**
      * @param Page $entity
+     *
      * @throws AccessDeniedException
      */
-    private function creatorPublicationOnly(Publication $entity ){
+    private function creatorPublicationOnly(Publication $entity)
+    {
         $user = $this->getUser();
-        if ( !(($entity->getUser() == $user) or ($entity->getPage()->getCreator() == $user)) ) {
-           throw new AccessDeniedException; 
+        if (!(($entity->getUser() == $user) or ($entity->getPage()->getCreator() == $user))) {
+            throw new AccessDeniedException;
         }
     }
 
     /**
      * @param Page $page
      */
-    private function creatorEditorOnly(Page $page){
+    private function creatorEditorOnly(Page $page)
+    {
         $user = $this->getUser();
-        if ( !(($page->getCreator() == $user) or ($page->getEditors()->contains($user))) ) {
-           throw new AccessDeniedException; 
+        if (!(($page->getCreator() == $user) or ($page->getEditors()->contains($user)))) {
+            throw new AccessDeniedException;
         }
     }
-    
+
 }
