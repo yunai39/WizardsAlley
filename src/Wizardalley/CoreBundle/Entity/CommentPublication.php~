@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizardalley\PublicationBundle\Entity;
+namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Comment
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Wizardalley\PublicationBundle\Entity\CommentPublicationRepository")
+ * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\CommentPublicationRepository")
  */
 class CommentPublication
 {
@@ -35,12 +35,12 @@ class CommentPublication
      */
     private $content;
     /**
-     * @ORM\ManyToOne(targetEntity="Wizardalley\UserBundle\Entity\WizardUser")
+     * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
     */
     private $user;
     /**
-     * @ORM\ManyToOne(targetEntity="Publication", inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity="AbstractPublication", inversedBy="comments")
      * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
     */
     private $publication;
@@ -104,10 +104,10 @@ class CommentPublication
     /**
      * Set user
      *
-     * @param \Wizardalley\UserBundle\Entity\WizardUser $user
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
      * @return CommentPublication
      */
-    public function setUser(\Wizardalley\UserBundle\Entity\WizardUser $user = null)
+    public function setUser(\Wizardalley\CoreBundle\Entity\WizardUser $user = null)
     {
         $this->user = $user;
 
@@ -117,7 +117,7 @@ class CommentPublication
     /**
      * Get user
      *
-     * @return \Wizardalley\UserBundle\Entity\WizardUser 
+     * @return \Wizardalley\CoreBundle\Entity\WizardUser 
      */
     public function getUser()
     {
@@ -127,10 +127,10 @@ class CommentPublication
     /**
      * Set publication
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Publication $publication
+     * @param \Wizardalley\CoreBundle\Entity\AbstractPublication $publication
      * @return CommentPublication
      */
-    public function setPublication(\Wizardalley\PublicationBundle\Entity\Publication $publication = null)
+    public function setPublication(\Wizardalley\CoreBundle\Entity\AbstractPublication $publication = null)
     {
         $this->publication = $publication;
 
@@ -140,7 +140,7 @@ class CommentPublication
     /**
      * Get publication
      *
-     * @return \Wizardalley\PublicationBundle\Entity\Publication 
+     * @return \Wizardalley\CoreBundle\Entity\AbstractPublication 
      */
     public function getPublication()
     {

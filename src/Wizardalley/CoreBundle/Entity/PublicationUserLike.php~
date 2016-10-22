@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table()
  * @ORM\Entity()
  */
-class PageUserFollow
+class PublicationUserLike
 {
     /**
      * @var integer
@@ -23,13 +23,13 @@ class PageUserFollow
     private $id;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\Page", inversedBy="followers")
-     * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\Publication", inversedBy="usersLiking")
+     * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
     */
-    private $page;
+    private $publication;
     
     /**
-     * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesFollowed")
+     * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="publicationLiked")
      * @ORM\JoinColumn(name="wizard_user_id", referencedColumnName="id")
     */
     private $user;
@@ -38,7 +38,7 @@ class PageUserFollow
      * @var \DateTime
      * @ORM\Column(type="datetime")
      */
-    private $dateInscription;
+    private $dateLike;
 
     /**
      * Get id
@@ -53,12 +53,12 @@ class PageUserFollow
     /**
      * Set page
      *
-     * @param \Wizardalley\CoreBundle\Entity\Page $page
+     * @param Publication $publication
      * @return PageUserFollow
      */
-    public function setPage(\Wizardalley\CoreBundle\Entity\Page $page = null)
+    public function setPage(Publication $publication = null)
     {
-        $this->page = $page;
+        $this->publication = $publication;
 
         return $this;
     }
@@ -66,20 +66,20 @@ class PageUserFollow
     /**
      * Get page
      *
-     * @return \Wizardalley\CoreBundle\Entity\Page
+     * @return Publication
      */
-    public function getPage()
+    public function getPublication()
     {
-        return $this->page;
+        return $this->publication;
     }
 
     /**
      * Set user
      *
-     * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
-     * @return PageUserFollow
+     * @param WizardUser $user
+     * @return PublicationUserLike
      */
-    public function setUser(\Wizardalley\CoreBundle\Entity\WizardUser $user = null)
+    public function setUser(WizardUser $user = null)
     {
         $this->user = $user;
 
@@ -89,7 +89,7 @@ class PageUserFollow
     /**
      * Get user
      *
-     * @return \Wizardalley\CoreBundle\Entity\WizardUser
+     * @return WizardUser
      */
     public function getUser()
     {
@@ -97,25 +97,25 @@ class PageUserFollow
     }
 
     /**
-     * Set dateInscription
+     * Set dateLike
      *
-     * @param \DateTime $dateInscription
-     * @return PageUserFollow
+     * @param \DateTime $dateLike
+     * @return PublicationUserLike
      */
-    public function setDateInscription($dateInscription)
+    public function setDateLike($dateLike)
     {
-        $this->dateInscription = $dateInscription;
+        $this->dateLike = $dateLike;
 
         return $this;
     }
 
     /**
-     * Get dateInscription
+     * Get dateLike
      *
      * @return \DateTime
      */
-    public function getDateInscription()
+    public function getDateLike()
     {
-        return $this->dateInscription;
+        return $this->dateLike;
     }
 }

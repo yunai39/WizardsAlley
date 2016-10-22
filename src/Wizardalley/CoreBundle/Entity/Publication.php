@@ -24,6 +24,12 @@ class Publication extends AbstractPublication
      * @ORM\OneToOne(targetEntity="PublicationFavorite", mappedBy="publication")
      */
     private $favorite;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PublicationUserLike", mappedBy="publication")
+     */
+    private $usersLiking;
+
     /**
      * @var string
      *
@@ -180,4 +186,47 @@ class Publication extends AbstractPublication
         return $this->smallContent;
     }
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add usersLiking
+     *
+     * @param \Wizardalley\CoreBundle\Entity\PublicationUserLike $usersLiking
+     * @return Publication
+     */
+    public function addUsersLiking(\Wizardalley\CoreBundle\Entity\PublicationUserLike $usersLiking)
+    {
+        $this->usersLiking[] = $usersLiking;
+
+        return $this;
+    }
+
+    /**
+     * Remove usersLiking
+     *
+     * @param \Wizardalley\CoreBundle\Entity\PublicationUserLike $usersLiking
+     */
+    public function removeUsersLiking(\Wizardalley\CoreBundle\Entity\PublicationUserLike $usersLiking)
+    {
+        $this->usersLiking->removeElement($usersLiking);
+    }
+
+    /**
+     * Get usersLiking
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsersLiking()
+    {
+        return $this->usersLiking;
+    }
 }

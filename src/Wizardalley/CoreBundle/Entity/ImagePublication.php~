@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizardalley\PublicationBundle\Entity;
+namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * ImagePublication
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Wizardalley\PublicationBundle\Entity\ImagePublicationRepository")
+ * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\ImagePublicationRepository")
  */
 class ImagePublication {
 
@@ -96,10 +96,10 @@ class ImagePublication {
     /**
      * Set publication
      *
-     * @param \Wizardalley\PublicationBundle\Entity\Publication $publication
+     * @param \Wizardalley\CoreBundle\Entity\Publication $publication
      * @return ImagePublication
      */
-    public function setPublication(\Wizardalley\PublicationBundle\Entity\Publication $publication = null) {
+    public function setPublication(\Wizardalley\CoreBundle\Entity\Publication $publication = null) {
         $this->publication = $publication;
 
         return $this;

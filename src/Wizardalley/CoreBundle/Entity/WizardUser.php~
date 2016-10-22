@@ -727,37 +727,4 @@ class WizardUser extends BaseUser
     {
         return $this->informationBillets;
     }
-
-    /**
-     * Add publicationsLiked
-     *
-     * @param \Wizardalley\CoreBundle\Entity\PublicationUserLike $publicationsLiked
-     * @return WizardUser
-     */
-    public function addPublicationsLiked(\Wizardalley\CoreBundle\Entity\PublicationUserLike $publicationsLiked)
-    {
-        $this->publicationsLiked[] = $publicationsLiked;
-
-        return $this;
-    }
-
-    /**
-     * Remove publicationsLiked
-     *
-     * @param \Wizardalley\CoreBundle\Entity\PublicationUserLike $publicationsLiked
-     */
-    public function removePublicationsLiked(\Wizardalley\CoreBundle\Entity\PublicationUserLike $publicationsLiked)
-    {
-        $this->publicationsLiked->removeElement($publicationsLiked);
-    }
-
-    /**
-     * Get publicationsLiked
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getPublicationsLiked()
-    {
-        return $this->publicationsLiked;
-    }
 }
