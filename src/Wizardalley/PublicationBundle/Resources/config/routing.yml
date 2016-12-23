@@ -1,5 +1,6 @@
 wizardalley_publication_publication:
-    resource: "@WizardalleyPublicationBundle/Resources/config/routing/publication.yml"
+    resource: "@WizardalleyPublicationBundle/Controller/PublicationController.php"
+    type:     annotation
     prefix:   /
 
 wizardalley_publication_small_publication:

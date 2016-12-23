@@ -7,20 +7,29 @@ use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\Publication;
 use Wizardalley\CoreBundle\Entity\CommentPublication;
+use Wizardalley\CoreBundle\Entity\PublicationRepository;
+use Wizardalley\CoreBundle\Entity\PublicationUserLike;
+use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\PublicationBundle\Form\PublicationType;
 use Wizardalley\PublicationBundle\Form\CommentType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Publication controller.
  *
  */
-class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseController
+class PublicationController extends
+    \Wizardalley\DefaultBundle\Controller\BaseController
 {
 
     /**
      * Creates a new Publication entity.
      *
+     * @Route("/user/publication/create/{id_page}", name="publication_create")
+     * @Method({"POST"})
      * @param Request $request
      * @param         $id_page
      *
@@ -61,8 +70,8 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
         return $this->render('WizardalleyPublicationBundle:Publication:new.html.twig', array(
             'entity' => $entity,
-            'form' => $form->createView(),
-            'page' => $entity->getPage(),
+            'form'   => $form->createView(),
+            'page'   => $entity->getPage(),
         ));
     }
 
@@ -70,7 +79,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
      * Creates a form to create a Publication entity.
      *
      * @param Publication $entity The entity
-     * @param int         $page
+     * @param Page        $page
      *
      * @return \Symfony\Component\Form\Form The form
      */
@@ -90,6 +99,8 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
      * Displays a form to create a new Publication entity.
      *
      * @param int $id_page
+     * @Route("/user/publication/new/{id_page}", name="publication_new")
+     * @Method({"POST"})
      *
      * @return Response
      */
@@ -107,14 +118,15 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         $form = $this->createCreateForm($entity, $page);
         return $this->render('WizardalleyPublicationBundle:Publication:new.html.twig', array(
             'entity' => $entity,
-            'form' => $form->createView(),
-            'page' => $entity->getPage(),
+            'form'   => $form->createView(),
+            'page'   => $entity->getPage(),
         ));
     }
 
     /**
      * Finds and displays a Publication entity.
      *
+     * @Route("/publication/{id}/show", name="publication_show")
      * @param int $id
      *
      * @return Response
@@ -131,8 +143,8 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
 
         return $this->render('WizardalleyPublicationBundle:Publication:show.html.twig', array(
-            'entity' => $entity,
-            'entity_id' => $id,
+            'entity'       => $entity,
+            'entity_id'    => $id,
             'comment_form' => $commentForm->createView(),
         ));
     }
@@ -140,6 +152,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
     /**
      * Displays a form to edit an existing Publication entity.
      *
+     * @Route("/publication/{id}/edit", name="publication_edit")
      * @param int $id
      *
      * @return Response
@@ -159,9 +172,9 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         $editForm = $this->createEditForm($entity);
 
         return $this->render('WizardalleyPublicationBundle:Publication:edit.html.twig', array(
-            'entity' => $entity,
+            'entity'    => $entity,
             'edit_form' => $editForm->createView(),
-            'page' => $entity->getPage(),
+            'page'      => $entity->getPage(),
         ));
     }
 
@@ -186,7 +199,13 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
 
     /**
      * Edits an existing Publication entity.
+     * @Route("/user/publication/{id}/update", name="publication_update")
+     * @Method({"POST", "PUT"})
      *
+     * @param Request $request
+     * @param int     $id
+     *
+     * @return Response
      */
     public function updateAction(Request $request, $id)
     {
@@ -212,9 +231,9 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
         }
 
         return $this->render('WizardalleyPublicationBundle:Publication:edit.html.twig', array(
-            'entity' => $entity,
+            'entity'    => $entity,
             'edit_form' => $editForm->createView(),
-            'page' => $entity->getPage(),
+            'page'      => $entity->getPage(),
         ));
     }
 
@@ -244,6 +263,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
      *
      * Add a coment for a specific publication
      *
+     * @Route("/user/comment/add/{id}", name="comment_add")
      * @param Request $request
      * @param         $id integer The entity publication id
      *
@@ -277,22 +297,26 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
      *
      * fetch the comment for an action
      *
-     * @param Request $request
+     * @Route("/comment/get/{id}/{page}", name="comment_get", options={"expose"=true})
+     * @param Page    $page
      * @param         $id integer The entity publication id
      *
      * @return Response
      */
-    public function getCommentAction(Request $request, $id, $page)
+    public function getCommentAction($id, $page)
     {
         $limit = 2;
         $em    = $this->getDoctrine()->getManager();
         return $this->sendJsonResponse(
             'success',
-            null, 200,
+            null,
+            200,
             [
-                'data' => $em->getRepository('WizardalleyCoreBundle:CommentPublication')->findCommentsPublication($id,
-                    $page, $limit)
-            ]);
+                'data' => $em
+                    ->getRepository('WizardalleyCoreBundle:CommentPublication')
+                    ->findCommentsPublication($id, $page, $limit)
+            ]
+        );
     }
 
     /**
@@ -300,20 +324,84 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
      *
      * fetch the comment for an action
      *
-     * @param Request $request
-     * @param         $id integer user_id
-     * @param         $id integer page number
+     * @Route("/publication/get/{id}/{page}", name="publication_get")
+     * @param int  $id   integer user_id
+     * @param Page $page integer page number
      *
      * @return Response
      */
-    public function getPublicationAction(Request $request, $id, $page)
+    public function getPublicationAction($id, $page)
     {
         $limit = 2;
         $em    = $this->getDoctrine()->getManager();
         return $this->sendJsonResponse('success', [
             'no_message' => true,
-            'data' => $em->getRepository('WizardalleyCoreBundle:Publication')->findPublications($id, $page, $limit)
+            'data'       => $em
+                ->getRepository('WizardalleyCoreBundle:Publication')
+                ->findPublications($id, $page, $limit)
         ]);
+    }
+
+    /**
+     * @Route("/user/publication/{id}/like", name="publication_user_like")
+     * @Method({"GET"})
+     * @param Publication $publication
+     * @ParamConverter("publication", class="WizardalleyCoreBundle:Publication")
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function likePublicationUser(Publication $publication)
+    {
+        /** @var WizardUser $user */
+        $user = $this->getUser();
+        /** @var PublicationRepository $repo */
+        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:Publication");
+        $publicationLike = $repo->findOneBy([
+            'user'        => $user->getId(),
+            'publication' => $publication->getId()
+        ]);
+
+        if (!$publicationLike instanceof PublicationUserLike) {
+            $publicationLike = new PublicationUserLike();
+            $publicationLike->setUser($user)->setPublication($publication)->setDateLike(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($publicationLike);
+            $em->flush();
+
+            return $this->sendJsonResponse('success', []);
+        }
+
+        return $this->sendJsonResponse('error', []);
+    }
+
+    /**
+     * @Route("/user/publication/{id}/unlike", name="publication_user_unlike")
+     * @Method({"GET"})
+     * @param Publication $publication
+     * @ParamConverter("publication", class="WizardalleyCoreBundle:Publication")
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function unlikePublicationUser(Publication $publication)
+    {
+        /** @var WizardUser $user */
+        $user = $this->getUser();
+        /** @var PublicationRepository $repo */
+        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:Publication");
+        $publicationLike = $repo->findOneBy([
+            'user'        => $user->getId(),
+            'publication' => $publication->getId()
+        ]);
+
+        if ($publicationLike instanceof PublicationUserLike) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($publicationLike);
+            $em->flush();
+
+            return $this->sendJsonResponse('success', []);
+        }
+
+        return $this->sendJsonResponse('error', []);
     }
 
     /**
@@ -327,7 +415,7 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
     }
 
     /**
-     * @param Page $entity
+     * @param Publication $entity
      *
      * @throws AccessDeniedException
      */
@@ -349,5 +437,4 @@ class PublicationController extends \Wizardalley\DefaultBundle\Controller\BaseCo
             throw new AccessDeniedException;
         }
     }
-
 }
