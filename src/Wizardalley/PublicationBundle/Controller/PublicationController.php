@@ -2,6 +2,7 @@
 
 namespace Wizardalley\PublicationBundle\Controller;
 
+use Composer\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\Page;
@@ -354,11 +355,11 @@ class PublicationController extends
     {
         /** @var WizardUser $user */
         $user = $this->getUser();
-        /** @var PublicationRepository $repo */
-        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:Publication");
+        /** @var RepositoryInterfaces $repo */
+        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:PublicationUserLike");
         $publicationLike = $repo->findOneBy([
-            'user'        => $user->getId(),
-            'publication' => $publication->getId()
+            'user'        => $user,
+            'publication' => $publication
         ]);
 
         if (!$publicationLike instanceof PublicationUserLike) {
@@ -386,11 +387,11 @@ class PublicationController extends
     {
         /** @var WizardUser $user */
         $user = $this->getUser();
-        /** @var PublicationRepository $repo */
-        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:Publication");
+        /** @var RepositoryInterfaces $repo */
+        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:PublicationUserLike");
         $publicationLike = $repo->findOneBy([
-            'user'        => $user->getId(),
-            'publication' => $publication->getId()
+            'user'        => $user,
+            'publication' => $publication
         ]);
 
         if ($publicationLike instanceof PublicationUserLike) {
