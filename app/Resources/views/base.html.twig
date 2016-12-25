@@ -43,16 +43,22 @@
                                 {% trans %}wizard.menu.link.discover{% endtrans %}
                             </a>
                         </li>
-                        <li><a href="">{% trans %}wizard.menu.link.blog{% endtrans %}</a></li>
                         <li>
                             <a {% if app.request.get('_route') == 'wizardalley_default_contact' %} class="active" {% endif %}
-                                    href="{{ path('wizardalley_default_contact') }}">{% trans %}
-                                wizard.menu.link.contact{% endtrans %}</a></li>
+                                    href="{{ path('wizardalley_default_contact') }}">
+                                <i class="wizard-iconnotifications"></i>
+                                {% trans %}wizard.menu.link.contact{% endtrans %}
+                            </a>
+                        </li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <li>
                                 <a {% if app.request.get('_route') == 'wizardalley_search_display' %} class="active" {% endif %}
-                                        href="{{ path('wizardalley_search_display') }}">{% trans %}
-                                    wizard.menu.link.search{% endtrans %}</a></li>
+                                        href="{{ path('wizardalley_search_display') }}">
+
+                                    <i class="wizard-iconsearch"></i>
+                                    {% trans %}wizard.menu.link.search{% endtrans %}
+                                </a>
+                            </li>
                         {% endif %}
 
                     </ul>
