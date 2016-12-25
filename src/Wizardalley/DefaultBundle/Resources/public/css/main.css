@@ -37,12 +37,15 @@ body {
 header {
   height: 424px; }
   header .main-title {
-    color: white;
     text-align: center;
     margin: 170px auto; }
 
-.navbar-default {
+.navbar {
+  background: url("../../../images/bg-dark.jpeg") no-repeat top;
   border: none; }
+
+.navbar-nav li {
+  line-height: 36px; }
 
 .comment_content {
   margin: 10px 5%;
@@ -112,5 +115,38 @@ header {
 
 .padding-left {
   padding-left: 15px; }
+
+.wizard-icondiscover, .wizard-iconhome, .wizard-iconmail, .wizard-iconnotifications, .wizard-iconsearch {
+  display: inline-block;
+  background: url("../images/sprite-menu.png") no-repeat;
+  overflow: hidden;
+  text-indent: -9999px;
+  text-align: left;
+  vertical-align: middle; }
+
+.wizard-icondiscover {
+  background-position: -5px 0px;
+  width: 43px;
+  height: 45px; }
+
+.wizard-iconhome {
+  background-position: -53px 0px;
+  width: 43px;
+  height: 45px; }
+
+.wizard-iconmail {
+  background-position: -5px -50px;
+  width: 43px;
+  height: 45px; }
+
+.wizard-iconnotifications {
+  background-position: -53px -50px;
+  width: 43px;
+  height: 45px; }
+
+.wizard-iconsearch {
+  background-position: -5px -100px;
+  width: 43px;
+  height: 45px; }
 
 /*# sourceMappingURL=main.css.map */

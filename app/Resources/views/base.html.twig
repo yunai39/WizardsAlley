@@ -15,7 +15,7 @@
 <body>
 {% block before_body %}
     <header>
-        <nav class="navbar navbar-default">
+        <nav class="navbar">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -31,9 +31,18 @@
                     <ul class="nav navbar-nav">
                         <li>
                             <a {% if app.request.get('_route') == 'wizardalley_default_homepage' %} class="active" {% endif %}
-                                    href="{{ path('wizardalley_default_homepage') }}">{% trans %}
-                                wizard.menu.link.home{% endtrans %}</a></li>
-                        <li><a href="">{% trans %}wizard.menu.link.discover{% endtrans %}</a></li>
+                                    href="{{ path('wizardalley_default_homepage') }}">
+                                <i class="wizard-iconhome"></i>
+                                {% trans %}wizard.menu.link.home{% endtrans %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+
+                                <i class="wizard-icondiscover"></i>
+                                {% trans %}wizard.menu.link.discover{% endtrans %}
+                            </a>
+                        </li>
                         <li><a href="">{% trans %}wizard.menu.link.blog{% endtrans %}</a></li>
                         <li>
                             <a {% if app.request.get('_route') == 'wizardalley_default_contact' %} class="active" {% endif %}
