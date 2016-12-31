@@ -78,6 +78,7 @@ class PublicationController extends Controller
      * @param int     $id
      * @return Response
      * @Route("/favoriteToggle/{id}", name="admin_publication_favorite_toggle")
+     * @Method("PUT")
      */
     public function toggleFavoritePublicationAction(Request $request, $id)
     {

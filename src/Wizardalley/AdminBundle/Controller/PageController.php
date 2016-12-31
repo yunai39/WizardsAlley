@@ -2,12 +2,15 @@
 
 namespace Wizardalley\AdminBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\Page;
+use Wizardalley\CoreBundle\Entity\PageFavorite;
 use Wizardalley\PublicationBundle\Form\PageType;
 
 /**
@@ -151,6 +154,7 @@ class PageController extends Controller
 
         return $form;
     }
+
     /**
      * Edits an existing Page entity.
      *
@@ -185,8 +189,6 @@ class PageController extends Controller
         );
     }
 
-
-
     /**
      * Deletes a Page entity.
      *
@@ -199,7 +201,7 @@ class PageController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em     = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id);
 
             if (!$entity) {
@@ -216,7 +218,8 @@ class PageController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function renderFormDeleteTemplateAction(){
+    public function renderFormDeleteTemplateAction()
+    {
         $form =  $this->createFormBuilder()
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
@@ -239,5 +242,51 @@ class PageController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderFormToggleFavoriteTemplateAction()
+    {
+        $form = $this->createFormBuilder()
+                     ->setMethod('PUT')
+                     ->add('submit', 'submit', array('label' => 'wizard.admin.page.favorite.toogle'))
+                     ->getForm();
+        return $this->render('WizardalleyAdminBundle:Table:renderForm.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * Toggle a Page entity favorite.
+     *
+     * @param Request $request
+     * @param int     $id
+     * @return Response
+     * @Route("/favoriteToggle/{id}", name="admin_page_favorite_toggle")
+     * @Method("PUT")
+     */
+    public function toggleFavoritePageAction(Request $request, $id)
+    {
+
+        $em     = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('WizardalleyCoreBundle:PageFavorite')->findOneBy(['page' => $id]);
+
+        // Si on a pas d'entite creer le favori
+        if ($entity instanceof PageFavorite) {
+            $em->remove($entity);
+        } else {
+            $publication = $em->getRepository('WizardalleyCoreBundle:Page')->find($id);
+            if (!$publication) {
+                throw $this->createNotFoundException('Unable to find Page entity.');
+            }
+            $publicationFavorite = new PageFavorite();
+            $publicationFavorite->setDateFavorite(new \DateTime());
+            $publicationFavorite->setPage($em->getReference('WizardalleyCoreBundle:Page', $id));
+            $em->persist($publicationFavorite);
+        }
+        $em->flush();
+
+        return new RedirectResponse($request->headers->get('referer'));
     }
 }

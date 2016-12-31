@@ -34,11 +34,11 @@ class PublicationTable extends AbstractTable
                 'render' => 'renderUser',
                 'template-name' => 'template-render-user-link'
             ])
-            ->addModalAction('toogleFavorite', [
+            ->addModalAction('toggleFavorite', [
                 'type' => TableAction::ACTION_MODAL_CONFIRM,
-                'template' => 'template-render-modal-toogle-favorite',
+                'template' => 'template-render-modal-toggle-favorite',
                 'render' => 'renderFavoriteLink',
-                'title' => 'Passer la publication en favoris'
+                'title' => 'Passer la publication en favori'
             ])
             ->addModalAction('delete', [
                 'type' => TableAction::ACTION_MODAL_CONFIRM,

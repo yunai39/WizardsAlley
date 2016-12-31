@@ -4,6 +4,7 @@ namespace Wizardalley\AdminBundle\Table;
 
 use Doctrine\ORM\QueryBuilder;
 use Wizardalley\CoreBundle\Entity\Page;
+use Wizardalley\CoreBundle\Entity\PageFavorite;
 
 /**
  * Class PageTable
@@ -31,6 +32,12 @@ class PageTable extends AbstractTable
                     'filter' => TableColumn::FILTER_TEXT_TYPE
                 ]
             )
+            ->addModalAction('toggleFavorite', [
+                'type' => TableAction::ACTION_MODAL_CONFIRM,
+                'template' => 'template-render-modal-toggle-favorite',
+                'render' => 'renderFavoriteLink',
+                'title' => 'Passer la publication en favori'
+            ])
             ->addAction('edit', [
                 'type' => TableAction::ACTION_LINK,
                 'render' => 'renderEdit'
@@ -57,6 +64,27 @@ class PageTable extends AbstractTable
         return $query;
     }
 
+
+    /**
+     * @param TableAction $action
+     * @param Page $page
+     *
+     * @return array
+     */
+    public function renderFavoriteLink(TableAction $action, Page $page)
+    {
+        $icon = 'icon-star-empty';
+        if ($page->getFavorite() instanceof PageFavorite) {
+            $icon = 'icon-star';
+        }
+        return [
+            'data' => $action->getData(),
+            'action' => $this->router->generate('admin_page_favorite_toggle', ['id' => $page->getId()]),
+            'template' => $action->getTemplate(),
+            'icon' => $icon,
+            'title' => $this->translator->trans("wizard.table.information.action." . $action->getName())
+        ];
+    }
 
     /**
      * @param TableAction $action
