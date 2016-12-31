@@ -153,11 +153,13 @@ abstract class AbstractTable
         }
 
         // Gestion des order by
-        $colSortNum = $request->query->get('iSortCol_0');
-        /** @var TableColumn $columnSort */
-        $columnSort = $this->columnsNum[$colSortNum];
-        $direction = $request->query->get('sSortDir_0');
-        $query->orderBy('r.' .$columnSort->getName(), $direction);
+        if ($request->query->has('iSortCol_0') && $request->query->has('sSortDir_0')) {
+            $colSortNum = $request->query->get('iSortCol_0');
+            /** @var TableColumn $columnSort */
+            $columnSort = $this->columnsNum[$colSortNum];
+            $direction = $request->query->get('sSortDir_0');
+            $query->orderBy('r.' .$columnSort->getName(), $direction);
+        }
 
         return $query->getQuery();
     }

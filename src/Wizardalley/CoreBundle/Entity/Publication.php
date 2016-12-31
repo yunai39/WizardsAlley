@@ -13,13 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Publication extends AbstractPublication
 {
     /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-
-    /**
      * @var PublicationFavorite
      * @ORM\OneToOne(targetEntity="PublicationFavorite", mappedBy="publication")
      */

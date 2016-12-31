@@ -22,7 +22,7 @@ class AbstractPublication
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
     /**
      * @var string
      *

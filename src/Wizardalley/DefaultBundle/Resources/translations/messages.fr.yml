@@ -13,3 +13,14 @@ wizard:
       page: 'Page'
       publication: 'Publication de page'
     action: 'Rechercher'
+  user:
+    profile:
+      title:
+        page_followed: 'Page suivies'
+        friend_list: 'Amis'
+        page_creator: 'Page créé'
+        page_editor: 'Page rédacteur'
+      create_page: 'Créer une page'
+  page:
+    title:
+      create: 'Créer une page'
