@@ -2,12 +2,15 @@
 
 namespace Wizardalley\AdminBundle\Controller;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\Page;
+use Wizardalley\CoreBundle\Entity\PublicationFavorite;
 use Wizardalley\PublicationBundle\Form\PageType;
 
 /**
@@ -29,7 +32,7 @@ class PublicationController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em     = $this->getDoctrine()->getManager();
             $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
 
             if (!$entity) {
@@ -49,22 +52,56 @@ class PublicationController extends Controller
     public function renderFormDeleteTemplateAction()
     {
         $form = $this->createFormBuilder()
-                     ->setMethod('DELETE')
-                     ->add('submit', 'submit', array('label' => 'Delete'))
-                     ->getForm();
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
+            ->getForm();
         return $this->render('WizardalleyAdminBundle:Table:renderForm.html.twig', ['form' => $form->createView()]);
     }
 
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function renderFormToogleFavoriteTemplateAction()
+    public function renderFormToggleFavoriteTemplateAction()
     {
         $form = $this->createFormBuilder()
-                     ->setMethod('PUT')
-                     ->add('submit', 'submit', array('label' => 'Delete'))
-                     ->getForm();
+            ->setMethod('PUT')
+            ->add('submit', 'submit', array('label' => 'wizard.admin.publication.favorite.toogle'))
+            ->getForm();
         return $this->render('WizardalleyAdminBundle:Table:renderForm.html.twig', ['form' => $form->createView()]);
+    }
+
+
+    /**
+     * Toogle a Publication entity favorite.
+     *
+     * @param Request $request
+     * @param int     $id
+     * @return Response
+     * @Route("/favoriteToggle/{id}", name="admin_publication_favorite_toggle")
+     */
+    public function toggleFavoritePublicationAction(Request $request, $id)
+    {
+
+        $em     = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('WizardalleyCoreBundle:PublicationFavorite')
+            ->findOneBy(['publication' => $id]);
+
+        // Si on a pas d'entite creer le favori
+        if ($entity instanceof PublicationFavorite) {
+            $em->remove($entity);
+        } else {
+            $publication = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
+            if (!$publication) {
+                throw $this->createNotFoundException('Unable to find Publication entity.');
+            }
+            $publicationFavorite = new PublicationFavorite();
+            $publicationFavorite->setDateFavorite(new \DateTime());
+            $publicationFavorite->setPublication($em->getReference('WizardalleyCoreBundle:Publication', $id));
+            $em->persist($publicationFavorite);
+        }
+        $em->flush();
+
+        return new RedirectResponse($request->headers->get('referer'));
     }
 
     /**
@@ -80,7 +117,6 @@ class PublicationController extends Controller
             ->setAction($this->generateUrl('admin_publication_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm()
-            ;
+            ->getForm();
     }
 }

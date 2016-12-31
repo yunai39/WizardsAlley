@@ -121,7 +121,7 @@ class PublicationTable extends AbstractTable
         }
         return [
             'data' => $action->getData(),
-            'action' => $this->router->generate('admin_publication_delete', ['id' => $publication->getId()]),
+            'action' => $this->router->generate('admin_publication_favorite_toggle', ['id' => $publication->getId()]),
             'template' => $action->getTemplate(),
             'icon' => $icon,
             'title' => $this->translator->trans("wizard.table.information.action." . $action->getName())

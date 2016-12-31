@@ -118,7 +118,7 @@ class AbstractPublication
      * @param \Wizardalley\CoreBundle\Entity\CommentPublication $comments
      * @return Publication
      */
-    public function addComment(\Wizardalley\PublicationBundle\Entity\CommentPublication $comments)
+    public function addComment(\Wizardalley\CoreBundle\Entity\CommentPublication $comments)
     {
         $this->comments[] = $comments;
 
@@ -130,7 +130,7 @@ class AbstractPublication
      *
      * @param \Wizardalley\CoreBundle\Entity\CommentPublication $comments
      */
-    public function removeComment(\Wizardalley\PublicationBundle\Entity\CommentPublication $comments)
+    public function removeComment(\Wizardalley\CoreBundle\Entity\CommentPublication $comments)
     {
         $this->comments->removeElement($comments);
     }
