@@ -107,19 +107,21 @@ class DefaultController extends Controller
             $name    = $data['name'];
             $message = $data['message'];
             $message = \Swift_Message::newInstance()
-                                     ->setSubject('Demande de contact')
-                                     ->setFrom('contact@wizardAlley.com')
-                //->setTo($email)
-                                     ->setTo('yunai39@gmail.com')
-                                     ->setBody($this->renderView('WizardalleyDefaultBundle:Email:emailContact.html.twig',
-                                         array('name' => $name, 'email' => $email, 'message' => $message)));
+                ->setSubject('Demande de contact')
+                ->setFrom('contact@wizardAlley.com')//->setTo($email)
+                ->setTo('yunai39@gmail.com')
+                ->setBody($this->renderView(
+                    'WizardalleyDefaultBundle:Email:emailContact.html.twig',
+                    array('name' => $name, 'email' => $email, 'message' => $message)
+                ));
             $this->get('mailer')->send($message);
             $request->getSession()->getFlashBag()->add('message_send', 'wizard.contact.message');
         }
 
-        return $this->render('WizardalleyDefaultBundle:Default:contact.html.twig',
-            array('form' => $form->createView()));
-
+        return $this->render(
+            'WizardalleyDefaultBundle:Default:contact.html.twig',
+            array('form' => $form->createView())
+        );
     }
 
     /**
@@ -140,5 +142,4 @@ class DefaultController extends Controller
 
         return $form;
     }
-
 }

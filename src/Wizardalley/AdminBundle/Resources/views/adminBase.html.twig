@@ -27,6 +27,7 @@
                             <li><a href="{{ path('admin_list_page', {tableName: 'page'}) }}">Page</a></li>
                             <li><a href="{{ path('admin_list_page', {tableName: 'information'}) }}">Information</a></li>
                             <li><a href="{{ path('admin_list_page', {tableName: 'publication'}) }}">Publication</a></li>
+                            <li><a href="">Statistique</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                         </ul>
@@ -35,9 +36,13 @@
             </nav>
         </header>
         <div class="container">
-            {% block body_admin %}
+            <diw class="row">
+                <div class="col-md-12 background-wizard">
+                    {% block body_admin %}
 
-            {% endblock %}
+                    {% endblock %}
+                </div>
+            </diw>
         </div>
     </div>
 {% endblock %}

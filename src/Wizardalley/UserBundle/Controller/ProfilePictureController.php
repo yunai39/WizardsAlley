@@ -3,25 +3,22 @@
 namespace Wizardalley\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controller managing the user profile
  *
  * @author Christophe Coevoet <stof@notk.org>
  */
-class ProfilePictureController extends Controller {
+class ProfilePictureController extends Controller
+{
 
     /**
-     * 
-     * @return type
+     * @return Response
      */
-    public function editProfilePictureAction() {
-        $form = $this->createFormBuilder($this->getUser())
-                ->add('fileProfile'
-                )
-                ->getForm()
-        ;
+    public function editProfilePictureAction()
+    {
+        $form = $this->createFormBuilder($this->getUser())->add('fileProfile')->getForm();
 
         if ($this->getRequest()->isMethod('POST')) {
             $form->handleRequest($this->getRequest());
@@ -34,20 +31,16 @@ class ProfilePictureController extends Controller {
         }
 
         return $this->render('WizardalleyUserBundle:Profile:editPicture.html.twig', array(
-                    'form' => $form->createView()
+            'form' => $form->createView()
         ));
     }
 
     /**
-     * 
-     * @return type
+     * @return Response
      */
-    public function editCouverturePictureAction() {
-        $form = $this->createFormBuilder($this->getUser())
-                ->add('fileCouverture'
-                )
-                ->getForm()
-        ;
+    public function editCouverturePictureAction()
+    {
+        $form = $this->createFormBuilder($this->getUser())->add('fileCouverture')->getForm();
 
         if ($this->getRequest()->isMethod('POST')) {
             $form->handleRequest($this->getRequest());
@@ -60,8 +53,7 @@ class ProfilePictureController extends Controller {
         }
 
         return $this->render('WizardalleyUserBundle:Profile:editPictureCouverture.html.twig', array(
-                    'form' => $form->createView()
+            'form' => $form->createView()
         ));
     }
-
 }

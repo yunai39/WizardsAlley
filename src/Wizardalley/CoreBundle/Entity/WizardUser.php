@@ -5,7 +5,10 @@
 namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\MessageBundle\Model\ParticipantInterface;
 use FOS\UserBundle\Entity\User as BaseUser;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\PageUserFollow;
@@ -16,7 +19,7 @@ use Wizardalley\CoreBundle\Entity\InformationBillet;
 /**
  * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\WizardUserRepository")
  */
-class WizardUser extends BaseUser
+class WizardUser extends BaseUser implements ParticipantInterface
 {
 
     /**
@@ -337,12 +340,14 @@ class WizardUser extends BaseUser
 
     /**
      * @Assert\File(maxSize="6000000")
+     * @var UploadedFile
      */
     public $fileProfile;
 
 
     /**
      * @Assert\File(maxSize="6000000")
+     * @var UploadedFile
      */
     public $fileCouverture;
 
@@ -732,6 +737,7 @@ class WizardUser extends BaseUser
      * Add publicationsLiked
      *
      * @param \Wizardalley\CoreBundle\Entity\PublicationUserLike $publicationsLiked
+     *
      * @return WizardUser
      */
     public function addPublicationsLiked(\Wizardalley\CoreBundle\Entity\PublicationUserLike $publicationsLiked)
@@ -754,7 +760,7 @@ class WizardUser extends BaseUser
     /**
      * Get publicationsLiked
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPublicationsLiked()
     {
