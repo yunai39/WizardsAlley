@@ -105,16 +105,33 @@ header {
   text-align: left; }
 
 .margin-right {
-  margin-right: 15px; }
+  margin-right: 30px; }
 
 .margin-left {
-  margin-left: 15px; }
+  margin-left: 30px; }
+
+.margin-bottom {
+  margin-bottom: 30px; }
+
+.margin-top {
+  margin-top: 30px; }
 
 .padding-right {
-  padding-right: 15px; }
+  padding-right: 30px; }
 
 .padding-left {
-  padding-left: 15px; }
+  padding-left: 30px; }
+
+.padding-top {
+  padding-top: 30px; }
+
+.padding-bottom {
+  padding-bottom: 30px; }
+
+.messenger_thread_message .messenger_thread_message_info {
+  font-weight: bold; }
+.messenger_thread_message .messenger_thread_message_body {
+  padding-left: 30px; }
 
 .wizard-icondiscover, .wizard-iconhome, .wizard-iconmail, .wizard-iconnotifications, .wizard-iconsearch {
   display: inline-block;
