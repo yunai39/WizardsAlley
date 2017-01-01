@@ -28,6 +28,9 @@ _liip_imagine:
 fos_js_routing:
     resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"
 
+fos_message:
+    resource: "@FOSMessageBundle/Resources/config/routing.xml"
+    prefix: /user/message
 
 api_login_check:
     path: /api/login_check

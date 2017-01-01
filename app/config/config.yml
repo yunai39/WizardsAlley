@@ -104,6 +104,11 @@ fos_user:
             type: wizard_user_profile_edit
 
 
+fos_message:
+    db_driver: orm
+    thread_class: Wizardalley\CoreBundle\Entity\Thread
+    message_class: Wizardalley\CoreBundle\Entity\Message
+
 liip_imagine:
     resolvers:
        default:

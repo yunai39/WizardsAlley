@@ -25,6 +25,7 @@ class AppKernel extends Kernel {
             new Wizardalley\PublicationBundle\WizardalleyPublicationBundle(),
             new Wizardalley\AdminBundle\WizardalleyAdminBundle(),
             new Wizardalley\CoreBundle\WizardalleyCoreBundle(),
+            new FOS\MessageBundle\FOSMessageBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
