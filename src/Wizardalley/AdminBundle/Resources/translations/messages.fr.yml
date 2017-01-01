@@ -8,11 +8,11 @@ wizard:
       title: Administration des publications
       confirm.delete: Etes vous sur de vouloir supprimer ce publication ?
       action.delete: Supprimer une publication
+      favorite:
+        toggle;
     page:
       title: Administration des pages
       confirm.delete: Etes vous sur de vouloir supprimer cette page ?
       action.delete: Supprimer une page
-    publication:
-      title: Administration des publications
     user:
       title: Administration des utilisateurs

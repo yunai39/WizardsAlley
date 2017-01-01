@@ -1,71 +1,85 @@
+{% for publication in publications %}
+    <div class="publication">
+        <div class="row ">
+            <div class="col-xs-2">
 
-
-    {% for publication in publications %}
-        <div class="publication">
-            <div class="row ">
-                <div class="col-xs-2">
-
-                    <div class="imgSquare">
-                        <div class="imgSquareContainer circle" >
-                            {% if publication.type == 'page_publication' %}
-                                <img  class="circle" src="{{asset('uploads/page/'~publication.writer_id ~ '/' ~ publication.path_profile)}}" />
+                <div class="imgSquare">
+                    <div class="imgSquareContainer circle">
+                        {% if publication.type == 'page_publication' %}
+                            <img class="circle"
+                                 src="{{ asset('uploads/page/'~publication.writer_id ~ '/' ~ publication.path_profile) }}"/>
+                        {% else %}
+                            {% if publication.path_profile %}
+                                <img class="circle"
+                                     src="{{ asset('uploads/profile/'~publication.writer_id ~ '/' ~ publication.path_profile) }}"/>
                             {% else %}
-                                {% if publication.path_profile %}
-                                    <img  class="circle"  src="{{asset('uploads/profile/'~publication.writer_id ~ '/' ~ publication.path_profile)}}" />
-                                {% else %}
-                                    <img   class="circle" src="{{asset('uploads/profile/default.png')}}" />
-                                {% endif %}
+                                <img class="circle" src="{{ asset('uploads/profile/default.png') }}"/>
                             {% endif %}
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
-                <div class="col-xs-10">
-                    {% if publication.type == 'page_publication' %}
-                        <p class="lead">
-                            <a href="{{path('publication_show',{'id':publication.publication_id})}}">{{publication.title}}</a>
-                        </p>
-                    {% endif %}
+            </div>
+            <div class="col-xs-10">
+                {% if publication.type == 'page_publication' %}
                     <p class="lead">
-                        {% if publication.type == 'page_publication' %}
-                            <a href="{{path('page_show', {'id_page': publication.writer_id})}}" >{{publication.name}}</a>
-                        {% else %}
-                            <a href="{{path('wizardalley_user_wall', {'id': publication.writer_id})}}" >{{publication.name}}</a>
-                        {% endif %}
+                        <a href="{{ path('publication_show',{'id':publication.publication_id}) }}">{{ publication.title }}</a>
                     </p>
-                    <p>{{publication.datePublication | date('d/m/Y')}} - {{publication.datePublication | date('H:i:s')}}</p>
-                </div>
+                {% endif %}
+                <p class="lead">
+                    {% if publication.type == 'page_publication' %}
+                        <a href="{{ path('page_show', {'id_page': publication.writer_id}) }}">{{ publication.name }}</a>
+                    {% else %}
+                        <a href="{{ path('wizardalley_user_wall', {'id': publication.writer_id}) }}">{{ publication.name }}</a>
+                    {% endif %}
+                </p>
+                <p>{{ publication.datePublication | date('d/m/Y') }}
+                    - {{ publication.datePublication | date('H:i:s') }}</p>
             </div>
-            <br/>
-            <div class="row">
-                <div class="col-md-12">
-                        {% if publication.type == 'page_publication' %}
-                                <p>{{publication.content | raw}}</p>
-                         {% else %}
-                                <p>{{publication.content}}</p>
-                          {% endif %}
-                         
-                            
-                </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-12">
+                {% if publication.type == 'page_publication' %}
+                    <p>{{ publication.content | raw }}</p>
+                {% else %}
+                    <p>{{ publication.content }}</p>
+                {% endif %}
+
+
             </div>
-                          
-            <div class="row">
-                <div class="col-md-12 text-align-right">
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-align-right">
                     <span class="label defaut-label">
 
                         {% if publication.type == 'page_publication' %}
-                            <a href="{{path('publication_show',{'id':publication.publication_id})}}">{% trans %}publication.display.link{% endtrans %}</a>
+                            <a href="{{ path('publication_show',{'id':publication.publication_id}) }}">{% trans %}
+                                publication.display.link{% endtrans %}</a>
                         {% else %}
-                            <a href="{{path('user_small_publication_show',{'id':publication.publication_id})}}">{% trans %}publication.display.link{% endtrans %}</a>
+                            <a href="{{ path('user_small_publication_show',{'id':publication.publication_id}) }}">{% trans %}
+                                publication.display.link{% endtrans %}</a>
                         {% endif %}
                     </span>
                     <span class="label defaut-label">
                         {% trans %}publication.comments{% endtrans %}
                     </span>
-                    <span class="label defaut-label">
-                        {% trans %}publication.like{% endtrans %}
-                    </span>
-                </div>
+                    {% if publication.type == 'page_publication' %}
+                        <button class="label defaut-label like-unlike-button"
+                                onclick="util.likeOrUnlikePublication({{ publication.publication_id }})"
+                            {% if is_like(publication.publication_id) %}
+                                value="unlike"
+                                >
+                                {% trans %}publication.unlike{% endtrans %}
+                            {% else %}
+                                value="like"
+                                >
+                                {% trans %}publication.like{% endtrans %}
+                            {% endif %}
+                        </button>
+                    {% endif %}
             </div>
-                
         </div>
-    {% endfor %}
+
+    </div>
+{% endfor %}

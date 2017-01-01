@@ -11,6 +11,7 @@ use Wizardalley\CoreBundle\Entity\CommentPublication;
 use Wizardalley\CoreBundle\Entity\PublicationRepository;
 use Wizardalley\CoreBundle\Entity\PublicationUserLike;
 use Wizardalley\CoreBundle\Entity\WizardUser;
+use Wizardalley\DefaultBundle\Controller\BaseController;
 use Wizardalley\PublicationBundle\Form\PublicationType;
 use Wizardalley\PublicationBundle\Form\CommentType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -22,8 +23,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  * Publication controller.
  *
  */
-class PublicationController extends
-    \Wizardalley\DefaultBundle\Controller\BaseController
+class PublicationController extends BaseController
 {
 
     /**
@@ -344,8 +344,8 @@ class PublicationController extends
     }
 
     /**
-     * @Route("/user/publication/{id}/like", name="publication_user_like")
-     * @Method({"GET"})
+     * @Route("/user/publication/{id}/like", name="publication_user_like", options={"expose"=true})
+     * @Method({"POST"})
      * @param Publication $publication
      * @ParamConverter("publication", class="WizardalleyCoreBundle:Publication")
      *
@@ -355,11 +355,11 @@ class PublicationController extends
     {
         /** @var WizardUser $user */
         $user = $this->getUser();
-        /** @var RepositoryInterfaces $repo */
+        /** @var RepositoryInterface $repo */
         $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:PublicationUserLike");
         $publicationLike = $repo->findOneBy([
-            'user'        => $user,
-            'publication' => $publication
+            'user'        => $user->getId(),
+            'publication' => $publication->getId()
         ]);
 
         if (!$publicationLike instanceof PublicationUserLike) {
@@ -376,8 +376,8 @@ class PublicationController extends
     }
 
     /**
-     * @Route("/user/publication/{id}/unlike", name="publication_user_unlike")
-     * @Method({"GET"})
+     * @Route("/user/publication/{id}/unlike", name="publication_user_unlike", options={"expose"=true})
+     * @Method({"POST"})
      * @param Publication $publication
      * @ParamConverter("publication", class="WizardalleyCoreBundle:Publication")
      *
@@ -387,11 +387,11 @@ class PublicationController extends
     {
         /** @var WizardUser $user */
         $user = $this->getUser();
-        /** @var RepositoryInterfaces $repo */
+        /** @var RepositoryInterface $repo */
         $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:PublicationUserLike");
         $publicationLike = $repo->findOneBy([
-            'user'        => $user,
-            'publication' => $publication
+            'user'        => $user->getId(),
+            'publication' => $publication->getId()
         ]);
 
         if ($publicationLike instanceof PublicationUserLike) {

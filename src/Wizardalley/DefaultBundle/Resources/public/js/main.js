@@ -5,53 +5,55 @@
  */
 
 optionsToastr = {
-  "closeButton": false,
-  "debug": false,
-  "newestOnTop": false,
-  "progressBar": false,
-  "positionClass": "toast-top-right",
-  "preventDuplicates": false,
-  "onclick": null,
-  "showDuration": "300",
-  "hideDuration": "1000",
-  "timeOut": "5000",
-  "extendedTimeOut": "1000",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
 };
 
 
-
-var util = (function(){
+var util = (function () {
     return {
         /**
          *
          */
-        "init": function() {
+        "init": function () {
 
         },
         /**
          *
          * @param page_id
          */
-        "likePage": function(page_id) {
-            this.ajaxHandle('POST', "page_id="+page_id+"", Routing.generate('page_like'));
+        "likePage": function (page_id) {
+            this.ajaxHandle('POST', "page_id=" + page_id + "", Routing.generate('page_like'));
         },
         /**
          *
          * @param _id
          */
-        "loadMorePublication": function(_id) {
+        "loadMorePublication": function (_id) {
             this.loadMore(Routing.generate('page_publication_get', {'id': _id}), 'GET', null);
         },
 
-        "loadMoreSearch": function(researchType, _field, _page) {
-            var _handler = function(data) {
+        "loadMoreSearch": function (researchType, _field, _page) {
+            var _handler = function (data) {
                 $('#wizard_search_result').prepend(data['extra']['html']);
             };
-            this.loadMore(Routing.generate('wizardalley_search_'+researchType, {'field':_field , 'page': _page}), 'GET', _handler);
+            this.loadMore(Routing.generate('wizardalley_search_' + researchType, {
+                'field': _field,
+                'page': _page
+            }), 'GET', _handler);
 
         },
         /**
@@ -61,20 +63,41 @@ var util = (function(){
          * @param _handler
          * @returns {*}
          */
-        "loadMore": function(_url,_method,_handler){
-            $result = util.ajaxHandle(_method,null, _url,_handler);
+        "loadMore": function (_url, _method, _handler) {
+            $result = util.ajaxHandle(_method, null, _url, _handler);
             return $result;
         },
         /**
          *
          * @param _page
          */
-        "loadMorePublicationHome": function(_page){
-            var _handler = function(data) {
-                console.log(data);
+        "loadMorePublicationHome": function (_page) {
+            var _handler = function (data) {
                 $('.publication-block-wrapper').append(data['extra']['html']);
             };
-            util.ajaxHandle('GET',null,Routing.generate('wizard_get_publication_view', {'page': _page}), _handler);
+            util.ajaxHandle('GET', null, Routing.generate('wizard_get_publication_view', {'page': _page}), _handler);
+        },
+
+        /**
+         * Liker ou unlique une publication
+         */
+        "likeOrUnlikePublication": function (id) {
+            var $button = $('.like-unlike-button');
+            if ($button.attr('value') == 'like') {
+                var _handler = function (data) {
+                    $button.attr('value', 'unlike');
+                    $button.html('Unlike');
+                };
+                // Envoyer la requete js
+                util.ajaxHandle('POST', null, Routing.generate('publication_user_like', {'id': id}), _handler);
+            } else {
+                var _handler = function (data) {
+                    $button.attr('value', 'like');
+                    $button.html('Like');
+                };
+                // Envoyer la requete js
+                util.ajaxHandle('POST', null, Routing.generate('publication_user_unlike', {'id': id}), _handler);
+            }
         },
         /**
          *
@@ -83,20 +106,21 @@ var util = (function(){
          * @param _url
          * @param _success_function
          */
-        "ajaxHandle": function(_method, _data, _url, _success_function) {
+        "ajaxHandle": function (_method, _data, _url, _success_function) {
             $.ajax({
                 method: _method,
                 data: _data,
                 url: _url,
-                error: function(jqXHR, textStatus, errorThrown){
+                error: function (jqXHR, textStatus, errorThrown) {
                     util.handleErrorResponse(jqXHR, textStatus, errorThrown);
                 },
-                success: function(data, textStatus, jqXHR){
+                success: function (data, textStatus, jqXHR) {
                     if (typeof data['data'] != 'undefined' && data['data']) {
                         if (typeof data['data']['message'] != 'undefined') {
                             util.handleSuccesResponse(data, textStatus, jqXHR);
                         }
                     }
+                    console.log(_success_function);
                     _success_function(data);
                     //window[_success_function](data);
                 }
@@ -107,9 +131,9 @@ var util = (function(){
          * @param _page
          * @returns {*}
          */
-        "loadMoreInfo": function(_page){
+        "loadMoreInfo": function (_page) {
 
-            var handler = function(_data){
+            var handler = function (_data) {
                 console.log(_data);
                 $('.information-block-wrapper').append(_data['data']['contenu']);
             };
@@ -128,9 +152,9 @@ var util = (function(){
          * @param textStatus
          * @param jqXHR
          */
-        "handleSuccesResponse": function(data, textStatus, jqXHR) {
-                toastr.option = optionsToastr;
-                toastr.success(data['data']['message']);
+        "handleSuccesResponse": function (data, textStatus, jqXHR) {
+            toastr.option = optionsToastr;
+            toastr.success(data['data']['message']);
         },
         /**
          *
@@ -138,7 +162,7 @@ var util = (function(){
          * @param textStatus
          * @param errorThrown
          */
-        "handleErrorResponse": function(jqXHR, textStatus, errorThrown) {
+        "handleErrorResponse": function (jqXHR, textStatus, errorThrown) {
             data = JSON.parse(jqXHR.responseText);
             if (typeof data['data'] != 'undefined' && data['data']) {
                 if (typeof data['data']['message'] != 'undefined') {
@@ -146,6 +170,6 @@ var util = (function(){
                     toastr.error(data['data']['message']);
                 }
             }
-        },
+        }
     }
 })();

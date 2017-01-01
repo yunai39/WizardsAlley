@@ -65,7 +65,7 @@ class PublicationController extends Controller
     {
         $form = $this->createFormBuilder()
             ->setMethod('PUT')
-            ->add('submit', 'submit', array('label' => 'wizard.admin.publication.favorite.toogle'))
+            ->add('submit', 'submit', array('label' => 'wizard.admin.publication.favorite.toggle'))
             ->getForm();
         return $this->render('WizardalleyAdminBundle:Table:renderForm.html.twig', ['form' => $form->createView()]);
     }

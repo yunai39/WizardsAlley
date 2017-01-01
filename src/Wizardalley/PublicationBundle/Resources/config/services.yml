@@ -4,4 +4,9 @@ services:
         class: Wizardalley\PublicationBundle\Twig\HTMLLimitStripExtension
         tags:
             - { name: twig.extension }
+    wizard.publication.twig.user_like:
+        class: Wizardalley\PublicationBundle\Twig\LikePublicationExtension
+        arguments: ['@security.token_storage', '@doctrine.orm.default_entity_manager']
+        tags:
+            - { name: twig.extension }
 
