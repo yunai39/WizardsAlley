@@ -1,6 +1,7 @@
 <?php
 
 namespace Wizardalley\CoreBundle\Entity;
+
 use Wizardalley\CoreBundle\Entity\WizardUser;
 use Doctrine\ORM\EntityRepository;
 
@@ -13,15 +14,17 @@ use Doctrine\ORM\EntityRepository;
 class WizardUserRepository extends EntityRepository
 {
     /**
-     * 
-     * @param type $user
-     * @param type $page
-     * @param type $limit
-     * @return type
+     *
+     * @param WizardUser $user
+     * @param int        $page
+     * @param int        $limit
+     *
+     * @return array
      */
-    public function findFriends($user,  $page, $limit){
+    public function findFriends(WizardUser $user, $page, $limit)
+    {
         $offset = $limit * ($page - 1);
-        $sql = "
+        $sql    = "
         select distinct w.username, w.id,w.path_profile
             from friends f1
                 left join friends f2 on f2.user_id = f1.friend_user_id 
@@ -31,21 +34,24 @@ class WizardUserRepository extends EntityRepository
                 f1.user_id = ?
             limit {$offset}, {$limit}
                 ";
-        $conn = $this->getEntityManager()->getConnection();
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(array($user->getId(),$user->getId()));
+        $conn   = $this->getEntityManager()->getConnection();
+        $stmt   = $conn->prepare($sql);
+        $stmt->execute(array($user->getId(), $user->getId()));
+
         return $stmt->fetchAll();
     }
-    
+
     /**
-     * 
-     * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
-     * @param type $publication_id
-     * @param type $limit
-     * @return type
+     *
+     * @param WizardUser $user
+     * @param int        $publication_id
+     * @param int        $limit
+     *
+     * @return array
      */
-    public function findPublicationUser(WizardUser $user,$publication_id, $limit){
-         $sql = "
+    public function findPublicationUser(WizardUser $user, $publication_id, $limit)
+    {
+        $sql    = "
             (
             select 
                 pu.id as 'publication_id', 
@@ -88,27 +94,30 @@ class WizardUserRepository extends EntityRepository
                 and ( pu.id < :publication_id or :publication_id = -1)
             )
             ORDER BY publication_id DESC
-            LIMIT ".$limit."
+            LIMIT " . $limit . "
             ";
-        $conn = $this->getEntityManager()->getConnection();
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->execute(array(
-            'user_id_1' => $user->getId(),
-            'user_id_2' => $user->getId(),
+        $conn   = $this->getEntityManager()->getConnection();
+        $stmt   = $conn->prepare($sql);
+        $stmt->execute(array(
+            'user_id_1'      => $user->getId(),
+            'user_id_2'      => $user->getId(),
             'publication_id' => $publication_id
         ));
+
         return $stmt->fetchAll();
     }
-    
+
     /**
-     * 
-     * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
-     * @param type $offset
-     * @param type $limit
-     * @return type
+     *
+     * @param WizardUser $user
+     * @param int        $offset
+     * @param int        $limit
+     *
+     * @return array
      */
-    public function findPublication(WizardUser $user,$offset, $limit) {
-        $sql = "
+    public function findPublication(WizardUser $user, $offset, $limit)
+    {
+        $sql    = "
             (
             select 
                 pu.id as 'publication_id', 
@@ -141,27 +150,36 @@ class WizardUserRepository extends EntityRepository
              where pa.user_id = :user_id_2
             )
             ORDER BY datePublication DESC
-            LIMIT ".$offset.", ".$limit."
+            LIMIT " . $offset . ", " . $limit . "
             ";
-        $conn = $this->getEntityManager()->getConnection();
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->execute(array(
+        $conn   = $this->getEntityManager()->getConnection();
+        $stmt   = $conn->prepare($sql);
+        $stmt->execute(array(
             'user_id_1' => $user->getId(),
             'user_id_2' => $user->getId(),
         ));
+
         return $stmt->fetchAll();
     }
-    
+
+    /**
+     * @param WizardUser $user
+     * @param int        $id_last
+     * @param int        $limit
+     *
+     * @return array
+     * @throws \Doctrine\DBAL\DBALException
+     */
     public function findPublicationWall(WizardUser $user, $id_last, $limit)
     {
         if ($id_last) {
-            $sqlLimit = "LIMIT 1,".$limit;
-            $sqlWhere = "AND pa.id < ".$id_last;
+            $sqlLimit = "LIMIT 1," . $limit;
+            $sqlWhere = "AND pa.id < " . $id_last;
         } else {
-            $sqlLimit = "LIMIT ".$limit;
+            $sqlLimit = "LIMIT " . $limit;
             $sqlWhere = "";
         }
-        $sql = "
+        $sql    = "
             (
             select 
                 pu.id as 'publication_id', 
@@ -196,57 +214,60 @@ class WizardUserRepository extends EntityRepository
             ORDER BY publication_id DESC
             {$sqlLimit}
             ";
-        $conn = $this->getEntityManager()->getConnection();
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->execute(array(
+        $conn   = $this->getEntityManager()->getConnection();
+        $stmt   = $conn->prepare($sql);
+        $stmt->execute(array(
             'user_id_1' => $user->getId(),
             'user_id_2' => $user->getId(),
         ));
+
         return $stmt->fetchAll();
     }
-    
-    
+
+
     /**
-     * 
-     * @param type $search
-     * @return type
+     *
+     * @param string $search
+     *
+     * @return array
      */
-    public function searchUser($search) {
-        
-        $sql = "
+    public function searchUser($search)
+    {
+
+        $sql    = "
         select w.id , w.username as label, w.username as value,w.path_profile
             from wizard_user w
             where
                 w.username like ?
                 ";
-        $conn = $this->getEntityManager()->getConnection();
-        $stmt = $conn->prepare($sql);
-        $result = $stmt->execute(array('%'.$search.'%'));
+        $conn   = $this->getEntityManager()->getConnection();
+        $stmt   = $conn->prepare($sql);
+        $stmt->execute(array('%' . $search . '%'));
+
         return $stmt->fetchAll();
     }
-    
+
     /**
-     * 
-     * @param type $like
-     * @param type $page
-     * @param type $limit
-     * @return type
+     *
+     * @param string $like
+     * @param int    $page
+     * @param int    $limit
+     *
+     * @return array
      */
-    public function findUsersLike($like, $page=1, $limit =4){
-        $firstResult = ($page - 1)*$limit;
-        
-        $qb = $this->_em->createQueryBuilder()
-            ->select('u')
-            ->from($this->_entityName, 'u');
+    public function findUsersLike($like, $page = 1, $limit = 4)
+    {
+        $firstResult = ($page - 1) * $limit;
+
+        $qb    = $this->_em->createQueryBuilder()->select('u')->from($this->_entityName, 'u');
         $query = $qb
-                    ->where('u.username LIKE :like')
-                    ->orderBy('u.username','DESC')
-                    ->setFirstResult($firstResult)
-                    ->setMaxResults($limit)
-                    ->setParameter(':like', '%'.$like.'%')
-                    ->getQuery();
-        
-        $result = $query->getResult();
-        return $result;
+            ->where('u.username LIKE :like')
+            ->orderBy('u.username', 'DESC')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($limit)
+            ->setParameter(':like', '%' . $like . '%')
+            ->getQuery();
+
+        return $query->getResult();
     }
 }

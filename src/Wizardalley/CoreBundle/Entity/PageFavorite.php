@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * PageFavorite
  *
  * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\PageFavoriteRepository"))
  */
 class PageFavorite
 {

@@ -26,7 +26,12 @@ wizardalley_search_publication:
     defaults: { _controller: WizardalleyDefaultBundle:Search:searchPublication, page: 1 }    
     options:
         expose: true
-    
+
+
+wizardalley_discover:
+    resource: "@WizardalleyDefaultBundle/Controller/DiscoverController.php"
+    type:     annotation
+    prefix:   /
 
 wizardalley_default_homepage:
     path:     /user/home

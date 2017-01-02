@@ -12,26 +12,46 @@ use Doctrine\ORM\EntityRepository;
  */
 class PublicationRepository extends EntityRepository
 {
-    public function findPublications( $id_user, $page = 1, $limit = 4){
-        $firstResult = ($page - 1)*$limit;
-        
-        $qb = $this->_em->createQueryBuilder()
-            ->select('p')
-            ->from($this->_entityName, 'p');
+    /**
+     * @param int $id_user
+     * @param int $page
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function findPublications(
+        $id_user,
+        $page = 1,
+        $limit = 4
+    ) {
+        $firstResult = ($page - 1) * $limit;
+
+        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
         $query = $qb
                     ->join('p.user', 'u')
                     ->where('u.id = :id')
-                    ->orderBy('p.datePublication','DESC')
+                    ->orderBy('p.datePublication', 'DESC')
                     ->setFirstResult($firstResult)
                     ->setMaxResults($limit)
                     ->setParameter(':id', $id_user)
                     ->getQuery();
         $result = $query->getArrayResult();
+
         return $result;
-      
     }
-    
-    public function findPublicationLike($like, $page=1, $limit =4){
+
+    /**
+     * @param string $like
+     * @param int    $page
+     * @param int    $limit
+     *
+     * @return array
+     */
+    public function findPublicationLike(
+        $like,
+        $page = 1,
+        $limit = 4
+    ) {
         $firstResult = ($page - 1)*$limit;
         
         $qb = $this->_em->createQueryBuilder()
@@ -41,19 +61,30 @@ class PublicationRepository extends EntityRepository
                     ->addSelect('i')
                     ->join('p.images', 'i')
                     ->where('p.title LIKE :like')
-                    ->orderBy('p.title','DESC')
+                    ->orderBy('p.title', 'DESC')
                     ->setFirstResult($firstResult)
                     ->setMaxResults($limit)
                     ->setParameter(':like', '%'.$like.'%')
                     ->getQuery();
         
         $result = $query->getArrayResult();
+
         return $result;
     }
-    
-    public function findPublicationsPage( $id_page, $page = 1, $limit = 4){
-        
 
+    /**
+     * @param int $id_page
+     * @param int $page
+     * @param int $limit
+     *
+     * @return array
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function findPublicationsPage(
+        $id_page,
+        $page = 1,
+        $limit = 4
+    ) {
         $firstResult = ($page - 1)*$limit;
         $sql = "
         select distinct w.username, w.id as 'user_id',pu.id as id, pu.title, pu.small_content, pa.datePublication,
@@ -79,9 +110,8 @@ class PublicationRepository extends EntityRepository
                 ";
         $conn = $this->getEntityManager()->getConnection();
         $stmt = $conn->prepare($sql);
-        $result = $stmt->execute(array($id_page));
+        $stmt->execute(array($id_page));
+
         return $stmt->fetchAll();
-        
-        
     }
 }

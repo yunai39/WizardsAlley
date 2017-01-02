@@ -47,7 +47,8 @@
                             </li>
                         {% endif %}
                         <li>
-                            <a href="">
+                            <a {% if app.request.get('_route') == 'wizardalley_discover_index' %} class="active" {% endif %}
+                                    href="{{ path('wizardalley_discover_index') }}">
 
                                 <i class="wizard-icondiscover"></i>
                                 {% trans %}wizard.menu.link.discover{% endtrans %}
