@@ -20,7 +20,7 @@ wizard:
             copyright: Copyright
             search: Recherche
             wall: mur
-            message: Message
+            mail: Message
             notification: Notification
     user:
         profile:

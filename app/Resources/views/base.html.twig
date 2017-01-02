@@ -29,13 +29,23 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a {% if app.request.get('_route') == 'wizardalley_default_homepage' %} class="active" {% endif %}
-                                    href="{{ path('wizardalley_default_homepage') }}">
-                                <i class="wizard-iconhome"></i>
-                                {% trans %}wizard.menu.link.home{% endtrans %}
-                            </a>
-                        </li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li>
+                                <a {% if app.request.get('_route') == 'wizardalley_default_homepage' %} class="active" {% endif %}
+                                        href="{{ path('wizardalley_default_homepage') }}">
+                                    <i class="wizard-iconhome"></i>
+                                    {% trans %}wizard.menu.link.home{% endtrans %}
+                                </a>
+                            </li>
+                            <li>
+                                <a {% if app.request.get('_route') == 'fos_message_inbox' %} class="active" {% endif %}
+                                        href="{{ path('fos_message_inbox') }}">
+
+                                    <i class="wizard-iconmail"></i>
+                                    {% trans %}wizard.menu.link.mail{% endtrans %}
+                                </a>
+                            </li>
+                        {% endif %}
                         <li>
                             <a href="">
 
@@ -50,16 +60,14 @@
                                 {% trans %}wizard.menu.link.contact{% endtrans %}
                             </a>
                         </li>
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li>
-                                <a {% if app.request.get('_route') == 'wizardalley_search_display' %} class="active" {% endif %}
-                                        href="{{ path('wizardalley_search_display') }}">
+                        <li>
+                            <a {% if app.request.get('_route') == 'wizardalley_search_display' %} class="active" {% endif %}
+                                    href="{{ path('wizardalley_search_display') }}">
 
-                                    <i class="wizard-iconsearch"></i>
-                                    {% trans %}wizard.menu.link.search{% endtrans %}
-                                </a>
-                            </li>
-                        {% endif %}
+                                <i class="wizard-iconsearch"></i>
+                                {% trans %}wizard.menu.link.search{% endtrans %}
+                            </a>
+                        </li>
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
