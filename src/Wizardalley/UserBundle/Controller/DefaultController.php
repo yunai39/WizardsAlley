@@ -5,6 +5,7 @@ namespace Wizardalley\UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Wizardalley\CoreBundle\Entity\WizardUser;
 
 class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseController
 {
@@ -173,9 +174,28 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      */
     public function searchUserJsonAction($search)
     {
-
         $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
 
         return $this->sendJsonResponse('success', $repo->searchUser($search));
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getFriendListAction()
+    {
+        /** @var WizardUser $user */
+        $user        = $this->getUser();
+        $friends     = $user->getMyFriends();
+        $friendArray = [];
+        /** @var WizardUser $friend */
+        foreach ($friends as $friend) {
+            $friendArray[] = [
+                'id'   => $friend->getUsername(),
+                'name' => $friend->getUsername()
+            ];
+        }
+
+        return new JsonResponse($friendArray);
     }
 }

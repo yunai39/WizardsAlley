@@ -108,6 +108,8 @@ fos_message:
     db_driver: orm
     thread_class: Wizardalley\CoreBundle\Entity\Thread
     message_class: Wizardalley\CoreBundle\Entity\Message
+    new_thread_form:
+      handler:            fos_message.new_thread_form.handler.custom
 
 liip_imagine:
     resolvers:

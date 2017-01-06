@@ -2,3 +2,6 @@ services:
 #    wizardalley_default.example:
 #        class: Wizardalley\DefaultBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+  fos_message.new_thread_form.handler.custom:
+    class: Wizardalley\DefaultBundle\FormHandler\NewThreadMessageFormHandler
+    arguments: [@request_stack, @fos_message.composer, @fos_message.sender, @fos_message.participant_provider, @doctrine.orm.entity_manager, @security.token_storage]
