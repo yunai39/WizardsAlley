@@ -134,4 +134,20 @@ class PageRepository extends EntityRepository
 
         return $result;
     }
+
+
+    /**
+     * @return array
+     */
+    public function findPageThisMonth()
+    {
+        $qb     = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
+        $query  = $qb->where('p.dateCreation > :date')
+                     ->setParameter(':date', (new \DateTime())->format('Y-m'))
+                     ->getQuery()
+        ;
+        $result = $query->getArrayResult();
+
+        return $result;
+    }
 }

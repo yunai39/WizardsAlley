@@ -64,6 +64,13 @@ class Page
     private $pathProfile;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_creation", type="date")
+     */
+    private $dateCreation;
+
+    /**
     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\Publication", mappedBy="page", cascade={"remove", "persist"})
     */
     private $publications;
@@ -188,6 +195,26 @@ class Page
     public function getUrlFacebook()
     {
         return $this->urlFacebook;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateCreation()
+    {
+        return $this->dateCreation;
+    }
+
+    /**
+     * @param \DateTime $dateCreation
+     *
+     * @return Page
+     */
+    public function setDateCreation($dateCreation)
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
     }
 
 

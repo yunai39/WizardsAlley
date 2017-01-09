@@ -185,9 +185,10 @@ class GestionPageController extends Controller
         $form = $this->createFormPage($entity);
         $form->handleRequest($request);
 
-        if ( $form->isValid() ) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setCreator($this->getUser());
+            $entity->setDateCreation(new \DateTime());
             $entity->uploadCouverture();
             $entity->uploadProfile();
             $em->persist($entity);
@@ -205,16 +206,17 @@ class GestionPageController extends Controller
 
     /**
      * displayPublicationUserAction
-     * 
+     *
      * This action will display a form to edit the content of the page
-     * 
+     *
      * pattern: /page/gestion/publication/{id_page}
      * road_name: page_gestion_publication
      *
      * @param int $id_page
+     *
      * @return Response
      */
-    public function displayPublicationUserAction( $id_page)
+    public function displayPublicationUserAction($id_page)
     {
         $em   = $this->getDoctrine()->getManager();
         $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
@@ -222,13 +224,16 @@ class GestionPageController extends Controller
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
 
-        $entities = $em->getRepository('WizardalleyCoreBundle:Publication')->findBy(array( 'page' => $page ));
+        $entities = $em->getRepository('WizardalleyCoreBundle:Publication')->findBy(array('page' => $page));
 
-        return $this->render('WizardalleyPublicationBundle:Publication:index.html.twig', array(
+        return $this->render(
+            'WizardalleyPublicationBundle:Publication:index.html.twig',
+            array(
                 'id_page'  => $id_page,
                 'entities' => $entities,
                 'page'     => $page,
-        ));
+            )
+        );
     }
 
     /**

@@ -114,4 +114,19 @@ class PublicationRepository extends EntityRepository
 
         return $stmt->fetchAll();
     }
+
+    /**
+     * @return array
+     */
+    public function findPublicationThisMonth()
+    {
+        $qb     = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
+        $query  = $qb->where('p.datePublication > :date')
+                     ->setParameter(':date', (new \DateTime())->format('Y-m'))
+                     ->getQuery()
+        ;
+        $result = $query->getArrayResult();
+
+        return $result;
+    }
 }
