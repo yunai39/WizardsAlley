@@ -4,11 +4,17 @@
     <meta charset="UTF-8"/>
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}
-        {% stylesheets
-        'bundles/wizardalleydefault/css/*'
-        filter='cssrewrite' %}
-        <link rel="stylesheet" href="{{ asset_url }}"/>
-        {% endstylesheets %}
+        <link rel="stylesheet" href="/assets/css/adminStats.css"/>
+        <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+        <link rel="stylesheet" href="/assets/css/bootstrap.icon-large.min.css"/>
+        <link rel="stylesheet" href="/assets/css/bootstrap-theme.min.css"/>
+        <link rel="stylesheet" href="/assets/css/datatable.css"/>
+        <link rel="stylesheet" href="/assets/css/toastr.min.css"/>
+        <link rel="stylesheet" href="/assets/css/typeahead.css"/>
+        <link rel="stylesheet" href="/assets/css/main.css"/>
+        <link rel="stylesheet" href="/assets/jquery-ui/jquery-ui.min.css">
+        <link rel="stylesheet" href="/assets/jquery-ui/jquery-ui.theme.min.css">
+        <link rel="stylesheet" href="/assets/jquery-ui/jquery-ui.structure.min.css">
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
@@ -175,15 +181,15 @@
 
 {% block javascripts %}
     {% javascripts
-    'bundles/wizardalleydefault/js/jquery.js'
-    'bundles/wizardalleydefault/js/js.cookie.js'
-    'bundles/wizardalleydefault/js/bootstrap.min.js'
-    'bundles/wizardalleydefault/js/toastr.min.js'
-    'bundles/wizardalleydefault/js/underscore.min.js'
-    'bundles/wizardalleydefault/js/main.js'
     'bundles/fosjsrouting/js/router.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    <script src="/assets/js/jquery.js"></script>
+    <script src="/assets/js/js.cookie.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/toastr.min.js"></script>
+    <script src="/assets/js/underscore.min.js"></script>
+    <script src="/assets/js/main.js"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
 {% endblock %}

@@ -1,15 +1,6 @@
 {% extends 'WizardalleyAdminBundle::adminBase.html.twig' %}
 
 
-{% block stylesheets %}
-    {% stylesheets
-    'bundles/wizardalleyadmin/css/*'
-    filter='cssrewrite'%}
-    <link rel="stylesheet" href="{{ asset_url }}" />
-    {% endstylesheets %}
-    {{ parent() }}
-{% endblock %}
-
 {% block body_admin -%}
 
     <div class="panel panel-default">
