@@ -42,4 +42,37 @@ class Message extends BaseMessage
      * @var MessageMetadata[]|Collection
      */
     protected $metadata;
+
+    /**
+     * Add metadata
+     *
+     * @param \Wizardalley\CoreBundle\Entity\MessageMetadata $metadata
+     * @return Message
+     */
+    public function addMetadatum(\Wizardalley\CoreBundle\Entity\MessageMetadata $metadata)
+    {
+        $this->metadata[] = $metadata;
+
+        return $this;
+    }
+
+    /**
+     * Remove metadata
+     *
+     * @param \Wizardalley\CoreBundle\Entity\MessageMetadata $metadata
+     */
+    public function removeMetadatum(\Wizardalley\CoreBundle\Entity\MessageMetadata $metadata)
+    {
+        $this->metadata->removeElement($metadata);
+    }
+
+    /**
+     * Get metadata
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
+    }
 }

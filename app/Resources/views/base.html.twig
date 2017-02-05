@@ -61,13 +61,6 @@
                             </a>
                         </li>
                         <li>
-                            <a {% if app.request.get('_route') == 'wizardalley_default_contact' %} class="active" {% endif %}
-                                    href="{{ path('wizardalley_default_contact') }}">
-                                <i class="wizard-iconnotifications"></i>
-                                {% trans %}wizard.menu.link.contact{% endtrans %}
-                            </a>
-                        </li>
-                        <li>
                             <a {% if app.request.get('_route') == 'wizardalley_search_display' %} class="active" {% endif %}
                                     href="{{ path('wizardalley_search_display') }}">
 
@@ -171,6 +164,12 @@
                                 wizard.menu.link.confidentiality{% endtrans %}</a></li>
                         <li><a href="{{ path('wizardalley_default_copyright') }}">{% trans %}
                                 wizard.menu.link.copyright{% endtrans %}</a></li>
+                        <li>
+                            <a {% if app.request.get('_route') == 'wizardalley_default_contact' %} class="active" {% endif %}
+                                    href="{{ path('wizardalley_default_contact') }}">
+                                {% trans %}wizard.menu.link.contact{% endtrans %}
+                            </a>
+                        </li>
 
                     </ul>
                 </div>

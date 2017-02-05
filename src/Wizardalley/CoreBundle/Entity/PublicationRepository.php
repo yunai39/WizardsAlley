@@ -40,6 +40,52 @@ class PublicationRepository extends EntityRepository
         return $result;
     }
 
+
+    /**
+     * @param int $page
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function findCommentPublication(
+        $page = 1,
+        $limit = 4
+    ) {
+        $firstResult = ($page - 1) * $limit;
+        $qb = $this->_em->createQueryBuilder()->select('c')->from('WizardalleyCoreBundle:CommentPublication', 'c');
+
+
+        $result = $qb->addSelect('COUNT(c)')
+                     ->groupBy('c.publication')
+                     ->innerJoin('c.publication', 'p')
+                     ->innerJoin('p.parent', 'ap')
+                     ->addSelect('p')
+                     ->getQuery()
+                     ->getArrayResult();
+
+        echo '<pre>';
+        print_r($result);
+        echo '</pre>';
+        return $result;
+
+        $qb = $this->_em->createQueryBuilder()
+            ->select('p')
+            ->from($this->_entityName, 'p');
+
+        $qb
+            ->join('p.comments', 'c')
+            ->select('c')
+            ->select('c, COUNT(c.id) AS nb_comments')
+            ->groupBy('p.id')
+            ->orderBy('nb_comments', 'DESC')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($limit)
+        ;
+
+        return $qb->getQuery()->getArrayResult();
+
+    }
+
     /**
      * @param string $like
      * @param int    $page

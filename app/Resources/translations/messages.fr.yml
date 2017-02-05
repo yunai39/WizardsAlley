@@ -11,16 +11,16 @@ wizard:
             Prends un peu de poudre de cheminette et prononce clairement
     menu:
         link:
-            home: Home
-            discover: Découverte
+            home: Ma Ruelle
+            discover: Découvrir
             mention_legal: Mention Légal
             blog: Blog
             contact: Contact
             confidentiality: Politique de Confidentialité
             copyright: Copyright
-            search: Recherche
+            search: Rechercher
             wall: mur
-            mail: Message
+            mail: Messagerie
             notification: Notification
     user:
         profile:

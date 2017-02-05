@@ -5,3 +5,9 @@ services:
   fos_message.new_thread_form.handler.custom:
     class: Wizardalley\DefaultBundle\FormHandler\NewThreadMessageFormHandler
     arguments: [@request_stack, @fos_message.composer, @fos_message.sender, @fos_message.participant_provider, @doctrine.orm.entity_manager, @security.token_storage]
+
+  default.request_listener:
+      class: Wizardalley\DefaultBundle\Listener\KernelListener
+      arguments: [ @security.token_storage, @doctrine.orm.default_entity_manager ]
+      tags:
+          - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 0 }

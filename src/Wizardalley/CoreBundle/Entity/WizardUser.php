@@ -57,6 +57,14 @@ class WizardUser extends BaseUser implements ParticipantInterface
      */
     private $facebook;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="last_connect", type="datetime")
+     */
+    private $lastConect;
+
     /**
      * @var string
      *
@@ -765,5 +773,28 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public function getPublicationsLiked()
     {
         return $this->publicationsLiked;
+    }
+
+    /**
+     * Set lastConect
+     *
+     * @param \DateTime $lastConect
+     * @return WizardUser
+     */
+    public function setLastConect($lastConect)
+    {
+        $this->lastConect = $lastConect;
+
+        return $this;
+    }
+
+    /**
+     * Get lastConect
+     *
+     * @return \DateTime 
+     */
+    public function getLastConect()
+    {
+        return $this->lastConect;
     }
 }

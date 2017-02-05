@@ -345,6 +345,28 @@ class PublicationController extends BaseController
         ]);
     }
 
+
+    /**
+     * getMostCommentPublicationAction
+     *
+     *
+     * @Route("/publication/getMostComment/{page}", name="publication_get_most_comments")
+     * @param Page $page integer page number
+     *
+     * @return Response
+     */
+    public function getMostCommentPublicationAction($page){
+
+        $limit = 2;
+        $em    = $this->getDoctrine()->getManager();
+        return $this->sendJsonResponse('success', [
+            'no_message' => true,
+            'data'       => $em
+                ->getRepository('WizardalleyCoreBundle:Publication')
+                ->findCommentPublication($page, $limit)
+        ]);
+    }
+
     /**
      * @Route("/user/publication/{id}/like", name="publication_user_like", options={"expose"=true})
      * @Method({"POST"})

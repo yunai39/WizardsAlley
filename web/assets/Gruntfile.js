@@ -19,7 +19,7 @@ module.exports = function(grunt) {
                     style: 'expanded'
                 },
                 files: {
-                    'css/style.css': 'sass/main.sass',
+                    'css/main.css': 'sass/main.sass',
                 }
             }
         }
@@ -27,6 +27,6 @@ module.exports = function(grunt) {
     });
 
     // Les tâches sont enregistrées ici
-    grunt.registerTask('default', []);
+    grunt.registerTask('default', ['concat', 'sass']);
 
 };
