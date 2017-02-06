@@ -270,4 +270,28 @@ class WizardUserRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * @param int $limit
+     * @param WizardUser $user
+     * @return array
+     */
+    public function findUserConnected(WizardUser $user, $limit) {
+        $qb    = $this->_em->createQueryBuilder()
+            ->distinct(true)
+            ->select('u')
+            ->from($this->_entityName, 'u');
+        $query = $qb
+            ->leftJoin('u.friendsWithMe', 'fmw')
+            ->leftJoin('u.myFriends', 'mf')
+            ->where('fmw.id = :friend_user_id')
+            ->andWhere('mf.id = :user_id')
+            ->orderBy('u.lastConect', 'DESC')
+            ->setMaxResults($limit)
+            ->setParameter(':user_id', $user->getId())
+            ->setParameter(':friend_user_id', $user->getId())
+            ->getQuery();
+
+        return $query->getArrayResult();
+    }
 }

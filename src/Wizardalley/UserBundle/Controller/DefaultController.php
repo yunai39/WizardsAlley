@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\WizardUser;
+use Wizardalley\CoreBundle\Entity\WizardUserRepository;
 
 class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseController
 {
@@ -197,5 +198,18 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
         }
 
         return new JsonResponse($friendArray);
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function getUserConnectedAction() {
+        $limit = 10;
+        /** @var WizardUser $user */
+        $user        = $this->getUser();
+        /** @var WizardUserRepository $repo */
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+
+        return new JsonResponse($repo->findUserConnected($user, $limit));
     }
 }

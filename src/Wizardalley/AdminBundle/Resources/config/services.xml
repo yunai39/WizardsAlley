@@ -25,5 +25,10 @@
             <argument type="service" id="router"/>
             <argument type="service" id="translator.default"/>
         </service>
+        <service id="wizardalley.admin.table.category" class="Wizardalley\AdminBundle\Table\CategoryTable">
+            <argument type="service" id="doctrine.orm.entity_manager"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="translator.default"/>
+        </service>
     </services>
 </container>

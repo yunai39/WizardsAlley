@@ -94,6 +94,13 @@ class Page
      */
     private $followers;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\PageCategory", inversedBy="pages")
+     */
+    private $category;
+
+
     public function __construct()
     {
         $this->publications = new \Doctrine\Common\Collections\ArrayCollection();
@@ -481,5 +488,28 @@ class Page
         $this->fileCouverture->move($this->getUploadRootDir(), $name);
         $this->pathCouverture = $name;
         $this->fileCouverture = null;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \Wizardalley\CoreBundle\Entity\PageCategory $category
+     * @return Page
+     */
+    public function setCategory(\Wizardalley\CoreBundle\Entity\PageCategory $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Wizardalley\CoreBundle\Entity\PageCategory 
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

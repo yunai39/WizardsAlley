@@ -16,3 +16,5 @@ wizard:
       action.delete: Supprimer une page
     user:
       title: Administration des utilisateurs
+    category:
+      title: Administration des categories de page

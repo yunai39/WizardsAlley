@@ -44,6 +44,12 @@ wizard_friend_list:
     options:
         expose: true
 
+wizard_user_connected:
+    path:   /user/getUserConnected
+    defaults: { _controller: WizardalleyUserBundle:Default:getUserConnected }
+    options:
+        expose: true
+
 
 wizard_get_friends_json:
     path:   /user/getFriendsJson/{page}
