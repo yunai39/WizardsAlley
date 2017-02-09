@@ -3,6 +3,7 @@
 namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * PageCategory
@@ -165,5 +166,37 @@ class PageCategory
     public function getPages()
     {
         return $this->pages;
+    }
+
+
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+    }
+
+    public function getUploadDir()
+    {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
+        // le document/image dans la vue.
+        return 'uploads/category/' . $this->id;
+    }
+
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    public $fileLogo;
+
+    public function uploadLogo()
+    {
+        // la propriété « file » peut être vide si le champ n'est pas requis
+        if (null === $this->fileLogo) {
+            return;
+        }
+        $ext  = pathinfo($this->fileLogo->getClientOriginalName(), PATHINFO_EXTENSION);
+        $name = 'profile.' . $ext;
+        $this->fileLogo->move($this->getUploadRootDir(), $name);
+        $this->logo = $name;
+        $this->fileLogo = null;
     }
 }

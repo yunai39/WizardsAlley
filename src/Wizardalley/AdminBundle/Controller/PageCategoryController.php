@@ -8,7 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Wizardalley\CoreBundle\Entity\PageCategory;
-use Wizardalley\CoreBundle\Form\PageCategoryType;
+use Wizardalley\AdminBundle\Form\PageCategoryType;
 
 /**
  * PageCategory controller.
@@ -32,6 +32,7 @@ class PageCategoryController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $entity->uploadLogo();
             $em->persist($entity);
             $em->flush();
 
@@ -134,6 +135,7 @@ class PageCategoryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var PageCategory $entity */
         $entity = $em->getRepository('WizardalleyCoreBundle:PageCategory')->find($id);
 
         if (!$entity) {
@@ -144,6 +146,7 @@ class PageCategoryController extends Controller
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->uploadLogo();
             $em->flush();
 
             return $this->redirect($this->generateUrl('admin_pagecategory_edit', array('id' => $id)));

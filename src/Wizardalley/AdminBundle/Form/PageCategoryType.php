@@ -1,6 +1,6 @@
 <?php
 
-namespace Wizardalley\CoreBundle\Form;
+namespace Wizardalley\AdminBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +17,7 @@ class PageCategoryType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('logo')
+            ->add('fileLogo')
         ;
     }
     
