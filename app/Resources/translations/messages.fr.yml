@@ -1,3 +1,5 @@
+page:
+    invite_friend: Inviter un ami
 wizard:
     publication:
         edit_success: La modification à été effectué
@@ -54,4 +56,17 @@ wizard:
     wall:
         friend: Amis
     page:
+        publications: Publications
+        followers: Followers
+        editor: Éditeur
+        gestion:
+            editor: Gestion des éditeurs
+            publication:
+                edit: Édition de la publication
+            edit: Édition de la page
+            back: Retour à la page
+            title:
+                edit: Édition de la page
         edit_success: Les editeurs ont bien été modifiés
+        user:
+            edit_success: Les modifications ont bien été modifiés

@@ -25,7 +25,9 @@ class PublicationFavoriteRepository extends AdminRepository
         $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
         $query = $qb
             ->join('p.publication', 'pu')
+            ->join('pu.parent', 'abstract_publication')
             ->addSelect('pu')
+            ->addSelect('abstract_publication')
             ->orderBy('p.dateFavorite', 'DESC')
             ->setFirstResult($firstResult)
             ->setMaxResults($limit)

@@ -64,20 +64,20 @@
                     <span class="label defaut-label">
                         {% trans %}publication.comments{% endtrans %}
                     </span>
-                    {% if publication.type == 'page_publication' %}
-                        <button class="label defaut-label like-unlike-button"
-                                onclick="util.likeOrUnlikePublication({{ publication.publication_id }})"
+                {% if publication.type == 'page_publication' %}
+                    <button class="label defaut-label like-unlike-button"
+                            onclick="util.likeOrUnlikePublication({{ publication.publication_id }})"
                             {% if is_like(publication.publication_id) %}
-                                value="unlike"
-                                >
-                                {% trans %}publication.unlike{% endtrans %}
-                            {% else %}
-                                value="like"
-                                >
-                                {% trans %}publication.like{% endtrans %}
-                            {% endif %}
-                        </button>
-                    {% endif %}
+                            value="unlike"
+                    >
+                        {% trans %}publication.unlike{% endtrans %}
+                        {% else %}
+                            value="like"
+                            >
+                            {% trans %}publication.like{% endtrans %}
+                        {% endif %}
+                    </button>
+                {% endif %}
             </div>
         </div>
 

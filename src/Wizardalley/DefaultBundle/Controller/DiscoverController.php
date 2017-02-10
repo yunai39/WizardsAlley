@@ -50,8 +50,8 @@ class DiscoverController extends BaseController
      */
     public function loadPublicationFavoriteAction($page)
     {
-        $em    = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('WizardalleyCoreBundle:PublicationFavorite')
+        $em           = $this->getDoctrine()->getManager();
+        $publications = $em->getRepository('WizardalleyCoreBundle:PublicationFavorite')
             ->findPublicationLimit($page);
 
         return $this->sendJsonResponse(

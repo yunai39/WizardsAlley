@@ -32,7 +32,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
             return new \Symfony\Component\Translation\Exception\NotFoundResourceException();
         }
 
-        return $this->render('WizardalleyUserBundle:Default:userWall.html.twig', array(
+        return $this->render('::user/home.html.twig', array(
             'user' => $user,
         ));
     }

@@ -1,24 +1,16 @@
-{% for publication in publications %}
+{% for pubFav in publications %}
     <div class="publication">
         <div class="row ">
-            <div class="col-md-2">
-
-                <div class="imgSquare">
-                    <div class="imgSquareContainer">
-                        <img src="{{ asset('uploads/publications/' ~ publication.path) }}"/>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-10">
-                <h2><a href="{{ path('publication_show',{'id': publication.id }) }}">{{ publication.title }}</a></h2>
+            <div class="col-md-12">
+                <h2><a href="{{ path('publication_show',{'id': pubFav.publication.id }) }}">{{ pubFav.publication.title }}</a></h2>
                 <h3>Par
-                    <a href="{{ path('wizardalley_user_wall',{'id': publication.user_id}) }}">{{ publication.username }}</a>,le {{ publication.datePublication | date('Y-m-d') }}
-                    à {{ publication.datePublication | date('H:i:s') }}</h3>
+                    <a href="{{ path('wizardalley_user_wall',{'id': pubFav.publication.user_id}) }}">{{ pubFav.publication.username }}</a>,le {{ publication.datePublication | date('Y-m-d') }}
+                    à {{ pubFav.publication.datePublication | date('H:i:s') }}</h3>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <p>{{ publication.small_content | raw }}</p>
+                <p>{{ pubFav.publication.small_content | raw }}</p>
             </div>
         </div>
     </div>

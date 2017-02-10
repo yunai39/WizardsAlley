@@ -17,6 +17,14 @@
                 <button id="loadMorePage">More</button>
             </div>
         </div>
+        <div class="col-md-6">
+            <h3>Publication</h3>
+            <div id="fav_publications" class="row">
+            </div>
+            <div>
+                <button id="loadMorePublication">More</button>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
@@ -25,11 +33,16 @@
         {{ parent() }}
         <script>
             _$pagePage = 1;
+            _$pagePublication = 1;
             loadMorePage();
             $('#loadMorePage').on('click', function () {
                 loadMorePage();
             });
 
+            loadMorePublication();
+            $('#loadMorePublication').on('click', function () {
+                loadMorePublication();
+            });
 
             function loadMorePage() {
                 var _handler = function ($data) {
@@ -37,13 +50,16 @@
                 };
                 $result = util.loadMore(Routing.generate('wizardalley_discover_fav_page', {'page': _$pagePage}), 'GET', _handler);
                 _$pagePage = _$pagePage + 1;
-            }
-            ;
+            };
 
-            function addPublication($data) {
-                $('#fav_pages').append($data['extra']['html']);
-            }
-            ;
+            function loadMorePublication() {
+                var _handler = function ($data) {
+                    $('#fav_publications').append($data['extra']['html']);
+                };
+                $result = util.loadMore(Routing.generate('wizardalley_discover_fav_publication', {'page': _$pagePublication}), 'GET', _handler);
+                _$pagePublication = _$pagePublication + 1;
+            };
+
 
 
         </script>

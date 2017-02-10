@@ -183,6 +183,14 @@ class PageCategory
     }
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
      * @Assert\File(maxSize="6000000")
      */
     public $fileLogo;

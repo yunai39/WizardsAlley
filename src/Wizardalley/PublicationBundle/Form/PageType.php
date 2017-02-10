@@ -2,6 +2,7 @@
 
 namespace Wizardalley\PublicationBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -24,6 +25,9 @@ class PageType extends AbstractType {
                 ->add('urlFacebook')
                 ->add('fileProfile')
                 ->add('fileCouverture')
+                ->add('category', EntityType::class, [
+                    'class' => 'Wizardalley\CoreBundle\Entity\PageCategory'
+                ])
         ;
     }
 

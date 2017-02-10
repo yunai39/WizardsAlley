@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </div>
     <div class="row">
@@ -53,7 +53,7 @@
             <div >
                 <button id="loadMorePublication" >More</button>
             </div>
-            
+
         </div>
     </div>
 {% endblock %}
@@ -66,7 +66,7 @@
         $('#loadMorePublication').on('click', function(){
             loadMore();
         });
-        
+
 
         function loadMore(){
             var _handler = function($data){
@@ -75,7 +75,7 @@
             $result = util.loadMore(Routing.generate('wizardalley_user_wall_publication', {'page': _$page}), 'GET', _handler);
             _$page = _$page+1;
         };
-        
+
         function addPublication($data){
             $('#my_publication').append($data['extra']['html']);
         };
