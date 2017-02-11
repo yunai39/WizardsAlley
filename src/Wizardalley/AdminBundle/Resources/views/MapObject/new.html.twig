@@ -1,0 +1,96 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    {% set prototype_link = form.links.vars.prototype %}
+    <div id="prototype-link" class="prototype-link hide">
+        <section class="form-group">
+            {{ form_label(prototype_link.display) }}
+            {{ form_widget(prototype_link.display) }}
+        </section>
+        <section class="form-group">
+            {{ form_label(prototype_link.link) }}
+            {{ form_widget(prototype_link.link) }}
+        </section>
+    </div>
+
+    <h1>MapObject creation</h1>
+    <div class="row">
+        <form action="{{ path('admin_map_create') }}" method="POST" {{ form_enctype(form) }} class="form" enctype="multipart/form-data">
+            <div class="col-md-6">
+                <section class="form-group">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title) }}
+                </section>
+                <section class="form-group">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+                </section>
+                <section class="form-group">
+                    {{ form_label(form.fileLogo) }}
+                    {{ form_widget(form.fileLogo) }}
+                </section>
+                {{ form_widget(form._token) }}
+            </div>
+            <div class="col-md-6">
+                <section id="container-link">
+                    {% for link in form.links %}
+                        <li>{{ form_row(link.display) }}</li>
+                        <li>{{ form_row(link.link) }}</li>
+                    {% endfor %}
+                    <div>
+                        <a href="#" id="add-link" class="btn btn-success">Ajouter un lien</a>
+                    </div>
+                </section>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit">Créer</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('admin_list_page', {tableName: 'map'}) }}">
+                Back to the list
+            </a>
+        </li>
+    </ul>
+
+{% endblock %}
+
+
+    {% block javascripts %}
+        {{  parent() }}
+        <script type="text/javascript">
+
+            $(document).ready(function(){
+                $link = 1;
+                //Attention à bien vérifier que vos selecteurs correspondent à votre code
+                $('#add-link').on('click', function(event){
+                    event.preventDefault();
+                    event.stopPropagation();
+
+                    var $prototypeLink = $('#prototype-link').clone();
+                    $prototypeLink = $($prototypeLink.html().replace(/__name__/g, $link));
+                    $link = $link + 1;
+
+                    var $linkDelete = $('<div><a href="#" class="btn btn-danger delete-link">Supprimer</a></div>');
+
+                    $linkDelete.on('click', function(e){
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        $prototypeLink.remove();
+                        this.remove();
+                    });
+
+
+
+                    $('#container-link').prepend($prototypeLink);
+                    $('#container-link').prepend($linkDelete);
+                });
+            });
+        </script>
+    {% endblock %}

@@ -236,7 +236,8 @@ class InformationBilletController extends BaseController
     /**
      * @return Response
      */
-    public function renderFormDeleteTemplateAction(){
+    public function renderFormDeleteTemplateAction()
+    {
         $form =  $this->createFormBuilder()
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))

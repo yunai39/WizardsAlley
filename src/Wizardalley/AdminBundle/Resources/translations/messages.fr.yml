@@ -1,5 +1,11 @@
 wizard:
   table:
+    map:
+      title: Administration des cartes
+      action:
+        delete: Suppression d'une carte
+      confirm:
+        delete: Voulez vous supprimer la carte ?
     information:
       title: Administration des billets d'information
       confirm.delete: Etes vous sur de vouloir supprimer ce billet d'information ?

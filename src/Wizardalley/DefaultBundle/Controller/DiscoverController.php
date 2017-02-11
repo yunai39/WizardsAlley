@@ -2,6 +2,7 @@
 
 namespace Wizardalley\DefaultBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -69,5 +70,20 @@ class DiscoverController extends BaseController
         );
     }
 
+    /**
+     * @Route("/discover/map", name="wizardalley_discover_map", options={"expose"=true})
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function mapWizardWorldAction()
+    {
+        $em   = $this->getDoctrine()->getManager();
+        $maps = $em->getRepository('WizardalleyCoreBundle:MapObject')->findAll();
 
+        return $this->render(
+            '::discover/map.html.twig',
+            [
+                'maps' => $maps
+            ]
+        );
+    }
 }
