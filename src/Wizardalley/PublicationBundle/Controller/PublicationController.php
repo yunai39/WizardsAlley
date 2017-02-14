@@ -101,7 +101,7 @@ class PublicationController extends BaseController
      *
      * @param int $id_page
      * @Route("/user/publication/new/{id_page}", name="publication_new")
-     * @Method({"POST"})
+     * @Method({"GET"})
      *
      * @return Response
      */

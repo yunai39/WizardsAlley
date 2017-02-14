@@ -17,7 +17,7 @@ class DiscoverController extends BaseController
      */
     public function indexDiscoverAction()
     {
-        return $this->render('WizardalleyDefaultBundle:Discover:index.html.twig');
+        return $this->render('::discover/index.html.twig');
     }
 
     /**
@@ -36,7 +36,7 @@ class DiscoverController extends BaseController
             200,
             [
                 'html' => $this->renderView(
-                    'WizardalleyDefaultBundle:Discover:page.html.twig',
+                    '::discover/page.html.twig',
                     array(
                         'pages' => $pages,
                     )
@@ -52,8 +52,8 @@ class DiscoverController extends BaseController
     public function loadPublicationFavoriteAction($page)
     {
         $em           = $this->getDoctrine()->getManager();
-        $publications = $em->getRepository('WizardalleyCoreBundle:PublicationFavorite')
-            ->findPublicationLimit($page);
+        $publications = $em->getRepository('WizardalleyCoreBundle:Publication')
+            ->findPublicationFavorite($page);
 
         return $this->sendJsonResponse(
             'success',
@@ -61,7 +61,7 @@ class DiscoverController extends BaseController
             200,
             [
                 'html' => $this->renderView(
-                    'WizardalleyDefaultBundle:Discover:publication.html.twig',
+                    '::discover/publication.html.twig',
                     array(
                         'publications' => $publications,
                     )

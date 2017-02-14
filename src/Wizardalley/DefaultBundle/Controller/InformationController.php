@@ -33,7 +33,7 @@ class InformationController extends BaseController
         $informations = $repo->findInformationLimit($page,1);
         return $this->sendJsonResponse(
             200,
-            ['contenu' =>$this->renderView('WizardalleyDefaultBundle:Information:list.html.twig', ['informations' => $informations])]
+            ['contenu' =>$this->renderView('::information/list.html.twig', ['informations' => $informations])]
         );
     }
 }

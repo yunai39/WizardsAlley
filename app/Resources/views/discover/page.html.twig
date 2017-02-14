@@ -1,0 +1,23 @@
+
+<div>
+    <div class="row ">
+        {% for pageFav in pages %}
+            <div class="page col-md-6">
+                <div class="row search-pages-container">
+                    <div class="col-md-4" >
+                        <div class="imgSquare">
+                            <div class="imgSquareContainer" >
+                                <img src="{{ asset( 'uploads/page/' ~ pageFav.page.id ~ '/' ~ pageFav.page.pathProfile ) }}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h4>
+                            <a href="{{ path('page_show' , {'page_id': pageFav.page.id})}}">{{ pageFav.page.name }}</a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -1,28 +1,34 @@
 {% extends '::base.html.twig' %}
 
+{% block title_banner %}
+    {% trans %}wizard.discover.title{% endtrans %}
+{% endblock %}
+
 {% block body %}
     <div class="row">
-        <div class="col-md-12">
-            <h2>Discover</h2>
-        </div>
-    </div>
-
-    <div class="row">
-
-        <div class="col-md-6">
-            <h3>Page</h3>
-            <div id="fav_pages" class="row">
-            </div>
-            <div>
-                <button id="loadMorePage">More</button>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <h3>Publication</h3>
-            <div id="fav_publications" class="row">
-            </div>
-            <div>
-                <button id="loadMorePublication">More</button>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>
+                        {% trans %}wizard.discover.team_choice{% endtrans %}
+                    </h2>
+                </div>
+                <div class="col-md-12">
+                    <h3>{% trans %}wizard.discover.favorite.page{% endtrans %}</h3>
+                    <div id="fav_pages" class="row">
+                    </div>
+                    <div>
+                        <button id="loadMorePage">More</button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <h3>{% trans %}wizard.discover.favorite.publication{% endtrans %}</h3>
+                    <div id="fav_publications" class="row">
+                    </div>
+                    <div>
+                        <button id="loadMorePublication">More</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

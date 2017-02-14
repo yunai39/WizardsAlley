@@ -1,6 +1,13 @@
 page:
     invite_friend: Inviter un ami
 wizard:
+    discover:
+        team_choice: Le choix de notre équipe
+        title: Dépêches magiques, expressions et autres curiosités<br>à découvrir au coeur de l'Allée des sorciers
+        last_publication: Dernières publications du monde entier
+        favorite:
+            page: Nos pages préférées
+            publication: Nos publications préférées
     publication:
         edit_success: La modification à été effectué
         new_succes: La publication a bien été effectué

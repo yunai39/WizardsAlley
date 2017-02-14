@@ -29,7 +29,7 @@ class DefaultController extends Controller
     {
         $entity = new SmallPublication();
         $formSP = $this->createSmallPublicationForm($entity);
-        return $this->render('WizardalleyDefaultBundle:Default:index.html.twig', array(
+        return $this->render('::default/index.html.twig', array(
             'formSmallPublication' => $formSP->createView()
         ));
     }
@@ -46,7 +46,7 @@ class DefaultController extends Controller
      */
     public function mentionAction()
     {
-        return $this->render('WizardalleyDefaultBundle:Default:mention.html.twig');
+        return $this->render('::default/mention.html.twig');
     }
 
 
@@ -62,7 +62,7 @@ class DefaultController extends Controller
      */
     public function copyrightAction()
     {
-        return $this->render('WizardalleyDefaultBundle:Default:copyright.html.twig');
+        return $this->render('::default/copyright.html.twig');
     }
 
     /**
@@ -77,7 +77,7 @@ class DefaultController extends Controller
      */
     public function confidentialityAction()
     {
-        return $this->render('WizardalleyDefaultBundle:Default:confidentiality.html.twig');
+        return $this->render('::default/confidentiality.html.twig');
     }
 
     /**
@@ -119,7 +119,7 @@ class DefaultController extends Controller
         }
 
         return $this->render(
-            'WizardalleyDefaultBundle:Default:contact.html.twig',
+            '::default/contact.html.twig',
             array('form' => $form->createView())
         );
     }

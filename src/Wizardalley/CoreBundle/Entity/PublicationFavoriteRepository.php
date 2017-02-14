@@ -10,30 +10,4 @@ namespace Wizardalley\CoreBundle\Entity;
  */
 class PublicationFavoriteRepository extends AdminRepository
 {
-    /**
-     * @param int $page
-     * @param int $limit
-     *
-     * @return array
-     */
-    public function findPublicationLimit(
-        $page = 1,
-        $limit = 4
-    ) {
-        $firstResult = ($page - 1) * $limit;
-
-        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query = $qb
-            ->join('p.publication', 'pu')
-            ->join('pu.parent', 'abstract_publication')
-            ->addSelect('pu')
-            ->addSelect('abstract_publication')
-            ->orderBy('p.dateFavorite', 'DESC')
-            ->setFirstResult($firstResult)
-            ->setMaxResults($limit)
-            ->getQuery();
-        $result = $query->getArrayResult();
-
-        return $result;
-    }
 }
