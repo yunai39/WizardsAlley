@@ -1,0 +1,60 @@
+{% for publication in publications %}
+    <div class="publication">
+        <div class="row ">
+            <div class="col-xs-2">
+
+                <div class="imgSquare">
+                    <div class="imgSquareContainer circle">
+                        {% if publication.user.pathProfile %}
+                            <img class="circle"
+                                 src="{{ asset('uploads/profile/'~publication.user.id ~ '/' ~ publication.user.pathProfile) }}"/>
+                        {% else %}
+                            <img class="circle" src="{{ asset('uploads/profile/default.png') }}"/>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-10">
+                <p class="lead">
+                    <a href="{{ path('publication_show',{'id':publication.id}) }}">{{ publication.title }}</a>
+                </p>
+                <p class="lead">
+                    <a href="{{ path('page_show', {'id_page': publication.page.id}) }}">{{ publication.page.name }}</a>
+                </p>
+                <p>{{ publication.datePublication | date('d/m/Y') }}
+                    - {{ publication.datePublication | date('H:i:s') }}</p>
+            </div>
+        </div>
+        <br/>
+        <div class="row">
+            <div class="col-md-12">
+                <p>{{ publication.content | raw }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 text-align-right">
+                <span class="label defaut-label">
+                    <a href="{{ path('publication_show',{'id': publication.id}) }}">
+                        {% trans %}publication.display.link{% endtrans %}
+                    </a>
+                </span>
+                <span class="label defaut-label">
+                    {% trans %}publication.comments{% endtrans %}
+                </span>
+                <button class="label defaut-label like-unlike-button"
+                        onclick="util.likeOrUnlikePublication({{ publication.id }})"
+                        {% if is_like(publication) %}
+                        value="unlike"
+                >
+                    {% trans %}publication.unlike{% endtrans %}
+                    {% else %}
+                        value="like"
+                        >
+                        {% trans %}publication.like{% endtrans %}
+                    {% endif %}
+                </button>
+            </div>
+        </div>
+    </div>
+{% endfor %}

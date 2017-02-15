@@ -355,8 +355,8 @@ class PublicationController extends BaseController
      *
      * @return Response
      */
-    public function getMostCommentPublicationAction($page){
-
+    public function getMostCommentPublicationAction($page)
+    {
         $limit = 2;
         $em    = $this->getDoctrine()->getManager();
         return $this->sendJsonResponse('success', [
@@ -365,6 +365,23 @@ class PublicationController extends BaseController
                 ->getRepository('WizardalleyCoreBundle:Publication')
                 ->findCommentPublication($page, $limit)
         ]);
+    }
+
+    /**
+     * getLatestPublicationAction
+     *
+     * @Route("/publication/getLatest", name="publication_get_latest")
+     *
+     * @return Response
+     */
+    public function getLatestPublicationAction()
+    {
+        $em           = $this->getDoctrine()->getManager();
+        $publications = $em->getRepository('WizardalleyCoreBundle:Publication')->findLatestPublication();
+
+        return  $this->render('::discover/latestPublication.html.twig', array(
+                'publications' => $publications
+        ));
     }
 
     /**

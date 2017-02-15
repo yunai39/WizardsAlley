@@ -68,6 +68,9 @@ class LikePublicationExtension extends \Twig_Extension
      */
     public function isLike($publication)
     {
+        if (empty($this->getUser())) {
+            return false;
+        }
         $repo            = $this->em->getRepository('WizardalleyCoreBundle:PublicationUserLike');
         $publicationLike = $repo->findOneBy([
             'publication' => $publication,

@@ -197,4 +197,22 @@ class PublicationRepository extends EntityRepository
 
         return $result;
     }
+
+
+
+    /**
+     * @return array
+     */
+    public function findLatestPublication()
+    {
+        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
+        $query = $qb
+            ->orderBy('p.datePublication', 'DESC')
+            ->setMaxResults(2)
+            ->getQuery();
+
+        $result = $query->getResult();
+
+        return $result;
+    }
 }
