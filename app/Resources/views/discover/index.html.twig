@@ -13,7 +13,7 @@
                         {% trans %}wizard.discover.team_choice{% endtrans %}
                     </h2>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 jumbotron">
                     <h3>{% trans %}wizard.discover.favorite.page{% endtrans %}</h3>
                     <div id="fav_pages" class="row">
                     </div>
@@ -21,7 +21,7 @@
                         <button id="loadMorePage">More</button>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 jumbotron">
                     <h3>{% trans %}wizard.discover.favorite.publication{% endtrans %}</h3>
                     <div id="fav_publications" class="row">
                     </div>
@@ -29,12 +29,36 @@
                         <button id="loadMorePublication">More</button>
                     </div>
                 </div>
+                <div class="col-md-12 jumbotron">
+                    <h3>{% trans %}wizard.category.name{% endtrans %}</h3>
+                    <hr>
+                    {% for category in categories %}
+                        <div class="row">
+                            <div class="col-md-12" class="text-center">
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6 col-md-offset-3">
+                                        <img src="/uploads/category/{{ category.id }}/{{ category.logo }}" alt="" class="img-responsive">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <h2>
+                                    <a href="{{ path('wizardalley_page_category', {category_id:category.id}) }}">
+                                        <strong>{% trans %}wizard.category.name{% endtrans %}:</strong> {{ category.name }}
+                                    </a>
+                                </h2>
+                                <p>{{ category.description }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
             </div>
         </div>
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>{% trans %}wizard.discover.last_publication{% endtrans %}</h2>
+                    <h3>{% trans %}wizard.discover.last_publication{% endtrans %}</h3>
                 </div>
             </div>
             <div class="row">

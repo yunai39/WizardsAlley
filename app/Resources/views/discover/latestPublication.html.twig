@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-10">
+            <div class="col-xs-8">
                 <p class="lead">
                     <a href="{{ path('publication_show',{'id':publication.id}) }}">{{ publication.title }}</a>
                 </p>
@@ -23,6 +23,13 @@
                 </p>
                 <p>{{ publication.datePublication | date('d/m/Y') }}
                     - {{ publication.datePublication | date('H:i:s') }}</p>
+            </div>
+            <div class="col-xs-2">
+                <span class="label label-info">
+                    <a href="{{ path('wizardalley_page_category', {category_id: publication.page.category.id}) }}">
+                        {{ publication.page.category.name }}
+                    </a>
+                </span>
             </div>
         </div>
         <br/>
@@ -39,21 +46,6 @@
                         {% trans %}publication.display.link{% endtrans %}
                     </a>
                 </span>
-                <span class="label defaut-label">
-                    {% trans %}publication.comments{% endtrans %}
-                </span>
-                <button class="label defaut-label like-unlike-button"
-                        onclick="util.likeOrUnlikePublication({{ publication.id }})"
-                        {% if is_like(publication) %}
-                        value="unlike"
-                >
-                    {% trans %}publication.unlike{% endtrans %}
-                    {% else %}
-                        value="like"
-                        >
-                        {% trans %}publication.like{% endtrans %}
-                    {% endif %}
-                </button>
             </div>
         </div>
     </div>

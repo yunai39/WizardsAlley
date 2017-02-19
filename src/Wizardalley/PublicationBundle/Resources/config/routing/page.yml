@@ -1,7 +1,11 @@
 
+wizardalley_page_category:
+    path:     /category/{category_id}
+    defaults: { _controller: "WizardalleyPublicationBundle:Page:categoryPageIndex" }
+
 page_show:
     path:     /page/show/{id_page}
-    defaults: { _controller: "WizardalleyPublicationBundle:Page:indexPage" , id_page: 1}
+    defaults: { _controller: "WizardalleyPublicationBundle:Page:indexPage"}
 
 page_like:
     path:     /user/page/like
@@ -20,7 +24,6 @@ page_user_created_get:
     defaults: { _controller: "WizardalleyPublicationBundle:Page:getPageCreated", page: 1 }
     options:
         expose: true
-
 
 page_user_editor_get:
     path:     /user/page/editor/{page}

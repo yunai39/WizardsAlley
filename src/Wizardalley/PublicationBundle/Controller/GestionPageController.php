@@ -195,7 +195,7 @@ class GestionPageController extends Controller
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', 'wizard.page.new_success');
 
-            return $this->redirect($this->generateUrl('page_show', array( 'id' => $entity->getId() )));
+            return $this->redirect($this->generateUrl('page_show', array( 'id_page' => $entity->getId() )));
         }
 
         return $this->render('WizardalleyPublicationBundle:Page:new.html.twig', array(

@@ -5,6 +5,8 @@ namespace Wizardalley\PublicationBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Wizardalley\CoreBundle\Entity\PageCategory;
+use Wizardalley\CoreBundle\Entity\PageRepository;
 use Wizardalley\CoreBundle\Entity\PageUserFollow;
 
 /**
@@ -14,6 +16,29 @@ use Wizardalley\CoreBundle\Entity\PageUserFollow;
 class PageController extends \Wizardalley\DefaultBundle\Controller\BaseController
 {
     const LIMIT_PER_PAGE = 1;
+
+    /**
+     * @param $category_id
+     *
+     * @return Response
+     */
+    public function categoryPageIndexAction($category_id)
+    {
+        /* @var $em \Doctrine\ORM\EntityManager */
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository('WizardalleyCoreBundle:PageCategory')->find($category_id);
+        if (!$category instanceof PageCategory) {
+            throw $this->createNotFoundException('Unable to find Page entity.');
+        }
+
+        /** @var PageRepository $pageRepository */
+        $pageRepository =  $em->getRepository('WizardalleyCoreBundle:Page');
+
+        return $this->render(':default:page_category.html.twig', [
+            'category'  => $category,
+            'pages'     => $pageRepository->findBy(['category' => $category])
+        ]);
+    }
 
     /**
      * @param int $id_page

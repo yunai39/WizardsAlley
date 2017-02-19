@@ -2,6 +2,7 @@
 
 namespace Wizardalley\DefaultBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,7 +18,12 @@ class DiscoverController extends BaseController
      */
     public function indexDiscoverAction()
     {
-        return $this->render('::discover/index.html.twig');
+        /** @var EntityManager $em */
+        $em    = $this->getDoctrine()->getManager();
+
+        return $this->render('::discover/index.html.twig', [
+            'categories' => $em->getRepository('WizardalleyCoreBundle:PageCategory')->findAll()
+        ]);
     }
 
     /**

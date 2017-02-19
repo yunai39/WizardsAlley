@@ -3,43 +3,50 @@
 
 {% block fos_user_content %}
     <img src="{{ asset(user.getPictureCouverture())}}" class="col-md-12 img-responsive"/>
-    <H1>{{ user.username }}</h1>
     <div class="row" >
-        <div class="col-md-3">
+        <div class="col-md-3 col-xs-12">
             <div class="imgSquare">
                 <div class="imgSquareContainer">
                     <img src="{{asset(user.getPictureProfile())}}"/>
                 </div>
             </div>
+        </div>
+        <div class="col-md-9 col-xs-12">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2><strong>{{ user.username }}</strong></h2>
+                    <p>{{ user.firstname|capitalize }}&nbsp;{{ user.lastname|upper }}</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="fos_user_user_show">
+                        <p>{% trans %}wizard.user.profile.last_login{% endtrans %}:&nbsp;{{ user.lastLogin|date("F jS \\a\\t g:ia") }}</p>
+                        <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+                    </div>
+                </div>
             </div>
-        <div class="col-md-9">
-            <div class="fos_user_user_show">
-                <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
-                <p>{{ 'wizard.user.profile.lastname'|trans({}) }}: {{ user.lastname }}</p>
-                <p>{{ 'wizard.user.profile.firstname'|trans({}) }}: {{ user.lastname }}</p>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        {% if user.facebook != null %}
+                            <div class="col-md-6 col-xs-12">
+                                <a href="{{user.facebook}}" >
+                                    <span class="icon-large icon-facebook" aria-hidden="true"></span>&nbsp;{{user.facebook}}
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if user.twitter != null %}
+                            <div class="col-md-6 col-xs-12">
+                                <a href="{{user.twitter}}" >
+                                    <span class="icon-large icon-twitter" aria-hidden="true"></span>&nbsp;{{user.twitter}}
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <p><a href="{{path('wizardalley_user_profile_edit_picture')}}">{% trans %}wizard.user.profile.edit_picture{% endtrans %}</a></p>
+                    <p><a href="{{path('wizardalley_user_couverture_edit_picture')}}">{% trans %}wizard.user.profile.edit_picture_wall{% endtrans %}</a></p>
+                    <p><a href="{{path('fos_user_change_password')}}">{{ 'wizard.user.profile.change_pwd'|trans({}) }}</a></p>
+                </div>
             </div>
-            <div>
-                <ul>
-                    {% if user.facebook != null %}
-                        <li>
-                            <a href="{{user.facebook}}" >
-                                <span class="icon-large icon-facebook" aria-hidden="true"></span>&nbsp;{{user.facebook}}
-                            </a>
-                        </li>
-                    {% endif %}
-                    {% if user.twitter != null %}
-                        <li>
-                            <a href="{{user.twitter}}" >
-                                <span class="icon-large icon-twitter" aria-hidden="true"></span>&nbsp;{{user.twitter}}
-                            </a>
-                        </li>
-                    {% endif %}
-                    <li><a href="{{path('wizardalley_user_profile_edit_picture')}}">{% trans %}wizard.user.profile.edit_picture{% endtrans %}</a></li>
-                    <li><a href="{{path('wizardalley_user_couverture_edit_picture')}}">{% trans %}wizard.user.profile.edit_picture_wall{% endtrans %}</a></li>
-                    <li><a href="{{path('fos_user_change_password')}}">{{ 'wizard.user.profile.change_pwd'|trans({}) }}</a></li>
-                </ul>
-            </div>
-
         </div>
     </div>
     <div class="col-md-6 col-sm-12">
@@ -56,7 +63,7 @@
         <div>
             <h3>{% trans %}wizard.user.profile.title.page_followed{% endtrans %}
         </div>
-        <div class="col-md-12" id="div_page_followed" prototype='<a href="{{path("page_show")}}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+        <div class="col-md-12" id="div_page_followed" prototype='<a href="{{path("page_show", {id_page: '__id__'})}}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
         </div>
         <div class="col-md-12" >
             <button onClick="loadMorePageFollowed()" >More</button>
@@ -68,7 +75,7 @@
             <h3>{% trans %}wizard.user.profile.title.page_creator{% endtrans %}
         </div>
             <div class="col-md-12" ><a href="{{ path('page_gestion_new') }}"> {% trans %}wizard.user.profile.create_page{% endtrans %}</a></div>
-        <div class="col-md-12" id="div_page_created" prototype='<a href="{{path("page_show")}}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+        <div class="col-md-12" id="div_page_created" prototype='<a href="{{path("page_show", {id_page: '__id__'})}}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
         </div>
         <div class="col-md-12" >
             <button onClick="loadMorePageCreated()" >More</button>
@@ -78,7 +85,7 @@
         <div>
             <h3>{% trans %}wizard.user.profile.title.page_editor{% endtrans %}
         </div>
-        <div class="col-md-12" id="div_page_editor" prototype='<a href="{{path("page_show")}}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+        <div class="col-md-12" id="div_page_editor" prototype='<a href="{{path("page_show", {id_page: '__id__'})}}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
         </div>
         <div class="col-md-12" >
             <button onClick="loadMorePageEditor()" >More</button>

@@ -15,7 +15,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      *
      * This action will present the presentation page of the web site
      *
-     * pattern: /wall/{id}
+     * pattern: /user/wall/{id}
      * road_name: wizardalley_user_wall
      *
      * @param Request $request http request

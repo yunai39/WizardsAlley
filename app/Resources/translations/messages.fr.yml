@@ -18,6 +18,8 @@ wizard:
         message: >
             Bienvenue sorcier, sorcière en tout genre.
             Prends un peu de poudre de cheminette et prononce clairement
+    category:
+        name: Catégorie
     menu:
         link:
             home: Ma Ruelle
@@ -40,6 +42,8 @@ wizard:
             edit_picture_wall: Modifier la couverture
             friend_list: Liste des amis
             change_pwd: Changer de mot de passe
+            inscription_date: Date d'inscription
+            last_login: Dernière connexion
         wall:
             no_publication: Aucune publication
     register:
