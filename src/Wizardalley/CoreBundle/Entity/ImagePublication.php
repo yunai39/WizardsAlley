@@ -4,15 +4,19 @@ namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+
 
 /**
  * ImagePublication
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\ImagePublicationRepository")
+ * @Vich\Uploadable
  */
-class ImagePublication {
-
+class ImagePublication
+{
     /**
      * @var integer
      *
@@ -21,6 +25,12 @@ class ImagePublication {
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     /**
      * @var string
@@ -45,9 +55,10 @@ class ImagePublication {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
 
@@ -57,7 +68,8 @@ class ImagePublication {
      * @param string $path
      * @return ImagePublication
      */
-    public function setPath($path) {
+    public function setPath($path)
+    {
         $this->path = $path;
 
         return $this;
@@ -66,9 +78,10 @@ class ImagePublication {
     /**
      * Get path
      *
-     * @return string 
+     * @return string
      */
-    public function getPath() {
+    public function getPath()
+    {
         return $this->path;
     }
 
@@ -78,7 +91,8 @@ class ImagePublication {
      * @param string $description
      * @return ImagePublication
      */
-    public function setDescription($description) {
+    public function setDescription($description)
+    {
         $this->description = $description;
 
         return $this;
@@ -87,9 +101,10 @@ class ImagePublication {
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
-    public function getDescription() {
+    public function getDescription()
+    {
         return $this->description;
     }
 
@@ -99,7 +114,8 @@ class ImagePublication {
      * @param \Wizardalley\CoreBundle\Entity\Publication $publication
      * @return ImagePublication
      */
-    public function setPublication(\Wizardalley\CoreBundle\Entity\Publication $publication = null) {
+    public function setPublication(\Wizardalley\CoreBundle\Entity\Publication $publication = null)
+    {
         $this->publication = $publication;
 
         return $this;
@@ -108,35 +124,52 @@ class ImagePublication {
     /**
      * Get publication
      *
-     * @return \Wizardalley\PublicationBundle\Entity\Publication 
+     * @return \Wizardalley\CoreBundle\Entity\Publication
      */
-    public function getPublication() {
+    public function getPublication()
+    {
         return $this->publication;
     }
 
-    
-    
-public function getWebPath() {
+    public function getWebPath()
+    {
         return null === $this->path ? null : $this->getUploadDir()  . $this->path;
     }
     
-    protected function getUploadRootDir() {
+    protected function getUploadRootDir()
+    {
         // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
-    protected function getUploadDir() {
+    protected function getUploadDir()
+    {
         // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
         // le document/image dans la vue.
         return 'uploads/publications/';
     }
+
     /**
+     * @Vich\UploadableField(mapping="publication_images", fileNameProperty="path")
      * @Assert\File(maxSize="6000000")
      */
     public $file;
 
-    public function upload() {
+    public function setFile(File $image) {
 
+        $this->path = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getFile(){
+        return $this->file;
+    }
+
+    public function upload()
+    {
         if (null === $this->file) {
             return;
         }
@@ -148,4 +181,26 @@ public function getWebPath() {
         $this->file = null;
     }
 
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return ImagePublication
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
 }

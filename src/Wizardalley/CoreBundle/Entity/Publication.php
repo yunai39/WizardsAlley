@@ -216,4 +216,11 @@ class Publication extends AbstractPublication
     {
         return $this->usersLiking;
     }
+
+
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
 }

@@ -4,12 +4,15 @@ namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Page
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\PageRepository")
+ * @Vich\Uploadable
  */
 class Page
 {
@@ -403,6 +406,29 @@ class Page
         return $this->pathProfile;
     }
 
+    /**
+     * Set category
+     *
+     * @param \Wizardalley\CoreBundle\Entity\PageCategory $category
+     * @return Page
+     */
+    public function setCategory(\Wizardalley\CoreBundle\Entity\PageCategory $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \Wizardalley\CoreBundle\Entity\PageCategory
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
     public function getAbsolutePathProfile()
     {
         return null === $this->pathProfile ? null : $this->getUploadRootDir() . '/' . $this->pathProfile;
@@ -438,15 +464,12 @@ class Page
 
     protected function getUploadRootDir()
     {
-        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
     public function getUploadDir()
     {
-        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
-        // le document/image dans la vue.
-        return 'uploads/page/' . $this->id;
+        return 'uploads/page/';
     }
 
     public function __toString()
@@ -455,61 +478,72 @@ class Page
     }
 
     /**
+     * @Vich\UploadableField(mapping="page_profile_images", fileNameProperty="path_profile")
      * @Assert\File(maxSize="6000000")
      */
     public $fileProfile;
 
 
     /**
+     * @Vich\UploadableField(mapping="page_cover_images", fileNameProperty="path_couverture")
      * @Assert\File(maxSize="6000000")
      */
     public $fileCouverture;
 
-    public function uploadProfile()
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    public function setFileProfile(File $image = null)
     {
-        // la propriété « file » peut être vide si le champ n'est pas requis
-        if (null === $this->fileProfile) {
-            return;
+        $this->fileProfile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
         }
-        $ext  = pathinfo($this->fileProfile->getClientOriginalName(), PATHINFO_EXTENSION);
-        $name = 'profile.' . $ext;
-        $this->fileProfile->move($this->getUploadRootDir(), $name);
-        $this->pathProfile = $name;
-        $this->fileProfile = null;
     }
 
-    public function uploadCouverture()
+    public function getFileProfile()
     {
-        if (null === $this->fileCouverture) {
-            return;
+        return $this->fileProfile;
+    }
+
+    public function setFileCouverture(File $image = null)
+    {
+        $this->fileCouverture = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
         }
-        $ext  = pathinfo($this->fileCouverture->getClientOriginalName(), PATHINFO_EXTENSION);
-        $name = 'couverture.' . $ext;
-        $this->fileCouverture->move($this->getUploadRootDir(), $name);
-        $this->pathCouverture = $name;
-        $this->fileCouverture = null;
+    }
+
+    public function getFileCouverture()
+    {
+        return $this->fileCouverture;
     }
 
     /**
-     * Set category
+     * Set updatedAt
      *
-     * @param \Wizardalley\CoreBundle\Entity\PageCategory $category
+     * @param \DateTime $updatedAt
      * @return Page
      */
-    public function setCategory(\Wizardalley\CoreBundle\Entity\PageCategory $category = null)
+    public function setUpdatedAt($updatedAt)
     {
-        $this->category = $category;
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
     /**
-     * Get category
+     * Get updatedAt
      *
-     * @return \Wizardalley\CoreBundle\Entity\PageCategory 
+     * @return \DateTime 
      */
-    public function getCategory()
+    public function getUpdatedAt()
     {
-        return $this->category;
+        return $this->updatedAt;
     }
 }

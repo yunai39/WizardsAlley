@@ -1,4 +1,10 @@
 
+easy_admin_bundle:
+    resource: "@EasyAdminBundle/Controller/"
+    type:     annotation
+    prefix:   /easyadmin
+
+
 wizardalley_core:
     resource: "@WizardalleyCoreBundle/Controller/"
     type:     annotation

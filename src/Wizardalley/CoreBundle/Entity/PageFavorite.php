@@ -66,4 +66,9 @@ class PageFavorite
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return 'favorite';
+    }
 }

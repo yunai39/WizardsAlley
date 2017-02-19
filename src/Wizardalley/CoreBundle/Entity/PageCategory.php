@@ -4,12 +4,15 @@ namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * PageCategory
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\PageCategoryRepository")
+ * @Vich\Uploadable
  */
 class PageCategory
 {
@@ -43,6 +46,12 @@ class PageCategory
      */
     private $logo;
 
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\Page", mappedBy="category")
@@ -191,9 +200,25 @@ class PageCategory
     }
 
     /**
+     * @Vich\UploadableField(mapping="page_category_images", fileNameProperty="logo")
      * @Assert\File(maxSize="6000000")
      */
     public $fileLogo;
+
+    public function setFileLogo(File $image)
+    {
+
+        $this->fileLogo = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getFileLogo()
+    {
+        return $this->fileLogo;
+    }
 
     public function uploadLogo()
     {
@@ -206,5 +231,28 @@ class PageCategory
         $this->fileLogo->move($this->getUploadRootDir(), $name);
         $this->logo = $name;
         $this->fileLogo = null;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return PageCategory
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

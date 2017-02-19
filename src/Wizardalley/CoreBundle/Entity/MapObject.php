@@ -4,12 +4,15 @@ namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * MapObject
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\MapObjectRepository")
+ * @Vich\Uploadable
  */
 class MapObject
 {
@@ -43,17 +46,21 @@ class MapObject
      */
     private $description;
 
-
-
     /**
      * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\MapLink", mappedBy="map", cascade={"remove", "persist"})
      */
     private $links;
 
     /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -76,7 +83,7 @@ class MapObject
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -99,7 +106,7 @@ class MapObject
     /**
      * Get logo
      *
-     * @return string 
+     * @return string
      */
     public function getLogo()
     {
@@ -122,7 +129,7 @@ class MapObject
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -150,11 +157,6 @@ class MapObject
     {
         return $this->title;
     }
-
-    /**
-     * @Assert\File(maxSize="6000000")
-     */
-    public $fileLogo;
 
     public function uploadLogo()
     {
@@ -204,10 +206,55 @@ class MapObject
     /**
      * Get links
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLinks()
     {
         return $this->links;
+    }
+
+
+    /**
+     * @Vich\UploadableField(mapping="map_images", fileNameProperty="logo")
+     * @Assert\File(maxSize="6000000")
+     */
+    public $fileLogo;
+
+    public function setFileLogo(File $image)
+    {
+
+        $this->fileLogo = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getFileLogo()
+    {
+        return $this->fileLogo;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     * @return MapObject
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }

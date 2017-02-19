@@ -118,4 +118,9 @@ class PageUserFollow
     {
         return $this->dateInscription;
     }
+
+    public function __toString()
+    {
+        return $this->getUser()->getUsername();
+    }
 }
