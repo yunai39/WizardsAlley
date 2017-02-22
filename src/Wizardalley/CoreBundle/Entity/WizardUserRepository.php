@@ -55,7 +55,7 @@ class WizardUserRepository extends EntityRepository
             (
             select 
                 pu.id as 'publication_id', 
-                ap.datePublication, 
+                ap.created_at,
                 pu.title, 
                 pu.small_content as 'content', 
                 pa.id as 'writer_id', 
@@ -75,7 +75,7 @@ class WizardUserRepository extends EntityRepository
             (
             select 
                 pu.id as 'publication_id', 
-                ap.datePublication, 
+                ap.created_at,
                 '' as title, 
                 ap.content, 
                 w.id as 'writer_id', 
@@ -121,7 +121,7 @@ class WizardUserRepository extends EntityRepository
             (
             select 
                 pu.id as 'publication_id', 
-                pa.datePublication, 
+                pa.created_at,
                 pu.title, pu.small_content as 'content', 
                 pa.id as 'writer_id', 
                 p.name, 
@@ -136,7 +136,7 @@ class WizardUserRepository extends EntityRepository
             (
             select 
                 pa.id as 'publication_id', 
-                pa.datePublication, 
+                pa.created_at,
                 '' as title, 
                 pa.content, 
                 w.id as 'writer_id', 
@@ -149,7 +149,7 @@ class WizardUserRepository extends EntityRepository
             left join wizard_user w on w.id = pa.user_id
              where pa.user_id = :user_id_2
             )
-            ORDER BY datePublication DESC
+            ORDER BY created_at DESC
             LIMIT " . $offset . ", " . $limit . "
             ";
         $conn   = $this->getEntityManager()->getConnection();
@@ -183,7 +183,7 @@ class WizardUserRepository extends EntityRepository
             (
             select 
                 pu.id as 'publication_id', 
-                pa.datePublication, 
+                pa.created_at,
                 pu.title, pu.small_content as 'content', 
                 pa.id as 'writer_id', 
                 p.name, 
@@ -198,7 +198,7 @@ class WizardUserRepository extends EntityRepository
             (
             select 
                 pa.id as 'publication_id', 
-                pa.datePublication, 
+                pa.created_at,
                 '' as title, 
                 pa.content, 
                 w.id as 'writer_id', 

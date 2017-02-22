@@ -19,7 +19,7 @@
             <tr>
                 <td><a href="{{ path('publication_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.title }}</td>
-                <td>{% if entity.datePublication %}{{ entity.datePublication|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if entity.created_at %}{{ entity.created_at|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
                     <li>

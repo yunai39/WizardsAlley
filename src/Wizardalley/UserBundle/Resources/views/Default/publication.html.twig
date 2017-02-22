@@ -32,8 +32,8 @@
                         <a href="{{ path('wizardalley_user_wall', {'id': publication.writer_id}) }}">{{ publication.name }}</a>
                     {% endif %}
                 </p>
-                <p>{{ publication.datePublication | date('d/m/Y') }}
-                    - {{ publication.datePublication | date('H:i:s') }}</p>
+                <p>{{ publication.created_at | date('d/m/Y') }}
+                    - {{ publication.created_at | date('H:i:s') }}</p>
             </div>
         </div>
         <br/>

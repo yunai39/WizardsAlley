@@ -1,6 +1,7 @@
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
+    - { resource: easyadmin.yml }
     - { resource: services.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -122,80 +123,3 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [120, 120], mode: outbound }
-
-vich_uploader:
-    db_driver: orm
-    mappings:
-        map_images:
-            uri_prefix:         %app.path.map_images%
-            upload_destination: %kernel.root_dir%/../web/uploads/map
-        category_images:
-            uri_prefix:         %app.path.category_images%
-            upload_destination: %kernel.root_dir%/../web/uploads/category
-        page_profile_images:
-            uri_prefix:         %app.path.page_profile_images%
-            upload_destination: %kernel.root_dir%/../web/uploads/page/profile
-        page_cover_images:
-            uri_prefix:         %app.path.page_cover_images%
-            upload_destination: %kernel.root_dir%/../web/uploads/page/cover
-        profile_images:
-            uri_prefix:         %app.path.profile_images%
-            upload_destination: %kernel.root_dir%/../web/uploads/profile
-        publication_images:
-            uri_prefix:         %app.path.publication_images%
-            upload_destination: %kernel.root_dir%/../web/uploads/publications
-        page_category_images:
-            uri_prefix:         %app.path.page_category_images%
-            upload_destination: %kernel.root_dir%/../web/uploads/page/category
-
-easy_admin:
-    site_name: Wizard's alley
-    entities:
-        Page:
-            class: Wizardalley\CoreBundle\Entity\Page
-            list:
-                fields:
-                    - id
-                    - name
-                    - category
-                    - { property: 'date_creation', type: 'datetime' }
-            form:
-                fields:
-                    - name
-                    - description
-                    - { property: 'fileProfile', type: 'vich_image'}
-                    - { property: 'fileCouverture', type: 'vich_image'}
-                    - { property: 'url_facebook', type: 'text' }
-                    - category
-        InformationBillet:
-            class: Wizardalley\CoreBundle\Entity\InformationBillet
-        MapObject:
-            class: Wizardalley\CoreBundle\Entity\MapObject
-            list:
-                fields:
-                    - id
-                    - title
-                    - description
-            form:
-                fields:
-                    - title
-                    - description
-                    - { property: 'fileLogo', type: 'vich_image'}
-        PageCategory:
-            class: Wizardalley\CoreBundle\Entity\PageCategory
-            list:
-                fields:
-                    - id
-                    - name
-                    - description
-            form:
-                fields:
-                    - name
-                    - description
-                    - { property: 'fileLogo', type: 'vich_image'}
-        PageFavorite:
-            class: Wizardalley\CoreBundle\Entity\PageFavorite
-        Publication:
-            class: Wizardalley\CoreBundle\Entity\Publication
-        WizardUser:
-            class: Wizardalley\CoreBundle\Entity\WizardUser

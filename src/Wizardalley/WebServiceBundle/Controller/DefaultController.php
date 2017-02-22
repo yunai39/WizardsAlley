@@ -94,7 +94,7 @@ class DefaultController extends BaseController
         if ($form->isValid()) {
             $user = $this->getUser();
             $entity->setUser($user);
-            $entity->setDatePublication(new \DateTime('now'));
+            $entity->setCreatedAt(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();

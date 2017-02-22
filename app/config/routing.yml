@@ -1,6 +1,6 @@
 
 easy_admin_bundle:
-    resource: "@EasyAdminBundle/Controller/"
+    resource: "@WizardalleyAdminBundle/Controller/AdminController.php"
     type:     annotation
     prefix:   /easyadmin
 
@@ -10,10 +10,10 @@ wizardalley_core:
     type:     annotation
     prefix:   /
 
-wizardalley_admin:
-    resource: "@WizardalleyAdminBundle/Controller/"
-    type:     annotation
-    prefix:   /
+#wizardalley_admin:
+#    resource: "@WizardalleyAdminBundle/Controller/"
+#    type:     annotation
+#    prefix:   /
 
 wizardalley_publication:
     resource: "@WizardalleyPublicationBundle/Resources/config/routing.yml"

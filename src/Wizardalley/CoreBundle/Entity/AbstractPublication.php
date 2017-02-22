@@ -3,6 +3,8 @@
 namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Wizardalley\CoreBundle\Entity\Interfaces\TimedEntityInterface;
+use Wizardalley\CoreBundle\Entity\Traits\TimedEntityTrait;
 
 /**
  * Publication
@@ -12,9 +14,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorColumn(name="related_type", type="string")
  * @ORM\DiscriminatorMap({"page_publication"="Publication", "user_publication"="SmallPublication"})
  */
-class AbstractPublication
+class AbstractPublication implements TimedEntityInterface
 {
-    
+    use TimedEntityTrait;
     /**
      * @var integer
      *
@@ -30,12 +32,6 @@ class AbstractPublication
      */
     private $content;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="datePublication", type="datetime")
-     */
-    private $datePublication;
 
     /**
     * @ORM\OneToMany(targetEntity="CommentPublication", mappedBy="publication", cascade={"remove", "persist"})
@@ -79,29 +75,6 @@ class AbstractPublication
     public function getContent()
     {
         return $this->content;
-    }
-
-    /**
-     * Set datePublication
-     *
-     * @param \DateTime $datePublication
-     * @return Publication
-     */
-    public function setDatePublication($datePublication)
-    {
-        $this->datePublication = $datePublication;
-
-        return $this;
-    }
-
-    /**
-     * Get datePublication
-     *
-     * @return \DateTime 
-     */
-    public function getDatePublication()
-    {
-        return $this->datePublication;
     }
 
     /**

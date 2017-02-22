@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Wizardalley\CoreBundle\Entity\Interfaces\TimedEntityInterface;
+use Wizardalley\CoreBundle\Entity\Traits\TimedEntityTrait;
 
 /**
  * Page
@@ -14,8 +16,9 @@ use Symfony\Component\HttpFoundation\File\File;
  * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\PageRepository")
  * @Vich\Uploadable
  */
-class Page
+class Page implements TimedEntityInterface
 {
+    use TimedEntityTrait;
     /**
      * @var integer
      *
@@ -65,13 +68,6 @@ class Page
      * @ORM\Column(name="path_profile", type="string", length=255)
      */
     private $pathProfile;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="date_creation", type="date")
-     */
-    private $dateCreation;
 
     /**
     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\Publication", mappedBy="page", cascade={"remove", "persist"})
@@ -205,26 +201,6 @@ class Page
     public function getUrlFacebook()
     {
         return $this->urlFacebook;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getDateCreation()
-    {
-        return $this->dateCreation;
-    }
-
-    /**
-     * @param \DateTime $dateCreation
-     *
-     * @return Page
-     */
-    public function setDateCreation($dateCreation)
-    {
-        $this->dateCreation = $dateCreation;
-
-        return $this;
     }
 
 
@@ -490,11 +466,6 @@ class Page
      */
     public $fileCouverture;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @var \DateTime
-     */
-    private $updatedAt;
 
     public function setFileProfile(File $image = null)
     {
@@ -522,28 +493,5 @@ class Page
     public function getFileCouverture()
     {
         return $this->fileCouverture;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return Page
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 }

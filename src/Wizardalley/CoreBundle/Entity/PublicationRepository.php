@@ -30,7 +30,7 @@ class PublicationRepository extends EntityRepository
         $query = $qb
                     ->join('p.user', 'u')
                     ->where('u.id = :id')
-                    ->orderBy('p.datePublication', 'DESC')
+                    ->orderBy('p.created_at', 'DESC')
                     ->setFirstResult($firstResult)
                     ->setMaxResults($limit)
                     ->setParameter(':id', $id_user)
@@ -133,7 +133,7 @@ class PublicationRepository extends EntityRepository
     ) {
         $firstResult = ($page - 1)*$limit;
         $sql = "
-        select distinct w.username, w.id as 'user_id',pu.id as id, pu.title, pu.small_content, pa.datePublication,
+        select distinct w.username, w.id as 'user_id',pu.id as id, pu.title, pu.small_content, pa.created_at,
             (
                 SELECT
                     path
@@ -151,7 +151,7 @@ class PublicationRepository extends EntityRepository
                 left join page p on p.id = pu.page_id
             where
                 p.id = ? 
-                order by pa.datePublication desc
+                order by pa.created_at desc
                 limit {$firstResult},{$limit}
                 ";
         $conn = $this->getEntityManager()->getConnection();
@@ -167,7 +167,7 @@ class PublicationRepository extends EntityRepository
     public function findPublicationThisMonth()
     {
         $qb     = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query  = $qb->where('p.datePublication > :date')
+        $query  = $qb->where('p.created_at > :date')
                      ->setParameter(':date', (new \DateTime())->format('Y-m'))
                      ->getQuery()
         ;
@@ -207,7 +207,7 @@ class PublicationRepository extends EntityRepository
     {
         $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
         $query = $qb
-            ->orderBy('p.datePublication', 'DESC')
+            ->orderBy('p.createdAt', 'DESC')
             ->setMaxResults(2)
             ->getQuery();
 

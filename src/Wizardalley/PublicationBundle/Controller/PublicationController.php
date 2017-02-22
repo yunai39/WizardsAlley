@@ -52,7 +52,7 @@ class PublicationController extends BaseController
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setUser($this->getUser());
-            $entity->setDatePublication(new \DateTime('now'));
+            $entity->setCreatedAt(new \DateTime('now'));
             $entity->setPage($page);
             $em->persist($entity);
             $entity->setSmallContent($entity->getContent());
