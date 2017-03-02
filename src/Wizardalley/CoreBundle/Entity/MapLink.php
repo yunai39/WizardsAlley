@@ -3,6 +3,7 @@
 namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Wizardalley\CoreBundle\Entity\Traits\ArrayAccessTrait;
 
 /**
  * MapLink
@@ -10,8 +11,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\MapLinkRepository")
  */
-class MapLink
+class MapLink implements \ArrayAccess
 {
+    use ArrayAccessTrait;
     /**
      * @var integer
      *
@@ -39,6 +41,7 @@ class MapLink
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\MapObject", inversedBy="links", cascade={"persist"})
      */
     private $map;
+
 
     /**
      * Get id

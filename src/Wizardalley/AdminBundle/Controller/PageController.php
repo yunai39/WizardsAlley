@@ -25,7 +25,7 @@ class PageController extends Controller
      *
      * @Route("/", name="admin_page_create")
      * @Method("POST")
-     * @Template("WizardalleyAdminBundle:Page:new.html.twig")
+     * @Template("::page/new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -160,7 +160,7 @@ class PageController extends Controller
      *
      * @Route("/{id}", name="admin_page_update")
      * @Method("PUT")
-     * @Template("WizardalleyAdminBundle:Page:edit.html.twig")
+     * @Template("::page/edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {

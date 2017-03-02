@@ -5,20 +5,22 @@ namespace Wizardalley\AdminBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Wizardalley\CoreBundle\Entity\MapLink;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-class MapLinkType extends AbstractType
+class ImagePublicationType extends AbstractType
 {
+
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
+    public function buildForm(
+        FormBuilderInterface $builder,
+        array $options
+    ) {
         $builder
-            ->add('display')
-            ->add('link')
-        ;
+            ->add('description')
+            ->add('file','vich_image');
     }
 
     /**
@@ -26,11 +28,10 @@ class MapLinkType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-           'data_class'   => MapLink::class,
-           'allow_add'    => true,
-           'allow_delete' => true
-       ));
+        $resolver->setDefaults(
+            array(
+                'data_class' => 'Wizardalley\CoreBundle\Entity\ImagePublication'
+            ));
     }
 
     /**
@@ -38,6 +39,7 @@ class MapLinkType extends AbstractType
      */
     public function getName()
     {
-        return 'wizardalley_corebundle_maplink';
+        return 'wizardalley_publicationbundle_image';
     }
+
 }

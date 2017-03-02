@@ -44,7 +44,7 @@ class SearchController extends BaseController
             200,
             [
                 'html' => $this->renderView(
-                    'WizardalleyDefaultBundle:Search:users.html.twig',
+                    '::search/Search:users.html.twig',
                     array(
                     'users' => $users,
                     )
@@ -71,7 +71,7 @@ class SearchController extends BaseController
             200,
             [
                 'html' => $this->renderView(
-                    'WizardalleyDefaultBundle:Search:page.html.twig',
+                    '::search/page.html.twig',
                     array(
                     'pages' => $pages,
                     )
@@ -97,7 +97,7 @@ class SearchController extends BaseController
             200,
             [
                 'html' => $this->renderView(
-                    'WizardalleyDefaultBundle:Search:publication.html.twig',
+                    '::search/publication.html.twig',
                     array(
                         'publications' => $publications,
                     )

@@ -111,7 +111,7 @@ class DefaultController extends Controller
                 ->setFrom('contact@wizardAlley.com')//->setTo($email)
                 ->setTo('yunai39@gmail.com')
                 ->setBody($this->renderView(
-                    'WizardalleyDefaultBundle:Email:emailContact.html.twig',
+                    '::email/emailContact.html.twig',
                     array('name' => $name, 'email' => $email, 'message' => $message)
                 ));
             $this->get('mailer')->send($message);

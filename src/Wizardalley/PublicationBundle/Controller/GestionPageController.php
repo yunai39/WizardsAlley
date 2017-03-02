@@ -40,7 +40,7 @@ class GestionPageController extends Controller
         $this->creatorEditorOnly($page);
 
         $form = $this->editFormPage($page);
-        return $this->render('WizardalleyPublicationBundle:GestionPage:index.html.twig', array(
+        return $this->render('::gestionPage/index.html.twig', array(
                 'page' => $page,
                 'form' => $form->createView(),
         ));
@@ -66,7 +66,7 @@ class GestionPageController extends Controller
         $this->creatorOnly($page);
 
         $form = $this->createFormUserPage($page);
-        return $this->render('WizardalleyPublicationBundle:GestionPage:editUser.html.twig', array(
+        return $this->render('::gestionPage/editUser.html.twig', array(
                 'page' => $page,
                 'form' => $form->createView(),
         ));
@@ -111,7 +111,7 @@ class GestionPageController extends Controller
             $this->get('session')->getFlashBag()->add('success', 'wizard.page.edit_success');
             return $this->redirect($this->generateUrl('page_gestion_user', array( 'id_page' => $id_page )));
         }
-        return $this->render('WizardalleyPublicationBundle:GestionPage:editUser.html.twig', array(
+        return $this->render('::gestionPage/editUser.html.twig', array(
                 'page' => $entity,
                 'form' => $editForm->createView(),
         ));
@@ -152,7 +152,7 @@ class GestionPageController extends Controller
             return $this->redirect($this->generateUrl('page_gestion_show', array( 'id_page' => $id_page )));
         }
 
-        return $this->render('WizardalleyPublicationBundle:GestionPage:index.html.twig', array(
+        return $this->render('::gestionPage/index.html.twig', array(
                 'page' => $entity,
                 'form' => $editForm->createView(),
         ));
@@ -167,7 +167,7 @@ class GestionPageController extends Controller
         $entity = new Page();
 
         $form = $this->createFormPage($entity);
-        return $this->render('WizardalleyPublicationBundle:Page:new.html.twig', array(
+        return $this->render('::page/new.html.twig', array(
                 'entity' => $entity,
                 'form'   => $form->createView(),
         ));
@@ -198,7 +198,7 @@ class GestionPageController extends Controller
             return $this->redirect($this->generateUrl('page_show', array( 'id_page' => $entity->getId() )));
         }
 
-        return $this->render('WizardalleyPublicationBundle:Page:new.html.twig', array(
+        return $this->render('::page/new.html.twig', array(
                 'entity' => $entity,
                 'form'   => $form->createView(),
         ));
@@ -227,7 +227,7 @@ class GestionPageController extends Controller
         $entities = $em->getRepository('WizardalleyCoreBundle:Publication')->findBy(array('page' => $page));
 
         return $this->render(
-            'WizardalleyPublicationBundle:Publication:index.html.twig',
+            '::publication/index.html.twig',
             array(
                 'id_page'  => $id_page,
                 'entities' => $entities,

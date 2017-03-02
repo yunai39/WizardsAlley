@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <p>Par
-                            <a href="{{ path('wizardalley_user_wall',{'id': pubFav.user.id}) }}">{{ pubFav.user.username }}</a>, le {{ pubFav.datePublication | date('Y-m-d') }}
+                            <a href="{{ path('wizardalley_user_wall',{'id': pubFav.user.id}) }}">{{ pubFav.user.username }}</a>, le {{ pubFav.createdAt | date('Y-m-d') }}
                         </p>
                     </div>
                 </div>

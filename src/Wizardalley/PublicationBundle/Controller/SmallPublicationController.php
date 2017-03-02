@@ -72,7 +72,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
         $entity = new SmallPublication();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('WizardalleyPublicationBundle:SmallPublication:new.html.twig',array(
+        return $this->render('::smallPublication/new.html.twig',array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -93,7 +93,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
         }
 
 
-        return $this->render('WizardalleyPublicationBundle:SmallPublication:show.html.twig', array(
+        return $this->render('::smallPublication/show.html.twig', array(
             'entity'      => $entity,
         ));
     }
@@ -114,7 +114,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('WizardalleyPublicationBundle:SmallPublication:edit.html.twig',array(
+        return $this->render('::smallPublication/edit.html.twig',array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
         ));
@@ -161,7 +161,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             return $this->redirect($this->generateUrl('user_small_publication_edit', array('id' => $id)));
         }
 
-        return $this->render('WizardalleyPublicationBundle:SmallPublication:edit.html.twig',array(
+        return $this->render('::smallPublication/edit.html.twig',array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
         ));

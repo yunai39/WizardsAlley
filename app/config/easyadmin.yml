@@ -35,7 +35,7 @@ easy_admin:
                     - id
                     - name
                     - category
-                    - { property: 'date_creation', type: 'datetime' }
+                    - { property: 'created_at', type: 'datetime' }
             form:
                 fields:
                     - name
@@ -46,6 +46,11 @@ easy_admin:
                     - category
         InformationBillet:
             class: Wizardalley\CoreBundle\Entity\InformationBillet
+            form:
+                fields:
+                    - name
+                    - content
+                    - datePublicationBillet
         MapObject:
             class: Wizardalley\CoreBundle\Entity\MapObject
             list:
@@ -53,11 +58,14 @@ easy_admin:
                     - id
                     - title
                     - description
+                    - 'links'
             form:
                 fields:
                     - title
                     - description
                     - { property: 'fileLogo', type: 'vich_image'}
+                    - { property: 'links', type: 'collection', type_options: { entry_type: 'Wizardalley\AdminBundle\Form\MapLinkType', by_reference: false } }
+
         PageCategory:
             class: Wizardalley\CoreBundle\Entity\PageCategory
             list:
@@ -74,5 +82,30 @@ easy_admin:
             class: Wizardalley\CoreBundle\Entity\PageFavorite
         Publication:
             class: Wizardalley\CoreBundle\Entity\Publication
+            list:
+                fields:
+                    - id
+                    - title
+                    - user
+                    - created_at
+            form:
+                fields:
+                    - title
+                    - small_content
+                    - content
+                    - user
+                    - { property: 'images', type: 'collection', type_options: { entry_type: 'Wizardalley\AdminBundle\Form\ImagePublicationType', by_reference: false } }
+
         WizardUser:
             class: Wizardalley\CoreBundle\Entity\WizardUser
+            form:
+                fields:
+                    - username
+                    - email
+                    - enabled
+                    - locked
+                    - { property: 'roles', type: 'entity'}
+                    - firstname
+                    - lastname
+                    - twitter
+                    - facebook

@@ -2,9 +2,13 @@
 
 namespace Wizardalley\AdminBundle\Subscriber;
 
+use Doctrine\ORM\EntityManager;
 use JavierEguiluz\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Wizardalley\CoreBundle\Entity\InformationBillet;
 use Wizardalley\CoreBundle\Entity\Interfaces\TimedEntityInterface;
 
 /**
@@ -13,6 +17,14 @@ use Wizardalley\CoreBundle\Entity\Interfaces\TimedEntityInterface;
  */
 class EasyAdminSubscriber implements EventSubscriberInterface
 {
+    /** @var TokenStorage */
+    protected $tokenStorage;
+
+    public function __construct(TokenStorage $tokenStorage)
+    {
+        $this->tokenStorage = $tokenStorage;
+    }
+
     /**
      * @return array
      */
@@ -41,6 +53,15 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     public function prePersist(GenericEvent $event)
     {
         $entity = $event->getSubject();
+
+        if ($entity instanceof InformationBillet) {
+            $entity->setDateCreateBillet(new \DateTime());
+            /** @var EntityManager $em */
+            $em = $event->getArgument('em');
+            $user = $this->tokenStorage->getToken()->getUser();
+            $entity->setUser($em->getReference('WizardalleyCoreBundle:WizardUser', $user->getId()));
+        }
+
         if ($entity instanceof TimedEntityInterface) {
             $entity->setCreatedAt(new \DateTime());
             $entity->setUpdatedAt(new \DateTime());

@@ -108,7 +108,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
         $repo    = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $friends = $repo->findFriends($user);
 
-        return $this->render('WizardalleyUserBundle:Default:friendList.html.twig', array(
+        return $this->render('::user/friendList.html.twig', array(
             'friends' => $friends,
         ));
     }
@@ -126,7 +126,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
         $publications = $repo->findPublication($this->getUser(), $offset, $limit);
 
         return $this->sendJsonResponse('success', null, 200, [
-            'html' => $this->renderView('WizardalleyUserBundle:Default:publication.html.twig', array(
+            'html' => $this->renderView('::user/publication.html.twig', array(
                     'publications' => $publications,
                 ))
         ]);
@@ -145,7 +145,7 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
         $publications = $repo->findPublication($this->getUser(), $offset, $limit);
 
         return $this->sendJsonResponse('success', null, 200, [
-                'html' => $this->renderView('WizardalleyUserBundle:Default:publication.html.twig', array(
+                'html' => $this->renderView('::user/publication.html.twig', array(
                         'publications' => $publications,
                     ))
             ]);

@@ -56,7 +56,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
         $latestFollower = $em->getRepository('WizardalleyCoreBundle:Page')->findLatestFollower($page->getId(), 9);
-        return $this->render('WizardalleyPublicationBundle:Page:show.html.twig'
+        return $this->render('::page/show.html.twig'
             , [
                 'page' => $page,
                 'followers' => $latestFollower,
@@ -81,7 +81,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
             200,
             [
                 'html' => $this->renderView(
-                    'WizardalleyPublicationBundle:Page:publication.html.twig',
+                    '::page/publication.html.twig',
                     array(
                         'publications' => $publications,
                     )

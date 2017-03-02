@@ -69,7 +69,7 @@ class PublicationController extends BaseController
             return $this->redirect($this->generateUrl('publication_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('WizardalleyPublicationBundle:Publication:new.html.twig', array(
+        return $this->render('::publication/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
             'page'   => $entity->getPage(),
@@ -117,7 +117,7 @@ class PublicationController extends BaseController
 
         $entity->setPage($page);
         $form = $this->createCreateForm($entity, $page);
-        return $this->render('WizardalleyPublicationBundle:Publication:new.html.twig', array(
+        return $this->render('::publication/new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
             'page'   => $entity->getPage(),
@@ -143,7 +143,7 @@ class PublicationController extends BaseController
         $commentForm = $this->createFormComment($comment, $id);
 
 
-        return $this->render('WizardalleyPublicationBundle:Publication:show.html.twig', array(
+        return $this->render('::publication/showPublication.html.twig', array(
             'entity'       => $entity,
             'entity_id'    => $id,
             'comment_form' => $commentForm->createView(),
@@ -172,7 +172,7 @@ class PublicationController extends BaseController
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('WizardalleyPublicationBundle:Publication:edit.html.twig', array(
+        return $this->render('::publication/edit.html.twig', array(
             'entity'    => $entity,
             'edit_form' => $editForm->createView(),
             'page'      => $entity->getPage(),
@@ -231,7 +231,7 @@ class PublicationController extends BaseController
             return $this->redirect($this->generateUrl('publication_show', array('id' => $id)));
         }
 
-        return $this->render('WizardalleyPublicationBundle:Publication:edit.html.twig', array(
+        return $this->render('::publication/edit.html.twig', array(
             'entity'    => $entity,
             'edit_form' => $editForm->createView(),
             'page'      => $entity->getPage(),

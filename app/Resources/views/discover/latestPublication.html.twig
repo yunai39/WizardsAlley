@@ -21,8 +21,8 @@
                 <p class="lead">
                     <a href="{{ path('page_show', {'id_page': publication.page.id}) }}">{{ publication.page.name }}</a>
                 </p>
-                <p>{{ publication.datePublication | date('d/m/Y') }}
-                    - {{ publication.datePublication | date('H:i:s') }}</p>
+                <p>{{ publication.createdAt | date('d/m/Y') }}
+                    - {{ publication.createdAt | date('H:i:s') }}</p>
             </div>
             <div class="col-xs-2">
                 <span class="label label-info">

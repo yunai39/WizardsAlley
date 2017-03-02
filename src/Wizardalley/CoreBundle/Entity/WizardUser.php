@@ -61,7 +61,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="last_connect", type="datetime")
+     * @ORM\Column(name="last_connect", type="datetime", nullable=true)
      */
     private $lastConect;
 
@@ -796,5 +796,23 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public function getLastConect()
     {
         return $this->lastConect;
+    }
+
+    public function getExpiresAt(){
+        return $this->expiresAt;
+    }
+    public function setExpiresAt(\DateTime $expireAt){
+        $this->expiresAt = $expireAt;
+
+        return $this;
+    }
+
+    public function getCredentialsExpireAt(){
+        return $this->credentialsExpireAt;
+    }
+    public function setCredentialsExpireAt(\DateTime $credentialsExpireAt){
+        $this->credentialsExpireAt = $credentialsExpireAt;
+
+        return $this;
     }
 }
