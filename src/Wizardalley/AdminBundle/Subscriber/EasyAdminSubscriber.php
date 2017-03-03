@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Wizardalley\CoreBundle\Entity\InformationBillet;
 use Wizardalley\CoreBundle\Entity\Interfaces\TimedEntityInterface;
+use Wizardalley\CoreBundle\Entity\WizardUser;
 
 /**
  * Class EasyAdminSubscriber
@@ -56,10 +57,11 @@ class EasyAdminSubscriber implements EventSubscriberInterface
 
         if ($entity instanceof InformationBillet) {
             $entity->setDateCreateBillet(new \DateTime());
-            /** @var EntityManager $em */
             $em = $event->getArgument('em');
+            /** @var WizardUser $user */
             $user = $this->tokenStorage->getToken()->getUser();
-            $entity->setUser($em->getReference('WizardalleyCoreBundle:WizardUser', $user->getId()));
+            $entity->setUser($user);
+            $em->persist($entity);
         }
 
         if ($entity instanceof TimedEntityInterface) {

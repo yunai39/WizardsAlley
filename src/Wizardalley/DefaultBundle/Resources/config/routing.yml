@@ -7,7 +7,11 @@ wizardalley_information:
 wizardalley_search_display:
     path:     /search
     defaults: { _controller: WizardalleyDefaultBundle:Search:searchDisplay }
-    
+
+wizardalley_home:
+    path:     /
+    defaults: { _controller: WizardalleyDefaultBundle:Default:home }
+
 
 wizardalley_search_user:
     path:     /searchUser/{field}/{page}

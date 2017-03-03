@@ -16,6 +16,14 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
     /**
+     * @return Response
+     */
+    public function homeAction()
+    {
+        return $this->render('::default/home.html.twig');
+    }
+
+    /**
      * indexAction
      *
      * This action will present the presentation page of the web site

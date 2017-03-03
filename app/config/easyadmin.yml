@@ -26,9 +26,18 @@ vich_uploader:
             upload_destination: %kernel.root_dir%/../web/uploads/page/category
 
 easy_admin:
+    design:
+        menu:
+            - { entity: 'Page', icon: 'group' }
+            - { entity: 'Publication', icon: 'sticky-note' }
+            - { entity: 'InformationBillet', label: 'Billet d''information', icon: 'info' }
+            - { entity: 'MapObject', label: 'Objet de carte', icon: 'map' }
+            - { entity: 'PageCategory', label: 'Catégorie des pages', icon: 'tag' }
+            - { entity: 'WizardUser', label: 'Utilisateur', icon: 'user' }
     site_name: Wizard's alley
     entities:
         Page:
+            disabled_actions: ['new']
             class: Wizardalley\CoreBundle\Entity\Page
             list:
                 fields:
@@ -78,9 +87,8 @@ easy_admin:
                     - name
                     - description
                     - { property: 'fileLogo', type: 'vich_image'}
-        PageFavorite:
-            class: Wizardalley\CoreBundle\Entity\PageFavorite
         Publication:
+            disabled_actions: ['new']
             class: Wizardalley\CoreBundle\Entity\Publication
             list:
                 fields:
@@ -104,7 +112,6 @@ easy_admin:
                     - email
                     - enabled
                     - locked
-                    - { property: 'roles', type: 'entity'}
                     - firstname
                     - lastname
                     - twitter
