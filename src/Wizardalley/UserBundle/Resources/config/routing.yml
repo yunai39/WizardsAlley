@@ -75,6 +75,11 @@ wizard_search_user_json:
 
 
 
+user_notification:
+    resource: "@WizardalleyUserBundle/Controller/NotificationController.php"
+    type:     annotation
+    prefix:   /
+
 fos_user_profile_show:
     path: /profile/
     defaults: { _controller: FOSUserBundle:Profile:show }

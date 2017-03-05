@@ -71,7 +71,10 @@ class DefaultController extends BaseController
             ->setUser($friend)
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
-            ->setDataNotification(json_encode([]))
+            ->setDataNotification(json_encode([
+                'asked_from' => $this->get('security.token_storage')->getToken()->getUser()->getId(),
+                'asked_to'   => $id_user
+            ]))
         ;
 
         $em->persist($user);
@@ -79,6 +82,10 @@ class DefaultController extends BaseController
         $em->flush();
 
         return $this->redirect($request->headers->get('referer'));
+    }
+
+    public function validateUserAsFriends(){
+
     }
 
 

@@ -35,8 +35,10 @@ class PublicationNotificationHelper
                 ->setUser($user->getUser())
                 ->setType('publication')
                 ->setDataNotification(json_encode([
-                    'page_id'        => $page->getId(),
-                    'publication_id' => $publication->getId()
+                    'page_id'           => $page->getId(),
+                    'page_name'         => $page->getName(),
+                    'publication_id'    => $publication->getId(),
+                    'publication_title' => $publication->getTitle()
                 ]));
             $this->em->persist($notification);
         }

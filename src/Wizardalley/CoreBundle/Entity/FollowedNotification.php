@@ -155,4 +155,8 @@ class FollowedNotification implements TimedEntityInterface
     {
         return $this->id;
     }
+
+    public function getData() {
+        return json_decode($this->dataNotification, true);
+    }
 }

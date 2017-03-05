@@ -1,0 +1,11 @@
+{%  for notification in notifications %}
+    <div class="col-xs-12 col-md-4">
+        {%  if notification.type == 'publication' %}
+            <a href="{{ path('page_show', {id_page: notification.getData.page_id}) }}">{{ notification.getData.page_name }}</a>&nbsp;
+            {% trans %}wizard.notification.page_publication{% endtrans %}&nbsp;
+            <a href="{{ path('publication_show', {id: notification.getData.publication_id}) }}">{{ notification.getData.publication_title }}</a>
+        {%  elseif notification.type == 'message' %}
+        {%  elseif notification.type == 'ask_friend' %}
+        {% endif %}
+    </div>
+{% endfor %}

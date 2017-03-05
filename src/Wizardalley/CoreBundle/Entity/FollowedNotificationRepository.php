@@ -12,4 +12,32 @@ use Doctrine\ORM\EntityRepository;
  */
 class FollowedNotificationRepository extends EntityRepository
 {
+
+    /**
+     * @param int $id_user
+     * @param int $page
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function findNotification(
+        $id_user,
+        $page = 1,
+        $limit = 4
+    ) {
+        $firstResult = ($page - 1) * $limit;
+
+        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
+        $query = $qb
+            ->join('p.user', 'u')
+            ->where('u.id = :id')
+            ->orderBy('p.dataNotification', 'DESC')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($limit)
+            ->setParameter(':id', $id_user)
+            ->getQuery();
+        $result = $query->getResult();
+
+        return $result;
+    }
 }

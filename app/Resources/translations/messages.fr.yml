@@ -1,6 +1,8 @@
 page:
     invite_friend: Inviter un ami
 wizard:
+    notification:
+        page_publication: vient de publier une nouvelle publication:
     discover:
         team_choice: Le choix de notre équipe
         title: Dépêches magiques, expressions et autres curiosités<br>à découvrir au coeur de l'Allée des sorciers
@@ -34,6 +36,8 @@ wizard:
             mail: Messagerie
             notification: Notification
     user:
+        notification: Notifications
+
         profile:
             lastname: Prénom
             firstname: Nom

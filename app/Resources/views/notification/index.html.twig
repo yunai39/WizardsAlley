@@ -1,0 +1,48 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="row">
+        <div class="col-xs-12">
+            {% trans %}wizard.user.notification{% endtrans %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row div-notifications"></div>
+        </div>
+        <div class="col-xs-12">
+            <button class="wizard-load-notification">Plus de notification</button>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var _$page = 1;
+        var $div = $('.div-notifications');
+        function loadNotification(data) {
+            $div.append(data['data']);
+        }
+
+        function loadMore() {
+            _handler = function (data) {
+                loadNotification(data);
+            };
+            $result = util.loadMore(
+                Routing.generate('user_notification_list', {'page': _$page}),
+                'GET',
+                _handler
+            );
+            _$page = _$page + 1;
+        }
+
+        loadMore();
+
+        $('.wizard-load-notification').on('click', function () {
+            loadMore();
+        });
+
+    </script>
+{% endblock %}
