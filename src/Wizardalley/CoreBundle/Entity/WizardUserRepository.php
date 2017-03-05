@@ -21,7 +21,7 @@ class WizardUserRepository extends EntityRepository
      *
      * @return array
      */
-    public function findFriends(WizardUser $user, $page, $limit)
+    public function findFriends(WizardUser $user, $page = 1, $limit = 4)
     {
         $offset = $limit * ($page - 1);
         $sql    = "

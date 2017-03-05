@@ -44,7 +44,7 @@ class SearchController extends BaseController
             200,
             [
                 'html' => $this->renderView(
-                    '::search/Search:users.html.twig',
+                    '::search/users.html.twig',
                     array(
                     'users' => $users,
                     )

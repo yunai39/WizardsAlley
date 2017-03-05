@@ -5,10 +5,13 @@ namespace Wizardalley\UserBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Wizardalley\CoreBundle\Entity\FollowedNotification;
 use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\CoreBundle\Entity\WizardUserRepository;
+use Wizardalley\DefaultBundle\Controller\BaseController;
+use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
-class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseController
+class DefaultController extends BaseController
 {
     /**
      * userWallAction
@@ -18,18 +21,16 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      * pattern: /user/wall/{id}
      * road_name: wizardalley_user_wall
      *
-     * @param Request $request http request
      * @param integer $id      id for the user
      *
      * @return Response
      */
-    public function userWallAction(Request $request, $id)
+    public function userWallAction($id)
     {
-        //
         $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $user = $repo->find($id);
         if (!$user) {
-            return new \Symfony\Component\Translation\Exception\NotFoundResourceException();
+            return new NotFoundResourceException();
         }
 
         return $this->render('::user/home.html.twig', array(
@@ -45,25 +46,39 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      * pattern: /user/addAsAFriend/{id_user}
      * road_name: wizard_add_as_a_friend
      *
-     * @param Request $request http request
      * @param integer $id_user id for the user
+     * @param Request $request
      *
      * @return Response
      */
-    public function addAsAFriendAction(Request $request, $id_user)
-    {
+    public function addAsAFriendAction(
+        Request $request,
+        $id_user
+    ) {
+        $em     = $this->getDoctrine()->getManager();
         $repo   = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $friend = $repo->find($id_user);
         if (!$friend) {
-            return new \Symfony\Component\Translation\Exception\NotFoundResourceException();
+            return new NotFoundResourceException();
         }
         $user = $this->getUser();
         $user->addMyFriend($friend);
-        $em = $this->getDoctrine()->getManager();
+        // Creer la notification
+        $followedNotification = new FollowedNotification();
+        $followedNotification
+            ->setType('ask_friend')
+            ->setChecked(false)
+            ->setUser($friend)
+            ->setCreatedAt(new \DateTime())
+            ->setUpdatedAt(new \DateTime())
+            ->setDataNotification(json_encode([]))
+        ;
+
         $em->persist($user);
+        $em->persist($followedNotification);
         $em->flush();
 
-        return $this->redirect($this->getRequest()->headers->get('referer'));
+        return $this->redirect($request->headers->get('referer'));
     }
 
 
@@ -75,11 +90,11 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      * pattern: /user/getFriendsJson
      * road_name: wizard_get_friends_json
      *
-     * @param Request $request http request
+     * @param int $page
      *
      * @return JsonResponse
      */
-    public function friendListAction(Request $request, $page = 1)
+    public function friendListAction($page = 1)
     {
         $numberDisplay = 3;
         $user          = $this->getUser();
@@ -97,8 +112,6 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
      *
      * pattern: /user/getFriendsView
      * road_name: wizard_get_friends_view
-     *
-     * @param Request $request http request
      *
      * @return JsonResponse
      */
@@ -203,7 +216,8 @@ class DefaultController extends \Wizardalley\DefaultBundle\Controller\BaseContro
     /**
      * @return JsonResponse
      */
-    public function getUserConnectedAction() {
+    public function getUserConnectedAction()
+    {
         $limit = 10;
         /** @var WizardUser $user */
         $user        = $this->getUser();
