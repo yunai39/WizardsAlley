@@ -44,11 +44,13 @@ easy_admin:
                     - id
                     - name
                     - category
+                    - officialPage
                     - { property: 'created_at', type: 'datetime' }
             form:
                 fields:
                     - name
                     - description
+                    - officialPage
                     - { property: 'fileProfile', type: 'vich_image'}
                     - { property: 'fileCouverture', type: 'vich_image'}
                     - { property: 'url_facebook', type: 'text' }
@@ -109,10 +111,12 @@ easy_admin:
             form:
                 fields:
                     - username
-                    - email
+                    - { property: 'email', type: 'email'}
                     - enabled
                     - locked
                     - firstname
+                    - sexe
                     - lastname
-                    - twitter
-                    - facebook
+                    - { property: 'twitter', type: 'url'}
+                    - { property: 'facebook', type: 'url'}
+                    - { property: 'password', type: 'repeated'}

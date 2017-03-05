@@ -11,3 +11,9 @@ services:
       arguments: [ @security.token_storage, @doctrine.orm.default_entity_manager ]
       tags:
           - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 0 }
+
+  default.fos_message_listener:
+      class: Wizardalley\DefaultBundle\Listener\FosMessageListener
+      arguments: [ @security.token_storage, @doctrine.orm.default_entity_manager ]
+      tags:
+          - { name: kernel.event_listener, event: fos_message.post_send, method: onMessageCreated, priority: 0 }

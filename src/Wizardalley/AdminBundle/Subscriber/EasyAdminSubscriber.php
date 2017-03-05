@@ -60,6 +60,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             $em = $event->getArgument('em');
             /** @var WizardUser $user */
             $user = $this->tokenStorage->getToken()->getUser();
+            $entity->setCommentsEnabled(false);
             $entity->setUser($user);
             $em->persist($entity);
         }

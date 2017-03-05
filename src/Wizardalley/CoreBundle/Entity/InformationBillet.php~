@@ -53,7 +53,7 @@ class InformationBillet
     /**
      * @var \boolean
      *
-     * @ORM\Column(name="commentsEnabled", type="boolean")
+     * @ORM\Column(name="commentsEnabled", type="boolean", options={"default" = 0})
      */
     private $commentsEnabled;
     

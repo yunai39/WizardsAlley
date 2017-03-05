@@ -53,6 +53,7 @@ class PublicationController extends BaseController
             $em = $this->getDoctrine()->getManager();
             $entity->setUser($this->getUser());
             $entity->setCreatedAt(new \DateTime('now'));
+            $entity->setUpdatedAt(new \DateTime('now'));
             $entity->setPage($page);
             $em->persist($entity);
             $entity->setSmallContent($entity->getContent());
@@ -64,6 +65,9 @@ class PublicationController extends BaseController
                 }
             }
             $em->flush();
+
+            // Generation des notifications
+            $this->get('wizard.helper.publication.notification')->generateNotificationForPublicationCreated($entity);
             $this->get('session')->getFlashBag()->add('success', 'wizard.publication.new_success');
 
             return $this->redirect($this->generateUrl('publication_show', array('id' => $entity->getId())));

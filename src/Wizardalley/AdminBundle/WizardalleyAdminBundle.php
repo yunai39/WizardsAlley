@@ -9,6 +9,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  * Class WizardalleyAdminBundle
  * @package Wizardalley\AdminBundle
  */
-class WizardalleyAdminBundle extends EasyAdminBundle
+class WizardalleyAdminBundle extends Bundle
 {
 }

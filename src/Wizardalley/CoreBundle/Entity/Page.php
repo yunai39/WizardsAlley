@@ -70,6 +70,13 @@ class Page implements TimedEntityInterface
     private $pathProfile;
 
     /**
+     * @var \boolean
+     *
+     * @ORM\Column(name="official_page", type="boolean", options={"default" = 0})
+     */
+    private $officialPage;
+
+    /**
     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\Publication", mappedBy="page", cascade={"remove", "persist"})
     */
     private $publications;
@@ -493,5 +500,28 @@ class Page implements TimedEntityInterface
     public function getFileCouverture()
     {
         return $this->fileCouverture;
+    }
+
+    /**
+     * Set officialPage
+     *
+     * @param boolean $officialPage
+     * @return Page
+     */
+    public function setOfficialPage($officialPage)
+    {
+        $this->officialPage = $officialPage;
+
+        return $this;
+    }
+
+    /**
+     * Get officialPage
+     *
+     * @return boolean 
+     */
+    public function getOfficialPage()
+    {
+        return $this->officialPage;
     }
 }

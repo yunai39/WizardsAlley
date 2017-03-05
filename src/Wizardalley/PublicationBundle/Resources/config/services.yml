@@ -9,4 +9,7 @@ services:
         arguments: ['@security.token_storage', '@doctrine.orm.default_entity_manager']
         tags:
             - { name: twig.extension }
+    wizard.helper.publication.notification:
+        class: Wizardalley\PublicationBundle\Helper\PublicationNotificationHelper
+        arguments: ['@doctrine.orm.default_entity_manager']
 

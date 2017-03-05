@@ -4,7 +4,6 @@ namespace Wizardalley\DefaultBundle\Listener;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Wizardalley\CoreBundle\Entity\WizardUser;
 
