@@ -15,6 +15,9 @@ use Wizardalley\CoreBundle\Entity\Traits\TimedEntityTrait;
  */
 class FollowedNotification implements TimedEntityInterface
 {
+    const TYPE_ASK_FRIEND = 'ask_friend';
+    const TYPE_MESSAGE = 'message';
+    const TYPE_PUBLICATION = 'publication';
     use TimedEntityTrait;
 
     /**
@@ -25,11 +28,11 @@ class FollowedNotification implements TimedEntityInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-    */
+     */
     private $user;
 
     /**
@@ -58,6 +61,7 @@ class FollowedNotification implements TimedEntityInterface
      * Set dataNotification
      *
      * @param string $dataNotification
+     *
      * @return FollowedNotification
      */
     public function setDataNotification($dataNotification)
@@ -70,7 +74,7 @@ class FollowedNotification implements TimedEntityInterface
     /**
      * Get dataNotification
      *
-     * @return string 
+     * @return string
      */
     public function getDataNotification()
     {
@@ -81,6 +85,7 @@ class FollowedNotification implements TimedEntityInterface
      * Set checked
      *
      * @param boolean $checked
+     *
      * @return FollowedNotification
      */
     public function setChecked($checked)
@@ -93,7 +98,7 @@ class FollowedNotification implements TimedEntityInterface
     /**
      * Get checked
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getChecked()
     {
@@ -104,6 +109,7 @@ class FollowedNotification implements TimedEntityInterface
      * Set user
      *
      * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
+     *
      * @return FollowedNotification
      */
     public function setUser(\Wizardalley\CoreBundle\Entity\WizardUser $user = null)
@@ -116,7 +122,7 @@ class FollowedNotification implements TimedEntityInterface
     /**
      * Get user
      *
-     * @return \Wizardalley\CoreBundle\Entity\WizardUser 
+     * @return \Wizardalley\CoreBundle\Entity\WizardUser
      */
     public function getUser()
     {
@@ -127,6 +133,7 @@ class FollowedNotification implements TimedEntityInterface
      * Set type
      *
      * @param string $type
+     *
      * @return FollowedNotification
      */
     public function setType($type)
@@ -139,7 +146,7 @@ class FollowedNotification implements TimedEntityInterface
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -149,14 +156,18 @@ class FollowedNotification implements TimedEntityInterface
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
 
-    public function getData() {
+    /**
+     * @return array
+     */
+    public function getData()
+    {
         return json_decode($this->dataNotification, true);
     }
 }

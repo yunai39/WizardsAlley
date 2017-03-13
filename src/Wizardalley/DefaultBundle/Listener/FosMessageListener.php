@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use FOS\MessageBundle\Event\MessageEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Wizardalley\CoreBundle\Entity\FollowedNotification;
+use Wizardalley\CoreBundle\Entity\WizardUser;
 
 class FosMessageListener
 {
@@ -36,6 +37,7 @@ class FosMessageListener
     {
         // Creer la notification pour le destinatire
         $message              = $event->getMessage();
+        /** @var WizardUser $sender */
         $sender               = $message->getSender();
         $followedNotification = new FollowedNotification();
         // Pour chaque utilisateur du thread souf l'utilisateur actuel
@@ -45,13 +47,15 @@ class FosMessageListener
                     ->setChecked(false)
                      ->setCreatedAt(new \DateTime())
                      ->setUpdatedAt(new \DateTime())
-                     ->setType('message')
+                     ->setType(FollowedNotification::TYPE_MESSAGE)
                      ->setDataNotification(
                          json_encode(
                              [
-                                 'sender_id'  => $sender->getId(),
-                                 'thread_id'  => $message->getThread()->getId(),
-                                 'message_id' => $message->getId()
+                                 'sender_id'    => $sender->getId(),
+                                 'sender_name'  => $sender->getUsername(),
+                                 'thread_id'    => $message->getThread()->getId(),
+                                 'thread_name'  => $message->getThread()->getSubject(),
+                                 'message_id'   => $message->getId()
                              ]
                          )
                      )

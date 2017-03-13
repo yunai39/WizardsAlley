@@ -2,7 +2,6 @@
 
 namespace Wizardalley\CoreBundle\Entity;
 
-use Wizardalley\CoreBundle\Entity\WizardUser;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -276,7 +275,8 @@ class WizardUserRepository extends EntityRepository
      * @param WizardUser $user
      * @return array
      */
-    public function findUserConnected(WizardUser $user, $limit) {
+    public function findUserConnected(WizardUser $user, $limit)
+    {
         $qb    = $this->_em->createQueryBuilder()
             ->distinct(true)
             ->select('u')

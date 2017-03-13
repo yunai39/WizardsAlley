@@ -38,6 +38,10 @@ wizard_add_as_a_friend:
     path:   /user/addAsAFriend/{id_user}
     defaults: { _controller: WizardalleyUserBundle:Default:addAsAFriend }
 
+wizard_validate_friend:
+    path:   /user/validateFriend/{id}
+    defaults: { _controller: WizardalleyUserBundle:Default:validateUserAsFriends}
+
 wizard_friend_list:
     path:   /user/getFriendLIst
     defaults: { _controller: WizardalleyUserBundle:Default:getFriendList }

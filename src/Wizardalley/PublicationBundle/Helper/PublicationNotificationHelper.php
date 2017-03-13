@@ -33,7 +33,7 @@ class PublicationNotificationHelper
                 ->setUpdatedAt(new \DateTime())
                 ->setChecked(false)
                 ->setUser($user->getUser())
-                ->setType('publication')
+                ->setType(FollowedNotification::TYPE_PUBLICATION)
                 ->setDataNotification(json_encode([
                     'page_id'           => $page->getId(),
                     'page_name'         => $page->getName(),

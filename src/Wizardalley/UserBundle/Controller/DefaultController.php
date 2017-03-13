@@ -6,11 +6,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\FollowedNotification;
+use Wizardalley\CoreBundle\Entity\FollowedNotificationRepository;
 use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\CoreBundle\Entity\WizardUserRepository;
 use Wizardalley\DefaultBundle\Controller\BaseController;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
+/**
+ * Class DefaultController
+ * @package Wizardalley\UserBundle\Controller
+ */
 class DefaultController extends BaseController
 {
     /**
@@ -21,7 +26,7 @@ class DefaultController extends BaseController
      * pattern: /user/wall/{id}
      * road_name: wizardalley_user_wall
      *
-     * @param integer $id      id for the user
+     * @param integer $id id for the user
      *
      * @return Response
      */
@@ -33,9 +38,12 @@ class DefaultController extends BaseController
             return new NotFoundResourceException();
         }
 
-        return $this->render('::user/home.html.twig', array(
+        return $this->render(
+            '::user/home.html.twig',
+            array(
             'user' => $user,
-        ));
+            )
+        );
     }
 
     /**
@@ -66,16 +74,23 @@ class DefaultController extends BaseController
         // Creer la notification
         $followedNotification = new FollowedNotification();
         $followedNotification
-            ->setType('ask_friend')
+            ->setType(FollowedNotification::TYPE_ASK_FRIEND)
             ->setChecked(false)
             ->setUser($friend)
             ->setCreatedAt(new \DateTime())
             ->setUpdatedAt(new \DateTime())
-            ->setDataNotification(json_encode([
-                'asked_from' => $this->get('security.token_storage')->getToken()->getUser()->getId(),
-                'asked_to'   => $id_user
-            ]))
-        ;
+            ->setDataNotification(
+                json_encode(
+                    [
+                    'asked_from' => $this->get('security.token_storage')
+                                  ->getToken()
+                                  ->getUser()
+                                  ->getId(),
+                    'asked_to'   => $id_user
+                    ],
+                    true
+                )
+            );
 
         $em->persist($user);
         $em->persist($followedNotification);
@@ -84,8 +99,50 @@ class DefaultController extends BaseController
         return $this->redirect($request->headers->get('referer'));
     }
 
-    public function validateUserAsFriends(){
+    /**
+     * @param Request $request
+     * @param         $id
+     * @return Response
+     */
+    public function validateUserAsFriendsAction(
+        Request $request,
+        $id
+    ) {
+        /** @var WizardUser $user */
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $em   = $this->getDoctrine()->getManager();
+        /** @var WizardUserRepository $repoUser */
+        $repoUser = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+        /** @var FollowedNotificationRepository $repoNotification */
+        $repoNotification = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:FollowedNotification');
+        /** @var FollowedNotification $notification */
+        $notification = $repoNotification->find($id);
+        $dataNotification = $notification->getData();
+        $friend       = $repoUser->find($dataNotification['asked_to']);
 
+        if ($notification->getType() != FollowedNotification::TYPE_ASK_FRIEND ||
+            $dataNotification['asked_from'] != $user->getId() ||
+            !($friend instanceof WizardUser)
+        ) {
+            $request->getSession()->getFlashBag()->add('error', 'wizard.unknown_error');
+
+            return $this->redirect($this->generateUrl('user_notification_index'));
+        }
+
+        $user->addFriendsWithMe($friend);
+        $friend->addMyFriend($user);
+        $notification->setChecked(true);
+
+        // Creer la notification comme quoi les utilisateurs sont maintenant amis
+
+        $em->persist($user);
+        $em->persist($friend);
+        $em->persist($notification);
+
+        $em->flush();
+
+
+        return $this->redirect($this->generateUrl('wizardalley_user_wall', ['id' => $friend->getId()]));
     }
 
 
@@ -128,7 +185,8 @@ class DefaultController extends BaseController
         $repo    = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $friends = $repo->findFriends($user);
 
-        return $this->render('::user/friendList.html.twig', array(
+        return $this->render(
+            '::user/friendList.html.twig', array(
             'friends' => $friends,
         ));
     }
@@ -145,10 +203,12 @@ class DefaultController extends BaseController
         $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $publications = $repo->findPublication($this->getUser(), $offset, $limit);
 
-        return $this->sendJsonResponse('success', null, 200, [
-            'html' => $this->renderView('::user/publication.html.twig', array(
-                    'publications' => $publications,
-                ))
+        return $this->sendJsonResponse(
+            'success', null, 200, [
+            'html' => $this->renderView(
+                '::user/publication.html.twig', array(
+                'publications' => $publications,
+            ))
         ]);
     }
 
@@ -164,11 +224,13 @@ class DefaultController extends BaseController
         $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $publications = $repo->findPublication($this->getUser(), $offset, $limit);
 
-        return $this->sendJsonResponse('success', null, 200, [
-                'html' => $this->renderView('::user/publication.html.twig', array(
-                        'publications' => $publications,
-                    ))
-            ]);
+        return $this->sendJsonResponse(
+            'success', null, 200, [
+            'html' => $this->renderView(
+                '::user/publication.html.twig', array(
+                'publications' => $publications,
+            ))
+        ]);
     }
 
     /**
@@ -182,9 +244,10 @@ class DefaultController extends BaseController
         $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         $publications = $repo->findPublicationWall($this->getUser(), $id, $limit);
 
-        return $this->sendJsonResponse('success', null, 200, [
-                'extra' => $publications
-            ]);
+        return $this->sendJsonResponse(
+            'success', null, 200, [
+            'extra' => $publications
+        ]);
     }
 
     /**
@@ -227,7 +290,7 @@ class DefaultController extends BaseController
     {
         $limit = 10;
         /** @var WizardUser $user */
-        $user        = $this->getUser();
+        $user = $this->getUser();
         /** @var WizardUserRepository $repo */
         $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
 

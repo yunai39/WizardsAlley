@@ -9,3 +9,8 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: wizard_user_profile_edit }
+    wizard.user.twig.notification:
+        class: Wizardalley\UserBundle\Twig\NotificationExtension
+        arguments: ['@security.token_storage', '@doctrine.orm.default_entity_manager']
+        tags:
+            - { name: twig.extension }
