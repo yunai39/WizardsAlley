@@ -1,11 +1,23 @@
 {%  for notification in notifications %}
     <div class="col-xs-12 col-md-4">
-        {%  if notification.type == 'publication' %}
-            <a href="{{ path('page_show', {id_page: notification.getData.page_id}) }}">{{ notification.getData.page_name }}</a>&nbsp;
-            {% trans %}wizard.notification.page_publication{% endtrans %}&nbsp;
-            <a href="{{ path('publication_show', {id: notification.getData.publication_id}) }}">{{ notification.getData.publication_title }}</a>
-        {%  elseif notification.type == 'message' %}
-        {%  elseif notification.type == 'ask_friend' %}
-        {% endif %}
+        <div class="jumbotron">
+            {%  if notification.type == 'publication' %}
+                {% trans with {
+                '%page_link%':  path('page_show', {id_page: notification.getData.page_id}) ,
+                '%page_name%': notification.getData.page_name,
+                '%publication_link%':  path('publication_show', {id: notification.getData.publication_id}) ,
+                '%publication_name%':  notification.getData.publication_title
+                } %}wizard.notification.page_publication{% endtrans %}&nbsp;
+            {%  elseif notification.type == 'message' %}
+                {% trans with {
+                '%user_link%':  path('wizardalley_user_wall', {id: notification.getData.sender_id}) ,
+                '%user_name%': notification.getData.sender_name,
+                '%thread_link%':  path('fos_message_thread_view', {threadId: notification.getData.thread_id}) ,
+                '%thread_name%':  notification.getData.thread_name
+                } %}wizard.notification.user_message{% endtrans %}&nbsp;
+            {%  elseif notification.type == 'ask_friend' %}
+                <a href="{{ path('wizard_validate_friend', {id: notification.id}) }}">Become friends</a>
+            {% endif %}
+        </div>
     </div>
 {% endfor %}

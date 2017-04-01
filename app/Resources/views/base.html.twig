@@ -90,7 +90,11 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{{ path('fos_user_profile_show') }}">{{ app.user.username }}</a>
                                     </li>
-                                    <li><a href="{{ path('user_notification_index') }}">{% trans %}wizard.menu.link.notification{% endtrans %}</a></li>
+                                    <li>
+                                        <a href="{{ path('user_notification_index') }}">
+                                            <span class="badge">{{ nb_notification() }}</span>&nbsp;{% trans %}wizard.menu.link.notification{% endtrans %}
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         {% else %}
