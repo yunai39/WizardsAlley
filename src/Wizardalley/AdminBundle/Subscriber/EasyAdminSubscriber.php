@@ -65,6 +65,13 @@ class EasyAdminSubscriber implements EventSubscriberInterface
             $em->persist($entity);
         }
 
+        if ($entity instanceof WizardUser) {
+            $entity
+                ->addRole('ROLE_ADMIN')
+                ->setPlainPassword($entity->getPassword())
+            ;
+        }
+
         if ($entity instanceof TimedEntityInterface) {
             $entity->setCreatedAt(new \DateTime());
             $entity->setUpdatedAt(new \DateTime());

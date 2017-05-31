@@ -33,7 +33,7 @@ easy_admin:
             - { entity: 'InformationBillet', label: 'Billet d''information', icon: 'info' }
             - { entity: 'MapObject', label: 'Objet de carte', icon: 'map' }
             - { entity: 'PageCategory', label: 'Catégorie des pages', icon: 'tag' }
-            - { entity: 'WizardUser', label: 'Utilisateur', icon: 'user' }
+            - { entity: 'WizardUser', label: 'Administrateur', icon: 'user' }
     site_name: Wizard's alley
     entities:
         Page:
@@ -108,6 +108,9 @@ easy_admin:
 
         WizardUser:
             class: Wizardalley\CoreBundle\Entity\WizardUser
+            label: 'Administrateur'
+            list:
+                dql_filter: "entity.roles like '%%ROLE_ADMIN%%'"
             form:
                 fields:
                     - username
