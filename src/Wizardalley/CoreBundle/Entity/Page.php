@@ -473,6 +473,37 @@ class Page implements TimedEntityInterface
      */
     public $fileCouverture;
 
+    /**
+     * Fonction d'upload du profile
+     */
+    public function uploadProfile()
+    {
+        // la propriété « file » peut être vide si le champ n'est pas requis
+        if (null === $this->fileProfile) {
+            return;
+        }
+        $ext  = pathinfo($this->fileProfile->getClientOriginalName(), PATHINFO_EXTENSION);
+        $name = 'profile.' . $ext;
+        $this->fileProfile->move($this->getUploadRootDir(), $name);
+        $this->pathProfile = $name;
+        $this->fileProfile = null;
+    }
+
+    /**
+     * Fonction d'upload de la couverture
+     */
+    public function uploadCouverture()
+    {
+        if (null === $this->fileCouverture) {
+            return;
+        }
+        $ext  = pathinfo($this->fileCouverture->getClientOriginalName(), PATHINFO_EXTENSION);
+        $name = 'couverture.' . $ext;
+        $this->fileCouverture->move($this->getUploadRootDir(), $name);
+        $this->pathCouverture = $name;
+        $this->fileCouverture = null;
+    }
+
 
     public function setFileProfile(File $image = null)
     {
