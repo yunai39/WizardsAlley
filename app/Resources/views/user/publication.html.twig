@@ -7,7 +7,7 @@
                     <div class="imgSquareContainer circle">
                         {% if publication.type == 'page_publication' %}
                             <img class="circle"
-                                 src="{{ asset('uploads/page/'~publication.writer_id ~ '/' ~ publication.path_profile) }}"/>
+                                 src="{{ asset('uploads/page/profile/' ~ publication.path_profile) }}"/>
                         {% else %}
                             {% if publication.path_profile %}
                                 <img class="circle"

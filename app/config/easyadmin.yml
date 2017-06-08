@@ -49,11 +49,11 @@ easy_admin:
             form:
                 fields:
                     - name
-                    - description
+                    - { property: 'description', type: 'ckeditor'}
                     - officialPage
                     - { property: 'fileProfile', type: 'vich_image'}
                     - { property: 'fileCouverture', type: 'vich_image'}
-                    - { property: 'url_facebook', type: 'text' }
+                    - { property: 'url_facebook', type: 'url' }
                     - category
         InformationBillet:
             class: Wizardalley\CoreBundle\Entity\InformationBillet

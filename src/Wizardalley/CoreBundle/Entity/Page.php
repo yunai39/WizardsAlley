@@ -414,25 +414,25 @@ class Page implements TimedEntityInterface
 
     public function getAbsolutePathProfile()
     {
-        return null === $this->pathProfile ? null : $this->getUploadRootDir() . '/' . $this->pathProfile;
+        return null === $this->pathProfile ? null : $this->getUploadRootDir() . '/profile/' . $this->pathProfile;
     }
 
 
     public function getAbsolutePathCouverture()
     {
-        return null === $this->pathCouverture ? null : $this->getUploadRootDir() . '/' . $this->pathCouverture;
+        return null === $this->pathCouverture ? null : $this->getUploadRootDir() . '/cover/' . $this->pathCouverture;
     }
 
     public function getPictureProfile()
     {
         return null === $this->pathProfile ?
-            $this->getDefaultProfile() : $this->getUploadDir() . '/' . $this->pathProfile;
+            $this->getDefaultProfile() : $this->getUploadDir() . '/profile/' . $this->pathProfile;
     }
 
     public function getPictureCouverture()
     {
         return null === $this->pathCouverture ?
-            $this->getDefaultCouverture() : $this->getUploadDir() . '/' . $this->pathCouverture;
+            $this->getDefaultCouverture() : $this->getUploadDir() . '/cover/' . $this->pathCouverture;
     }
 
     protected function getDefaultProfile()
@@ -482,9 +482,8 @@ class Page implements TimedEntityInterface
         if (null === $this->fileProfile) {
             return;
         }
-        $ext  = pathinfo($this->fileProfile->getClientOriginalName(), PATHINFO_EXTENSION);
-        $name = 'profile.' . $ext;
-        $this->fileProfile->move($this->getUploadRootDir(), $name);
+        $name = $this->fileProfile->getClientOriginalName();
+        $this->fileProfile->move($this->getUploadRootDir(). '/profile/', $name);
         $this->pathProfile = $name;
         $this->fileProfile = null;
     }
@@ -497,9 +496,8 @@ class Page implements TimedEntityInterface
         if (null === $this->fileCouverture) {
             return;
         }
-        $ext  = pathinfo($this->fileCouverture->getClientOriginalName(), PATHINFO_EXTENSION);
-        $name = 'couverture.' . $ext;
-        $this->fileCouverture->move($this->getUploadRootDir(), $name);
+        $name = $this->fileCouverture->getClientOriginalName();
+        $this->fileCouverture->move($this->getUploadRootDir() . '/cover/', $name);
         $this->pathCouverture = $name;
         $this->fileCouverture = null;
     }

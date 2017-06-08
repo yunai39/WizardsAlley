@@ -122,7 +122,7 @@ class WizardUserRepository extends EntityRepository
                 pu.id as 'publication_id', 
                 pa.created_at,
                 pu.title, pu.small_content as 'content', 
-                pa.id as 'writer_id', 
+                p.id as 'writer_id',
                 p.name, 
                 p.path_profile, 
                 'page_publication' as type

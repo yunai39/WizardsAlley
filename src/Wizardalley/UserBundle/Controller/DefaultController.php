@@ -39,11 +39,9 @@ class DefaultController extends BaseController
         }
 
         return $this->render(
-            '::user/home.html.twig',
-            array(
-            'user' => $user,
-            )
-        );
+            '::user/home.html.twig', array(
+                                       'user' => $user,
+                                   ));
     }
 
     /**
@@ -82,15 +80,16 @@ class DefaultController extends BaseController
             ->setDataNotification(
                 json_encode(
                     [
-                    'asked_from' => $this->get('security.token_storage')
-                                  ->getToken()
-                                  ->getUser()
-                                  ->getId(),
-                    'asked_to'   => $id_user
+                        'asked_from' => $this->get('security.token_storage')
+                          ->getToken()
+                          ->getUser()
+                          ->getId(),
+                        'asked_to'   => $id_user
                     ],
                     true
                 )
-            );
+            )
+        ;
 
         $em->persist($user);
         $em->persist($followedNotification);
@@ -102,6 +101,7 @@ class DefaultController extends BaseController
     /**
      * @param Request $request
      * @param         $id
+     *
      * @return Response
      */
     public function validateUserAsFriendsAction(
@@ -116,14 +116,11 @@ class DefaultController extends BaseController
         /** @var FollowedNotificationRepository $repoNotification */
         $repoNotification = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:FollowedNotification');
         /** @var FollowedNotification $notification */
-        $notification = $repoNotification->find($id);
+        $notification     = $repoNotification->find($id);
         $dataNotification = $notification->getData();
-        $friend       = $repoUser->find($dataNotification['asked_to']);
+        $friend           = $repoUser->find($dataNotification['asked_to']);
 
-        if ($notification->getType() != FollowedNotification::TYPE_ASK_FRIEND ||
-            $dataNotification['asked_from'] != $user->getId() ||
-            !($friend instanceof WizardUser)
-        ) {
+        if ($notification->getType() != FollowedNotification::TYPE_ASK_FRIEND || $dataNotification['asked_from'] != $user->getId() || !($friend instanceof WizardUser)) {
             $request->getSession()->getFlashBag()->add('error', 'wizard.unknown_error');
 
             return $this->redirect($this->generateUrl('user_notification_index'));

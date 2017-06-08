@@ -112,6 +112,9 @@ fos_message:
     new_thread_form:
       handler:            fos_message.new_thread_form.handler.custom
 
+vich_uploader:
+    db_driver: orm
+
 liip_imagine:
     resolvers:
        default:

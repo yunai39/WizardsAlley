@@ -5,6 +5,7 @@ namespace Wizardalley\PublicationBundle\Controller;
 use Composer\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Wizardalley\CoreBundle\Entity\ImagePublication;
 use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\Publication;
 use Wizardalley\CoreBundle\Entity\CommentPublication;
@@ -55,14 +56,12 @@ class PublicationController extends BaseController
             $entity->setCreatedAt(new \DateTime('now'));
             $entity->setUpdatedAt(new \DateTime('now'));
             $entity->setPage($page);
-            $em->persist($entity);
             $entity->setSmallContent($entity->getContent());
-            if ($entity->getImages()) {
-                foreach ($entity->getImages() as $img) {
-                    $img->upload();
-                    $img->setPublication($entity);
-                    $em->persist($img);
-                }
+            $em->persist($entity);
+            /** @var ImagePublication $image */
+            foreach($entity->getImages() as $image) {
+                $image->setPublication($entity);
+                $em->persist($image);
             }
             $em->flush();
 
