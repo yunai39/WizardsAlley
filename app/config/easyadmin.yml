@@ -34,6 +34,7 @@ easy_admin:
             - { entity: 'MapObject', label: 'Objet de carte', icon: 'map' }
             - { entity: 'PageCategory', label: 'Catégorie des pages', icon: 'tag' }
             - { entity: 'WizardUser', label: 'Administrateur', icon: 'user' }
+            - { entity: 'User', label: 'Utilisateur', icon: 'user' }
     site_name: Wizard's alley
     entities:
         Page:
@@ -101,16 +102,36 @@ easy_admin:
             form:
                 fields:
                     - title
-                    - small_content
-                    - content
+                    - { property: 'small_content', type: 'ckeditor'}
+                    - { property: 'content', type: 'ckeditor'}
                     - user
                     - { property: 'images', type: 'collection', type_options: { entry_type: 'Wizardalley\AdminBundle\Form\ImagePublicationType', by_reference: false } }
 
         WizardUser:
+            disabled_actions: ['delete']
             class: Wizardalley\CoreBundle\Entity\WizardUser
             label: 'Administrateur'
             list:
                 dql_filter: "entity.roles like '%%ROLE_ADMIN%%'"
+                actions:
+                  - { name: 'new', label: 'Créer un adminstrateur' }
+            form:
+                fields:
+                    - username
+                    - { property: 'email', type: 'email'}
+                    - enabled
+                    - locked
+                    - { property: 'sexe', firstnametype: 'choice', choices:['Homme','Femme'] }
+                    - lastname
+                    - { property: 'twitter', type: 'url'}
+                    - { property: 'facebook', type: 'url'}
+                    - { property: 'password', type: 'repeated'}
+        User:
+            disabled_actions: ['new', 'delete']
+            class: Wizardalley\CoreBundle\Entity\WizardUser
+            label: 'Utilisateur'
+            list:
+                dql_filter: "entity.roles like '%%a:0:{}%%'"
             form:
                 fields:
                     - username
@@ -118,8 +139,7 @@ easy_admin:
                     - enabled
                     - locked
                     - firstname
-                    - sexe
+                    - { property: 'sexe', type: 'choice', type_options: {choices: {'0':'Homme', '1':'Femme'}}}
                     - lastname
                     - { property: 'twitter', type: 'url'}
                     - { property: 'facebook', type: 'url'}
-                    - { property: 'password', type: 'repeated'}

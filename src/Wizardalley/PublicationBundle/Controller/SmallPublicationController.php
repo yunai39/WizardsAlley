@@ -31,6 +31,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             $user = $this->getUser();
             $entity->setUser($user);
             $entity->setCreatedAt(new \DateTime('now'));
+            $entity->setUpdatedAt(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
