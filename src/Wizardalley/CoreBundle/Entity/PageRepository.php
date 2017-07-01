@@ -142,7 +142,7 @@ class PageRepository extends EntityRepository
     public function findPageThisMonth()
     {
         $qb     = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query  = $qb->where('p.dateCreation > :date')
+        $query  = $qb->where('p.createdAt > :date')
                      ->setParameter(':date', (new \DateTime())->format('Y-m'))
                      ->getQuery()
         ;

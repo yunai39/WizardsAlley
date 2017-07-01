@@ -209,29 +209,45 @@ class GestionPageController extends Controller
      *
      * This action will display a form to edit the content of the page
      *
-     * pattern: /page/gestion/publication/{id_page}
+     * pattern: /page/gestion/publication/{id_page}/{page}
      * road_name: page_gestion_publication
      *
      * @param int $id_page
+     * @param int $page
      *
      * @return Response
      */
-    public function displayPublicationUserAction($id_page)
+    public function displayPublicationUserAction($id_page, $page=1)
     {
         $em   = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
+        $repository =  $em->getRepository('WizardalleyCoreBundle:Publication');
+        $pageEntitiy = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
-        $this->notFoundEntity($page);
-        $this->creatorEditorOnly($page);
+        $qb = $repository->createQueryBuilder('p');
+        $query = $qb
+            ->join('p.page', 'pa')
+            ->where('pa.id = ' . $id_page)
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery();
 
-        $entities = $em->getRepository('WizardalleyCoreBundle:Publication')->findBy(array('page' => $page));
+        $this->notFoundEntity($pageEntitiy);
+        $this->creatorEditorOnly($pageEntitiy);
+
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $page/*page number*/,
+            10/*limit per page*/
+        );
+
 
         return $this->render(
             '::publication/index.html.twig',
             array(
-                'id_page'  => $id_page,
-                'entities' => $entities,
-                'page'     => $page,
+                'id_page'    => $id_page,
+                'pagination' => $pagination,
+                'page'       => $pageEntitiy,
             )
         );
     }

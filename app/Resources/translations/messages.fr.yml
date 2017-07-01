@@ -30,6 +30,7 @@ wizard:
         link:
             home: Ma Ruelle
             discover: Découvrir
+            discover_map: Carte
             mention_legal: Mention Légal
             blog: Blog
             contact: Contact
@@ -81,7 +82,7 @@ wizard:
         gestion:
             editor: Gestion des éditeurs
             publication:
-                edit: Édition de la publication
+                edit: Édition des publications
             edit: Édition de la page
             back: Retour à la page
             title:
@@ -89,3 +90,4 @@ wizard:
         edit_success: Les editeurs ont bien été modifiés
         user:
             edit_success: Les modifications ont bien été modifiés
+wizard.publication.new_success: La publication a bien été crée

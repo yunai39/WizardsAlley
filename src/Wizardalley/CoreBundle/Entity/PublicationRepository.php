@@ -167,7 +167,7 @@ class PublicationRepository extends EntityRepository
     public function findPublicationThisMonth()
     {
         $qb     = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query  = $qb->where('p.created_at > :date')
+        $query  = $qb->where('p.createdAt > :date')
                      ->setParameter(':date', (new \DateTime())->format('Y-m'))
                      ->getQuery()
         ;

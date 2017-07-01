@@ -27,6 +27,7 @@ vich_uploader:
 
 easy_admin:
     design:
+        brand_color: '#1ABC9C'
         menu:
             - { entity: 'Page', icon: 'group' }
             - { entity: 'Publication', icon: 'sticky-note' }
@@ -35,10 +36,11 @@ easy_admin:
             - { entity: 'PageCategory', label: 'Catégorie des pages', icon: 'tag' }
             - { entity: 'WizardUser', label: 'Administrateur', icon: 'user' }
             - { entity: 'User', label: 'Utilisateur', icon: 'user' }
+            - { label: 'Statistique', route: 'wizardalley_admin_statistic_statistic' }
     site_name: Wizard's alley
     entities:
         Page:
-            disabled_actions: ['new']
+            disabled_actions: ['new', 'delete']
             class: Wizardalley\CoreBundle\Entity\Page
             list:
                 fields:
@@ -57,6 +59,7 @@ easy_admin:
                     - { property: 'url_facebook', type: 'url' }
                     - category
         InformationBillet:
+            disabled_actions: ['delete']
             class: Wizardalley\CoreBundle\Entity\InformationBillet
             form:
                 fields:
@@ -64,6 +67,7 @@ easy_admin:
                     - content
                     - datePublicationBillet
         MapObject:
+            disabled_actions: ['delete']
             class: Wizardalley\CoreBundle\Entity\MapObject
             list:
                 fields:
@@ -79,6 +83,7 @@ easy_admin:
                     - { property: 'links', type: 'collection', type_options: { entry_type: 'Wizardalley\AdminBundle\Form\MapLinkType', by_reference: false } }
 
         PageCategory:
+            disabled_actions: ['delete']
             class: Wizardalley\CoreBundle\Entity\PageCategory
             list:
                 fields:
@@ -91,7 +96,7 @@ easy_admin:
                     - description
                     - { property: 'fileLogo', type: 'vich_image'}
         Publication:
-            disabled_actions: ['new']
+            disabled_actions: ['new', 'delete']
             class: Wizardalley\CoreBundle\Entity\Publication
             list:
                 fields:
@@ -111,6 +116,8 @@ easy_admin:
             disabled_actions: ['delete']
             class: Wizardalley\CoreBundle\Entity\WizardUser
             label: 'Administrateur'
+            templates:
+                edit: '@WizardalleyAdmin/User/show.html.twig'
             list:
                 dql_filter: "entity.roles like '%%ROLE_ADMIN%%'"
                 actions:
@@ -130,6 +137,8 @@ easy_admin:
             disabled_actions: ['new', 'delete']
             class: Wizardalley\CoreBundle\Entity\WizardUser
             label: 'Utilisateur'
+            templates:
+                edit: '@WizardalleyAdmin/User/show.html.twig'
             list:
                 dql_filter: "entity.roles like '%%a:0:{}%%'"
             form:

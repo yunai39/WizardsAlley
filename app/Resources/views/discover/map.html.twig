@@ -5,14 +5,14 @@
         {% for map in maps %}
             <div class="col-md-3">
                 <h3>{{ map.title }}</h3>
-                <img src="/uploads/map/{{ map.logo }}" alt="">
+                <img src="/uploads/map/{{ map.logo }}" alt="" class="img-responsive">
                 <br>
                 <p>{{ map.description }}</p>
                 <br>
                 <div class="row">
                     {% for link in map.links %}
                         <div class="col-xs-12">
-                            <a href="{{ link.link }}">>&nbsp;{{ link.display }}</a>
+                            <a href="{{ link.link }}" target="_blank">>&nbsp;{{ link.display }}</a>
                         </div>
                     {% endfor %}
                 </div>

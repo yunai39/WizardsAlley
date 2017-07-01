@@ -27,6 +27,6 @@ page_gestion_user_edit:
 
 
 page_gestion_publication:
-    path:     /page/gestion/publication/{id_page}
-    defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:displayPublicationUser" }
+    path:     /page/gestion/publication/{id_page}/{page}
+    defaults: { _controller: "WizardalleyPublicationBundle:GestionPage:displayPublicationUser", page: 1 }
 

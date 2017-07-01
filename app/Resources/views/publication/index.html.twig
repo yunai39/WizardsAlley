@@ -4,38 +4,41 @@
 {% block gestion %}
 
     <h1>Publication list</h1>
+    <div class="count">
+        Nombre de publication total: {{ pagination.getTotalItemCount }}
+    </div>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Date Publication</th>
+            <th>Actions</th>
+        </tr>
 
-    <table class="records_list">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Datepublication</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody class="admin-table-tbody">
-        {% for entity in entities %}
-            <tr>
-                <td><a href="{{ path('publication_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                <td>{{ entity.title }}</td>
-                <td>{% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+        {# table body #}
+        {% for page in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ page.id }}</td>
+                <td>{{ page.title }}</td>
+                <td>{{ page.createdAt | date('Y-m-d') }}, {{ page.createdAt | date('H:i:s') }}</td>
                 <td>
-                <ul>
-                    <li>
-                        <a href="{{ path('publication_show', { 'id':  entity.id }) }}">show</a>
-                    </li>
-                    <li>
-                        <a href="{{ path('publication_edit', { 'id':  entity.id }) }}">edit</a>
-                    </li>
-                </ul>
+                    <ul>
+                        <li>
+                            <a href="{{ path('publication_show', { 'id':  page.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('publication_edit', { 'id':  page.id }) }}">edit</a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
-            {% set last_id = entity.id %}
         {% endfor %}
-        </tbody>
     </table>
-        <ul>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    <ul>
         <li>
             <a href="{{ path('publication_new',{'id_page' : id_page}) }}">
                 Create a new entry
