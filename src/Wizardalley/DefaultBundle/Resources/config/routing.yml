@@ -10,7 +10,7 @@ wizardalley_search_display:
 
 wizardalley_home:
     path:     /
-    defaults: { _controller: WizardalleyDefaultBundle:Default:home }
+    defaults: { _controller: WizardalleyDefaultBundle:Discover:indexDiscover }
 
 
 wizardalley_search_user:

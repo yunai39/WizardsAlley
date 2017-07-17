@@ -188,7 +188,8 @@ class GestionPageController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $entity->setCreator($this->getUser());
-            $entity->setDateCreation(new \DateTime());
+            $entity->setCreatedAt(new \DateTime());
+            $entity->setOfficialPage(false);
             $entity->uploadCouverture();
             $entity->uploadProfile();
             $em->persist($entity);
