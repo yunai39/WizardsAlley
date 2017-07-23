@@ -59,9 +59,11 @@ class PublicationController extends BaseController
             $entity->setSmallContent($entity->getContent());
             $em->persist($entity);
             /** @var ImagePublication $image */
-            foreach($entity->getImages() as $image) {
-                $image->setPublication($entity);
-                $em->persist($image);
+            if (!empty($entity->getImages())) {
+                foreach($entity->getImages() as $image) {
+                    $image->setPublication($entity);
+                    $em->persist($image);
+                }
             }
             $em->flush();
 

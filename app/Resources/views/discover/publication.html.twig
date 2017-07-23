@@ -5,11 +5,13 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="imgSquare">
-                            <div class="imgSquareContainer" >
-                                <img src="/uploads/publications/{{ pubFav.images.0.path }}" />
+                        {% if pubFav.images|length > 0 %}
+                            <div class="imgSquare">
+                                <div class="imgSquareContainer" >
+                                    <img src="/uploads/publications/{{ pubFav.images.0.path }}" />
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
                     <div class="col-md-8">
                         <h4><a href="{{ path('publication_show',{'id': pubFav.id }) }}">{{ pubFav.title }}</a></h4>
