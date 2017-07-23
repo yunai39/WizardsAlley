@@ -67,6 +67,7 @@ class DefaultController extends BaseController
         if (!$friend) {
             return new NotFoundResourceException();
         }
+        /** @var WizardUser $user */
         $user = $this->getUser();
         $user->addMyFriend($friend);
         // Creer la notification
@@ -118,22 +119,22 @@ class DefaultController extends BaseController
         /** @var FollowedNotification $notification */
         $notification     = $repoNotification->find($id);
         $dataNotification = $notification->getData();
-        $friend           = $repoUser->find($dataNotification['asked_to']);
-
-        if ($notification->getType() != FollowedNotification::TYPE_ASK_FRIEND || $dataNotification['asked_from'] != $user->getId() || !($friend instanceof WizardUser)) {
+        $friend           = $repoUser->find($dataNotification['asked_from']);
+        if ($notification->getType() != FollowedNotification::TYPE_ASK_FRIEND ||
+            $dataNotification['asked_to'] != $user->getId() ||
+            !($friend instanceof WizardUser)
+        ) {
             $request->getSession()->getFlashBag()->add('error', 'wizard.unknown_error');
 
             return $this->redirect($this->generateUrl('user_notification_index'));
         }
 
         $user->addFriendsWithMe($friend);
-        $friend->addMyFriend($user);
         $notification->setChecked(true);
 
         // Creer la notification comme quoi les utilisateurs sont maintenant amis
 
         $em->persist($user);
-        $em->persist($friend);
         $em->persist($notification);
 
         $em->flush();

@@ -91,8 +91,8 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * @ORM\ManyToMany(targetEntity="WizardUser", inversedBy="friendsWithMe")
      * @ORM\JoinTable(name="friends",
-     *      joinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")},
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      *      )
      **/
     private $myFriends;

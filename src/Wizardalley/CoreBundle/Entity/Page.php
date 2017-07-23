@@ -51,7 +51,7 @@ class Page implements TimedEntityInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="urlFacebook", type="string", length=255)
+     * @ORM\Column(name="urlFacebook", type="string", length=255, nullable=true)
      */
     private $urlFacebook;
 
