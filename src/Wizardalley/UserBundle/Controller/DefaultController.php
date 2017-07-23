@@ -63,17 +63,24 @@ class DefaultController extends BaseController
     ) {
         $em     = $this->getDoctrine()->getManager();
         $repo   = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+
+        /** @var WizardUser $friend */
         $friend = $repo->find($id_user);
         if (!$friend) {
             return new NotFoundResourceException();
         }
-        /** @var WizardUser $user */
-        $user = $this->getUser();
-        $user->addMyFriend($friend);
+        /** @var WizardUser $userAsking */
+        $userAsking = $this->getUser();
+        $notificationType = FollowedNotification::TYPE_ASK_FRIEND;
+        if ($userAsking->askingForFriendship($friend)) {
+            $notificationType = FollowedNotification::TYPE_ANSWERS_ASK_FRIEND;
+        }
+        $userAsking->addMyFriend($friend);
         // Creer la notification
         $followedNotification = new FollowedNotification();
+
         $followedNotification
-            ->setType(FollowedNotification::TYPE_ASK_FRIEND)
+            ->setType($notificationType)
             ->setChecked(false)
             ->setUser($friend)
             ->setCreatedAt(new \DateTime())
@@ -81,10 +88,8 @@ class DefaultController extends BaseController
             ->setDataNotification(
                 json_encode(
                     [
-                        'asked_from' => $this->get('security.token_storage')
-                          ->getToken()
-                          ->getUser()
-                          ->getId(),
+                        'asked_from' => $userAsking->getId(),
+                        'asked_from_username' => $userAsking->getUsername(),
                         'asked_to'   => $id_user
                     ],
                     true
@@ -92,7 +97,7 @@ class DefaultController extends BaseController
             )
         ;
 
-        $em->persist($user);
+        $em->persist($userAsking);
         $em->persist($followedNotification);
         $em->flush();
 
@@ -111,7 +116,6 @@ class DefaultController extends BaseController
     ) {
         /** @var WizardUser $user */
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $em   = $this->getDoctrine()->getManager();
         /** @var WizardUserRepository $repoUser */
         $repoUser = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
         /** @var FollowedNotificationRepository $repoNotification */
@@ -129,18 +133,10 @@ class DefaultController extends BaseController
             return $this->redirect($this->generateUrl('user_notification_index'));
         }
 
-        $user->addMyFriend($friend);
-        $notification->setChecked(true);
-
-        // Creer la notification comme quoi les utilisateurs sont maintenant amis
-
-        $em->persist($user);
-        $em->persist($notification);
-
-        $em->flush();
+        $this->addAsAFriendAction($request, $user->getId());
 
 
-        return $this->redirect($this->generateUrl('wizardalley_user_wall', ['id' => $friend->getId()]));
+        return $this->redirect($this->generateUrl('wizardalley_user_wall', ['id' => $dataNotification['asked_from']]));
     }
 
 

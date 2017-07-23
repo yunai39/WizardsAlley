@@ -20,7 +20,7 @@ security:
             form_login:
                 login_path: wizardalley_user_login
                 check_path: login_check
-                default_target_path:     fos_user_profile_show
+                default_target_path:     wizardalley_discover_index
             logout:
                 path:       logout
                 target:     wizardalley_user_login

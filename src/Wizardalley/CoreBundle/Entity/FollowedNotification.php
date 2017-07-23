@@ -16,6 +16,7 @@ use Wizardalley\CoreBundle\Entity\Traits\TimedEntityTrait;
 class FollowedNotification implements TimedEntityInterface
 {
     const TYPE_ASK_FRIEND = 'ask_friend';
+    const TYPE_ANSWERS_ASK_FRIEND = 'answer_ask_friend';
     const TYPE_MESSAGE = 'message';
     const TYPE_PUBLICATION = 'publication';
     use TimedEntityTrait;

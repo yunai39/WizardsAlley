@@ -1,12 +1,15 @@
 page:
     invite_friend: Inviter un ami
+    like: Liker la page
 wizard:
     notification:
         page_publication: >
             <a href="%page_link%">%page_name%</a> vient de publier une nouvelle publication: <a href="%publication_link%">%publication_name%</a>
         user_message: >
             <a href="%user_link%">%user_name%</a> a envoyer une nouvelle réponse sur le sujet <a href="%thread_link%">%thread_name%</a>
-
+        ask_as_friend: <a href="%user_link%">%user_name%</a> vous a envoyer une demande d'amitié
+        ask_as_friend_valid: Ajouter en tant qu'ami
+        answer_ask_friend: Vous êtes maintenant amis avec <a href="%user_link%">%user_name%</a> !!
     discover:
         team_choice: Le choix de notre équipe
         title: Dépêches magiques, expressions et autres curiosités<br>à découvrir au coeur de l'Allée des sorciers

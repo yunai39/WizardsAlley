@@ -217,6 +217,16 @@ class Publication extends AbstractPublication
         return $this->usersLiking;
     }
 
+    /**
+     * Get number of usersLiking
+     *
+     * @return int
+     */
+    public function countLike()
+    {
+        return count($this->usersLiking);
+    }
+
 
 
     public function __toString()
