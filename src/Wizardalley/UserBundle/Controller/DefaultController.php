@@ -129,7 +129,7 @@ class DefaultController extends BaseController
             return $this->redirect($this->generateUrl('user_notification_index'));
         }
 
-        $user->addFriendsWithMe($friend);
+        $user->addMyFriend($friend);
         $notification->setChecked(true);
 
         // Creer la notification comme quoi les utilisateurs sont maintenant amis
