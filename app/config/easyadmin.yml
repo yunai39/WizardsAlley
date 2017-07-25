@@ -43,6 +43,9 @@ easy_admin:
             disabled_actions: ['new', 'delete']
             class: Wizardalley\CoreBundle\Entity\Page
             list:
+                actions:
+                    - { name: 'page_fav', type: 'route' , icon: 'heart', label: 'Ajouter favoris'}
+                    - { name: 'page_unfav', type: 'route', icon: 'heart-o', label: 'Supprimer des favoris' }
                 fields:
                     - id
                     - name
@@ -99,6 +102,9 @@ easy_admin:
             disabled_actions: ['new', 'delete']
             class: Wizardalley\CoreBundle\Entity\Publication
             list:
+                actions:
+                    - { name: 'publication_fav', type: 'route' , icon: 'heart', label: 'Ajouter favoris'}
+                    - { name: 'publication_unfav', type: 'route', icon: 'heart-o', label: 'Supprimer des favoris' }
                 fields:
                     - id
                     - title

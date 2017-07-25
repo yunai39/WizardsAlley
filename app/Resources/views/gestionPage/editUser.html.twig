@@ -60,7 +60,7 @@
                         url: "{{path('wizard_search_user_json')}}/" + $("#search_user").val(),
                         dataType: "json",
                         success: function(data) {
-                            response(data);
+                            response(data.data);
                         }
                     });
                 },
