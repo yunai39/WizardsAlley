@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Wizardalley\CoreBundle\Entity\SmallPublication;
 use Wizardalley\PublicationBundle\Form\SmallPublicationType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * SmallPublication controller.
@@ -19,7 +20,8 @@ use Wizardalley\PublicationBundle\Form\SmallPublicationType;
 class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\BaseController{
     /**
      * Creates a new SmallPublication entity.
-     *
+     * @Route("/user/smallPublication/create", name="user_small_publication_create")
+     * @Method({"PUT", "POST"})
      */
     public function createAction(Request $request)
     {
@@ -37,8 +39,8 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             $em->flush();
             return $this->sendJsonResponse('success', ['message' => 'wizard.smallPublication.add.success']);
         }
-        
-        return $this->sendJsonResponse('error', 
+
+        return $this->sendJsonResponse('error',
             [
                 'message' => 'wizard.smallPublication.add.error',
                 'error'     => $form->getErrors()
@@ -66,7 +68,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
 
     /**
      * Displays a form to create a new SmallPublication entity.
-     *
+     * @Route("/user/smallPublication/new", name="user_small_publication_new")
      */
     public function newAction()
     {
@@ -81,7 +83,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
 
     /**
      * Finds and displays a SmallPublication entity.
-     *
+     * @Route("/smallPublication/{id}/show", name="user_small_publication_show", requirements={"id" = "\d+"})
      */
     public function showAction($id)
     {
@@ -101,7 +103,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
 
     /**
      * Displays a form to edit an existing SmallPublication entity.
-     *
+     * @Route("/user/smallPublication/{id}/edit", name="user_small_publication_edit", requirements={"id" = "\d+"})
      */
     public function editAction($id)
     {
@@ -142,6 +144,8 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
     /**
      * Edits an existing SmallPublication entity.
      *
+     * @Route("/user/smallPublication/{id}/update", name="user_small_publication_update", requirements={"id" = "\d+"})
+     * @Method({"PUT", "POST"})
      */
     public function updateAction(Request $request, $id)
     {

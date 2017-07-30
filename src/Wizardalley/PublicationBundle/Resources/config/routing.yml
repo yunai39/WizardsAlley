@@ -3,14 +3,17 @@ wizardalley_publication_publication:
     type:     annotation
     prefix:   /
 
+wizardalley_gestion_page:
+    resource: "@WizardalleyPublicationBundle/Controller/GestionPageController.php"
+    type:     annotation
+    prefix:   /
+
 wizardalley_publication_small_publication:
-    resource: "@WizardalleyPublicationBundle/Resources/config/routing/small_publication.yml"
+    resource: "@WizardalleyPublicationBundle/Controller/SmallPublicationController.php"
+    type:     annotation
     prefix:   /
 
 wizardalley_page:
-    resource: "@WizardalleyPublicationBundle/Resources/config/routing/page.yml"
-    prefix:   /
-
-wizardalley_gestion_page:
-    resource: "@WizardalleyPublicationBundle/Resources/config/routing/gestion_page.yml"
+    resource: "@WizardalleyPublicationBundle/Controller/PageController.php"
+    type:     annotation
     prefix:   /

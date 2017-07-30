@@ -1,0 +1,50 @@
+{% extends '::gestionPage/template.html.twig' %}
+
+
+{% block gestion %}
+
+    <h1>Publication list</h1>
+    <div class="count">
+        Nombre de publication total: {{ pagination.getTotalItemCount }}
+    </div>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Date Publication</th>
+            <th>Actions</th>
+        </tr>
+
+        {# table body #}
+        {% for publication in pagination %}
+            <tr {% if loop.index is odd %}class="color"{% endif %}>
+                <td>{{ publication.id }}</td>
+                <td>{{ publication.title }}</td>
+                <td>{{ publication.createdAt | date('Y-m-d') }}, {{ publication.createdAt | date('H:i:s') }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('publication_show', { 'id':  publication.id }) }}">show</a>
+                        </li>
+                        {%  if isAdmin or publication.user.id == app.user.id %}
+                            <li>
+                                <a href="{{ path('publication_edit', { 'id':  publication.id }) }}">edit</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    <ul>
+        <li>
+            <a href="{{ path('publication_new',{'id_page' : id_page}) }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

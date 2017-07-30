@@ -230,11 +230,8 @@ class PublicationController extends BaseController
                      ->find($id)
         ;
         $this->notFoundEntity($entity);
-        $this->creatorPublicationOnly($entity);
+        $this->creatorPublicationAndCreatorOnly($entity);
 
-        if ($entity->getUser() != $this->getUser()) {
-            throw $this->createAccessDeniedException('You are not allowed to edit this entity');
-        }
 
         $editForm = $this->createEditForm($entity);
 
@@ -300,17 +297,12 @@ class PublicationController extends BaseController
         ;
 
         $this->notFoundEntity($entity);
-        $this->creatorPublicationOnly($entity);
-
-        if ($entity->getUser() != $this->getUser()) {
-            throw $this->createAccessDeniedException('You are not allowed to edit this entity');
-        }
-
+        $this->creatorPublicationAndCreatorOnly($entity);
 
         /** @var ImagePublicationRepository $imageRepo */
-        $imageRepo = $em->getRepository('WizardalleyCoreBundle:ImagePublication');
+        $imageRepo     = $em->getRepository('WizardalleyCoreBundle:ImagePublication');
         $currentImages = $imageRepo->findBy(['publication' => $entity]);
-        $editForm = $this->createEditForm($entity);
+        $editForm      = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -324,7 +316,9 @@ class PublicationController extends BaseController
                     $em->persist($image);
                 }
                 foreach ($currentImages as $image) {
-                    if (!$entity->getImages()->contains($image)) {//employee was removed, update entity/entities
+                    if (!$entity->getImages()
+                                ->contains($image)
+                    ) {//employee was removed, update entity/entities
                         $em->remove($image);
                     }
                 }
@@ -665,12 +659,12 @@ class PublicationController extends BaseController
      *
      * @throws AccessDeniedException
      */
-    private function creatorPublicationOnly(Publication $entity)
+    private function creatorPublicationAndCreatorOnly(Publication $entity)
     {
         $user = $this->getUser();
-        if (!(($entity->getUser() == $user) or
-              ($entity->getPage()
-                      ->getCreator() == $user))
+        if (($entity->getUser() !== $user) and
+            ($entity->getPage()
+                    ->getCreator() !== $user)
         ) {
             throw new AccessDeniedException;
         }

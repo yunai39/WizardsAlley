@@ -8,6 +8,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Wizardalley\CoreBundle\Entity\PageCategory;
 use Wizardalley\CoreBundle\Entity\PageRepository;
 use Wizardalley\CoreBundle\Entity\PageUserFollow;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Class PageController
@@ -19,7 +22,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
 
     /**
      * @param $category_id
-     *
+     * @Route("/category/{category_id}", name="wizardalley_page_category", requirements={"category_id" = "\d+"})
      * @return Response
      */
     public function categoryPageIndexAction($category_id)
@@ -43,6 +46,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     /**
      * @param int $id_page
      *
+     * @Route("/page/show/{id_page}", name="page_show", requirements={"id_page" = "\d+"})
      * @return Response
      * @throws NotFoundHttpException
      */
@@ -68,6 +72,13 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     /**
      * @param int $id
      * @param int $page
+     * @Route(
+     *     "/page/publication/get/{id}/{page}",
+     *      name="page_publication_get",
+     *      requirements={"page" = "\d+", "id" = "\d+"},
+     *      defaults={"page" = 1},
+     *     options = {"expose" = true}
+     *     )
      *
      * @return Response
      */
@@ -92,6 +103,13 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
 
     /**
      * @param int $page
+     * @Route(
+     *     "/user/page/followed/{page}",
+     *      name="page_user_followed_get",
+     *      requirements={"page" = "\d+"},
+     *      defaults={"page" = 1},
+     *     options = {"expose" = true}
+     *     )
      *
      * @return Response
      */
@@ -109,6 +127,13 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     /**
      * @param int $page
      *
+     * @Route(
+     *     "/user/page/editor/{page}",
+     *      name="page_user_editor_get",
+     *      requirements={"page" = "\d+"},
+     *      defaults={"page" = 1},
+     *     options = {"expose" = true}
+     *     )
      * @return Response
      */
     public function getPageEditorAction($page = 1)
@@ -124,6 +149,13 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     /**
      * @param int $page
      *
+     * @Route(
+     *     "/user/page/created/{page}",
+     *      name="page_user_created_get",
+     *      requirements={"page" = "\d+"},
+     *      defaults={"page" = 1},
+     *     options = {"expose" = true}
+     *     )
      * @return Response
      */
     public function getPageCreatedAction($page = 1)
@@ -137,6 +169,11 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      *
+     * @Route(
+     *     "/user/page/like",
+     *      name="page_like",
+     *     options = {"expose" = true}
+     *     )
      * @return Response
      */
     public function likePageAction(Request $request)

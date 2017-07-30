@@ -8,6 +8,10 @@ use Wizardalley\PublicationBundle\Form\SmallPublicationType;
 use Wizardalley\CoreBundle\Entity\SmallPublication;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 
 /**
  * Class DefaultController
@@ -16,20 +20,11 @@ use Symfony\Component\HttpFoundation\Response;
 class DefaultController extends Controller
 {
     /**
-     * @return Response
-     */
-    public function homeAction()
-    {
-        return $this->render('::default/home.html.twig');
-    }
-
-    /**
      * indexAction
      *
      * This action will present the presentation page of the web site
      *
-     * pattern: /home
-     * road_name: wizardalley_default_homepage
+     * @Route("/user/home", name="wizardalley_default_homepage")
      *
      * @return Response
      */
@@ -47,8 +42,7 @@ class DefaultController extends Controller
      *
      * This action will present the legal mention page
      *
-     * pattern: /mention
-     * road_name: wizardalley_default_mention
+     * @Route("/mention", name="wizardalley_default_mention")
      *
      * @return Response
      */
@@ -63,8 +57,7 @@ class DefaultController extends Controller
      *
      * This action will present the copyright page
      *
-     * pattern: /copyright
-     * road_name: wizardalley_default_copyright
+     * @Route("/copyright", name="wizardalley_default_copyright")
      *
      * @return Response
      */
@@ -78,8 +71,7 @@ class DefaultController extends Controller
      *
      * This action will present the confidentiality page
      *
-     * pattern: /confidentiality
-     * road_name: wizardalley_default_confidentiality
+     * @Route("/confidentiality", name="wizardalley_default_confidentiality")
      *
      * @return Response
      */
@@ -93,8 +85,7 @@ class DefaultController extends Controller
      *
      * This action will present a contact form and treat it
      *
-     * pattern: /contact
-     * road_name: wizardalley_default_contact
+     * @Route("/contact", name="wizardalley_default_contact")
      *
      * @param Request $request http request
      *

@@ -15,11 +15,6 @@ wizardalley_admin_statistique:
     prefix:   /easyadmin
 
 
-wizardalley_core:
-    resource: "@WizardalleyCoreBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 wizardalley_publication:
     resource: "@WizardalleyPublicationBundle/Resources/config/routing.yml"
     prefix:   /
