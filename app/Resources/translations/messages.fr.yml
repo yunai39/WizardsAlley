@@ -20,6 +20,8 @@ wizard:
     publication:
         edit_success: La modification à été effectué
         new_succes: La publication a bien été effectué
+        images:
+          label: Image de la publication
     login:
         login: Login
         password: Mot de passe

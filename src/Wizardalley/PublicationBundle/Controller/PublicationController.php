@@ -6,6 +6,7 @@ use Composer\Repository\RepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\ImagePublication;
+use Wizardalley\CoreBundle\Entity\ImagePublicationRepository;
 use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\Publication;
 use Wizardalley\CoreBundle\Entity\CommentPublication;
@@ -41,17 +42,26 @@ class PublicationController extends BaseController
     {
         $entity = new Publication();
 
-        $em   = $this->getDoctrine()->getManager();
-        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
+        $em   = $this->getDoctrine()
+                     ->getManager()
+        ;
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')
+                   ->find($id_page)
+        ;
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
 
         $entity->setPage($page);
-        $form = $this->createCreateForm($entity, $page);
+        $form = $this->createCreateForm(
+            $entity,
+            $page
+        );
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()
+                       ->getManager()
+            ;
             $entity->setUser($this->getUser());
             $entity->setCreatedAt(new \DateTime('now'));
             $entity->setUpdatedAt(new \DateTime('now'));
@@ -60,7 +70,7 @@ class PublicationController extends BaseController
             $em->persist($entity);
             /** @var ImagePublication $image */
             if (!empty($entity->getImages())) {
-                foreach($entity->getImages() as $image) {
+                foreach ($entity->getImages() as $image) {
                     $image->setPublication($entity);
                     $em->persist($image);
                 }
@@ -68,17 +78,33 @@ class PublicationController extends BaseController
             $em->flush();
 
             // Generation des notifications
-            $this->get('wizard.helper.publication.notification')->generateNotificationForPublicationCreated($entity);
-            $this->get('session')->getFlashBag()->add('success', 'wizard.publication.new_success');
+            $this->get('wizard.helper.publication.notification')
+                 ->generateNotificationForPublicationCreated($entity)
+            ;
+            $this->get('session')
+                 ->getFlashBag()
+                 ->add(
+                     'success',
+                     'wizard.publication.new_success'
+                 )
+            ;
 
-            return $this->redirect($this->generateUrl('publication_show', array('id' => $entity->getId())));
+            return $this->redirect(
+                $this->generateUrl(
+                    'publication_show',
+                    ['id' => $entity->getId()]
+                )
+            );
         }
 
-        return $this->render('::publication/new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-            'page'   => $entity->getPage(),
-        ));
+        return $this->render(
+            '::publication/new.html.twig',
+            [
+                'entity' => $entity,
+                'form'   => $form->createView(),
+                'page'   => $entity->getPage(),
+            ]
+        );
     }
 
     /**
@@ -91,12 +117,23 @@ class PublicationController extends BaseController
      */
     private function createCreateForm(Publication $entity, $page)
     {
-        $form = $this->createForm(new PublicationType(), $entity, array(
-            'action' => $this->generateUrl('publication_create', array('id_page' => $page->getId())),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new PublicationType(),
+            $entity,
+            [
+                'action' => $this->generateUrl(
+                    'publication_create',
+                    ['id_page' => $page->getId()]
+                ),
+                'method' => 'POST',
+            ]
+        );
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add(
+            'submit',
+            'submit',
+            ['label' => 'Create']
+        );
 
         return $form;
     }
@@ -114,19 +151,30 @@ class PublicationController extends BaseController
     {
         $entity = new Publication();
 
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()
+                   ->getManager()
+        ;
 
-        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')
+                   ->find($id_page)
+        ;
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
 
         $entity->setPage($page);
-        $form = $this->createCreateForm($entity, $page);
-        return $this->render('::publication/new.html.twig', array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-            'page'   => $entity->getPage(),
-        ));
+        $form = $this->createCreateForm(
+            $entity,
+            $page
+        );
+
+        return $this->render(
+            '::publication/new.html.twig',
+            [
+                'entity' => $entity,
+                'form'   => $form->createView(),
+                'page'   => $entity->getPage(),
+            ]
+        );
     }
 
     /**
@@ -139,20 +187,29 @@ class PublicationController extends BaseController
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()
+                   ->getManager()
+        ;
 
-        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')
+                     ->find($id)
+        ;
         $this->notFoundEntity($entity);
 
         $comment     = new CommentPublication();
-        $commentForm = $this->createFormComment($comment, $id);
+        $commentForm = $this->createFormComment(
+            $comment,
+            $id
+        );
 
-
-        return $this->render('::publication/showPublication.html.twig', array(
-            'entity'       => $entity,
-            'entity_id'    => $id,
-            'comment_form' => $commentForm->createView(),
-        ));
+        return $this->render(
+            '::publication/showPublication.html.twig',
+            [
+                'entity'       => $entity,
+                'entity_id'    => $id,
+                'comment_form' => $commentForm->createView(),
+            ]
+        );
     }
 
     /**
@@ -165,9 +222,13 @@ class PublicationController extends BaseController
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()
+                   ->getManager()
+        ;
 
-        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')
+                     ->find($id)
+        ;
         $this->notFoundEntity($entity);
         $this->creatorPublicationOnly($entity);
 
@@ -177,11 +238,14 @@ class PublicationController extends BaseController
 
         $editForm = $this->createEditForm($entity);
 
-        return $this->render('::publication/edit.html.twig', array(
-            'entity'    => $entity,
-            'edit_form' => $editForm->createView(),
-            'page'      => $entity->getPage(),
-        ));
+        return $this->render(
+            '::publication/edit.html.twig',
+            [
+                'entity'    => $entity,
+                'edit_form' => $editForm->createView(),
+                'page'      => $entity->getPage(),
+            ]
+        );
     }
 
     /**
@@ -193,12 +257,23 @@ class PublicationController extends BaseController
      */
     private function createEditForm(Publication $entity)
     {
-        $form = $this->createForm(new PublicationType(), $entity, array(
-            'action' => $this->generateUrl('publication_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new PublicationType(),
+            $entity,
+            [
+                'action' => $this->generateUrl(
+                    'publication_update',
+                    ['id' => $entity->getId()]
+                ),
+                'method' => 'PUT',
+            ]
+        );
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        $form->add(
+            'submit',
+            'submit',
+            ['label' => 'Update']
+        );
 
         return $form;
     }
@@ -215,9 +290,14 @@ class PublicationController extends BaseController
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()
+                   ->getManager()
+        ;
 
-        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
+        /** @var Publication $entity */
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')
+                     ->find($id)
+        ;
 
         $this->notFoundEntity($entity);
         $this->creatorPublicationOnly($entity);
@@ -226,23 +306,56 @@ class PublicationController extends BaseController
             throw $this->createAccessDeniedException('You are not allowed to edit this entity');
         }
 
+
+        /** @var ImagePublicationRepository $imageRepo */
+        $imageRepo = $em->getRepository('WizardalleyCoreBundle:ImagePublication');
+        $currentImages = $imageRepo->findBy(['publication' => $entity]);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
+            $entity->setUpdatedAt(new \DateTime('now'));
+            // Gerer les images ajouter ou supprimer
+            /** @var ImagePublication $image */
+            if (!empty($entity->getImages())) {
+
+                foreach ($entity->getImages() as $image) {
+                    $image->setPublication($entity);
+                    $em->persist($image);
+                }
+                foreach ($currentImages as $image) {
+                    if (!$entity->getImages()->contains($image)) {//employee was removed, update entity/entities
+                        $em->remove($image);
+                    }
+                }
+            }
             $em->flush();
 
-            $this->get('session')->getFlashBag()->add('success', 'wizard.publication.edit_success');
-            return $this->redirect($this->generateUrl('publication_show', array('id' => $id)));
+            $this->get('session')
+                 ->getFlashBag()
+                 ->add(
+                     'success',
+                     'wizard.publication.edit_success'
+                 )
+            ;
+
+            return $this->redirect(
+                $this->generateUrl(
+                    'publication_show',
+                    ['id' => $id]
+                )
+            );
         }
 
-        return $this->render('::publication/edit.html.twig', array(
-            'entity'    => $entity,
-            'edit_form' => $editForm->createView(),
-            'page'      => $entity->getPage(),
-        ));
+        return $this->render(
+            '::publication/edit.html.twig',
+            [
+                'entity'    => $entity,
+                'edit_form' => $editForm->createView(),
+                'page'      => $entity->getPage(),
+            ]
+        );
     }
-
 
     /**
      * Creates a form to add a comment.
@@ -254,12 +367,23 @@ class PublicationController extends BaseController
      */
     private function createFormComment(CommentPublication $comment, $publicationId)
     {
-        $form = $this->createForm(new CommentType(), $comment, array(
-            'action' => $this->generateUrl('comment_add', array('id' => $publicationId)),
-            'method' => 'PUT',
-        ));
+        $form = $this->createForm(
+            new CommentType(),
+            $comment,
+            [
+                'action' => $this->generateUrl(
+                    'comment_add',
+                    ['id' => $publicationId]
+                ),
+                'method' => 'PUT',
+            ]
+        );
 
-        $form->add('submit', 'submit', array('label' => 'Add comment'));
+        $form->add(
+            'submit',
+            'submit',
+            ['label' => 'Add comment']
+        );
 
         return $form;
     }
@@ -277,27 +401,40 @@ class PublicationController extends BaseController
      */
     public function addCommentAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()
+                   ->getManager()
+        ;
 
-        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')
+                     ->find($id)
+        ;
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Publication entity.');
         }
         $comment = new CommentPublication();
-        $form    = $this->createFormComment($comment, $id);
+        $form    = $this->createFormComment(
+            $comment,
+            $id
+        );
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $comment
-                ->setUser($this->getUser())
-                ->setDateComment(new \DateTime('now'))
-                ->setContent("test")
-                ->setPublication($entity);
+            $comment->setUser($this->getUser())
+                    ->setDateComment(new \DateTime('now'))
+                    ->setContent("test")
+                    ->setPublication($entity)
+            ;
             $em->persist($comment);
             $em->flush();
         }
-        return $this->redirect($this->generateUrl('publication_show', array('id' => $id)));
+
+        return $this->redirect(
+            $this->generateUrl(
+                'publication_show',
+                ['id' => $id]
+            )
+        );
     }
 
     /**
@@ -314,15 +451,21 @@ class PublicationController extends BaseController
     public function getCommentAction($id, $page)
     {
         $limit = 2;
-        $em    = $this->getDoctrine()->getManager();
+        $em    = $this->getDoctrine()
+                      ->getManager()
+        ;
+
         return $this->sendJsonResponse(
             'success',
             null,
             200,
             [
-                'data' => $em
-                    ->getRepository('WizardalleyCoreBundle:CommentPublication')
-                    ->findCommentsPublication($id, $page, $limit)
+                'data' => $em->getRepository('WizardalleyCoreBundle:CommentPublication')
+                             ->findCommentsPublication(
+                                 $id,
+                                 $page,
+                                 $limit
+                             )
             ]
         );
     }
@@ -341,15 +484,23 @@ class PublicationController extends BaseController
     public function getPublicationAction($id, $page)
     {
         $limit = 2;
-        $em    = $this->getDoctrine()->getManager();
-        return $this->sendJsonResponse('success', [
-            'no_message' => true,
-            'data'       => $em
-                ->getRepository('WizardalleyCoreBundle:Publication')
-                ->findPublications($id, $page, $limit)
-        ]);
-    }
+        $em    = $this->getDoctrine()
+                      ->getManager()
+        ;
 
+        return $this->sendJsonResponse(
+            'success',
+            [
+                'no_message' => true,
+                'data'       => $em->getRepository('WizardalleyCoreBundle:Publication')
+                                   ->findPublications(
+                                       $id,
+                                       $page,
+                                       $limit
+                                   )
+            ]
+        );
+    }
 
     /**
      * getMostCommentPublicationAction
@@ -363,17 +514,27 @@ class PublicationController extends BaseController
     public function getMostCommentPublicationAction($page)
     {
         $limit = 2;
-        $em    = $this->getDoctrine()->getManager();
+        $em    = $this->getDoctrine()
+                      ->getManager()
+        ;
 
         return $this->sendJsonResponse(
-            'success', null, 200, [
-            'html' => $this->renderView(
-                '::user/publicationMostCommented.html.twig', array(
-                'publications' => $em
-                    ->getRepository('WizardalleyCoreBundle:Publication')
-                    ->findMostCommentedPublications($page, $limit),
-            ))
-        ]);
+            'success',
+            null,
+            200,
+            [
+                'html' => $this->renderView(
+                    '::user/publicationMostCommented.html.twig',
+                    [
+                        'publications' => $em->getRepository('WizardalleyCoreBundle:Publication')
+                                             ->findMostCommentedPublications(
+                                                 $page,
+                                                 $limit
+                                             ),
+                    ]
+                )
+            ]
+        );
     }
 
     /**
@@ -385,12 +546,19 @@ class PublicationController extends BaseController
      */
     public function getLatestPublicationAction()
     {
-        $em           = $this->getDoctrine()->getManager();
-        $publications = $em->getRepository('WizardalleyCoreBundle:Publication')->findLatestPublication();
+        $em           = $this->getDoctrine()
+                             ->getManager()
+        ;
+        $publications = $em->getRepository('WizardalleyCoreBundle:Publication')
+                           ->findLatestPublication()
+        ;
 
-        return  $this->render('::discover/latestPublication.html.twig', array(
+        return $this->render(
+            '::discover/latestPublication.html.twig',
+            [
                 'publications' => $publications
-        ));
+            ]
+        );
     }
 
     /**
@@ -406,23 +574,38 @@ class PublicationController extends BaseController
         /** @var WizardUser $user */
         $user = $this->getUser();
         /** @var RepositoryInterface $repo */
-        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:PublicationUserLike");
-        $publicationLike = $repo->findOneBy([
-            'user'        => $user->getId(),
-            'publication' => $publication->getId()
-        ]);
+        $repo            = $this->getDoctrine()
+                                ->getRepository("WizardalleyCoreBundle:PublicationUserLike")
+        ;
+        $publicationLike = $repo->findOneBy(
+            [
+                'user'        => $user->getId(),
+                'publication' => $publication->getId()
+            ]
+        );
 
         if (!$publicationLike instanceof PublicationUserLike) {
             $publicationLike = new PublicationUserLike();
-            $publicationLike->setUser($user)->setPublication($publication)->setDateLike(new \DateTime());
-            $em = $this->getDoctrine()->getManager();
+            $publicationLike->setUser($user)
+                            ->setPublication($publication)
+                            ->setDateLike(new \DateTime())
+            ;
+            $em = $this->getDoctrine()
+                       ->getManager()
+            ;
             $em->persist($publicationLike);
             $em->flush();
 
-            return $this->sendJsonResponse('success', []);
+            return $this->sendJsonResponse(
+                'success',
+                []
+            );
         }
 
-        return $this->sendJsonResponse('error', []);
+        return $this->sendJsonResponse(
+            'error',
+            []
+        );
     }
 
     /**
@@ -438,21 +621,33 @@ class PublicationController extends BaseController
         /** @var WizardUser $user */
         $user = $this->getUser();
         /** @var RepositoryInterface $repo */
-        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:PublicationUserLike");
-        $publicationLike = $repo->findOneBy([
-            'user'        => $user->getId(),
-            'publication' => $publication->getId()
-        ]);
+        $repo            = $this->getDoctrine()
+                                ->getRepository("WizardalleyCoreBundle:PublicationUserLike")
+        ;
+        $publicationLike = $repo->findOneBy(
+            [
+                'user'        => $user->getId(),
+                'publication' => $publication->getId()
+            ]
+        );
 
         if ($publicationLike instanceof PublicationUserLike) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->getDoctrine()
+                       ->getManager()
+            ;
             $em->remove($publicationLike);
             $em->flush();
 
-            return $this->sendJsonResponse('success', []);
+            return $this->sendJsonResponse(
+                'success',
+                []
+            );
         }
 
-        return $this->sendJsonResponse('error', []);
+        return $this->sendJsonResponse(
+            'error',
+            []
+        );
     }
 
     /**
@@ -473,7 +668,10 @@ class PublicationController extends BaseController
     private function creatorPublicationOnly(Publication $entity)
     {
         $user = $this->getUser();
-        if (!(($entity->getUser() == $user) or ($entity->getPage()->getCreator() == $user))) {
+        if (!(($entity->getUser() == $user) or
+              ($entity->getPage()
+                      ->getCreator() == $user))
+        ) {
             throw new AccessDeniedException;
         }
     }
@@ -484,7 +682,10 @@ class PublicationController extends BaseController
     private function creatorEditorOnly(Page $page)
     {
         $user = $this->getUser();
-        if (!(($page->getCreator() == $user) or ($page->getEditors()->contains($user)))) {
+        if (!(($page->getCreator() == $user) or
+              ($page->getEditors()
+                    ->contains($user)))
+        ) {
             throw new AccessDeniedException;
         }
     }

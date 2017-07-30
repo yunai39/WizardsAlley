@@ -4,7 +4,7 @@
     {{ tinymce_init() }}
     <h1>Publication creation</h1>
 
-<form action="{{path('publication_create',{'id_page': page.id })}}" method="POST" {{ form_enctype(form) }}>
+<form action="{{path('publication_create',{'id_page': page.id })}}" method="POST" {{ form_enctype(form) }} id="form-publication-create">
     {# affiche l'unique champ de la tâche : description #}
     {{ form_row(form.title) }}
     {{ form_row(form.content) }}
@@ -12,8 +12,11 @@
     <h3>Images</h3>
     <ul class="images" data-prototype="{{ form_widget(form.images.vars.prototype)|e }}">
         {% for image in form.images %}
-            <li>{{ form_row(image.file) }}</li>
-            <li>{{ form_row(image.description) }}</li>
+            <li class="wizardalley_publicationbundle_publication_images" data-form-id="{{ image.vars.name }}">
+                {{ form_row(image.description) }}
+                {{ form_row(image.file) }}
+                {{ form_row(image.delete) }}
+            </li>
         {% endfor %}
     </ul>
 
@@ -21,43 +24,51 @@
     
     
 {% endblock %}
-{% block javascripts %}
-    {{parent()}}
-    <script>
-        var collectionHolder = $('ul.images');
+    {% block javascripts %}
+        {{parent()}}
+        <script>
+            var collectionHolder = $('ul.images');
 
-        var $addImgLink = $('<a href="#" class="add_image_link">Ajouter une image</a>');
-        var $newLinkLi = $('<li></li>').append($addImgLink);
+            var $addImgLink = $('<a href="#" class="add_image_link">Ajouter une image</a>');
+            var $newLinkLi = $('<li></li>').append($addImgLink);
 
-        jQuery(document).ready(function() {
-            collectionHolder.append($newLinkLi);
+            jQuery(document).ready(function() {
+                collectionHolder.append($newLinkLi);
 
-            $addImgLink.on('click', function(e) {
-                e.preventDefault();
+                $addImgLink.on('click', function(e) {
+                    e.preventDefault();
 
-                addImgForm(collectionHolder, $newLinkLi);
+                    addImgForm(collectionHolder, $newLinkLi);
+                });
             });
-        });
-        
-        function addImgForm(collectionHolder, $newLinkLi) {
-            var prototype = collectionHolder.attr('data-prototype');
 
-            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
-            var $newFormLi = $('<li></li>').append(newForm);
-            $newLinkLi.before($newFormLi);
-            addImgFormDeleteLink($newFormLi);
-        }
-        function addImgFormDeleteLink($imgFormLi) {
-            var $removeFormA = $('<a href="#">Supprimer cette image</a>');
-            $imgFormLi.append($removeFormA);
+            function addImgForm(collectionHolder, $newLinkLi) {
+                var prototype = collectionHolder.attr('data-prototype');
 
-            $removeFormA.on('click', function(e) {
-                // empêche le lien de créer un « # » dans l'URL
-                e.preventDefault();
-
-                // supprime l'élément li pour le formulaire de tag
-                $imgFormLi.remove();
+                var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+                var $newFormLi = $('<li class="wizardalley_publicationbundle_publication_images"></li>').append(newForm);
+                $newLinkLi.before($newFormLi);
+            }
+            $('#form-publication-create').on('click', '.delete-img', function()
+            {
+                console.log($(this).closest('.wizardalley_publicationbundle_publication_images'));
+                $(this).closest('.wizardalley_publicationbundle_publication_images').remove();//remove element
+                //optionally submit department form via AJAX call to persist the delete
+                return false;//stop event
             });
-        }
-    </script>
-{% endblock %}
+
+            function addImgFormDeleteLink($imgFormLi) {
+                var $removeFormA = $('<a href="#">Supprimer cette image</a>');
+                $imgFormLi.append($removeFormA);
+
+                $removeFormA.on('click', function(e) {
+                    // empêche le lien de créer un « # » dans l'URL
+                    e.preventDefault();
+
+                    // supprime l'élément li pour le formulaire de tag
+                    $imgFormLi.remove();
+                });
+            }
+        </script>
+    {% endblock %}
+
