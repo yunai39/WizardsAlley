@@ -3,6 +3,7 @@
 namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Wizardalley\DefaultBundle\Controller\BaseController;
 
 /**
  * PublicationRepository
@@ -22,7 +23,7 @@ class PublicationRepository extends EntityRepository
     public function findPublications(
         $id_user,
         $page = 1,
-        $limit = 4
+        $limit = BaseController::BASE_LIMIT
     ) {
         $firstResult = ($page - 1) * $limit;
 
@@ -48,7 +49,7 @@ class PublicationRepository extends EntityRepository
      */
     public function findMostCommentedPublications(
         $page = 1,
-        $limit = 4
+        $limit = BaseController::BASE_LIMIT
     ) {
         $firstResult = ($page - 1) * $limit;
 
@@ -77,7 +78,7 @@ class PublicationRepository extends EntityRepository
     public function findPublicationLike(
         $like,
         $page = 1,
-        $limit = 4
+        $limit = BaseController::BASE_LIMIT
     ) {
         $firstResult = ($page - 1)*$limit;
         
@@ -110,7 +111,7 @@ class PublicationRepository extends EntityRepository
     public function findPublicationsPage(
         $id_page,
         $page = 1,
-        $limit = 4
+        $limit = BaseController::BASE_LIMIT
     ) {
         $firstResult = ($page - 1)*$limit;
         $sql = "
@@ -163,7 +164,7 @@ class PublicationRepository extends EntityRepository
      *
      * @return array
      */
-    public function findPublicationFavorite($page, $limit = 4)
+    public function findPublicationFavorite($page, $limit = BaseController::BASE_LIMIT)
     {
         $firstResult = ($page - 1)*$limit;
         $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');

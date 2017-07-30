@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  */
 class BaseController extends Controller
 {
+    const BASE_LIMIT = 8;
     /**
      * @param int   $status
      * @param array $data

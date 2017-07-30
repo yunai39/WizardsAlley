@@ -3,6 +3,7 @@
 namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Wizardalley\DefaultBundle\Controller\BaseController;
 
 /**
  * UserConnectedRepository
@@ -20,7 +21,7 @@ class WizardUserRepository extends EntityRepository
      *
      * @return array
      */
-    public function findFriends(WizardUser $user, $page = 1, $limit = 4)
+    public function findFriends(WizardUser $user, $page = 1, $limit = BaseController::BASE_LIMIT)
     {
         $offset = $limit * ($page - 1);
         $sql    = "
@@ -48,7 +49,7 @@ class WizardUserRepository extends EntityRepository
      *
      * @return array
      */
-    public function findPublicationUser(WizardUser $user, $publication_id, $limit)
+    public function findPublicationUser(WizardUser $user, $publication_id, $limit = BaseController::BASE_LIMIT)
     {
         $sql    = "
             (
@@ -109,13 +110,14 @@ class WizardUserRepository extends EntityRepository
     /**
      *
      * @param WizardUser $user
-     * @param int        $offset
+     * @param int        $page
      * @param int        $limit
      *
      * @return array
      */
-    public function findPublication(WizardUser $user, $offset, $limit)
+    public function findPublication(WizardUser $user, $page, $limit = BaseController::BASE_LIMIT)
     {
+        $offset = ($page - 1) * $limit;
         $sql    = "
             (
             select 
@@ -169,7 +171,7 @@ class WizardUserRepository extends EntityRepository
      * @return array
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function findPublicationWall(WizardUser $user, $id_last, $limit)
+    public function findPublicationWall(WizardUser $user, $id_last, $limit = BaseController::BASE_LIMIT)
     {
         if ($id_last) {
             $sqlLimit = "LIMIT 1," . $limit;
@@ -254,7 +256,7 @@ class WizardUserRepository extends EntityRepository
      *
      * @return array
      */
-    public function findUsersLike($like, $page = 1, $limit = 4)
+    public function findUsersLike($like, $page = 1, $limit = BaseController::BASE_LIMIT)
     {
         $firstResult = ($page - 1) * $limit;
 
@@ -275,7 +277,7 @@ class WizardUserRepository extends EntityRepository
      * @param WizardUser $user
      * @return array
      */
-    public function findUserConnected(WizardUser $user, $limit)
+    public function findUserConnected(WizardUser $user, $limit = BaseController::BASE_LIMIT)
     {
         $qb    = $this->_em->createQueryBuilder()
             ->distinct(true)

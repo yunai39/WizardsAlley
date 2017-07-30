@@ -3,6 +3,7 @@
 namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Wizardalley\DefaultBundle\Controller\BaseController;
 
 /**
  * FollowedNotificationRepository
@@ -23,7 +24,7 @@ class FollowedNotificationRepository extends EntityRepository
     public function findNotification(
         $id_user,
         $page = 1,
-        $limit = 4
+        $limit = BaseController::BASE_LIMIT
     ) {
         $firstResult = ($page - 1) * $limit;
 

@@ -2,6 +2,8 @@
 
 namespace Wizardalley\CoreBundle\Entity;
 
+use Wizardalley\DefaultBundle\Controller\BaseController;
+
 /**
  * PageFavoriteRepository
  *
@@ -18,7 +20,7 @@ class PageFavoriteRepository extends AdminRepository
      */
     public function findPageLimit(
         $page = 1,
-        $limit = 4
+        $limit = BaseController::BASE_LIMIT
     ) {
         $firstResult = ($page - 1) * $limit;
 

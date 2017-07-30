@@ -20,7 +20,7 @@ class InformationController extends BaseController
      *
      * This action will return the list of information
      *
-     * @Route("/user/information/{page}", name="wizardalley_information_page")
+     * @Route("/user/information/{page}", name="wizardalley_information_page", options = {"expose" = true})
      *
      * @param $page
      *
@@ -28,11 +28,9 @@ class InformationController extends BaseController
      */
     public function getInformationsAction($page)
     {
-        $em = $this->getDoctrine()
-                   ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var InformationBilletRepository $repo */
-        $repo = $em->getRepository('WizardalleyCoreBundle:InformationBillet');
+        $repo         = $em->getRepository('WizardalleyCoreBundle:InformationBillet');
         $informations = $repo->findInformationLimit(
             $page,
             1

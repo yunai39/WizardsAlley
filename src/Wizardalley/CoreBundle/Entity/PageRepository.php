@@ -3,6 +3,7 @@
 namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Wizardalley\DefaultBundle\Controller\BaseController;
 
 /**
  * PageRepository
@@ -18,7 +19,7 @@ class PageRepository extends EntityRepository
      *
      * @return array
      */
-    public function findLatestFollower($id_page, $limit = 9)
+    public function findLatestFollower($id_page, $limit = BaseController::BASE_LIMIT)
     {
         $qb     = $this->_em->createQueryBuilder()
                             ->select('u')
@@ -61,7 +62,7 @@ class PageRepository extends EntityRepository
      *
      * @return array
      */
-    public function findPageFollowedUser($id_user, $page = 1, $limit = 2)
+    public function findPageFollowedUser($id_user, $page = 1, $limit = BaseController::BASE_LIMIT)
     {
         $offset = $limit * ($page - 1);
         $query  = $this->_em->createQuery("SELECT p FROM Wizardalley\CoreBundle\Entity\Page p join p.followers puf join puf.user u WHERE u.id = ?1 ORDER BY puf.dateInscription ");
@@ -79,7 +80,7 @@ class PageRepository extends EntityRepository
      *
      * @return array
      */
-    public function findPageCreatedUser($id_user, $page = 1, $limit = 2)
+    public function findPageCreatedUser($id_user, $page = 1, $limit = BaseController::BASE_LIMIT)
     {
         $offset = $limit * ($page - 1);
         $query  = $this->_em->createQuery("SELECT p FROM Wizardalley\CoreBundle\Entity\Page p join p.creator u  WHERE u.id = ?1 ORDER BY p.id ");
@@ -97,7 +98,7 @@ class PageRepository extends EntityRepository
      *
      * @return array
      */
-    public function findPageEditorUser($id_user, $page = 1, $limit = 2)
+    public function findPageEditorUser($id_user, $page = 1, $limit = BaseController::BASE_LIMIT)
     {
         $offset = $limit * ($page - 1);
         $query  = $this->_em->createQuery("SELECT p FROM Wizardalley\CoreBundle\Entity\Page p join p.editors u  WHERE u.id = ?1 ORDER BY p.id ");
@@ -115,7 +116,7 @@ class PageRepository extends EntityRepository
      *
      * @return array
      */
-    public function findPagesLike($like, $page = 1, $limit = 4)
+    public function findPagesLike($like, $page = 1, $limit = BaseController::BASE_LIMIT)
     {
         $firstResult = ($page - 1) * $limit;
 

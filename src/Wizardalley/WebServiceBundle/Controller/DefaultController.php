@@ -38,10 +38,9 @@ class DefaultController extends BaseController
      * @Route("/getPublication/{publication_id}", name="wizard_api_get_publication_view", options={"expose"=true})
      */
     public function displayPublicationPageAction($publication_id){
-        $limit = 2;
         /** @var WizardUserRepository $repo */
         $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
-        $publications = $repo->findPublicationUser($this->getUser(),$publication_id, $limit);
+        $publications = $repo->findPublicationUser($this->getUser(),$publication_id);
         /** @var AssetsHelper $assetExtension */
         $assetExtension = $this->get('templating.helper.assets');
         $last_id = 1;
