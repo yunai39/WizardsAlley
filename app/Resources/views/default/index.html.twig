@@ -27,6 +27,12 @@
             </div>
             <div class="row">
                 <h3 class="col-md-12">Sujet les plus commentés</h3>
+                <div class="most-commented-block-wrapper col-md-12">
+
+                </div>
+                <div class="col-md-12">
+                    <button class="load-more-most-commented">Load More</button>
+                </div>
             </div>
             <div class="row">
                 <h3 class="col-md-12">Information</h3>
@@ -47,8 +53,13 @@
     <script>
         _$page = 1;
         _$pageInformation = 1;
+        _$pageMostCommented = 1;
         loadMore();
         loadMoreInformation();
+        loadMoreMostCommented();
+        $('.load-more-most-commented').on('click', function(){
+            loadMoreMostCommented();
+        });
         $('.load-more-publication').on('click', function(){
             loadMore();
         });
@@ -64,6 +75,10 @@
         function loadMoreInformation(){
             $result = util.loadMoreInfo(_$pageInformation);
             _$pageInformation = _$pageInformation+1;
+        };
+        function loadMoreMostCommented(){
+            $result = util.loadMoreMostCommented(_$pageMostCommented);
+            _$pageMostCommented = _$pageMostCommented+1;
         };
         
         $('#wizardalley_publicationbundle_add_small_publication').on('submit', function(e){

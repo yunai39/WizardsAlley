@@ -58,6 +58,7 @@ wizard:
             last_login: Dernière connexion
         wall:
             no_publication: Aucune publication
+            disabled: Utilisateur désacivé
     register:
         label:
             firstname: Prénom 

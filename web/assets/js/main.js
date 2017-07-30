@@ -56,6 +56,12 @@ var util = (function () {
             }), 'GET', _handler);
 
         },
+        "loadMoreMostCommented": function (_page) {
+            var handler = function (_data) {
+                $('.most-commented-block-wrapper').append(_data['extra']['html']);
+            };
+            this.loadMore(Routing.generate('publication_get_most_comments', {'page': _page}), 'GET', handler);
+        },
         /**
          *
          * @param _url
@@ -122,7 +128,6 @@ var util = (function () {
                     }
                     console.log(_success_function);
                     _success_function(data);
-                    //window[_success_function](data);
                 }
             });
         },

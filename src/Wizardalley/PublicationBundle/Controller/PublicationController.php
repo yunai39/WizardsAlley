@@ -355,7 +355,7 @@ class PublicationController extends BaseController
      * getMostCommentPublicationAction
      *
      *
-     * @Route("/publication/getMostComment/{page}", name="publication_get_most_comments")
+     * @Route("/publication/getMostComment/{page}", name="publication_get_most_comments", options={"expose"=true})
      * @param Page $page integer page number
      *
      * @return Response
@@ -364,11 +364,15 @@ class PublicationController extends BaseController
     {
         $limit = 2;
         $em    = $this->getDoctrine()->getManager();
-        return $this->sendJsonResponse('success', [
-            'no_message' => true,
-            'data'       => $em
-                ->getRepository('WizardalleyCoreBundle:Publication')
-                ->findCommentPublication($page, $limit)
+
+        return $this->sendJsonResponse(
+            'success', null, 200, [
+            'html' => $this->renderView(
+                '::user/publicationMostCommented.html.twig', array(
+                'publications' => $em
+                    ->getRepository('WizardalleyCoreBundle:Publication')
+                    ->findMostCommentedPublications($page, $limit),
+            ))
         ]);
     }
 

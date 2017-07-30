@@ -1,0 +1,52 @@
+{% for publication in publications %}
+    <div class="publication">
+        <div class="row ">
+            <div class="col-xs-2">
+
+                <div class="imgSquare">
+                    <div class="imgSquareContainer circle">
+                            <img class="circle"
+                                 src="{{ asset('uploads/page/profile/' ~ publication.page.pathProfile) }}"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-10">
+                    <p class="lead">
+                        <a href="{{ path('publication_show',{'id':publication.id}) }}">{{ publication.title }}</a>
+                    </p>
+                <p class="lead">
+                        <a href="{{ path('page_show', {'id_page': publication.page.id}) }}">{{ publication.page.name }}</a>
+                </p>
+                <p>{{ publication.createdAt | date('d/m/Y') }}
+                    - {{ publication.createdAt | date('H:i:s') }}</p>
+            </div>
+        </div>
+        <br/>
+
+        <div class="row">
+            <div class="col-md-12 text-align-right">
+                    <span class="label defaut-label">
+
+                            <a href="{{ path('publication_show',{'id':publication.id}) }}">{% trans %}
+                                publication.display.link{% endtrans %}</a>
+                    </span>
+                    <span class="label defaut-label">
+                        {% trans %}publication.comments{% endtrans %}
+                    </span>
+                        <button class="label defaut-label like-unlike-button"
+                                onclick="util.likeOrUnlikePublication({{ publication.id }})"
+                            {% if is_like(publication.id) %}
+                                value="unlike"
+                                >
+                                {% trans %}publication.unlike{% endtrans %}
+                            {% else %}
+                                value="like"
+                                >
+                                {% trans %}publication.like{% endtrans %}
+                            {% endif %}
+                        </button>
+            </div>
+        </div>
+
+    </div>
+{% endfor %}
