@@ -1,33 +1,33 @@
-{%  for notification in notifications %}
+{% for notification in notifications %}
     <div class="col-xs-12 col-md-4">
         <div class="jumbotron
         {% if notification.checked %}alert-info notification-viewed{% else %}notification-not-viewed alert-success{% endif %}"
         >
-            {%  if notification.type == 'publication' %}
+            {% if notification.type == 'publication' %}
                 {% trans with {
-                '%page_link%':  path('page_show', {id_page: notification.getData.page_id}) ,
+                '%page_link%': path('page_show', {id_page: notification.getData.page_id}),
                 '%page_name%': notification.getData.page_name,
-                '%publication_link%':  path('publication_show', {id: notification.getData.publication_id}) ,
-                '%publication_name%':  notification.getData.publication_title
+                '%publication_link%': path('user_notification_follow', {idNotification: notification.id}),
+                '%publication_name%': notification.getData.publication_title
                 } %}wizard.notification.page_publication{% endtrans %}&nbsp;
-            {%  elseif notification.type == 'message' %}
+            {% elseif notification.type == 'message' %}
                 {% trans with {
-                '%user_link%':  path('wizardalley_user_wall', {id: notification.getData.sender_id}) ,
+                '%user_link%': path('wizardalley_user_wall', {id: notification.getData.sender_id}),
                 '%user_name%': notification.getData.sender_name,
-                '%thread_link%':  path('fos_message_thread_view', {threadId: notification.getData.thread_id}) ,
-                '%thread_name%':  notification.getData.thread_name
+                '%thread_link%': path('user_notification_follow', {idNotification: notification.id}),
+                '%thread_name%': notification.getData.thread_name
                 } %}wizard.notification.user_message{% endtrans %}&nbsp;
-            {%  elseif notification.type == 'ask_friend' %}
+            {% elseif notification.type == 'ask_friend' %}
                 {% trans with {
-                '%user_link%':  path('wizardalley_user_wall', {id: notification.getData.asked_from}) ,
+                '%user_link%': path('wizardalley_user_wall', {id: notification.getData.asked_from}),
                 '%user_name%': notification.getData.asked_from_username,
                 } %}wizard.notification.ask_as_friend{% endtrans %}
                 <a href="{{ path('wizard_validate_friend', {id: notification.id}) }}">
                     {% trans %}wizard.notification.ask_as_friend_valid{% endtrans %}
                 </a>
-            {%  elseif notification.type == 'answer_ask_friend' %}
+            {% elseif notification.type == 'answer_ask_friend' %}
                 {% trans with {
-                '%user_link%':  path('wizardalley_user_wall', {id: notification.getData.asked_from}) ,
+                '%user_link%': path('user_notification_follow', {idNotification: notification.id}),
                 '%user_name%': notification.getData.asked_from_username,
                 } %}wizard.notification.answer_ask_friend{% endtrans %}
             {% endif %}

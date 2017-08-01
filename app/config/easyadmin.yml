@@ -51,12 +51,14 @@ easy_admin:
                     - name
                     - category
                     - officialPage
+                    - redactorPage
                     - { property: 'created_at', type: 'datetime' }
             form:
                 fields:
                     - name
                     - { property: 'description', type: 'ckeditor'}
                     - officialPage
+                    - redactorPage
                     - { property: 'fileProfile', type: 'vich_image'}
                     - { property: 'fileCouverture', type: 'vich_image'}
                     - { property: 'url_facebook', type: 'url' }

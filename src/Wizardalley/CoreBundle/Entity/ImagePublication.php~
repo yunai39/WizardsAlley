@@ -157,7 +157,7 @@ class ImagePublication
 
     public function setFile(File $image) {
 
-        $this->path = $image;
+        $this->file = $image;
 
         if ($image) {
             $this->updatedAt = new \DateTime('now');
@@ -166,19 +166,6 @@ class ImagePublication
 
     public function getFile(){
         return $this->file;
-    }
-
-    public function upload()
-    {
-        if (null === $this->file) {
-            return;
-        }
-        $ext = pathinfo($this->file->getClientOriginalName(), PATHINFO_EXTENSION);
-        $uniqtoken = uniqid();
-        $name = $uniqtoken.'.'.$ext;
-        $this->file->move($this->getUploadRootDir(), $name);
-        $this->path = $name;
-        $this->file = null;
     }
 
     /**

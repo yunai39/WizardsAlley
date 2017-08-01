@@ -14,14 +14,25 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12" >
-            {% if page.officialPage %}
-                <span class="label label-primary">Page officielle</span>{% endif %}
-            <h3>{{page.name}}</h3>
-        </div>
         <!-- Si l'utilisateur est authorise a changer les publications -->
         <div class="row" >
             <div class="col-md-3" >
+                <div class="row">
+
+                    <div class="col-md-12" >
+                        {% if page.officialPage %}
+                            <span class="label label-primary">{% trans %}wizard.page.label.official{% endtrans %}</span>
+                        {% endif %}
+                        {% if page.redactorPage %}
+                            <span class="label label-warning">{% trans %}wizard.page.label.redactor{% endtrans %}</span>
+                        {% endif %}
+                        <h3>{{page.name}}</h3>
+                        {#Afficher la categorie#}
+                        <h4>
+                            {% trans %}wizard.category.name{% endtrans %}: <a href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{page.category.name}}</a>
+                        </h4>
+                    </div>
+                </div>
                 {% if app.user %}
 
                     {% if  app.user in editors or app.user.id == creator_id %}

@@ -77,6 +77,13 @@ class Page implements TimedEntityInterface
     private $officialPage;
 
     /**
+     * @var \boolean
+     *
+     * @ORM\Column(name="redactor_page", type="boolean", options={"default" = 0})
+     */
+    private $redactorPage;
+
+    /**
     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\Publication", mappedBy="page", cascade={"remove", "persist"})
     */
     private $publications;
@@ -552,5 +559,28 @@ class Page implements TimedEntityInterface
     public function getOfficialPage()
     {
         return $this->officialPage;
+    }
+
+    /**
+     * Set redactorPage
+     *
+     * @param boolean $redactorPage
+     * @return Page
+     */
+    public function setRedactorPage($redactorPage)
+    {
+        $this->redactorPage = $redactorPage;
+
+        return $this;
+    }
+
+    /**
+     * Get redactorPage
+     *
+     * @return boolean 
+     */
+    public function getRedactorPage()
+    {
+        return $this->redactorPage;
     }
 }
