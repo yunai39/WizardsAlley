@@ -130,6 +130,7 @@ easy_admin:
                 dql_filter: "entity.roles like '%%ROLE_ADMIN%%'"
                 actions:
                   - { name: 'new', label: 'Créer un adminstrateur' }
+                  - { name: 'admin_user_edit', type: 'route' , icon: 'view', label: 'Information'}
             form:
                 fields:
                     - username
@@ -149,6 +150,8 @@ easy_admin:
                 edit: '@WizardalleyAdmin/User/show.html.twig'
             list:
                 dql_filter: "entity.roles like '%%a:0:{}%%'"
+                actions:
+                    - { name: 'admin_user_edit', type: 'route' , icon: 'view', label: 'Information'}
             form:
                 fields:
                     - username

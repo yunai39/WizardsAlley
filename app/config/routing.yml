@@ -1,8 +1,6 @@
 
 wizardalley_admin:
-    resource: "@WizardalleyAdminBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    resource: "@WizardalleyAdminBundle/Resources/config/routing.yml"
 
 easy_admin_bundle:
     resource: "@WizardalleyAdminBundle/Controller/AdminController.php"

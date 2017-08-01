@@ -1,6 +1,6 @@
-{% extends 'WizardalleyAdminBundle::adminBase.html.twig' %}
+{% extends '@EasyAdmin/default/layout.html.twig' %}
 
-{% block body_admin -%}
+{% block main -%}
     <div class="row">
         <div class="col-md-12">
             <h3>Edition de l'utilisateur: {{ user.username }}</h3>
@@ -99,9 +99,12 @@
 {%  endblock %}
 
 
-{% block javascripts %}
+{% block body_javascript %}
     {{parent()}}
+    <script src="/assets/js/plugins/admin-manager.js"></script>
+    <script src="/assets/jquery-ui/jquery-ui.js"></script>
     <script src="/assets/js/plugins/user-edit.js"></script>
+    <script src="/assets/js/underscore.min.js"></script>
     <script type="text/template" class="template-render-friend">
         <table class="table">
             <thead>

@@ -1,0 +1,4 @@
+wizardalley_user_admin:
+    resource: "@WizardalleyAdminBundle/Controller/UserController.php"
+    type:     annotation
+    prefix:   /
