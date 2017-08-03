@@ -1,12 +1,13 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <div class="row" style="background-image: url('{{asset(page.getPictureCouverture)}}');background-size:100% 100%;background-repeat:no-repeat;height: 30vw;">
+    <div class="row"
+         style="background-image: url('{{ asset(page.getPictureCouverture) }}');background-size:100% 100%;background-repeat:no-repeat;height: 30vw;">
         <div class="row" style="margin-top:20%;">
             <div class="col-md-2">
-                <div class="imgSquare " >
+                <div class="imgSquare ">
                     <div class="imgSquareContainer">
-                        <img src="{{asset(page.getPictureProfile())}}" />
+                        <img src="{{ asset(page.getPictureProfile()) }}"/>
                     </div>
                 </div>
             </div>
@@ -14,128 +15,121 @@
         </div>
     </div>
     <div class="row">
-        <!-- Si l'utilisateur est authorise a changer les publications -->
-        <div class="row" >
-            <div class="col-md-3" >
-                <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="row">
 
-                    <div class="col-md-12" >
-                        {% if page.officialPage %}
-                            <span class="label label-primary">{% trans %}wizard.page.label.official{% endtrans %}</span>
-                        {% endif %}
-                        {% if page.redactorPage %}
-                            <span class="label label-warning">{% trans %}wizard.page.label.redactor{% endtrans %}</span>
-                        {% endif %}
-                        <h3>{{page.name}}</h3>
-                        {#Afficher la categorie#}
-                        <h4>
-                            {% trans %}wizard.category.name{% endtrans %}: <a href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{page.category.name}}</a>
-                        </h4>
+                        <div class="col-md-12">
+                            {% if page.officialPage %}
+                                <span class="label label-primary">{% trans %}
+                                    wizard.page.label.official{% endtrans %}</span>
+                            {% endif %}
+                            {% if page.redactorPage %}
+                                <span class="label label-warning">{% trans %}
+                                    wizard.page.label.redactor{% endtrans %}</span>
+                            {% endif %}
+                            <h3>{{ page.name }}</h3>
+                            {#Afficher la categorie#}
+                            <h4>
+                                {% trans %}wizard.category.name{% endtrans %}: <a
+                                        href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{ page.category.name }}</a>
+                            </h4>
+                        </div>
                     </div>
-                </div>
-                {% if app.user %}
+                    {% if app.user %}
 
-                    {% if  app.user in editors or app.user.id == creator_id %}
-                        <div class="col-md-12" >
-                            <a href="{{path('page_gestion_show',{'id_page': page.id } ) }}"> <span class="icon-large icon icon-book"></span>{% trans %} wizard.page.gestion.edit {% endtrans %}</a>
+                        {% if  app.user in editors or app.user.id == creator_id %}
+                            <div class="col-md-12">
+                                <a href="{{ path('page_gestion_show',{'id_page': page.id } ) }}"> <span
+                                            class="icon-large icon icon-book"></span>{% trans %}
+                                    wizard.page.gestion.edit {% endtrans %}</a>
+                            </div>
+                        {% endif %}
+                    {% endif %}
+                    <div class="col-md-12">
+                        {% if page.urlFacebook != null %}
+                            <a href="{{ page.urlFacebook }}"/><span class="icon-large icon-facebook"
+                                                                    aria-hidden="true"></span> {{ page.urlFacebook }}</a>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-12">
+                        <span class="icon-large icon  icon-heart"></span> {% trans %}
+                        wizard.page.followers {% endtrans %} {{ page.followers | length }}
+                    </div>
+                    {% if app.user %}
+                        <div class="col-md-12">
+                            {% if page in app.user.getPageFollowedEntity %}
+                                <a href=""><span class="icon-large icon icon-user"></span> {% trans %}
+                                    page.invite_friend {% endtrans %}</a>
+                            {% else %}
+                                <a href="javascript:util.likePage({{ page.id }})"><span
+                                            class="icon-large icon icon-user"></span> {% trans %}
+                                    page.like {% endtrans %}</a>
+                            {% endif %}
                         </div>
                     {% endif %}
-                {% endif %}
-                <div class="col-md-12" >
-                    {% if page.urlFacebook != null %}
-                        <a href="{{page.urlFacebook}}" /><span class="icon-large icon-facebook" aria-hidden="true"></span> {{page.urlFacebook}}</a>
-                    {% endif %}
-                </div>
-                <div class="col-md-12" >
-                    <span class="icon-large icon  icon-heart"></span>  {% trans %} wizard.page.followers {% endtrans %} {{page.followers | length}}
-                </div>
-                    {% if app.user %}
-                    <div class="col-md-12" >
-                        {% if page in app.user.getPageFollowedEntity %}
-                        <a href=""><span class="icon-large icon icon-user"></span> {% trans %} page.invite_friend {% endtrans %}</a>
-                        {% else %}
-                        <a href="javascript:util.likePage({{page.id}})"><span class="icon-large icon icon-user"></span> {% trans %} page.like {% endtrans %}</a>
-                        {% endif %}
-                    </div>
-                    {% endif %}
-                <div class="row" >
-                    <div class="col-md-12">
-                        <h3>{% trans %} wizard.page.followers {% endtrans %}</h3>
-                        {% for user in followers %}
-                        <div class="squareUser">
-                            <a href="{{path('wizardalley_user_wall',{'id': user.id})}}">   
-                                <div class="imgSquare">
-                                    <div class="imgSquareContainer" >
-                                        <img src="
-                                        {% if user.pathProfile %}
-                                             {{asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile)}}
-                                        {% else %}
-                                            {{asset('uploads/profile/default.png')}}
-                                        {% endif %}" />
-                                        <p class="imgTitre">{{user.username}}</p>
-                                    </div>
-                               </div>
-                           </a>
-                       </div>
-                       {% endfor %}
-                    </div>
-                    <div class="col-md-12">
-                        <h3>{% trans %} wizard.page.editor {% endtrans %}</h3>
-                        {% for user in editors %}
-                        <div class="squareUser">
-                            <a href="{{path('wizardalley_user_wall',{'id': user.id})}}">   
-                                <div class="imgSquare">
-                                    <div class="imgSquareContainer" >
-                                        <img src="
-                                        {% if user.pathProfile %}
-                                             {{asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile)}}
-                                        {% else %}
-                                            {{asset('uploads/profile/default.png')}}
-                                        {% endif %}" />
-                                        <p class="imgTitre">{{user.username}}</p>
-                                    </div>
-                               </div>
-                           </a>
-                       </div>
-                       {% endfor %}
-                       </div>
-                   </div>
 
                 </div>
-                <div class="col-md-9">
-                    <p>{{page.description | raw}}</p>
+                <div class="col-md-6">
+                    <p>{{ page.description | raw }}</p>
+                </div>
+                <div class="col-md-3">
+                    <h3>{% trans %} wizard.page.followers {% endtrans %}</h3>
+                    {% for user in followers %}
+                        <div class="squareUser">
+                            <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
+                                <div class="imgSquare">
+                                    <div class="imgSquareContainer">
+                                        <img src="
+                                        {% if user.pathProfile %}
+                                             {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) }}
+                                        {% else %}
+                                            {{ asset('uploads/profile/default.png') }}
+                                        {% endif %}"/>
+                                        <p class="imgTitre">{{ user.username }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+    </div>
 
-        <div class="col-md-12">
-            <h3>{% trans %}wizard.page.publications{% endtrans %}</h3>
-            <div id="my_publication">
+    <div class="col-xs-12">
+        <h3>{% trans %}wizard.page.publications{% endtrans %}</h3>
+        <div id="my_publication">
 
-            </div>
-            <div >
-                <button class="load-more-publication" >More</button>
-            </div>
         </div>
+        <div>
+            <button class="load-more-publication">More</button>
+        </div>
+    </div>
 
-        {% endblock %}
+{% endblock %}
 
 
 {% block javascripts %}
-    {{parent()}}
+    {{ parent() }}
     <script>
         _$page = 1;
         loadMore();
-        $('.load-more-publication').on('click', function(){
+        $('.load-more-publication').on('click', function () {
             loadMore();
         });
-        
-        function loadMore(){
-            var _handler = function($data){
+
+        function loadMore() {
+            var _handler = function ($data) {
                 $('#my_publication').append($data['extra']['html']);
             };
-            $result = util.loadMore(Routing.generate('page_publication_get', {'id': {{page.id}} , 'page': _$page}), 'GET', _handler);
-            _$page = _$page+1;
-        };
+            $result = util.loadMore(Routing.generate('page_publication_get', {
+                'id': {{ page.id }} ,
+                'page': _$page
+            }), 'GET', _handler);
+            _$page = _$page + 1;
+        }
+        ;
     </script>
 {% endblock %}

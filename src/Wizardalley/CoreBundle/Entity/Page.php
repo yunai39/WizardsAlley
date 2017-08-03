@@ -72,14 +72,14 @@ class Page implements TimedEntityInterface
     /**
      * @var \boolean
      *
-     * @ORM\Column(name="official_page", type="boolean", options={"default" = 0})
+     * @ORM\Column(name="official_page", type="boolean", options={"default" = 0}, nullable=true)
      */
     private $officialPage;
 
     /**
      * @var \boolean
      *
-     * @ORM\Column(name="redactor_page", type="boolean", options={"default" = 0})
+     * @ORM\Column(name="redactor_page", type="boolean", options={"default" = 0}, nullable=true)
      */
     private $redactorPage;
 

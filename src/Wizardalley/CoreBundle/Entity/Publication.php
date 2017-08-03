@@ -43,7 +43,7 @@ class Publication extends AbstractPublication
     /**
      * @var \boolean
      *
-     * @ORM\Column(name="online", type="boolean", options={"default" = 0})
+     * @ORM\Column(name="online", type="boolean", options={"default" = 0}, nullable=true)
      */
     private $online;
 

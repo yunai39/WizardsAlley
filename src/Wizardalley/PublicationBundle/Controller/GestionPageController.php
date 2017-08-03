@@ -289,7 +289,7 @@ class GestionPageController extends Controller
      * Creates a new Publication entity.
      *
      * @Route("/user/page/create", name="page_gestion_create")
-     * @Method({"POST"})
+     * @Method({"POST", "PUT"})
      * @param Request $request
      *
      * @return Response
