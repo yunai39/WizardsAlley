@@ -109,6 +109,7 @@ easy_admin:
                     - { name: 'publication_unfav', type: 'route', icon: 'heart-o', label: 'Supprimer des favoris' }
                 fields:
                     - id
+                    - online
                     - title
                     - user
                     - created_at

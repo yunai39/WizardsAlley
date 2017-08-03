@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Wizardalley\CoreBundle\Entity\PublicationRepository;
+use Wizardalley\CoreBundle\Entity\WizardUser;
+use Wizardalley\PublicationBundle\Form\PageCheckerType;
 use Wizardalley\PublicationBundle\Form\PageType;
 use Wizardalley\PublicationBundle\Form\PageEditorType;
 use Wizardalley\CoreBundle\Entity\Page;
@@ -37,7 +40,8 @@ class GestionPageController extends Controller
      */
     public function indexAction($id_page)
     {
-        $em   = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
+        /** @var Page $page */
         $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
         $this->notFoundEntity($page);
@@ -55,24 +59,25 @@ class GestionPageController extends Controller
     }
 
     /**
-     * editUserFormAction
+     * editUserWriterFormAction
      *
      * This action will display a form to edit the user allowed to manage the page
-     * @Route("/page/gestion/user/{id_page}", name="page_gestion_user", requirements={"id_page" = "\d+"})
+     * @Route("/page/gestion/user/writer/{id_page}", name="page_gestion_user_writer", requirements={"id_page" = "\d+"})
      *
      * @param int $id_page
      *
      * @return Response
      */
-    public function editUserFormAction($id_page)
+    public function editUserWriterFormAction($id_page)
     {
-        $em   = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
+        /** @var Page $page */
         $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
         $this->notFoundEntity($page);
         $this->creatorOnly($page);
 
-        $form = $this->createFormUserPage($page);
+        $form = $this->createFormUserPage($page, 'page_gestion_user_writer_edit', new PageEditorType());
 
         return $this->render(
             '::gestionPage/editUser.html.twig',
@@ -84,10 +89,11 @@ class GestionPageController extends Controller
     }
 
     /**
-     * editUserFormAction
+     * editUserWriterAction
      *
      * This action will record the edition for the user management of the page
-     * @Route("/page/gestion/user/edit/{id_page}", name="page_gestion_user_edit", requirements={"id_page" = "\d+"})
+     * @Route("/page/gestion/user/edit/writer/{id_page}", name="page_gestion_user_writer_edit", requirements={"id_page"
+     *                                                    = "\d+"})
      *
      * @param Request $request
      * @param int     $id_page
@@ -95,7 +101,7 @@ class GestionPageController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      * @throws EntityNotFoundException
      */
-    public function editUserAction(Request $request, $id_page)
+    public function editUserWriterAction(Request $request, $id_page)
     {
         $em     = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
@@ -106,7 +112,7 @@ class GestionPageController extends Controller
         $this->notFoundEntity($entity);
         $this->creatorOnly($entity);
 
-        $editForm = $this->createFormUserPage($entity);
+        $editForm = $this->createFormUserPage($entity, 'page_gestion_user_writer_edit', new PageEditorType());
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -120,11 +126,93 @@ class GestionPageController extends Controller
             $em->flush();
             $this->get('session')->getFlashBag()->add('success', 'wizard.page.edit_success');
 
-            return $this->redirect($this->generateUrl('page_gestion_user', ['id_page' => $id_page]));
+            return $this->redirect($this->generateUrl('page_gestion_user_writer', ['id_page' => $id_page]));
         }
 
         return $this->render(
             '::gestionPage/editUser.html.twig',
+            [
+                'page' => $entity,
+                'form' => $editForm->createView(),
+            ]
+        );
+    }
+
+    /**
+     * editUserCheckedFormAction
+     *
+     * This action will display a form to edit the user allowed to manage the page
+     * @Route("/page/gestion/user/checker/{id_page}", name="page_gestion_user_checker", requirements={"id_page" =
+     *                                                "\d+"})
+     *
+     * @param int $id_page
+     *
+     * @return Response
+     */
+    public function editUserCheckedFormAction($id_page)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var Page $page */
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
+
+        $this->notFoundEntity($page);
+        $this->creatorOnly($page);
+
+        $form = $this->createFormUserPage($page, 'page_gestion_user_checker_edit', new PageCheckerType());
+
+        return $this->render(
+            '::gestionPage/editUserChecker.html.twig',
+            [
+                'page' => $page,
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+    /**
+     * editUserCheckerAction
+     *
+     * This action will record the edition for the user management of the page
+     * @Route("/page/gestion/user/checker/edit/{id_page}", name="page_gestion_user_checker_edit",
+     *                                                     requirements={"id_page" = "\d+"})
+     *
+     * @param Request $request
+     * @param int     $id_page
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @throws EntityNotFoundException
+     */
+    public function editUserCheckerAction(Request $request, $id_page)
+    {
+        $em     = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
+
+        if (!$entity instanceof Page) {
+            throw new EntityNotFoundException();
+        }
+        $this->notFoundEntity($entity);
+        $this->creatorOnly($entity);
+
+        $editForm = $this->createFormUserPage($entity, 'page_gestion_user_checker_edit', new PageCheckerType());
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+            $entity->removeAllChecker();
+            $checkers = $request->get('wizardalley_publicationbundle_page_checker');
+            /** @var WizardUser $checker */
+            foreach ($checkers['checkers'] as $checker) {
+                $entity->addChecker($em->getReference('WizardalleyCoreBundle:WizardUser', $checker[ 'id' ]));
+            }
+
+            $em->persist($entity);
+            $em->flush();
+            $this->get('session')->getFlashBag()->add('success', 'wizard.page.edit_success');
+
+            return $this->redirect($this->generateUrl('page_gestion_user_checker', ['id_page' => $id_page]));
+        }
+
+        return $this->render(
+            '::gestionPage/editUserChecker.html.twig',
             [
                 'page' => $entity,
                 'form' => $editForm->createView(),
@@ -242,7 +330,7 @@ class GestionPageController extends Controller
      * This action will display a form to edit the content of the page
      *
      *
-     * @Route("/user/page/create/{id_page}/{page}", name="page_gestion_publication", defaults={"page" = 1})
+     * @Route("/user/page/publication/{id_page}/{page}", name="page_gestion_publication", defaults={"page" = 1})
      * @param int $id_page
      * @param int $page
      *
@@ -250,13 +338,19 @@ class GestionPageController extends Controller
      */
     public function displayPublicationAction($id_page, $page = 1)
     {
-        $em         = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
+        /** @var PublicationRepository $repository */
         $repository = $em->getRepository('WizardalleyCoreBundle:Publication');
         /** @var Page $pageEntity */
         $pageEntity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
         $qb    = $repository->createQueryBuilder('p');
-        $query = $qb->join('p.page', 'pa')->where('pa.id = ' . $id_page)->orderBy('p.createdAt', 'DESC')->getQuery();
+        $query = $qb->join('p.page', 'pa')->where(' pa.id = ' . $id_page)
+            ->orderBy(
+                'p.createdAt',
+                'DESC'
+            )->getQuery()
+        ;
 
         $this->notFoundEntity($pageEntity);
         $this->creatorEditorOnly($pageEntity);
@@ -277,6 +371,8 @@ class GestionPageController extends Controller
             ]
         );
     }
+
+
 
     /**
      * createFormPage
@@ -338,13 +434,13 @@ class GestionPageController extends Controller
      *
      * @return Form
      */
-    private function createFormUserPage(Page $page)
+    private function createFormUserPage(Page $page, $route_name, $formType)
     {
         $form = $this->createForm(
-            new PageEditorType(),
+            $formType,
             $page,
             [
-                'action' => $this->generateUrl('page_gestion_user_edit', ['id_page' => $page->getId()]),
+                'action' => $this->generateUrl($route_name, ['id_page' => $page->getId()]),
                 'method' => 'PUT',
             ]
         );

@@ -1,0 +1,115 @@
+{% extends '::gestionPage/template.html.twig' %}
+
+{% block gestion %}
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div class="row">
+
+                <div class="ui-widget">
+                    <label for="search_user">Rechercher un utilisateur</label>
+                    <input id="search_user">
+                </div>
+                {% if form.checkers %}
+                    <ul class="checker" data-prototype="{{ form_widget(form.checkers.vars.prototype)|e }}">
+                        {% for checker in form.checkers %}
+                            <li>
+                                {{ form_errors(checker) }}
+                                {{ form_row(checker.id) }}</br>
+                                {{ form_row(checker.username) }}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {{ form_row(form.submit) }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+    {% endblock %}
+
+
+    {% block javascripts %}
+        {{parent()}}  
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script>
+
+
+            var $collectionHolder;
+
+
+            jQuery(document).ready(function() {
+                // Get the ul that holds the collection of tags
+                $collectionHolder = $('ul.checker');
+
+                $collectionHolder.find('li').each(function() {
+                    addCheckerFormDeleteLink($(this));
+                });
+
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            });
+            
+            $("#search_user").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "{{path('wizard_search_user_json')}}/" + $("#search_user").val(),
+                        dataType: "json",
+                        success: function(data) {
+                            response(data.data);
+                        }
+                    });
+                },
+                minLength: 3,
+                select: function(event, ui) {
+                    addCheckerForm($collectionHolder,ui.item);
+                },
+            });
+            
+            function addCheckerForm($collectionHolder,item) {
+                // test if the checker is not already in the list
+                if ( $('input[value='+item.id+']').length == 1) {
+                    alert('Element already selected');
+                    return;
+                }
+                
+                
+                // Get the data-prototype explained earlier
+                var prototype = $collectionHolder.data('prototype');
+
+                // get the new index
+                var index = $collectionHolder.data('index');
+
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+                newForm = newForm.replace(/_username"/g, '_username" value="'+item['value']+'"');
+                newForm = newForm.replace(/_id"/g, '_id" value="'+item['id']+'"');
+
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
+
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $('<li></li>').append(newForm);
+                $collectionHolder.append($newFormLi);
+                addCheckerFormDeleteLink($newFormLi);
+            }
+            
+            function addCheckerFormDeleteLink($checkerFormLi) {
+                var $removeFormA = $('<a href="#">delete this checker</a>');
+                $checkerFormLi.append($removeFormA);
+
+                $removeFormA.on('click', function(e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+
+                    // remove the li for the tag form
+                    $checkerFormLi.remove();
+                });
+            }
+        </script>
+    {% endblock %}

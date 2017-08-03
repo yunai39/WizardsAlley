@@ -1,7 +1,7 @@
 {% for publication in publications %}
     <div class="publication">
         <div class="row ">
-            <div class="col-xs-2">
+            <div class="col-xs-4">
 
                 <div class="imgSquare">
                     <div class="imgSquareContainer circle">
@@ -10,10 +10,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-10">
+            <div class="col-xs-8">
                     <p class="lead">
                         <a href="{{ path('publication_show',{'id':publication.id}) }}">{{ publication.title }}</a>
                     </p>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col-xs-12">
                 <p class="lead">
                         <a href="{{ path('page_show', {'id_page': publication.page.id}) }}">{{ publication.page.name }}</a>
                 </p>
@@ -21,30 +25,30 @@
                     - {{ publication.createdAt | date('H:i:s') }}</p>
             </div>
         </div>
-        <br/>
 
         <div class="row">
-            <div class="col-md-12 text-align-right">
-                    <span class="label defaut-label">
+            <div class="col-md-12">
+                    <button class="label defaut-label btn">
 
                             <a href="{{ path('publication_show',{'id':publication.id}) }}">{% trans %}
                                 publication.display.link{% endtrans %}</a>
-                    </span>
-                    <span class="label defaut-label">
-                        {% trans %}publication.comments{% endtrans %}
-                    </span>
-                        <button class="label defaut-label like-unlike-button"
-                                onclick="util.likeOrUnlikePublication({{ publication.id }})"
-                            {% if is_like(publication.id) %}
-                                value="unlike"
-                                >
-                                {% trans %}publication.unlike{% endtrans %}
-                            {% else %}
-                                value="like"
-                                >
-                                {% trans %}publication.like{% endtrans %}
-                            {% endif %}
-                        </button>
+                    </button>
+                    <button class="label defaut-label btn">
+                        <span>{{ publication.comments|length }}</span> {% trans %}publication.comments{% endtrans %}
+                    </button>
+                    <button class="label defaut-label like-unlike-button btn"
+                            data-id="{{ publication.id }}"
+                            onclick="util.likeOrUnlikePublication({{ publication.id }})"
+                        {% if is_like(publication.id) %}
+                            value="unlike"
+                            >
+                            {% trans %}publication.unlike{% endtrans %}
+                        {% else %}
+                            value="like"
+                            >
+                            {% trans %}publication.like{% endtrans %}
+                        {% endif %}
+                    </button>
             </div>
         </div>
 

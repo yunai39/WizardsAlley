@@ -97,18 +97,23 @@ class WizardUser extends BaseUser implements ParticipantInterface
      **/
     private $myFriends;
 
-
     /**
      * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Page", mappedBy="creator", cascade={"remove",
      *                                                                    "persist"})
      */
     private $pagesCreated;
 
-
     /**
-     * @ORM\ManyToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Page", mappedBy="editors")
+     * @ORM\ManyToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Page", mappedBy="editors", cascade={"remove",
+     *                                                                    "persist"})
      */
     private $pagesEditor;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Page", mappedBy="checkers", cascade={"remove",
+     *                                                                    "persist"})
+     */
+    private $pagesChecker;
 
     /**
      * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\PageUserFollow", mappedBy="user")
@@ -814,5 +819,38 @@ class WizardUser extends BaseUser implements ParticipantInterface
         $this->credentialsExpireAt = $credentialsExpireAt;
 
         return $this;
+    }
+
+    /**
+     * Add pagesChecker
+     *
+     * @param \Wizardalley\CoreBundle\Entity\Page $pagesChecker
+     * @return WizardUser
+     */
+    public function addPagesChecker(\Wizardalley\CoreBundle\Entity\Page $pagesChecker)
+    {
+        $this->pagesChecker[] = $pagesChecker;
+
+        return $this;
+    }
+
+    /**
+     * Remove pagesChecker
+     *
+     * @param \Wizardalley\CoreBundle\Entity\Page $pagesChecker
+     */
+    public function removePagesChecker(\Wizardalley\CoreBundle\Entity\Page $pagesChecker)
+    {
+        $this->pagesChecker->removeElement($pagesChecker);
+    }
+
+    /**
+     * Get pagesChecker
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPagesChecker()
+    {
+        return $this->pagesChecker;
     }
 }

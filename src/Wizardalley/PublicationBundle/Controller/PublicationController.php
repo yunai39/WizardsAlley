@@ -3,6 +3,7 @@
 namespace Wizardalley\PublicationBundle\Controller;
 
 use Composer\Repository\RepositoryInterface;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\ImagePublication;
@@ -27,7 +28,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class PublicationController extends BaseController
 {
-
     /**
      * Creates a new Publication entity.
      *
@@ -74,9 +74,9 @@ class PublicationController extends BaseController
             // Generation des notifications
             $this->get('wizard.helper.publication.notification')->generateNotificationForPublicationCreated($entity);
             $this->get('session')->getFlashBag()->add(
-                    'success',
-                    'wizard.publication.new_success'
-                )
+                'success',
+                'wizard.publication.new_success'
+            )
             ;
 
             return $this->redirect(
@@ -175,8 +175,13 @@ class PublicationController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var Publication $entity */
         $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
         $this->notFoundEntity($entity);
+
+        if ($entity->getOnline() == 0) {
+            throw $this->createNotFoundException('Unable to find Entity.');
+        }
 
         $comment     = new CommentPublication();
         $commentForm = $this->createFormComment(
@@ -190,6 +195,42 @@ class PublicationController extends BaseController
                 'entity'       => $entity,
                 'entity_id'    => $id,
                 'comment_form' => $commentForm->createView(),
+            ]
+        );
+    }
+
+    /**
+     * Finds and displays a Publication entity.
+     *
+     * @Route("/user/publication/{id}/preview", name="publication_preview")
+     * @param int $id
+     *
+     * @return Response
+     */
+    public function previewAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        /** @var Publication $entity */
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
+        $this->notFoundEntity($entity);
+
+        $page = $entity->getPage();
+
+        // Verifier les droits
+        $user = $this->getUser();
+
+        if (!($page->getCheckers()->contains($user) ||
+              $page->getEditors()->contains($user) ||
+              $page->getCreator() == $user)
+        ) {
+            throw new Exception('Access Forbidden');
+        }
+
+        return $this->render(
+            '::publication/previewPublication.html.twig',
+            [
+                'entity'    => $entity,
+                'entity_id' => $id
             ]
         );
     }
@@ -220,6 +261,40 @@ class PublicationController extends BaseController
                 'page'      => $entity->getPage(),
             ]
         );
+    }
+
+    /**
+     * @param $id
+     * @Route("/publication/{id}/toggleOnline", name="publication_toggle_online")
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function togglePublicationOnlineAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var Publication $entity */
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
+        $this->notFoundEntity($entity);
+
+        $user = $this->getUser();
+        if ((!$entity->getPage()->getCheckers()->contains($user)) and ($entity->getPage()->getCreator() !== $user)) {
+            throw new AccessDeniedException;
+        }
+
+        $entity->setOnline(!$entity->getOnline());
+        $em->persist($entity);
+        $em->flush();
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'wizard.publication.toogle_online.' . ($entity->getOnline() ? 'on' : 'off')
+        )
+        ;
+
+        /** @var Request $request */
+        $request = $this->get('request');
+
+        return $this->redirect($request->headers->get('referer'));
     }
 
     /**
@@ -297,9 +372,9 @@ class PublicationController extends BaseController
             $em->flush();
 
             $this->get('session')->getFlashBag()->add(
-                    'success',
-                    'wizard.publication.edit_success'
-                )
+                'success',
+                'wizard.publication.edit_success'
+            )
             ;
 
             return $this->redirect(
@@ -366,9 +441,10 @@ class PublicationController extends BaseController
     {
         $em = $this->getDoctrine()->getManager();
 
+        /** @var Publication $entity */
         $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
 
-        if (!$entity) {
+        if (!$entity || $entity->getOnline() == 0) {
             throw $this->createNotFoundException('Unable to find Publication entity.');
         }
         $comment = new CommentPublication();
@@ -417,9 +493,9 @@ class PublicationController extends BaseController
             200,
             [
                 'data' => $em->getRepository('WizardalleyCoreBundle:CommentPublication')->findCommentsPublication(
-                        $id,
-                        $page
-                    )
+                    $id,
+                    $page
+                )
             ]
         );
     }
@@ -438,15 +514,17 @@ class PublicationController extends BaseController
     public function getPublicationAction($id, $page)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var PublicationRepository $repo */
+        $repo = $em->getRepository('WizardalleyCoreBundle:Publication');
 
         return $this->sendJsonResponse(
             'success',
             [
                 'no_message' => true,
-                'data'       => $em->getRepository('WizardalleyCoreBundle:Publication')->findPublications(
-                        $id,
-                        $page
-                    )
+                'data'       => $repo->findPublications(
+                    $id,
+                    $page
+                )
             ]
         );
     }
@@ -463,6 +541,8 @@ class PublicationController extends BaseController
     public function getMostCommentPublicationAction($page)
     {
         $em = $this->getDoctrine()->getManager();
+        /** @var PublicationRepository $repo */
+        $repo = $em->getRepository('WizardalleyCoreBundle:Publication');
 
         return $this->sendJsonResponse(
             'success',
@@ -472,10 +552,9 @@ class PublicationController extends BaseController
                 'html' => $this->renderView(
                     '::user/publicationMostCommented.html.twig',
                     [
-                        'publications' => $em->getRepository('WizardalleyCoreBundle:Publication')
-                                             ->findMostCommentedPublications(
-                                                 $page
-                                             ),
+                        'publications' => $repo->findMostCommentedPublications(
+                            $page
+                        ),
                     ]
                 )
             ]
@@ -491,8 +570,10 @@ class PublicationController extends BaseController
      */
     public function getLatestPublicationAction()
     {
-        $em           = $this->getDoctrine()->getManager();
-        $publications = $em->getRepository('WizardalleyCoreBundle:Publication')->findLatestPublication();
+        $em = $this->getDoctrine()->getManager();
+        /** @var PublicationRepository $repo */
+        $repo         = $em->getRepository('WizardalleyCoreBundle:Publication');
+        $publications = $repo->findLatestPublication();
 
         return $this->render(
             '::discover/latestPublication.html.twig',

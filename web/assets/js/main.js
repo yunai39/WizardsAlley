@@ -88,7 +88,7 @@ var util = (function () {
          * Liker ou unlique une publication
          */
         "likeOrUnlikePublication": function (id) {
-            var $button = $('.like-unlike-button');
+            var $button = $('.like-unlike-button[data-id="' + id + '"]');
             if ($button.attr('value') == 'like') {
                 var _handler = function (data) {
                     $button.attr('value', 'unlike');

@@ -2,3 +2,19 @@ wizardalley_user_admin:
     resource: "@WizardalleyAdminBundle/Controller/UserController.php"
     type:     annotation
     prefix:   /
+
+easy_admin_bundle:
+    resource: "@WizardalleyAdminBundle/Controller/AdminController.php"
+    type:     annotation
+    prefix:   /easyadmin
+
+wizardalley_admin_statistique:
+    resource: "@WizardalleyAdminBundle/Controller/StatisticController.php"
+    type:     annotation
+    prefix:   /easyadmin
+
+
+wizardalley_user_easyadmin:
+    resource: "@WizardalleyAdminBundle/Controller/EasyAdminController.php"
+    type:     annotation
+    prefix:   /

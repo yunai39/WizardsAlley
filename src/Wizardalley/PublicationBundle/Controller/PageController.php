@@ -11,6 +11,7 @@ use Wizardalley\CoreBundle\Entity\PageUserFollow;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Wizardalley\CoreBundle\Entity\PublicationRepository;
 
 /**
  * Class PageController
@@ -46,7 +47,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     /**
      * @param int $id_page
      *
-     * @Route("/page/show/{id_page}", name="page_show", requirements={"id_page" = "\d+"})
+     * @Route("/page/show/{id_page}", name="page_show")
      * @return Response
      * @throws NotFoundHttpException
      */
@@ -84,6 +85,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
      */
     public function displayPublicationPageAction($id, $page)
     {
+        /** @var PublicationRepository $repo */
         $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Publication');
         $publications = $repo->findPublicationsPage($id, $page, self::LIMIT_PER_PAGE);
         return $this->sendJsonResponse(

@@ -59,12 +59,12 @@
     <div class="row">
         <div class="col-xs-12">
 
-            <h3>Commentaires</h3>
+            <h3>{% trans %}publication.comments{% endtrans %}</h3>
             <div class="comment_block">
                 <div id="comment_content">
 
                 </div>
-                <button class="wizard-load-comments">Plus de commentaires</button>
+                <button class="wizard-load-comments">{% trans %}publication.more_comments{% endtrans %}</button>
 
                 {% if app.user %}
                     <div>

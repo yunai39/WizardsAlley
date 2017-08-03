@@ -25,9 +25,15 @@
             </p>
             {%  if isAdmin == true %}
                 <p>
-                    <a href="{{ path('page_gestion_user',{'id_page': page.id}) }}">
+                    <a href="{{ path('page_gestion_user_writer',{'id_page': page.id}) }}">
                         <span class="glyphicon glyphicon-user"></span>
-                        &nbsp; {% trans %}wizard.page.gestion.editor {% endtrans %}
+                        &nbsp; {% trans %}wizard.page.gestion.editor{% endtrans %}
+                    </a>
+                </p>
+                <p>
+                    <a href="{{ path('page_gestion_user_checker',{'id_page': page.id}) }}">
+                        <span class="glyphicon glyphicon-user"></span>
+                        &nbsp; {% trans %}wizard.page.gestion.checker{% endtrans %}
                     </a>
                 </p>
             {% endif %}

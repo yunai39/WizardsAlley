@@ -30,7 +30,7 @@ class PublicationRepository extends EntityRepository
         $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
         $query = $qb
                     ->join('p.user', 'u')
-                    ->where('u.id = :id')
+                    ->where('u.id = :id and p.online = 1')
                     ->orderBy('p.created_at', 'DESC')
                     ->setFirstResult($firstResult)
                     ->setMaxResults($limit)
@@ -59,6 +59,7 @@ class PublicationRepository extends EntityRepository
                     ->leftJoin('p.comments', 'c')
                     ->orderBy('count(c.id)', 'DESC')
                     ->orderBy('c.dateComment', 'DESC')
+                    ->where('p.online = 1')
                     ->groupBy('p.id')
                     ->setFirstResult($firstResult)
                     ->setMaxResults($limit)
@@ -88,7 +89,7 @@ class PublicationRepository extends EntityRepository
         $query = $qb
                     ->addSelect('i')
                     ->join('p.images', 'i')
-                    ->where('p.title LIKE :like')
+                    ->where('p.title LIKE :like and p.online=1')
                     ->orderBy('p.title', 'DESC')
                     ->setFirstResult($firstResult)
                     ->setMaxResults($limit)
@@ -132,7 +133,7 @@ class PublicationRepository extends EntityRepository
                 left join wizard_user w on w.id = pa.user_id 
                 left join page p on p.id = pu.page_id
             where
-                p.id = ? 
+                p.id = ? and pu.online = 1
                 order by pa.created_at desc
                 limit {$firstResult},{$limit}
                 ";
@@ -149,7 +150,7 @@ class PublicationRepository extends EntityRepository
     public function findPublicationThisMonth()
     {
         $qb     = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query  = $qb->where('p.createdAt > :date')
+        $query  = $qb->where('p.createdAt > :date and p.online = 1')
                      ->setParameter(':date', (new \DateTime())->format('Y-m'))
                      ->getQuery()
         ;
@@ -170,6 +171,7 @@ class PublicationRepository extends EntityRepository
         $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
         $query = $qb
                     ->join('p.favorite', 'f')
+                    ->where('p.online = 1')
                     ->orderBy('f.dateFavorite', 'DESC')
                     ->setFirstResult($firstResult)
                     ->setMaxResults($limit)
@@ -190,6 +192,7 @@ class PublicationRepository extends EntityRepository
         $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
         $query = $qb
             ->orderBy('p.createdAt', 'DESC')
+            ->where('p.online = 1')
             ->setMaxResults(2)
             ->getQuery();
 

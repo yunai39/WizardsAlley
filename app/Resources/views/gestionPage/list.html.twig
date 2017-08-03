@@ -23,12 +23,29 @@
                 <td>{{ publication.createdAt | date('Y-m-d') }}, {{ publication.createdAt | date('H:i:s') }}</td>
                 <td>
                     <ul>
-                        <li>
-                            <a href="{{ path('publication_show', { 'id':  publication.id }) }}">show</a>
-                        </li>
+                        {% if publication.online %}
+                            <li>
+                                <a href="{{ path('publication_show', { 'id':  publication.id }) }}">show</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ path('publication_preview', { 'id':  publication.id }) }}">preview</a>
+                            </li>
+                        {% endif %}
                         {%  if isAdmin or publication.user.id == app.user.id %}
                             <li>
                                 <a href="{{ path('publication_edit', { 'id':  publication.id }) }}">edit</a>
+                            </li>
+                        {% endif %}
+                        {%  if isAdmin or publication.page.checkers.contains(app.user)%}
+                            <li>
+                                <a href="{{ path('publication_toggle_online', { 'id':  publication.id }) }}">
+                                    {% if publication.online %}
+                                        set offline
+                                    {% else %}
+                                        set online
+                                    {% endif %}
+                                </a>
                             </li>
                         {% endif %}
                     </ul>

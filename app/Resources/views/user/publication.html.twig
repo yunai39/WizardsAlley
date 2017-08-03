@@ -51,33 +51,34 @@
 
         <div class="row">
             <div class="col-md-12 text-align-right">
-                    <span class="label defaut-label">
+                <button class="label defaut-label btn">
 
-                        {% if publication.type == 'page_publication' %}
-                            <a href="{{ path('publication_show',{'id':publication.publication_id}) }}">{% trans %}
-                                publication.display.link{% endtrans %}</a>
-                        {% else %}
-                            <a href="{{ path('user_small_publication_show',{'id':publication.publication_id}) }}">{% trans %}
-                                publication.display.link{% endtrans %}</a>
-                        {% endif %}
-                    </span>
-                    <span class="label defaut-label">
-                        {% trans %}publication.comments{% endtrans %}
-                    </span>
                     {% if publication.type == 'page_publication' %}
-                        <button class="label defaut-label like-unlike-button"
-                                onclick="util.likeOrUnlikePublication({{ publication.publication_id }})"
-                            {% if is_like(publication.publication_id) %}
-                                value="unlike"
-                                >
-                                {% trans %}publication.unlike{% endtrans %}
-                            {% else %}
-                                value="like"
-                                >
-                                {% trans %}publication.like{% endtrans %}
-                            {% endif %}
-                        </button>
+                        <a href="{{ path('publication_show',{'id':publication.publication_id}) }}">{% trans %}
+                            publication.display.link{% endtrans %}</a>
+                    {% else %}
+                        <a href="{{ path('user_small_publication_show',{'id':publication.publication_id}) }}">{% trans %}
+                            publication.display.link{% endtrans %}</a>
                     {% endif %}
+                </button>
+                <button class="label defaut-label btn">
+                    {% trans %}publication.comments{% endtrans %}
+                </button>
+                {% if publication.type == 'page_publication' %}
+                    <button class="label defaut-label like-unlike-button btn"
+                            data-id="{{ publication.publication_id }}"
+                            onclick="util.likeOrUnlikePublication({{ publication.publication_id }})"
+                        {% if is_like(publication.publication_id) %}
+                            value="unlike"
+                            >
+                            {% trans %}publication.unlike{% endtrans %}
+                        {% else %}
+                            value="like"
+                            >
+                            {% trans %}publication.like{% endtrans %}
+                        {% endif %}
+                    </button>
+                {% endif %}
             </div>
         </div>
 

@@ -132,7 +132,7 @@ class WizardUserRepository extends EntityRepository
                 left join abstract_publication pa
                 on pa.id = pu.id
               left join page p on pu.page_id = p.id 
-            where pa.user_id = :user_id_1)
+            where pa.user_id = :user_id_1 and pu.online = 1)
             UNION
             (
             select 

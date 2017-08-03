@@ -2,16 +2,6 @@
 wizardalley_admin:
     resource: "@WizardalleyAdminBundle/Resources/config/routing.yml"
 
-easy_admin_bundle:
-    resource: "@WizardalleyAdminBundle/Controller/AdminController.php"
-    type:     annotation
-    prefix:   /easyadmin
-
-wizardalley_admin_statistique:
-    resource: "@WizardalleyAdminBundle/Controller/StatisticController.php"
-    type:     annotation
-    prefix:   /easyadmin
-
 
 wizardalley_publication:
     resource: "@WizardalleyPublicationBundle/Resources/config/routing.yml"

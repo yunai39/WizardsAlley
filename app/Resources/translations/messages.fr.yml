@@ -1,6 +1,9 @@
 page:
     invite_friend: Inviter un ami
     like: Liker la page
+publication:
+    like: Like
+    unlike: Unlike
 wizard:
     notification:
         page_publication: >
@@ -19,7 +22,7 @@ wizard:
             publication: Nos publications préférées
     publication:
         edit_success: La modification à été effectué
-        new_succes: La publication a bien été effectué
+        new_success: La publication a bien été crée
         images:
           label: Image de la publication
     login:
@@ -92,6 +95,7 @@ wizard:
         editor: Éditeur
         gestion:
             editor: Gestion des éditeurs
+            checker: Gestion des validateurs
             publication:
                 edit: Édition des publications
             edit: Édition de la page
@@ -101,4 +105,3 @@ wizard:
         edit_success: Les editeurs ont bien été modifiés
         user:
             edit_success: Les modifications ont bien été modifiés
-wizard.publication.new_success: La publication a bien été crée

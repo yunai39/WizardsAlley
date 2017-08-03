@@ -39,6 +39,13 @@ class Publication extends AbstractPublication
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
      */
     private $page;
+    
+    /**
+     * @var \boolean
+     *
+     * @ORM\Column(name="online", type="boolean", options={"default" = 0})
+     */
+    private $online;
 
     /**
      * @var string
@@ -232,5 +239,28 @@ class Publication extends AbstractPublication
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    /**
+     * Set online
+     *
+     * @param boolean $online
+     * @return Publication
+     */
+    public function setOnline($online)
+    {
+        $this->online = $online;
+
+        return $this;
+    }
+
+    /**
+     * Get online
+     *
+     * @return boolean 
+     */
+    public function getOnline()
+    {
+        return $this->online;
     }
 }

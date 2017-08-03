@@ -103,6 +103,12 @@ class Page implements TimedEntityInterface
     private $editors;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesChecker")
+     * @ORM\JoinTable(name="page_user_checker")
+     */
+    private $checkers;
+
+    /**
      * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PageUserFollow", mappedBy="page")
      */
     private $followers;
@@ -582,5 +588,47 @@ class Page implements TimedEntityInterface
     public function getRedactorPage()
     {
         return $this->redactorPage;
+    }
+
+    /**
+     * Add checkers
+     *
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $checkers
+     * @return Page
+     */
+    public function addChecker(\Wizardalley\CoreBundle\Entity\WizardUser $checkers)
+    {
+        $this->checkers[] = $checkers;
+
+        return $this;
+    }
+
+    /**
+     * Remove checkers
+     *
+     * @param \Wizardalley\CoreBundle\Entity\WizardUser $checkers
+     */
+    public function removeChecker(\Wizardalley\CoreBundle\Entity\WizardUser $checkers)
+    {
+        $this->checkers->removeElement($checkers);
+    }
+
+    /**
+     * Remove Checkers
+     *
+     */
+    public function removeAllChecker()
+    {
+        $this->checkers->clear();
+        return $this;
+    }
+    /**
+     * Get checkers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCheckers()
+    {
+        return $this->checkers;
     }
 }

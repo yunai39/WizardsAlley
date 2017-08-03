@@ -2,6 +2,7 @@ publication:
   display:
     link: Afficher
   comments: Commentaires
+  more_comments: Plus de commentaires
   like: Aimer
   ilike: J'aime
 wizard:
