@@ -1,31 +1,29 @@
+{% for publication in publications %}
+    <div class="publication">
+        <div class="row ">
+            <div class="col-md-2">
 
-
-    {% for publication in publications %}
-        <div class="publication">
-            <div class="row ">
-                <div class="col-md-2">
-
-                    <div class="imgSquare">
-                        <div class="imgSquareContainer" >
-                            <img src="{{asset('uploads/publications/' ~ publication.path)}}" />
-                        </div>
+                <div class="imgSquare">
+                    <div class="imgSquareContainer" >
+                        <img src="{{asset('uploads/publications/' ~ publication.path)}}" />
                     </div>
                 </div>
-                <div class="col-md-10">
-                    <h2><a href="{{path('publication_show',{'id': publication.id })}}" >{{publication.title}}</a></h2>
-                    <h3>Par <a href="{{path('wizardalley_user_wall',{'id': publication.user_id})}}" >{{publication.username}}</a>,le {{publication.created_at | date('Y-m-d')}} à {{publication.created_at | date('H:i:s')}}</h3>
-                </div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <p>{{publication.small_content | raw}}</p>
-                </div>
+            <div class="col-md-10">
+                <h2><a href="{{path('publication_show',{'id': publication.id })}}" >{{publication.title}}</a></h2>
+                <h3>Par <a href="{{path('wizardalley_user_wall',{'id': publication.user_id})}}" >{{publication.username}}</a>,le {{publication.created_at | date('Y-m-d')}} à {{publication.created_at | date('H:i:s')}}</h3>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h6>{% trans %}publication.comments{% endtrans %}</h6>
-                </div>
-            </div>
-                
         </div>
-    {% endfor %}
+        <div class="row">
+            <div class="col-md-12">
+                <p>{{publication.small_content | raw}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h6>{% trans %}publication.comments{% endtrans %}</h6>
+            </div>
+        </div>
+
+    </div>
+{% endfor %}

@@ -5,8 +5,17 @@ publication:
     like: Like
     unlike: Unlike
 wizard:
+    banner: Dépêches favorites et publications de vos amis du monde magique
+    home:
+        h1: Bienvenue amis sorciers sur le portail magique de l'Allée des Sorciers.
+        h2: Attention aux prunes dirigeables !
+        express_yourself: Exprimez vous
+        your_publication: Vos publications
+        most_commented: Sujets les plus commentés
+        informations: Billet d'information
     utility:
         load_more: Charger plus
+        search: Recherche
     notification:
         page_publication: >
             <a href="%page_link%">%page_name%</a> vient de publier une nouvelle publication: <a href="%publication_link%">%publication_name%</a>
@@ -23,8 +32,12 @@ wizard:
             page: Nos pages préférées
             publication: Nos publications préférées
     publication:
+        edit: Édition de publication
+        add_image: Ajouter une image
+        delete_image: Supprimer une image
         edit_success: La modification à été effectué
         new_success: La publication a bien été crée
+        create: Création d'une publication
         images:
           label: Image de la publication
     login:
@@ -54,6 +67,7 @@ wizard:
         notification:
             title: Notifications
             mark_all_as_read: Tous marquer comme lu
+            load_more: Plus de notification
 
         profile:
             lastname: Prénom
@@ -88,7 +102,26 @@ wizard:
             message: Votre message
     wall:
         friend: Amis
+        ask_ongoing: Demande en cours
     page:
+        publication_list: Liste des publications
+        list:
+            id: Id
+            title: Titre
+            date: Date de publication
+            actions: Actions
+            set_offline: Désactiver
+            set_online: Activer
+            edit: Éditer
+            show: Afficher
+            preview: Prévisualiser
+            create_publication: Créer une nouvelle publication
+        number_publication: Nombre de publication total
+        edit_user:
+            search: Rechercher un utilisateur
+            alrady_selected: Utilisateur déjà sélectionné
+            delete_editor: Supprimer cet éditeur
+            delete_checker: Supprimer ce validateur
         label:
             official: Page officielle
             redactor: Page rédacteur

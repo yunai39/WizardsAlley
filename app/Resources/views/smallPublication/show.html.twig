@@ -14,7 +14,7 @@
                 <div class="col-xs-8">
                     <h3>Par 
                             <a href="{{path('wizardalley_user_wall', {'id': entity.user.id})}}" >{{entity.user.username}}</a>
-                        , le {{entity.created_at | date('Y-m-d')}} à {{entity.created_at | date('H:i:s')}}
+                        , le {{entity.createdAt | date('Y-m-d')}} à {{entity.createdAt | date('H:i:s')}}
                     </h3>
                 </div>
             </div>

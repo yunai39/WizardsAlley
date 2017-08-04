@@ -39,7 +39,7 @@
                         {% if app.user.isFriend(user)  %}
                             <div >{% trans %}wizard.wall.friend{% endtrans %}</div>
                         {% elseif app.user.askedAsAFriend(user) %}
-                            <div>Demande en cours</div>
+                            <div>{% trans %}wizard.wall.ask_ongoing{% endtrans %}</div>
                         {% elseif app.user.askingForFriendship(user) %}
                             <div><a href="{{path('wizard_add_as_a_friend', {id_user: user.id})}}">Demande d'amitié, confirmer la demande</a></div>
                         {% else %}
@@ -54,7 +54,7 @@
 
                 </div>
                 <div >
-                    <button id="loadMorePublication" >More</button>
+                    <button id="loadMorePublication" >{% trans %}wizard.utility.load_more{% endtrans %}</button>
                 </div>
 
             </div>

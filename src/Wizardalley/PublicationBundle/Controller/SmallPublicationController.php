@@ -67,21 +67,6 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
     }
 
     /**
-     * Displays a form to create a new SmallPublication entity.
-     * @Route("/user/smallPublication/new", name="user_small_publication_new")
-     */
-    public function newAction()
-    {
-        $entity = new SmallPublication();
-        $form   = $this->createCreateForm($entity);
-
-        return $this->render('::smallPublication/new.html.twig',array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        ));
-    }
-
-    /**
      * Finds and displays a SmallPublication entity.
      * @Route("/smallPublication/{id}/show", name="user_small_publication_show", requirements={"id" = "\d+"})
      */
@@ -98,77 +83,6 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
 
         return $this->render('::smallPublication/show.html.twig', array(
             'entity'      => $entity,
-        ));
-    }
-
-    /**
-     * Displays a form to edit an existing SmallPublication entity.
-     * @Route("/user/smallPublication/{id}/edit", name="user_small_publication_edit", requirements={"id" = "\d+"})
-     */
-    public function editAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('WizardalleyCoreBundle:SmallPublication')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find SmallPublication entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-
-        return $this->render('::smallPublication/edit.html.twig',array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
-        ));
-    }
-
-    /**
-    * Creates a form to edit a SmallPublication entity.
-    *
-    * @param SmallPublication $entity The entity
-    *
-    * @return \Symfony\Component\Form\Form The form
-    */
-    private function createEditForm(SmallPublication $entity)
-    {
-        $form = $this->createForm(new SmallPublicationType(), $entity, array(
-            'action' => $this->generateUrl('user_small_publication_update', array('id' => $entity->getId())),
-            'method' => 'PUT',
-        ));
-
-        $form->add('submit', 'submit', array('label' => 'Update'));
-
-        return $form;
-    }
-    /**
-     * Edits an existing SmallPublication entity.
-     *
-     * @Route("/user/smallPublication/{id}/update", name="user_small_publication_update", requirements={"id" = "\d+"})
-     * @Method({"PUT", "POST"})
-     */
-    public function updateAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('WizardalleyCoreBundle:SmallPublication')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find SmallPublication entity.');
-        }
-
-        $editForm = $this->createEditForm($entity);
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('user_small_publication_edit', array('id' => $id)));
-        }
-
-        return $this->render('::smallPublication/edit.html.twig',array(
-            'entity'      => $entity,
-            'edit_form'   => $editForm->createView(),
         ));
     }
 }

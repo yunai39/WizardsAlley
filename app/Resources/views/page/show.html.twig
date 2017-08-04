@@ -22,18 +22,16 @@
 
                         <div class="col-md-12">
                             {% if page.officialPage %}
-                                <span class="label label-primary">{% trans %}
-                                    wizard.page.label.official{% endtrans %}</span>
+                                <span class="label label-primary">{% trans %}wizard.page.label.official{% endtrans %}</span>
                             {% endif %}
                             {% if page.redactorPage %}
-                                <span class="label label-warning">{% trans %}
-                                    wizard.page.label.redactor{% endtrans %}</span>
+                                <span class="label label-warning">{% trans %}wizard.page.label.redactor{% endtrans %}</span>
                             {% endif %}
                             <h3>{{ page.name }}</h3>
                             {#Afficher la categorie#}
                             <h4>
-                                {% trans %}wizard.category.name{% endtrans %}: <a
-                                        href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{ page.category.name }}</a>
+                                {% trans %}wizard.category.name{% endtrans %}:
+                                <a href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{ page.category.name }}</a>
                             </h4>
                         </div>
                     </div>
@@ -41,31 +39,31 @@
 
                         {% if  app.user in editors or app.user.id == creator_id %}
                             <div class="col-md-12">
-                                <a href="{{ path('page_gestion_show',{'id_page': page.id } ) }}"> <span
-                                            class="icon-large icon icon-book"></span>{% trans %}
-                                    wizard.page.gestion.edit {% endtrans %}</a>
+                                <a href="{{ path('page_gestion_show',{'id_page': page.id } ) }}">
+                                    <span class="icon-large icon icon-book"></span>
+                                        {% trans %}wizard.page.gestion.edit{% endtrans %}
+                                </a>
                             </div>
                         {% endif %}
                     {% endif %}
                     <div class="col-md-12">
                         {% if page.urlFacebook != null %}
-                            <a href="{{ page.urlFacebook }}"/><span class="icon-large icon-facebook"
-                                                                    aria-hidden="true"></span> {{ page.urlFacebook }}</a>
+                            <a href="{{ page.urlFacebook }}"/>
+                                <span class="icon-large icon-facebook" aria-hidden="true"></span> {{ page.urlFacebook }}
+                            </a>
                         {% endif %}
                     </div>
                     <div class="col-md-12">
-                        <span class="icon-large icon  icon-heart"></span> {% trans %}
-                        wizard.page.followers {% endtrans %} {{ page.followers | length }}
+                        <span class="icon-large icon  icon-heart"></span>
+                        {% trans %}wizard.page.followers {% endtrans %} {{ page.followers | length }}
                     </div>
                     {% if app.user %}
                         <div class="col-md-12">
                             {% if page in app.user.getPageFollowedEntity %}
-                                <a href=""><span class="icon-large icon icon-user"></span> {% trans %}
-                                    page.invite_friend {% endtrans %}</a>
+                                <a href=""><span class="icon-large icon icon-user"></span> {% trans %}page.invite_friend {% endtrans %}</a>
                             {% else %}
                                 <a href="javascript:util.likePage({{ page.id }})"><span
-                                            class="icon-large icon icon-user"></span> {% trans %}
-                                    page.like {% endtrans %}</a>
+                                            class="icon-large icon icon-user"></span> {% trans %}page.like {% endtrans %}</a>
                             {% endif %}
                         </div>
                     {% endif %}
@@ -104,7 +102,7 @@
 
         </div>
         <div>
-            <button class="load-more-publication">More</button>
+            <button class="load-more-publication">{% trans %}wizard.utility.load_more{% endtrans %}</button>
         </div>
     </div>
 

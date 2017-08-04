@@ -40,12 +40,10 @@
                             data-id="{{ publication.id }}"
                             onclick="util.likeOrUnlikePublication({{ publication.id }})"
                         {% if is_like(publication.id) %}
-                            value="unlike"
-                            >
+                            value="unlike">
                             {% trans %}publication.unlike{% endtrans %}
                         {% else %}
-                            value="like"
-                            >
+                            value="like">
                             {% trans %}publication.like{% endtrans %}
                         {% endif %}
                     </button>

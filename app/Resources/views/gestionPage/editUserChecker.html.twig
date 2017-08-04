@@ -10,7 +10,7 @@
             <div class="row">
 
                 <div class="ui-widget">
-                    <label for="search_user">Rechercher un utilisateur</label>
+                    <label for="search_user">{% trans %}wizard.page.edit_user.search{% endtrans %}</label>
                     <input id="search_user">
                 </div>
                 {% if form.checkers %}
@@ -73,7 +73,7 @@
             function addCheckerForm($collectionHolder,item) {
                 // test if the checker is not already in the list
                 if ( $('input[value='+item.id+']').length == 1) {
-                    alert('Element already selected');
+                    alert('{% trans %}wizard.page.edit_user.alrady_selected{% endtrans %}');
                     return;
                 }
                 
@@ -100,7 +100,7 @@
             }
             
             function addCheckerFormDeleteLink($checkerFormLi) {
-                var $removeFormA = $('<a href="#">delete this checker</a>');
+                var $removeFormA = $('<a href="#">{% trans %}wizard.page.edit_user.delete_checker{% endtrans %}</a>');
                 $checkerFormLi.append($removeFormA);
 
                 $removeFormA.on('click', function(e) {

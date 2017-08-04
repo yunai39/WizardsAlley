@@ -1,48 +1,44 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-    <h2>Recherche</h2>
-    <div class="col-md-12">{{form(form)}}</div>
-    <div class="col-md-12" id="wizard_search_result">
-        
-    </div>
-    <div class="col-md-12">
-        <button class="load-more-search">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+    <div class="row">
+        <h2>{% trans %}wizard.utility.search{% endtrans %}</h2>
+        <div class="col-md-12">{{form(form)}}</div>
+        <hr>
+        <div class="col-md-12" id="wizard_search_result"></div>
+        <div class="col-md-12">
+            <button class="load-more-search">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+        </div>
     </div>
 {% endblock %}
 
-
-
 {% block javascripts %}
-        {{parent()}}
-        <script>
-            var field = null;
-            var researchType = null;
+    {{parent()}}
+    <script>
+        var field = null;
+        var researchType = null;
+        _$page = 1;
+        $('form').submit(function(event){
             _$page = 1;
-            $('form').submit(function(event){
-                _$page = 1;
-                event.preventDefault();
-                field = $('#wizard_search_form_field').val();
-                researchType = $('#wizard_search_form_searchType').val();
-                $('#wizard_search_result').html('');
-                loadMore();
-            });
+            event.preventDefault();
+            field = $('#wizard_search_form_field').val();
+            researchType = $('#wizard_search_form_searchType').val();
+            $('#wizard_search_result').html('');
+            loadMore();
+        });
 
-            $('button.load-more-search').on('click', function() {
-                loadMore();
-            });
+        $('button.load-more-search').on('click', function() {
+            loadMore();
+        });
 
+        $('#wizard_search_form_searchType').on('change', function() {
+            $('#wizard_search_result').html('');
+            _$page = 1;
+        });
 
-
-            $('#wizard_search_form_searchType').on('change', function() {
-                $('#wizard_search_result').html('');
-                _$page = 1;
-            });
-            
-            function loadMore(){
-                $result = util.loadMoreSearch(researchType,field ,  _$page);
-                _$page = _$page+1;
-            }
-        </script>
-        
+        function loadMore(){
+            $result = util.loadMoreSearch(researchType,field ,  _$page);
+            _$page = _$page+1;
+        }
+    </script>
 {% endblock %}

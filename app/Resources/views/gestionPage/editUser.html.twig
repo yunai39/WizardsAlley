@@ -4,13 +4,13 @@
 
     <div class="row">
         <div class="col-md-12">
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-
             <div class="row">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
 
                 <div class="ui-widget">
-                    <label for="search_user">Rechercher un utilisateur</label>
+                    <label for="search_user">{% trans %}wizard.page.edit_user.search{% endtrans %}</label>
                     <input id="search_user">
                 </div>
                 {% if form.editors %}
@@ -28,11 +28,12 @@
                 {{ form_end(form) }}
             </div>
         </div>
-    {% endblock %}
+    </div>
+{% endblock %}
 
 
     {% block javascripts %}
-        {{parent()}}  
+        {{ parent() }}
         <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script>
 
@@ -40,11 +41,11 @@
             var $collectionHolder;
 
 
-            jQuery(document).ready(function() {
+            jQuery(document).ready(function () {
                 // Get the ul that holds the collection of tags
                 $collectionHolder = $('ul.editor');
 
-                $collectionHolder.find('li').each(function() {
+                $collectionHolder.find('li').each(function () {
                     addEditorFormDeleteLink($(this));
                 });
 
@@ -53,31 +54,31 @@
                 $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
             });
-            
+
             $("#search_user").autocomplete({
-                source: function(request, response) {
+                source: function (request, response) {
                     $.ajax({
-                        url: "{{path('wizard_search_user_json')}}/" + $("#search_user").val(),
+                        url: "{{ path('wizard_search_user_json') }}/" + $("#search_user").val(),
                         dataType: "json",
-                        success: function(data) {
+                        success: function (data) {
                             response(data.data);
                         }
                     });
                 },
                 minLength: 3,
-                select: function(event, ui) {
-                    addEditorForm($collectionHolder,ui.item);
+                select: function (event, ui) {
+                    addEditorForm($collectionHolder, ui.item);
                 },
             });
-            
-            function addEditorForm($collectionHolder,item) {
+
+            function addEditorForm($collectionHolder, item) {
                 // test if the editor is not already in the list
-                if ( $('input[value='+item.id+']').length == 1) {
-                    alert('Element already selected');
+                if ($('input[value=' + item.id + ']').length == 1) {
+                    alert('{% trans %}wizard.page.edit_user.alrady_selected{% endtrans %}');
                     return;
                 }
-                
-                
+
+
                 // Get the data-prototype explained earlier
                 var prototype = $collectionHolder.data('prototype');
 
@@ -87,8 +88,8 @@
                 // Replace '__name__' in the prototype's HTML to
                 // instead be a number based on how many items we have
                 var newForm = prototype.replace(/__name__/g, index);
-                newForm = newForm.replace(/_username"/g, '_username" value="'+item['value']+'"');
-                newForm = newForm.replace(/_id"/g, '_id" value="'+item['id']+'"');
+                newForm = newForm.replace(/_username"/g, '_username" value="' + item['value'] + '"');
+                newForm = newForm.replace(/_id"/g, '_id" value="' + item['id'] + '"');
 
                 // increase the index with one for the next item
                 $collectionHolder.data('index', index + 1);
@@ -98,12 +99,12 @@
                 $collectionHolder.append($newFormLi);
                 addEditorFormDeleteLink($newFormLi);
             }
-            
+
             function addEditorFormDeleteLink($editorFormLi) {
-                var $removeFormA = $('<a href="#">delete this editor</a>');
+                var $removeFormA = $('<a href="#">{% trans %}wizard.page.edit_user.delete_editor{% endtrans %}</a>');
                 $editorFormLi.append($removeFormA);
 
-                $removeFormA.on('click', function(e) {
+                $removeFormA.on('click', function (e) {
                     // prevent the link from creating a "#" on the URL
                     e.preventDefault();
 

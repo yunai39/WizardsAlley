@@ -2,7 +2,7 @@
 
 {% block gestion %}
     {{ tinymce_init() }}
-    <h1>Publication edit</h1>
+    <h1>{% trans %}wizard.publication.edit{% endtrans %}</h1>
     <form action="{{ path('publication_update',{'id': entity.id }) }}" method="POST" {{ form_enctype(edit_form) }}
           id="form-publication-edit">
         {# affiche l'unique champ de la tâche : description #}
@@ -40,7 +40,7 @@
         <script>
             var collectionHolder = $('ul.images');
 
-            var $addImgLink = $('<a href="#" class="add_image_link">Ajouter une image</a>');
+            var $addImgLink = $('<a href="#" class="add_image_link">{% trans %}wizard.publication.add_image{% endtrans %}</a>');
             var $newLinkLi = $('<li></li>').append($addImgLink);
 
             jQuery(document).ready(function () {
@@ -68,7 +68,7 @@
             });
 
             function addImgFormDeleteLink($imgFormLi) {
-                var $removeFormA = $('<a href="#">Supprimer cette image</a>');
+                var $removeFormA = $('<a href="#">{% trans %}wizard.publication.delete_image{% endtrans %}</a>');
                 $imgFormLi.append($removeFormA);
 
                 $removeFormA.on('click', function (e) {

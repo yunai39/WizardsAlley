@@ -3,16 +3,16 @@
 
 {% block gestion %}
 
-    <h1>Publication list</h1>
+    <h1>{% trans %}wizard.page.publication_list{% endtrans %}</h1>
     <div class="count">
-        Nombre de publication total: {{ pagination.getTotalItemCount }}
+        {% trans %}wizard.page.number_publication{% endtrans %}: {{ pagination.getTotalItemCount }}
     </div>
     <table class="table">
         <tr>
-            <th>Id</th>
-            <th>Title</th>
-            <th>Date Publication</th>
-            <th>Actions</th>
+            <th>{% trans %}wizard.page.list.id{% endtrans %}</th>
+            <th>{% trans %}wizard.page.list.title{% endtrans %}</th>
+            <th>{% trans %}wizard.page.list.date{% endtrans %}</th>
+            <th>{% trans %}wizard.page.list.actions{% endtrans %}</th>
         </tr>
 
         {# table body #}
@@ -25,25 +25,31 @@
                     <ul>
                         {% if publication.online %}
                             <li>
-                                <a href="{{ path('publication_show', { 'id':  publication.id }) }}">show</a>
+                                <a href="{{ path('publication_show', { 'id':  publication.id }) }}">
+                                    {% trans %}wizard.page.list.show{% endtrans %}
+                                </a>
                             </li>
                         {% else %}
                             <li>
-                                <a href="{{ path('publication_preview', { 'id':  publication.id }) }}">preview</a>
+                                <a href="{{ path('publication_preview', { 'id':  publication.id }) }}">
+                                    {% trans %}wizard.page.list.preview{% endtrans %}
+                                </a>
                             </li>
                         {% endif %}
                         {%  if isAdmin or publication.user.id == app.user.id %}
                             <li>
-                                <a href="{{ path('publication_edit', { 'id':  publication.id }) }}">edit</a>
+                                <a href="{{ path('publication_edit', { 'id':  publication.id }) }}">
+                                    {% trans %}wizard.page.list.edit{% endtrans %}
+                                </a>
                             </li>
                         {% endif %}
                         {%  if isAdmin or publication.page.checkers.contains(app.user)%}
                             <li>
                                 <a href="{{ path('publication_toggle_online', { 'id':  publication.id }) }}">
                                     {% if publication.online %}
-                                        set offline
+                                        {% trans %}wizard.page.list.set_offline{% endtrans %}
                                     {% else %}
-                                        set online
+                                        {% trans %}wizard.page.list.set_online{% endtrans %}
                                     {% endif %}
                                 </a>
                             </li>
@@ -60,7 +66,7 @@
     <ul>
         <li>
             <a href="{{ path('publication_new',{'id_page' : id_page}) }}">
-                Create a new entry
+                {% trans %}wizard.page.list.create_publication{% endtrans %}
             </a>
         </li>
     </ul>
