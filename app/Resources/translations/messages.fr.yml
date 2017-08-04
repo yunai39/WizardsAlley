@@ -5,6 +5,8 @@ publication:
     like: Like
     unlike: Unlike
 wizard:
+    utility:
+        load_more: Charger plus
     notification:
         page_publication: >
             <a href="%page_link%">%page_name%</a> vient de publier une nouvelle publication: <a href="%publication_link%">%publication_name%</a>

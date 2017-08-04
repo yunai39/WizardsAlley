@@ -6,6 +6,9 @@
     <div class="col-md-12" id="wizard_search_result">
         
     </div>
+    <div class="col-md-12">
+        <button class="load-more-search">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+    </div>
 {% endblock %}
 
 
@@ -17,11 +20,19 @@
             var researchType = null;
             _$page = 1;
             $('form').submit(function(event){
-               event.preventDefault();
-               field = $('#wizard_search_form_field').val();
-               researchType = $('#wizard_search_form_searchType').val();
-               loadMore();
+                _$page = 1;
+                event.preventDefault();
+                field = $('#wizard_search_form_field').val();
+                researchType = $('#wizard_search_form_searchType').val();
+                $('#wizard_search_result').html('');
+                loadMore();
             });
+
+            $('button.load-more-search').on('click', function() {
+                loadMore();
+            });
+
+
 
             $('#wizard_search_form_searchType').on('change', function() {
                 $('#wizard_search_result').html('');
