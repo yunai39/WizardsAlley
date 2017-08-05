@@ -235,6 +235,28 @@ class DefaultController extends BaseController
         );
     }
 
+    public function displayUserConnectedLastAction() {
+        /** @var WizardUserRepository $repo */
+        $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+
+        $users = $repo->findUserLastAction();
+
+        return $this->sendJsonResponse(
+            'success',
+            null,
+            200,
+            [
+                'html' => $this->renderView(
+                    '::user/userLastConnected.html.twig',
+                    [
+                        'users' => $users,
+                    ]
+                )
+            ]
+        );
+
+    }
+
     /**
      * @param int|null $id
      *

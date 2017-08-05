@@ -1,0 +1,13 @@
+<div class="row">
+    {% for user in users %}
+        <div class="col-xs-6 col-md-3">
+            <div class="imgSquare">
+                <div class="imgSquareContainer">
+                    <img src="{{asset(user.getWebPathProfile())}}" />
+                </div>
+            </div>
+            <a href="{{path('wizardalley_user_wall', {id: user.id})}}">{{user.username}}</a>
+        </div>
+    {% endfor %}
+</div>
+

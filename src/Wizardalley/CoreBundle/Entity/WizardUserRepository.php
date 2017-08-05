@@ -14,7 +14,6 @@ use Wizardalley\DefaultBundle\Controller\BaseController;
 class WizardUserRepository extends EntityRepository
 {
     /**
-     *
      * @param WizardUser $user
      * @param int        $page
      * @param int        $limit
@@ -36,9 +35,23 @@ class WizardUserRepository extends EntityRepository
                 ";
         $conn   = $this->getEntityManager()->getConnection();
         $stmt   = $conn->prepare($sql);
-        $stmt->execute(array($user->getId(), $user->getId()));
+        $stmt->execute([$user->getId(), $user->getId()]);
 
         return $stmt->fetchAll();
+    }
+
+    /**
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function findUserLastAction($limit = BaseController::BASE_LIMIT)
+    {
+
+        $qb    = $this->_em->createQueryBuilder()->select('u')->from($this->_entityName, 'u');
+        $query = $qb->where('u.locked = 0')->orderBy('u.lastConnect', 'DESC')->setMaxResults($limit)->getQuery();
+
+        return $query->getResult();
     }
 
     /**
@@ -51,7 +64,7 @@ class WizardUserRepository extends EntityRepository
      */
     public function findPublicationUser(WizardUser $user, $publication_id, $limit = BaseController::BASE_LIMIT)
     {
-        $sql    = "
+        $sql  = "
             (
             select 
                 pu.id as 'publication_id', 
@@ -96,13 +109,15 @@ class WizardUserRepository extends EntityRepository
             ORDER BY publication_id DESC
             LIMIT " . $limit . "
             ";
-        $conn   = $this->getEntityManager()->getConnection();
-        $stmt   = $conn->prepare($sql);
-        $stmt->execute(array(
-            'user_id_1'      => $user->getId(),
-            'user_id_2'      => $user->getId(),
-            'publication_id' => $publication_id
-        ));
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(
+            [
+                'user_id_1'      => $user->getId(),
+                'user_id_2'      => $user->getId(),
+                'publication_id' => $publication_id
+            ]
+        );
 
         return $stmt->fetchAll();
     }
@@ -155,10 +170,12 @@ class WizardUserRepository extends EntityRepository
             ";
         $conn   = $this->getEntityManager()->getConnection();
         $stmt   = $conn->prepare($sql);
-        $stmt->execute(array(
-            'user_id_1' => $user->getId(),
-            'user_id_2' => $user->getId(),
-        ));
+        $stmt->execute(
+            [
+                'user_id_1' => $user->getId(),
+                'user_id_2' => $user->getId(),
+            ]
+        );
 
         return $stmt->fetchAll();
     }
@@ -180,7 +197,7 @@ class WizardUserRepository extends EntityRepository
             $sqlLimit = "LIMIT " . $limit;
             $sqlWhere = "";
         }
-        $sql    = "
+        $sql  = "
             (
             select 
                 pu.id as 'publication_id', 
@@ -215,16 +232,17 @@ class WizardUserRepository extends EntityRepository
             ORDER BY publication_id DESC
             {$sqlLimit}
             ";
-        $conn   = $this->getEntityManager()->getConnection();
-        $stmt   = $conn->prepare($sql);
-        $stmt->execute(array(
-            'user_id_1' => $user->getId(),
-            'user_id_2' => $user->getId(),
-        ));
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(
+            [
+                'user_id_1' => $user->getId(),
+                'user_id_2' => $user->getId(),
+            ]
+        );
 
         return $stmt->fetchAll();
     }
-
 
     /**
      *
@@ -235,15 +253,15 @@ class WizardUserRepository extends EntityRepository
     public function searchUser($search)
     {
 
-        $sql    = "
+        $sql  = "
         select w.id , w.username as label, w.username as value,w.path_profile
             from wizard_user w
             where
                 w.username like ?
                 ";
-        $conn   = $this->getEntityManager()->getConnection();
-        $stmt   = $conn->prepare($sql);
-        $stmt->execute(array('%' . $search . '%'));
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['%' . $search . '%']);
 
         return $stmt->fetchAll();
     }
@@ -261,38 +279,33 @@ class WizardUserRepository extends EntityRepository
         $firstResult = ($page - 1) * $limit;
 
         $qb    = $this->_em->createQueryBuilder()->select('u')->from($this->_entityName, 'u');
-        $query = $qb
-            ->where('u.username LIKE :like')
-            ->orderBy('u.username', 'DESC')
-            ->setFirstResult($firstResult)
-            ->setMaxResults($limit)
-            ->setParameter(':like', '%' . $like . '%')
-            ->getQuery();
+        $query = $qb->where('u.username LIKE :like')
+                    ->orderBy('u.username', 'DESC')
+                    ->setFirstResult($firstResult)
+                    ->setMaxResults($limit)
+                    ->setParameter(':like', '%' . $like . '%')
+                    ->getQuery()
+        ;
 
         return $query->getResult();
     }
 
     /**
-     * @param int $limit
+     * @param int        $limit
      * @param WizardUser $user
+     *
      * @return array
      */
     public function findUserConnected(WizardUser $user, $limit = BaseController::BASE_LIMIT)
     {
-        $qb    = $this->_em->createQueryBuilder()
-            ->distinct(true)
-            ->select('u')
-            ->from($this->_entityName, 'u');
-        $query = $qb
-            ->leftJoin('u.friendsWithMe', 'fmw')
-            ->leftJoin('u.myFriends', 'mf')
-            ->where('fmw.id = :friend_user_id')
-            ->andWhere('mf.id = :user_id')
-            ->orderBy('u.lastConect', 'DESC')
-            ->setMaxResults($limit)
-            ->setParameter(':user_id', $user->getId())
-            ->setParameter(':friend_user_id', $user->getId())
-            ->getQuery();
+        $qb    = $this->_em->createQueryBuilder()->distinct(true)->select('u')->from($this->_entityName, 'u');
+        $query = $qb->leftJoin('u.friendsWithMe', 'fmw')->leftJoin('u.myFriends', 'mf')->where(
+                'fmw.id = :friend_user_id'
+            )->andWhere('mf.id = :user_id')->orderBy('u.lastConect', 'DESC')->setMaxResults($limit)->setParameter(
+                ':user_id',
+                $user->getId()
+            )->setParameter(':friend_user_id', $user->getId())->getQuery()
+        ;
 
         return $query->getArrayResult();
     }

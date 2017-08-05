@@ -1,0 +1,273 @@
+/* HEADER */
+
+body {
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+header, footer {
+    background-image: url(../images/bg-dark.jpeg);
+    background-color: #000000;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+header nav ul i {
+    margin-right: 2vw;
+}
+
+header nav.nav-full li {
+    margin: 0vh 2vw;
+    border-bottom: 5px solid transparent;
+    transition: 0.3s linear;
+}
+
+
+
+.navbar {
+    background: url("../images/bg-dark.jpeg") no-repeat top;
+    border: none;
+    border: 0px;
+    border-radius: 0px;
+}
+
+.nav-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+}
+
+.nav-user p {
+    margin-top: 1vh;
+    margin-right: 3vw;
+    color: #ffffff;
+}
+
+.navbar-collapse {
+    float: left;
+    width: 100%;
+    clear: both;
+}
+
+
+header a, .navbar-brand, .navbar-nav > li > a, .navbar-brand, .navbar-nav > li > a:hover, header a:hover,.navbar-nav > li > a:focus, header a:focus  {
+     text-decoration: none;
+     color: #ffffff;
+     text-shadow: none;
+     background-color: transparent;
+ }
+
+.dropdown-menu {
+    margin-left: -6vw;
+    margin-top: 4vh;
+    color: #000000;
+}
+
+.dropdown-menu li {
+    text-transform: capitalize;
+}
+
+li {
+    list-style-type: none;
+}
+
+.login {
+    margin-right: 2vw;
+}
+
+.login, .register {
+    padding-bottom: 0.5vh;
+    border-bottom: 2px solid transparent;
+    transition: 0.2s linear;
+}
+
+.login:hover, .register:hover {
+    border-bottom: 2px solid #ffffff;
+}
+
+
+@media (min-width: 768px) {
+    .two-row .navbar-collapse {
+        clear: left;
+    }
+}
+
+header nav .nav-full li:hover {
+    border-bottom: 5px solid #ffffff;
+}
+
+.mypseudo:hover {
+    cursor: default;
+}
+
+.scroll {
+    padding-bottom: 2vh;
+}
+
+.scroll > nav {
+    display: none;
+}
+
+.badge {
+    background-color: #ACB0E4;
+}
+
+
+@media screen and (max-width: 1420px) {
+    header nav {
+        margin: 0vh 0vw;
+        max-width: 180vw;
+        overflow-x: scroll;
+    }
+}
+
+@media (min-width: 768px){
+    .navbar-nav{
+        margin: 0 auto;
+        display: table;
+        table-layout: fixed;
+        float: none;
+    }
+}
+
+
+#fav_pages .page:nth-child(even) .img-wrapper {
+    float: right;
+
+}
+
+/* PAGE */
+
+.background-wizard {
+    margin: 0px;
+    padding: 5vh 5vw 20vh;
+}
+
+.head {
+    margin: 25vh 0vw 10vh;
+    padding: 5vh 15vw;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+}
+
+.navbar-custom{
+
+}
+
+.navbar-header{
+    width:100%;
+    padding-right: 5vw;
+    padding-left: 5vw;
+    font-family: "bettyregular", sans-serif;
+}
+
+
+h1 {
+    text-align: center;
+    font-size: 5rem;
+}
+
+h2 {
+    font-size: 4rem;
+    text-align: center;
+}
+h3 {
+    font-size: 3rem;
+    text-align: center;
+}
+h4 {
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+hr {
+    height: 6px;
+    background: url(../images/hr.png) repeat-x 0 0;
+    border: 0;
+    margin: 3vh 0%;
+}
+
+textarea{
+    resize:none;
+}
+
+button, .btn-default, .btn {
+    background-color: #454a72!important;
+}
+
+
+
+/* FOOTER */
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    color: #ffffff;
+    padding: 4px 10vw;
+}
+
+footer .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0vh;
+    margin: 0vh;
+    width: auto;
+}
+
+footer ul {
+    display: flex;
+}
+
+footer li {
+    margin: 1vh 2vw 0vh;
+}
+
+footer li a {
+    color: #ffffff;
+    transition: 0.4s linear;
+    border-bottom: 2px solid transparent;
+    padding-bottom: 0.2vh;
+}
+
+footer li a:hover {
+    color: #ffffff;
+    border-bottom: 2px solid #ffffff;
+    text-decoration: none;
+}
+
+footer p {
+    font-size: 1rem;
+    text-align: center;
+}
+
+@media screen and (max-width: 850px) {
+
+    footer {
+        height: 2vh;
+        padding-top: 2vh;
+        transition: 0.2s linear;
+    }
+
+    footer:hover {
+        height: auto;
+    }
+
+    footer ul {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    footer li {
+        text-align: center;
+    }
+
+}

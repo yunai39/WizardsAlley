@@ -72,16 +72,16 @@ class Page implements TimedEntityInterface
     /**
      * @var \boolean
      *
-     * @ORM\Column(name="official_page", type="boolean", options={"default" = 0}, nullable=true)
+     * @ORM\Column(name="official_page", type="boolean", options={"default" = 0})
      */
-    private $officialPage;
+    private $officialPage = false;
 
     /**
      * @var \boolean
      *
-     * @ORM\Column(name="redactor_page", type="boolean", options={"default" = 0}, nullable=true)
+     * @ORM\Column(name="redactor_page", type="boolean", options={"default" = 0})
      */
-    private $redactorPage;
+    private $redactorPage = false;
 
     /**
     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\Publication", mappedBy="page", cascade={"remove", "persist"})

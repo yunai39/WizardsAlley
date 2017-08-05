@@ -50,8 +50,8 @@ easy_admin:
                     - id
                     - name
                     - category
-                    - officialPage
-                    - redactorPage
+                    - { property: 'officialPage', type: 'toggle'}
+                    - { property: 'redactorPage', type: 'toggle'}
                     - { property: 'created_at', type: 'datetime' }
             form:
                 fields:

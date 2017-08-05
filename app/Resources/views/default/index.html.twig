@@ -4,7 +4,8 @@
     <div class="row">
         <div class="col-md-8">
             <div>
-                <h3>{% trans %}wizard.home.express_yourself{% endtrans %}</h3>
+                <h2>{% trans %}wizard.home.express_yourself{% endtrans %}</h2>
+                <hr>
                 {{ form_start(formSmallPublication, { attr: {id: 'wizardalley_publicationbundle_add_small_publication'}}) }}
                 {{ form_row(formSmallPublication.content) }}
                 {{ form_row(formSmallPublication.submit) }}
@@ -23,11 +24,18 @@
         </div>
         <div class="col-md-4">
             <div class="row">
-                <h3 class="col-md-12">Suggestion d'amis</h3>
+                <h2 class="col-md-12">{% trans %}wizard.home.user_online{% endtrans %}</h2>
+                <div class="last-connected-wrapper col-md-12">
+
+                </div>
+                <div class="col-md-12">
+                    <button class="refresh-last-connected-commented">{% trans %}
+                        wizard.utility.refresh{% endtrans %}</button>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <h3>{% trans %}wizard.home.most_commented{% endtrans %}</h3>
+                    <h2>{% trans %}wizard.home.most_commented{% endtrans %}</h2>
                 </div>
                 <div class="most-commented-block-wrapper col-md-12">
 
@@ -37,7 +45,7 @@
                 </div>
             </div>
             <div class="row">
-                <h3 class="col-md-12">{% trans %}wizard.home.informations{% endtrans %}</h3>
+                <h2 class="col-md-12">{% trans %}wizard.home.informations{% endtrans %}</h2>
                 <div class="information-block-wrapper col-md-12">
 
                 </div>
@@ -59,8 +67,13 @@
         loadMore();
         loadMoreInformation();
         loadMoreMostCommented();
+        refershOnlineUser();
+
         $('.load-more-most-commented').on('click', function () {
             loadMoreMostCommented();
+        });
+        $('.refresh-last-connected-commented').on('click', function () {
+            refershOnlineUser();
         });
         $('.load-more-publication').on('click', function () {
             loadMore();
@@ -74,6 +87,13 @@
             _$page = _$page + 1;
         }
         ;
+
+        function refershOnlineUser() {
+            var handler = function (_data) {
+                $('.last-connected-wrapper').html(_data['extra']['html']);
+            };
+            util.loadMore(Routing.generate('wizard_last_connected_list'), 'GET', handler);
+        }
 
         function loadMoreInformation() {
             $result = util.loadMoreInfo(_$pageInformation);

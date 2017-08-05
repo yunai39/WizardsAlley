@@ -49,9 +49,10 @@
             </div>
         </div>
 
+
         <div class="row">
             <div class="col-md-12 text-align-right">
-                    <button class="label defaut-label btn">
+                    <span class="label defaut-label">
 
                         {% if publication.type == 'page_publication' %}
                             <a href="{{ path('publication_show',{'id':publication.publication_id}) }}">{% trans %}
@@ -60,13 +61,12 @@
                             <a href="{{ path('user_small_publication_show',{'id':publication.publication_id}) }}">{% trans %}
                                 publication.display.link{% endtrans %}</a>
                         {% endif %}
-                    </button>
-                    <button class="label defaut-label btn">
+                    </span>
+                    <span class="label defaut-label">
                         {% trans %}publication.comments{% endtrans %}
-                    </button>
+                    </span>
                 {% if publication.type == 'page_publication' %}
-                    <button class="label defaut-label like-unlike-button btn"
-                            data-id="{{ publication.publication_id }}"
+                    <button class="label defaut-label like-unlike-button"
                             onclick="util.likeOrUnlikePublication({{ publication.publication_id }})"
                             {% if is_like(publication.publication_id) %}
                             value="unlike"

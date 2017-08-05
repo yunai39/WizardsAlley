@@ -9,13 +9,15 @@ wizard:
     home:
         h1: Bienvenue amis sorciers sur le portail magique de l'Allée des Sorciers.
         h2: Attention aux prunes dirigeables !
-        express_yourself: Exprimez vous
+        express_yourself: Exprimez-vous au monde des sorciers !
         your_publication: Vos publications
         most_commented: Sujets les plus commentés
         informations: Billet d'information
+        user_online: Utilisateur en ligne
     utility:
         load_more: Charger plus
         search: Recherche
+        refresh: Rafraichir
     notification:
         page_publication: >
             <a href="%page_link%">%page_name%</a> vient de publier une nouvelle publication: <a href="%publication_link%">%publication_name%</a>
@@ -104,6 +106,7 @@ wizard:
         friend: Amis
         ask_ongoing: Demande en cours
     page:
+        new_success: La page a bien été créée
         publication_list: Liste des publications
         list:
             id: Id

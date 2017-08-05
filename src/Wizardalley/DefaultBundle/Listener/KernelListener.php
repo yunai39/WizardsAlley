@@ -43,7 +43,7 @@ class KernelListener
         /** @var WizardUser $user */
         $user  = $token ? $token->getUser() : null;
         if ($user instanceof WizardUser) {
-            $user->setLastConect(new \DateTime());
+            $user->setLastConnect(new \DateTime());
             $this->em->persist($user);
             $this->em->flush();
         }

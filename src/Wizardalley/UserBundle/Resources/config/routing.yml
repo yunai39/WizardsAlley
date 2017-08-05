@@ -48,6 +48,13 @@ wizard_friend_list:
     options:
         expose: true
 
+
+wizard_last_connected_list:
+    path:   /user/lastConnected
+    defaults: { _controller: WizardalleyUserBundle:Default:displayUserConnectedLast }
+    options:
+        expose: true
+
 wizard_user_connected:
     path:   /user/getUserConnected
     defaults: { _controller: WizardalleyUserBundle:Default:getUserConnected }

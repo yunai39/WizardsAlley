@@ -63,7 +63,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      *
      * @ORM\Column(name="last_connect", type="datetime", nullable=true)
      */
-    private $lastConect;
+    private $lastConnect;
 
     /**
      * @var string
@@ -781,26 +781,26 @@ class WizardUser extends BaseUser implements ParticipantInterface
     }
 
     /**
-     * Set lastConect
+     * Set setLastConnect
      *
      * @param \DateTime $lastConect
      * @return WizardUser
      */
-    public function setLastConect($lastConect)
+    public function setLastConnect($lastConnect)
     {
-        $this->lastConect = $lastConect;
+        $this->lastConnect = $lastConnect;
 
         return $this;
     }
 
     /**
-     * Get lastConect
+     * Get lastConnect
      *
      * @return \DateTime 
      */
-    public function getLastConect()
+    public function getLastConnect()
     {
-        return $this->lastConect;
+        return $this->lastConnect;
     }
 
     public function getExpiresAt(){
