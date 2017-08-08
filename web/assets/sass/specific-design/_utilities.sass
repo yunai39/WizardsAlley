@@ -7,28 +7,36 @@
   a
     color: white
     font-style: none
-    &>:focus, &:hover
+    & > :focus, &:hover
       color: white
 
 .text-align-right
   text-align: right
+
 .text-align-left
   text-align: left
 
 .margin-right
   margin-right: $base-gutter
+
 .margin-left
   margin-left: $base-gutter
+
 .margin-bottom
   margin-bottom: $base-gutter
+
 .margin-top
   margin-top: $base-gutter
+
 .padding-right
   padding-right: $base-gutter
+
 .padding-left
   padding-left: $base-gutter
+
 .padding-top
   padding-top: $base-gutter
+
 .padding-bottom
   padding-bottom: $base-gutter
 
@@ -37,3 +45,38 @@
     font-weight: bold
   .messenger_thread_message_body
     padding-left: $base-gutter
+
+h1
+  text-align: center
+  font-size: 5rem
+
+h2
+  font-size: 4rem
+  text-align: center
+
+h3
+  font-size: 3rem
+  text-align: center
+
+h4
+  font-size: 2.5rem
+  text-align: center
+
+hr
+  height: 6px
+  background: url(../images/hr.png) repeat-x 0 0
+  border: 0
+  margin: 3vh 0%
+
+textarea
+  resize: none
+
+button, .btn-default, .btn
+  background-color: $color-base-blue !important
+
+@font-face
+  font-family: "Timeless"
+  src: url("../fonts/Timeless/timeless.woff") format("woff"), url("../fonts/Timeless/timeless.ttf") format("truetype")
+
+#fav_pages .page:nth-child(even) .img-wrapper
+  float: right

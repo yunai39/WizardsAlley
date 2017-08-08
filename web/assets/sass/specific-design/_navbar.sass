@@ -1,0 +1,120 @@
+.navbar-head, h1, h2, h3, h4, h5, h6, footer
+  font-family: $main-font, sans-serif
+
+.user-profil
+  width: 5vw
+  height: 5vw
+
+
+header, footer
+  background-image: url(../images/bg-dark.jpeg)
+  background-color: $color-black
+  background-attachment: fixed
+  background-size: cover
+  background-repeat: no-repeat
+
+
+header nav, p
+  font-family: $second-font, sans-serif
+
+header nav ul i
+  margin-right: 2vw
+
+header nav.nav-full li
+  margin: 0vh 2vw
+  border-bottom: 5px solid transparent
+  transition: 0.3s linear
+
+
+.navbar
+  background: url("../images/bg-dark.jpeg") no-repeat top
+  border: none
+  border: 0px
+  border-radius: 0px
+
+.nav-user
+  display: flex
+  justify-content: center
+  align-items: center
+  font-size: 1.8rem
+  p
+    margin-top: 1vh
+    margin-right: 3vw
+    color: $color-white
+
+.navbar-collapse
+  float: left
+  width: 100%
+  clear: both
+
+header a, .navbar-brand, .navbar-nav > li > a, .navbar-brand, .navbar-nav > li > a:hover, header a:hover, .navbar-nav > li > a:focus, header a:focus
+  text-decoration: none
+  color: $color-white
+  text-shadow: none
+  background-color: transparent
+
+.dropdown-menu
+  margin-left: -6vw
+  margin-top: 4vh
+  color: $color-black
+  li
+    text-transform: capitalize
+
+.login
+  margin-right: 2vw
+  padding-bottom: 0.5vh
+  border-bottom: 2px solid transparent
+  transition: 0.2s linear
+
+.register
+  padding-bottom: 0.5vh
+  border-bottom: 2px solid transparent
+  transition: 0.2s linear
+
+.login:hover, .register:hover
+  border-bottom: 2px solid $color-white
+
+@media (min-width: $media-medium-min-width)
+  .two-row .navbar-collapse
+    clear: left
+
+@media screen and (max-width: 1420px)
+  header nav
+    margin: 0vh 0vw
+    max-width: 180vw
+    overflow-x: scroll
+
+@media (min-width: $media-medium-min-width)
+  .navbar-nav
+    margin: 0 auto
+    display: table
+    table-layout: fixed
+    float: none
+
+header nav .nav-full li:hover
+  border-bottom: 5px solid $color-white
+
+.navbar-toggle
+  margin-right: 0px
+  .icon-bar
+    background-color: $color-white
+
+.mypseudo:hover
+  cursor: default
+
+.background-wizard
+  margin: 0px
+  padding: 5vh 5vw 20vh
+
+.head
+  margin: 25vh 0vw 10vh
+  padding: 5vh 15vw
+  justify-content: center
+  align-items: center
+  color: $color-white
+
+.navbar-header
+  width: 100%
+  padding-right: 5vw
+  padding-left: 5vw
+  font-family: "bettyregular", sans-serif

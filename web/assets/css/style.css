@@ -99,6 +99,15 @@ header nav .nav-full li:hover {
     border-bottom: 5px solid #ffffff;
 }
 
+
+.navbar-toggle {
+    margin-right: 0px;
+}
+
+.navbar-toggle .icon-bar{
+    background-color: #FFF;
+}
+
 .mypseudo:hover {
     cursor: default;
 }

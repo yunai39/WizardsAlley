@@ -1,0 +1,45 @@
+footer
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 9999
+  color: $color-white
+  padding: 4px 10vw
+  .container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    padding: 0vh
+    margin: 0vh
+    width: auto
+  ul
+    display: flex
+  li
+    margin: 1vh 2vw 0vh
+    a
+      color: #ffffff
+      transition: 0.4s linear
+      border-bottom: 2px solid transparent
+      padding-bottom: 0.2vh
+      &:hover
+        color: $color-white
+        border-bottom: 2px solid $color-white
+        text-decoration: none
+  p
+    font-size: 1rem
+    text-align: center
+
+@media screen and (max-width: 850px)
+  footer
+    height: 2vh
+    padding-top: 2vh
+    transition: 0.2s linear
+    &:hover
+      height: auto
+    ul
+      flex-direction: column
+      justify-content: center
+    li
+      text-align: center

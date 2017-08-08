@@ -16,7 +16,6 @@
         <link rel="stylesheet" href="/assets/jquery-ui/jquery-ui.min.css">
         <link rel="stylesheet" href="/assets/jquery-ui/jquery-ui.theme.min.css">
         <link rel="stylesheet" href="/assets/jquery-ui/jquery-ui.structure.min.css">
-        <link rel="stylesheet" href="/assets/css/style.css">
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="/assets/images/favicon-site.ico"/>
 </head>
@@ -50,9 +49,8 @@
                                         </div>
                                     </div>
                                     <ul class="dropdown-menu">
-                                        <li class="mypseudo"><a>{{ app.user.username }}</a>
-                                        </li>
-                                        <li><a href="{{ path('fos_user_profile_show') }}">Afficher mon profil</a>
+                                        <li><a href="{{ path('fos_user_profile_show') }}">{% trans %}
+                                                wizard.user.profile.display{% endtrans %}</a>
                                         </li>
                                         <li><a href="{{ path('logout') }}">
                                                 {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
@@ -73,7 +71,7 @@
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="collapse navbar-collapse header-wizard" id="bs-example-navbar-collapse-1">
 
                     <ul class="nav navbar-nav nav-full">
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -134,17 +132,23 @@
                         </li>
 
                         {% if app.user %}
-                            <li class="mypseudo hidden-sm hidden-md hidden-lg"><a>{{ app.user.username }}</a>
-                            </li>
-                            <li class="hidden-sm hidden-md hidden-lg"><a href="{{ path('fos_user_profile_show') }}">Afficher mon profil</a>
+                            <li class="hidden-sm hidden-md hidden-lg">
+                                <a href="{{ path('fos_user_profile_show') }}">
+                                    <i class="wizard-iconhat"></i>
+                                    {% trans %}wizard.user.profile.display{% endtrans %}
+                                </a>
                             </li>
                             <li class="hidden-sm hidden-md hidden-lg"><a href="{{ path('logout') }}">
+                                    <i class="wizard-iconbroom"></i>
                                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                                 </a>
                             </li>
                         {% else %}
                             <li class="login  hidden-sm hidden-md hidden-lg">
-                                <a href="{{ path('wizardalley_user_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                                <a href="{{ path('wizardalley_user_login') }}">
+                                    <i class="wizard-iconhat"></i>
+                                    {{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+                                </a>
                             </li>
                             <li class="register  hidden-sm hidden-md hidden-lg">
                                 <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
@@ -238,6 +242,25 @@
     <script src="/assets/js/main.js"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
+    <script>
+
+        window.onload = function () {
+            var menu = $(".header-wizard");
+            var header = document.querySelector(".head");
+
+            function scrolled() {
+                var windowHeight = document.body.clientHeight,
+                        currentScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                if (currentScroll >= header.offsetHeight) {
+                    menu.addClass('scroll');
+                } else {
+                    menu.removeClass('scroll');
+                }
+            }
+
+            addEventListener("scroll", scrolled, false);
+        }
+    </script>
 {% endblock %}
 </body>
 </html>

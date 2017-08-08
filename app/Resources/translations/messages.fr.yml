@@ -72,6 +72,7 @@ wizard:
             load_more: Plus de notification
 
         profile:
+            display: Afficher mon profil
             lastname: Prénom
             firstname: Nom
             edit: Modifier les informations

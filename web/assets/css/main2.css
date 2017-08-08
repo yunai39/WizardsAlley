@@ -1,0 +1,210 @@
+@font-face {
+    font-family: "bettyregular";
+    src: url("../fonts/BettyRegular/betty_regular.woff") format("woff"), url("../fonts/BettyRegular/betty_regular.ttf") format("truetype");
+}
+
+.navbar-head, h1, h2, h3, h4, h5, h6, footer {
+    font-family: "bettyregular", sans-serif;
+}
+
+@font-face {
+    font-family: "Timeless";
+    src: url("../fonts/Timeless/timeless.woff") format("woff"), url("../fonts/Timeless/timeless.ttf") format("truetype");
+}
+
+header nav, p {
+    font-family: "Timeless", sans-serif;
+}
+
+.user-profil {
+    width: 5vw;
+    height: 5vw;
+}
+
+.publication {
+    padding: 20px;
+    margin: 40px;
+}
+
+.information-block-wrapper {
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.nav-footer {
+    margin-bottom: 0;
+}
+
+.full-container {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+body {
+    background: url("../images/bg.png") no-repeat top;
+    background-size: 100%;
+    background-attachment: fixed;
+}
+
+.background-wizard {
+    background-color: white;
+}
+
+.comment_content {
+    margin: 10px 5%;
+    padding: 2%;
+    width: 90%;
+}
+
+/*Transformer une image en carre parfait on peut aussi rajouter la class circle*/
+
+.imgSquare {
+    position: relative;
+    width: 100%;
+}
+.imgSquare .imgSquareContainer {
+    background-color: white;
+    box-shadow: 1px 1px 12px #555;
+    margin: 5%;
+    padding-bottom: 100%;
+    position: relative;
+    width: 90%;
+}
+
+.imgSquare .imgSquareContainer img {
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+}
+.imgSquareContainer .imgTitre {
+    padding: 2px;
+    position: absolute;
+    left: 0;
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.squareUser div.imgSquare {
+    width: 30%;
+    float: left;
+}
+
+.search-publication-container {
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.main-title {
+    color: white;
+}
+
+.defaut-label {
+    background-color: #454a72;
+}
+
+.label {
+    padding: 3.75px;
+    margin: 3.75px;
+}
+
+.label a {
+    color: white;
+    font-style: none;
+}
+
+.label a > :focus, .label a:hover {
+    color: white;
+}
+
+.text-align-right {
+    text-align: right;
+}
+
+.text-align-left {
+    text-align: left;
+}
+
+.margin-right {
+    margin-right: 30px;
+}
+
+.margin-left {
+    margin-left: 30px;
+}
+
+.margin-bottom {
+    margin-bottom: 30px;
+}
+
+.margin-top {
+    margin-top: 30px;
+}
+
+.padding-right {
+    padding-right: 30px;
+}
+
+.padding-left {
+    padding-left: 30px;
+}
+
+.padding-top {
+    padding-top: 30px;
+}
+
+.padding-bottom {
+    padding-bottom: 30px;
+}
+
+.messenger_thread_message .messenger_thread_message_info {
+    font-weight: bold;
+}
+
+.messenger_thread_message .messenger_thread_message_body {
+    padding-left: 30px;
+}
+
+.wizard-icondiscover, .wizard-iconhome, .wizard-iconmail, .wizard-iconnotifications, .wizard-iconsearch {
+    display: inline-block;
+    background: url("../images/sprite-menu.png") no-repeat;
+    overflow: hidden;
+    text-indent: -9999px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.wizard-icondiscover {
+    background-position: -5px 0px;
+    width: 43px;
+    height: 45px;
+}
+
+.wizard-iconhome {
+    background-position: -53px 0px;
+    width: 43px;
+    height: 45px;
+}
+
+.wizard-iconmail {
+    background-position: -5px -50px;
+    width: 43px;
+    height: 45px;
+}
+
+.wizard-iconnotifications {
+    background-position: -53px -50px;
+    width: 43px;
+    height: 45px;
+}
+
+.wizard-iconsearch {
+    background-position: -5px -100px;
+    width: 43px;
+    height: 45px;
+}
+
+/*# sourceMappingURL=main.css.map */
