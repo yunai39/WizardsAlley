@@ -33,8 +33,8 @@ body {
 
 .background-wizard {
   background-color: white;
-    background-color-margin: 0px;
-    background-color-padding: 5vh 5vw 20vh; }
+  margin: 0px;
+  padding: 5vh 5vw 20vh; }
 
 .navbar {
   background: url("../../../images/bg-dark.jpeg") no-repeat top;
@@ -51,25 +51,22 @@ body {
 .imgSquare {
   position: relative;
   width: 100%; }
-
-.imgSquare .imgSquareContainer {
-  position: relative;
-  width: 90%;
-  margin: 5%;
-  padding-bottom: 100%;
-  background-color: white;
-  box-shadow: 1px 1px 12px #555; }
-
-.imgSquare .imgSquareContainer img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  overflow: hidden; }
-
-.imgSquareContainer .imgTitre {
-  padding: 2px;
-  position: absolute;
-  left: 0; }
+  .imgSquare .imgSquareContainer {
+    position: relative;
+    width: 90%;
+    margin: 5%;
+    padding-bottom: 100%;
+    background-color: white;
+    box-shadow: 1px 1px 12px #555; }
+    .imgSquare .imgSquareContainer .imgTitre {
+      padding: 2px;
+      position: absolute;
+      left: 0; }
+    .imgSquare .imgSquareContainer img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden; }
 
 .circle {
   border-radius: 50%; }
@@ -292,18 +289,18 @@ header a, .navbar-brand, .navbar-nav > li > a, .navbar-brand, .navbar-nav > li >
 
 @media (min-width: 768px) {
   .two-row .navbar-collapse {
-    clear: left; } }
-@media screen and (max-width: 1420px) {
-  header nav {
-    margin: 0vh 0vw;
-    max-width: 180vw;
-    overflow-x: scroll; } }
-@media (min-width: 768px) {
+    clear: left; }
+
   .navbar-nav {
     margin: 0 auto;
     display: table;
     table-layout: fixed;
     float: none; } }
+@media screen and (max-width: 1420px) {
+  header nav {
+    margin: 0vh 0vw;
+    max-width: 180vw;
+    overflow-x: scroll; } }
 header nav .nav-full li:hover {
   border-bottom: 5px solid #FFF; }
 

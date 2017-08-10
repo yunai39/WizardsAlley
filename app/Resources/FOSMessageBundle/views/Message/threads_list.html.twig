@@ -3,10 +3,7 @@
     <thead>
         <tr>
             <th>{% trans from 'FOSMessageBundle' %}subject{% endtrans %}</th>
-            <th>{% trans from 'FOSMessageBundle' %}starter{% endtrans %}</th>
             <th>{% trans from 'FOSMessageBundle' %}participant{% endtrans %}</th>
-            <th>{% trans from 'FOSMessageBundle' %}startdate{% endtrans %}</th>
-            <th>{% trans from 'FOSMessageBundle' %}messages{% endtrans %}</th>
             <th>{% trans from 'FOSMessageBundle' %}last_message{% endtrans %}</th>
             <th>{% trans from 'FOSMessageBundle' %}actions{% endtrans %}</th>
         </tr>
@@ -27,18 +24,9 @@
                     {% endif %}
                 </td>
                 <td>
-                    {{ thread.createdBy }}
-                </td>
-                <td>
                     {% for participant in thread.participants %}
                         {{ participant.username }}
                     {% endfor %}
-                </td>
-                <td>
-                    {{ thread.createdAt|date }}
-                </td>
-                <td>
-                    {{ thread.messages|length }}
                 </td>
                 <td>
                     {% if thread.lastMessage %}

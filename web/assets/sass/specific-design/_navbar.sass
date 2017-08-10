@@ -77,6 +77,11 @@ header a, .navbar-brand, .navbar-nav > li > a, .navbar-brand, .navbar-nav > li >
 @media (min-width: $media-medium-min-width)
   .two-row .navbar-collapse
     clear: left
+  .navbar-nav
+    margin: 0 auto
+    display: table
+    table-layout: fixed
+    float: none
 
 @media screen and (max-width: 1420px)
   header nav
@@ -84,12 +89,6 @@ header a, .navbar-brand, .navbar-nav > li > a, .navbar-brand, .navbar-nav > li >
     max-width: 180vw
     overflow-x: scroll
 
-@media (min-width: $media-medium-min-width)
-  .navbar-nav
-    margin: 0 auto
-    display: table
-    table-layout: fixed
-    float: none
 
 header nav .nav-full li:hover
   border-bottom: 5px solid $color-white
