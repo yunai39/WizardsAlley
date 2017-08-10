@@ -140,6 +140,7 @@ easy_admin:
                     - locked
                     - { property: 'sexe', firstnametype: 'choice', choices:['Homme','Femme'] }
                     - lastname
+                    - firstname
                     - { property: 'twitter', type: 'url'}
                     - { property: 'facebook', type: 'url'}
                     - { property: 'password', type: 'repeated'}
