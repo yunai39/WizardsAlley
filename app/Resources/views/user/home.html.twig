@@ -2,27 +2,27 @@
 
 {% block body_style %}url('{{ asset(user.getPictureCouverture) }}'){% endblock %}
 
+
+{% block title_banner %}
+    <div class="imgSquare circle">
+        <div class="imgSquareContainer circle">
+            <img src="{{ asset(user.getPictureProfile()) }}" class="circle"/>
+        </div>
+    </div>
+    <h1>
+        {{ user.username }}
+    </h1>
+    <h2>
+        {{ user.smallDescription }}
+    </h2>
+{% endblock %}
+
 {% block body %}
     {% if user.locked == true %}
         <h3 class="text-center">{% trans %}wizard.user.wall.disabled{% endtrans %}</h3>
     {% else %}
-        <div class="row"
-             style="background-image: url('{{ asset(user.getPictureCouverture) }}');background-size:100% 100%;background-repeat:no-repeat;height: 30vw;">
-            <div class="col-xs-12">
-                <div class="row" style="margin-top:20%;">
-                    <div class="col-md-2">
-                        <div class="imgSquare ">
-                            <div class="imgSquareContainer">
-                                <img src="{{ asset(user.getPictureProfile()) }}"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-md-12">
-                <h3>{{ user.username }}</h3>
                 {% if app.user %}
                     {% if app.user.id == user.id %}
                         <h6>
@@ -56,7 +56,7 @@
                 {% endif %}
             </div>
             <div class="col-md-12">
-                <h3>Publication</h3>
+                <h3>{% trans %}wizard.user.wall.publication{% endtrans %}</h3>
                 <div id="my_publication">
 
                 </div>

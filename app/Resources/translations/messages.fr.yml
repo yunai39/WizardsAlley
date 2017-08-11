@@ -74,8 +74,10 @@ wizard:
         profile:
             display: Afficher mon profil
             lastname: Prénom
+            about: A propos
+            publish_on_wall: Publier sur le mur
             firstname: Nom
-            edit: Modifier les informations
+            edit: Modifier mon profile
             edit_picture: Modifier la photo de profile
             edit_picture_wall: Modifier la couverture
             friend_list: Liste des amis
@@ -85,6 +87,7 @@ wizard:
         wall:
             no_publication: Aucune publication
             disabled: Utilisateur désactivé
+            publication: Publications
     register:
         label:
             firstname: Prénom 

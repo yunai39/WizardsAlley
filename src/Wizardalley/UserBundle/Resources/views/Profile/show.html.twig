@@ -17,85 +17,112 @@
 {% endblock %}
 
 {% block fos_user_content %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-9 col-xs-12">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h2><strong>{{ user.username }}</strong></h2>
-                            <p>{{ user.firstname|capitalize }}&nbsp;{{ user.lastname|upper }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="fos_user_user_show">
-                                <p>{% trans %}wizard.user.profile.last_login{% endtrans %}
-                                    :&nbsp;{{ user.lastLogin|date("F jS \\a\\t g:ia") }}</p>
-                                <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="row">
-                                {% if user.facebook != null %}
-                                    <div class="col-md-6 col-xs-12">
-                                        <a href="{{ user.facebook }}">
+
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            {% if user.facebook != null %}
+                                <div class="col-md-6 col-xs-12">
+                                    <a href="{{ user.facebook }}">
                                         <span class="icon-large icon-facebook"
                                               aria-hidden="true"></span>&nbsp;{{ user.facebook }}
-                                        </a>
-                                    </div>
-                                {% endif %}
-                                {% if user.twitter != null %}
-                                    <div class="col-md-6 col-xs-12">
-                                        <a href="{{ user.twitter }}">
+                                    </a>
+                                </div>
+                            {% endif %}
+                            {% if user.twitter != null %}
+                                <div class="col-md-6 col-xs-12">
+                                    <a href="{{ user.twitter }}">
                                         <span class="icon-large icon-twitter"
                                               aria-hidden="true"></span>&nbsp;{{ user.twitter }}
-                                        </a>
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <p><a href="{{ path('wizardalley_user_profile_edit_picture') }}">{% trans %}
-                                    wizard.user.profile.edit_picture{% endtrans %}</a></p>
-                            <p><a href="{{ path('wizardalley_user_couverture_edit_picture') }}">{% trans %}
-                                    wizard.user.profile.edit_picture_wall{% endtrans %}</a></p>
-                            <p>
-                                <a href="{{ path('fos_user_change_password') }}">{{ 'wizard.user.profile.change_pwd'|trans({}) }}</a>
-                            </p>
+                                    </a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
-        <div class="col-md-4">
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
             <div class="row">
+                <div class="col-sm-12">
+                    <h3>
+                        {% trans %}wizard.user.profile.edit{% endtrans %}
+                        <hr>
+                    </h3>
+
+                    <p><a href="{{ path('wizardalley_user_profile_edit_picture') }}">{% trans %}
+                            wizard.user.profile.edit_picture{% endtrans %}</a></p>
+                    <p><a href="{{ path('wizardalley_user_couverture_edit_picture') }}">{% trans %}
+                            wizard.user.profile.edit_picture_wall{% endtrans %}</a></p>
+                    <p>
+                        <a href="{{ path('fos_user_change_password') }}">{{ 'wizard.user.profile.change_pwd'|trans({}) }}</a>
+                    </p>
+                </div>
+                <div class="col-sm-12">
+                    <h3>
+                        {% trans %}wizard.user.profile.about{% endtrans %}
+                    </h3>
+                    <hr>
+                    <p>
+                        {{ user.description }}
+                    </p>
+
+                    <div class="row">
+                        {% if user.facebook != null %}
+                            <div class="col-md-6 col-xs-12">
+                                <a href="{{ user.facebook }}">
+                                        <span class="icon-large icon-facebook"
+                                              aria-hidden="true"></span>&nbsp;{{ user.facebook }}
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if user.twitter != null %}
+                            <div class="col-md-6 col-xs-12">
+                                <a href="{{ user.twitter }}">
+                                        <span class="icon-large icon-twitter"
+                                              aria-hidden="true"></span>&nbsp;{{ user.twitter }}
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
 
                 <div class="col-sm-12">
                     <div>
-                        <h3>{% trans %}wizard.user.profile.title.friend_list{% endtrans %}
+                        <h3>{% trans %}wizard.user.profile.title.friend_list{% endtrans %}</h3>
+                        <hr>
                     </div>
                     <div class="col-md-12" id="div_friend"
                          prototype='<a href="{{ path("wizardalley_user_wall") }}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
                     </div>
                     <div class="col-md-12">
-                        <button onClick="loadMoreFriends()">More</button>
+                        <button onClick="loadMoreFriends()" class="label defaut-label btn">{% trans %}wizard.utility.load_more{% endtrans %}</button>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div>
-                        <h3>{% trans %}wizard.user.profile.title.page_followed{% endtrans %}
+                        <h3>{% trans %}wizard.user.profile.title.page_followed{% endtrans %}</h3>
+                        <hr>
                     </div>
                     <div class="col-md-12" id="div_page_followed"
                          prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
                     </div>
                     <div class="col-md-12">
-                        <button onClick="loadMorePageFollowed()">More</button>
+                        <button onClick="loadMorePageFollowed()" class="label defaut-label btn">{% trans %}wizard.utility.load_more{% endtrans %}</button>
                     </div>
                 </div>
                 <div class="col-sm-12">
 
                     <div>
-                        <h3>{% trans %}wizard.user.profile.title.page_creator{% endtrans %}
+                        <h3>{% trans %}wizard.user.profile.title.page_creator{% endtrans %}</h3>
+                        <hr>
                     </div>
                     <div class="col-md-12"><a href="{{ path('page_gestion_new') }}"> {% trans %}
                             wizard.user.profile.create_page{% endtrans %}</a></div>
@@ -103,19 +130,51 @@
                          prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
                     </div>
                     <div class="col-md-12">
-                        <button onClick="loadMorePageCreated()">More</button>
+                        <button onClick="loadMorePageCreated()" class="label defaut-label btn">{% trans %}wizard.utility.load_more{% endtrans %}</button>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div>
-                        <h3>{% trans %}wizard.user.profile.title.page_editor{% endtrans %}
+                        <h3>{% trans %}wizard.user.profile.title.page_editor{% endtrans %}</h3>
+                        <hr>
                     </div>
                     <div class="col-md-12" id="div_page_editor"
                          prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
                     </div>
                     <div class="col-md-12">
-                        <button onClick="loadMorePageEditor()">More</button>
+                        <button onClick="loadMorePageEditor() " class="label defaut-label btn">{% trans %}wizard.utility.load_more{% endtrans %}</button>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="fos_user_user_show">
+                        <p>{% trans %}wizard.user.profile.last_login{% endtrans %}
+                            :&nbsp;{{ user.lastLogin|localizeddate('full', 'none') }} {{ user.lastLogin|date("H:i") }}</p>
+                        <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <h3>{% trans %}wizard.user.profile.publish_on_wall{% endtrans %}</h3>
+                    <hr>
+                    {{ render(
+                    controller(
+                    'WizardalleyPublicationBundle:SmallPublication:renderSmallPublication'
+                    )) }}
+                </div>
+
+                <div class="col-sm-12">
+                    <h3>{% trans %}wizard.user.wall.publication{% endtrans %}</h3>
+                    <div id="my_publication">
+
+                    </div>
+                    <div>
+                        <button id="loadMorePublication" class="label defaut-label btn">{% trans %}
+                            wizard.utility.load_more{% endtrans %}</button>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -126,6 +185,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script>
+        $pagePublication = 1;
         $pagePageFollowed = 1;
         $pageFriends = 1;
         $pageCreated = 1;
@@ -134,7 +194,26 @@
         loadMoreFriends();
         loadMorePageCreated();
         loadMorePageEditor();
+        loadMorePublication();
 
+
+        $('#loadMorePublication').on('click', function () {
+            loadMorePublication();
+        });
+
+        function loadMorePublication() {
+            var _handler = function ($data) {
+                $('#my_publication').append($data['extra']['html']);
+            };
+            $result = util.loadMore(Routing.generate('wizardalley_user_wall_publication', {'page': $pagePublication}), 'GET', _handler);
+            $pagePublication = $pagePublication + 1;
+        }
+        ;
+
+        function addPublication($data) {
+            $('#my_publication').append($data['extra']['html']);
+        }
+        ;
         function loadMorePageFollowed() {
             var _handler = function (data) {
                 var $divPageFollowed = $('#div_page_followed');

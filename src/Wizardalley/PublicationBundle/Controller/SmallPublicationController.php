@@ -3,8 +3,6 @@
 namespace Wizardalley\PublicationBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -17,7 +15,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
  *
  * @Route("/user/smallPublication")
  */
-class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\BaseController{
+class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\BaseController
+{
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function renderSmallPublicationAction()
+    {
+        $entity = new SmallPublication();
+        $form   = $this->createCreateForm($entity);
+
+        return $this->render(
+            '::publication/smallPublicationForm.html.twig',
+            ['formSmallPublication' => $form->createView()]
+        );
+    }
+
     /**
      * Creates a new SmallPublication entity.
      * @Route("/user/smallPublication/create", name="user_small_publication_create")
@@ -26,7 +39,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
     public function createAction(Request $request)
     {
         $entity = new SmallPublication();
-        $form = $this->createCreateForm($entity);
+        $form   = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -37,14 +50,22 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->sendJsonResponse('success', ['message' => 'wizard.smallPublication.add.success']);
+
+            if ($request->isXmlHttpRequest()) {
+                return $this->sendJsonResponse('success', ['message' => 'wizard.smallPublication.add.success']);
+            } else {
+                return $this->redirect($this->getRequest()->headers->get('referer'));
+            }
         }
 
-        return $this->sendJsonResponse('error',
+        return $this->sendJsonResponse(
+            'error',
             [
                 'message' => 'wizard.smallPublication.add.error',
-                'error'     => $form->getErrors()
-                ], 500);
+                'error'   => $form->getErrors()
+            ],
+            500
+        );
     }
 
     /**
@@ -56,12 +77,16 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
      */
     private function createCreateForm(SmallPublication $entity)
     {
-        $form = $this->createForm(new SmallPublicationType(), $entity, array(
-            'action' => $this->generateUrl('user_small_publication_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new SmallPublicationType(),
+            $entity,
+            [
+                'action' => $this->generateUrl('user_small_publication_create'),
+                'method' => 'POST',
+            ]
+        );
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', ['label' => 'Create']);
 
         return $form;
     }
@@ -80,9 +105,11 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             throw $this->createNotFoundException('Unable to find SmallPublication entity.');
         }
 
-
-        return $this->render('::smallPublication/show.html.twig', array(
-            'entity'      => $entity,
-        ));
+        return $this->render(
+            '::smallPublication/show.html.twig',
+            [
+                'entity' => $entity,
+            ]
+        );
     }
 }
