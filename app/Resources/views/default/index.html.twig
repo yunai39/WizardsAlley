@@ -2,6 +2,47 @@
 
 {% block body %}
     <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>{% trans %}wizard.home.user_online{% endtrans %}</h3>
+                    <hr>
+                </div>
+                <div class="last-connected-wrapper col-md-12">
+
+                </div>
+                <div class="col-md-12">
+                    <button class="refresh-last-connected-commented">
+                        {% trans %}wizard.utility.refresh{% endtrans %}
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>{% trans %}wizard.home.most_commented{% endtrans %}</h3>
+                    <hr>
+                </div>
+                <div class="most-commented-block-wrapper col-md-12">
+
+                </div>
+                <div class="col-md-12">
+                    <button class="load-more-most-commented">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3>{% trans %}wizard.home.informations{% endtrans %}</h3>
+                    <hr>
+                </div>
+                <div class="information-block-wrapper col-md-12">
+
+                </div>
+                <div class="col-md-12">
+                    <button class="load-more-information btn label">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+                </div>
+            </div>
+
+        </div>
         <div class="col-md-8">
             <div>
                 <h2>{% trans %}wizard.home.express_yourself{% endtrans %}</h2>
@@ -21,39 +62,6 @@
                     <button class="load-more-publication">{% trans %}wizard.utility.load_more{% endtrans %}</button>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="row">
-                <h2 class="col-md-12">{% trans %}wizard.home.user_online{% endtrans %}</h2>
-                <div class="last-connected-wrapper col-md-12">
-
-                </div>
-                <div class="col-md-12">
-                    <button class="refresh-last-connected-commented">{% trans %}
-                        wizard.utility.refresh{% endtrans %}</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>{% trans %}wizard.home.most_commented{% endtrans %}</h2>
-                </div>
-                <div class="most-commented-block-wrapper col-md-12">
-
-                </div>
-                <div class="col-md-12">
-                    <button class="load-more-most-commented">{% trans %}wizard.utility.load_more{% endtrans %}</button>
-                </div>
-            </div>
-            <div class="row">
-                <h2 class="col-md-12">{% trans %}wizard.home.informations{% endtrans %}</h2>
-                <div class="information-block-wrapper col-md-12">
-
-                </div>
-                <div class="col-md-12">
-                    <button class="load-more-information">{% trans %}wizard.utility.load_more{% endtrans %}</button>
-                </div>
-            </div>
-
         </div>
     </div>
 {% endblock %}

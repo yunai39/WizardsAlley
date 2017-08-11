@@ -243,25 +243,6 @@
     <script src="/assets/js/main.js"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
 
-    <script>
-
-        window.onload = function () {
-            var menu = $(".header-wizard");
-            var header = document.querySelector(".head");
-
-            function scrolled() {
-                var windowHeight = document.body.clientHeight,
-                        currentScroll = document.body.scrollTop || document.documentElement.scrollTop;
-                if (currentScroll >= header.offsetHeight) {
-                    menu.addClass('scroll');
-                } else {
-                    menu.removeClass('scroll');
-                }
-            }
-
-            addEventListener("scroll", scrolled, false);
-        }
-    </script>
 {% endblock %}
 </body>
 </html>
