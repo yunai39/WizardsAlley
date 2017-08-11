@@ -412,7 +412,6 @@ class WizardUser extends BaseUser implements ParticipantInterface
         $name = 'couverture.' . $ext;
         $this->fileCouverture->move($this->getUploadRootDir(), $name);
         $this->pathCouverture = $name;
-        $this->fileCouverture = null;
     }
 
     /**

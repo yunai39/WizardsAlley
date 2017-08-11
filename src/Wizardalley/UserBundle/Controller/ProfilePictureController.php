@@ -4,6 +4,7 @@ namespace Wizardalley\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Wizardalley\CoreBundle\Entity\WizardUser;
 
 /**
  * Controller managing the user profile
@@ -46,8 +47,10 @@ class ProfilePictureController extends Controller
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
-                $this->getUser()->uploadCouverture();
-                $em->persist($this->getUser());
+                /** @var WizardUser $user */
+                $user = $this->getUser();
+                $user->uploadCouverture();
+                $em->persist($user);
                 $em->flush();
             }
         }

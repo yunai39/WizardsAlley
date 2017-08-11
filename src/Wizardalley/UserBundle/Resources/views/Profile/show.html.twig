@@ -3,6 +3,7 @@
 {% block body_style %}url('{{ asset(user.getPictureCouverture) }}'){% endblock %}
 
 {% block title_banner %}
+    <h2>{{ user.getPictureCouverture() }}</h2>
     <div class="imgSquare circle">
         <div class="imgSquareContainer circle">
             <img src="{{ asset(user.getPictureProfile()) }}" class="circle"/>
