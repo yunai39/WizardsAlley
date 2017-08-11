@@ -18,6 +18,7 @@ wizard:
         load_more: Charger plus
         search: Recherche
         refresh: Rafraichir
+        back: Retour
     notification:
         page_publication: >
             <a href="%page_link%">%page_name%</a> vient de publier une nouvelle publication: <a href="%publication_link%">%publication_name%</a>
@@ -66,18 +67,20 @@ wizard:
             mail: Messagerie
             notification: Notification
     user:
+        change_password: Changer le mot de passe
         notification:
             title: Notifications
             mark_all_as_read: Tous marquer comme lu
             load_more: Plus de notification
 
         profile:
+            edit: Modifier mes informations
             display: Afficher mon profil
             lastname: Prénom
             about: A propos
             publish_on_wall: Publier sur le mur
             firstname: Nom
-            edit: Modifier mon profile
+            edit: Personnaliser mon profile
             edit_picture: Modifier la photo de profile
             edit_picture_wall: Modifier la couverture
             friend_list: Liste des amis

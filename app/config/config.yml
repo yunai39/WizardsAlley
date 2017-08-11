@@ -102,7 +102,7 @@ fos_user:
             type: wizard_user_registation
     profile:
         form:
-            type: wizard_user_profile_edit
+            type: Wizardalley\UserBundle\Form\Type\ProfileFormType
 
 
 fos_message:

@@ -1,14 +1,25 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
 {% block fos_user_content %}
-    <form action="{{ path('wizardalley_user_profile_edit_picture') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_picture_edit">
-        {{ form_widget(form) }}
-        <div>
-            <input type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}" />
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3>{% trans %}wizard.user.profile.edit_picture{% endtrans %}</h3>
+            <hr>
+            <button class="btn label">
+                <a href="{{ path('fos_user_profile_show') }}">
+                    {% trans %}wizard.utility.back{% endtrans %}
+                </a>
+            </button>
+            <form action="{{ path('wizardalley_user_profile_edit_picture') }}" {{ form_enctype(form) }} method="POST"
+                  class="fos_user_profile_picture_edit">
+                {{ form_widget(form) }}
+                <div>
+                    <input type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}"/>
+                </div>
+            </form>
+            <div>
+                <img src="{{ asset(app.user.getPictureProfile()) }}" width="200px"/>
+            </div>
         </div>
-    </form>
-        <div>
-            <img src="{{asset(app.user.getPictureProfile())}}" width="200px"/>
-        </div>
-
+    </div>
 {% endblock fos_user_content %}

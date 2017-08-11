@@ -17,39 +17,8 @@
 {% endblock %}
 
 {% block fos_user_content %}
-
-
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            {% if user.facebook != null %}
-                                <div class="col-md-6 col-xs-12">
-                                    <a href="{{ user.facebook }}">
-                                        <span class="icon-large icon-facebook"
-                                              aria-hidden="true"></span>&nbsp;{{ user.facebook }}
-                                    </a>
-                                </div>
-                            {% endif %}
-                            {% if user.twitter != null %}
-                                <div class="col-md-6 col-xs-12">
-                                    <a href="{{ user.twitter }}">
-                                        <span class="icon-large icon-twitter"
-                                              aria-hidden="true"></span>&nbsp;{{ user.twitter }}
-                                    </a>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-4">
             <div class="row">
                 <div class="col-sm-12">
                     <h3>
@@ -63,6 +32,9 @@
                             wizard.user.profile.edit_picture_wall{% endtrans %}</a></p>
                     <p>
                         <a href="{{ path('fos_user_change_password') }}">{{ 'wizard.user.profile.change_pwd'|trans({}) }}</a>
+                    </p>
+                    <p>
+                        <a href="{{ path('fos_user_profile_edit') }}">{{ 'wizard.user.profile.edit'|trans({}) }}</a>
                     </p>
                 </div>
                 <div class="col-sm-12">
@@ -99,8 +71,10 @@
                         <h3>{% trans %}wizard.user.profile.title.friend_list{% endtrans %}</h3>
                         <hr>
                     </div>
-                    <div class="col-md-12" id="div_friend"
-                         prototype='<a href="{{ path("wizardalley_user_wall") }}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                    <div class="col-md-12">
+                        <div class="row" id="div_friend"
+                             prototype='<a href="{{ path("wizardalley_user_wall") }}/__id__"><div class="col-sm-4 col-md-6 col-xs-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <button onClick="loadMoreFriends()" class="label defaut-label btn">{% trans %}wizard.utility.load_more{% endtrans %}</button>
@@ -111,8 +85,10 @@
                         <h3>{% trans %}wizard.user.profile.title.page_followed{% endtrans %}</h3>
                         <hr>
                     </div>
-                    <div class="col-md-12" id="div_page_followed"
-                         prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                    <div class="col-md-12">
+                        <div class="row" id="div_page_followed"
+                             prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-sm-4 col-md-6 col-xs-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <button onClick="loadMorePageFollowed()" class="label defaut-label btn">{% trans %}wizard.utility.load_more{% endtrans %}</button>
@@ -125,9 +101,12 @@
                         <hr>
                     </div>
                     <div class="col-md-12"><a href="{{ path('page_gestion_new') }}"> {% trans %}
-                            wizard.user.profile.create_page{% endtrans %}</a></div>
-                    <div class="col-md-12" id="div_page_created"
-                         prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                            wizard.user.profile.create_page{% endtrans %}</a>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row" id="div_page_created"
+                             prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-sm-4 col-md-6 col-xs-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <button onClick="loadMorePageCreated()" class="label defaut-label btn">{% trans %}wizard.utility.load_more{% endtrans %}</button>
@@ -138,8 +117,10 @@
                         <h3>{% trans %}wizard.user.profile.title.page_editor{% endtrans %}</h3>
                         <hr>
                     </div>
-                    <div class="col-md-12" id="div_page_editor"
-                         prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                    <div class="col-md-12">
+                        <div class="row" id="div_page_editor"
+                             prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-sm-4 col-md-6 col-xs-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                        </div>
                     </div>
                     <div class="col-md-12">
                         <button onClick="loadMorePageEditor() " class="label defaut-label btn">{% trans %}wizard.utility.load_more{% endtrans %}</button>
@@ -147,7 +128,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-8">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="fos_user_user_show">
