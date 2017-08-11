@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-10">
                 <h2><a href="{{path('publication_show',{'id': publication.id })}}" >{{publication.title}}</a></h2>
-                <h3>Par <a href="{{path('wizardalley_user_wall',{'id': publication.user_id})}}" >{{publication.username}}</a>,le {{publication.created_at | date('Y-m-d')}} à {{publication.created_at | date('H:i:s')}}</h3>
+                <h3>Par <a href="{{path('wizardalley_user_wall',{'id': publication.user_id})}}" >{{publication.username}}</a>, le {{publication.created_at | date('Y-m-d')}} à {{publication.created_at | date('H:i:s')}}</h3>
             </div>
         </div>
         <div class="row">

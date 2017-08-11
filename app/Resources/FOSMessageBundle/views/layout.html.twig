@@ -5,26 +5,16 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3>{% trans from 'FOSMessageBundle' %}messenger{% endtrans %}</h3>
+                    <a href="{{ url('fos_message_inbox') }}">
+                        <h3>{% trans from 'FOSMessageBundle' %}messenger{% endtrans %}</h3>
+                    </a>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
-                    <ul>
-                        <li><a href="{{ url('fos_message_inbox') }}">{% trans from 'FOSMessageBundle' %}
-                                inbox{% endtrans %}</a></li>
-                        <li><a href="{{ url('fos_message_sent') }}">{% trans from 'FOSMessageBundle' %}
-                                sent{% endtrans %}</a></li>
-                        <li><a href="{{ url('fos_message_deleted') }}">{% trans from 'FOSMessageBundle' %}
-                                deleted{% endtrans %}</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-9">
+                <div class="col-md-12">
                     {% block fos_message_content %}{% endblock %}
                 </div>
             </div>
         </div>
     </div>
-
-
 {% endblock %}

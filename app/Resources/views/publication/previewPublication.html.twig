@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-xs-12">
             <h2><a href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a></h2>
-            <p>Par <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a>,
+            <p>Par <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a>
                 le {{ entity.createdAt|date('Y-m-d') }}
             <p>{{ entity.content | raw }}</p>
             <div class="row">

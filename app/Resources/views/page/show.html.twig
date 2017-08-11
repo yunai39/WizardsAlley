@@ -1,35 +1,40 @@
 {% extends '::base.html.twig' %}
 
-{% block body -%}
-    <div class="row"
-         style="background-image: url('{{ asset(page.getPictureCouverture) }}');background-size:100% 100%;background-repeat:no-repeat;height: 30vw;">
-        <div class="row" style="margin-top:20%;">
-            <div class="col-md-2">
-                <div class="imgSquare ">
-                    <div class="imgSquareContainer">
-                        <img src="{{ asset(page.getPictureProfile()) }}"/>
-                    </div>
-                </div>
-            </div>
+{% block body_style %} url('{{ asset(page.getPictureCouverture) }}'){% endblock %}
 
+
+{% block title_banner %}
+    <div class="imgSquare circle">
+        <div class="imgSquareContainer circle">
+            <img src="{{ asset(page.getPictureProfile()) }}" class="circle"/>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-12">
+    <h1>
+        {{ page.name }}
+    </h1>
+    {% if page.officialPage or page.redactorPage %}
+        <h2>
             {% if page.officialPage %}
-                <span class="label label-primary">{% trans %}wizard.page.label.official{% endtrans %}</span>
+                {% trans %}wizard.page.label.official{% endtrans %}
+            {% endif %}
+            {% if page.redactorPage and page.redactorPage %}
+                -
             {% endif %}
             {% if page.redactorPage %}
-                <span class="label label-warning">{% trans %}wizard.page.label.redactor{% endtrans %}</span>
+                {% trans %}wizard.page.label.redactor{% endtrans %}
             {% endif %}
-            <h2>{{ page.name }}</h2>
-            {#Afficher la categorie#}
-            <p>
-                {% trans %}wizard.category.name{% endtrans %}:
-                <a href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{ page.category.name }}</a>
-            </p>
-        </div>
+        </h2>
+
+        <h3>
+            {% trans %}wizard.category.name{% endtrans %}:
+            <a href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{ page.category.name }}</a>
+        </h3>
+    {% endif %}
+{% endblock %}
+
+{% block body -%}
+
+    <div class="row">
         <!-- Si l'utilisateur est authorise a changer les publications -->
         <div class="col-md-12">
             <div class="row">
@@ -72,6 +77,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <h3>{% trans %} wizard.page.followers {% endtrans %}</h3>
+                            <hr>
                             {% for user in followers %}
                                 <div class="squareUser">
                                     <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
@@ -92,6 +98,7 @@
                         </div>
                         <div class="col-md-12">
                             <h3>{% trans %} wizard.page.editor {% endtrans %}</h3>
+                            <hr>
                             {% for user in editors %}
                                 <div class="squareUser">
                                     <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
@@ -120,7 +127,10 @@
 
         </div>
         <div class="col-xs-12">
-            <h3>{% trans %}wizard.page.publications{% endtrans %}</h3>
+            <h3>
+                {% trans %}wizard.page.publications{% endtrans %}
+            </h3>
+
             <div id="my_publication">
 
             </div>
