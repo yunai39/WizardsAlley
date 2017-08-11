@@ -141,6 +141,9 @@ easy_admin:
                     - { property: 'sexe', firstnametype: 'choice', choices:['Homme','Femme'] }
                     - lastname
                     - firstname
+                    - smallDescription
+                    - description
+                    - firstname
                     - { property: 'twitter', type: 'url'}
                     - { property: 'facebook', type: 'url'}
                     - { property: 'password', type: 'repeated'}
@@ -161,7 +164,9 @@ easy_admin:
                     - enabled
                     - locked
                     - firstname
-                    - { property: 'sexe', type: 'choice', type_options: {choices: {'0':'Homme', '1':'Femme'}}}
                     - lastname
+                    - { property: 'sexe', type: 'choice', type_options: {choices: {'0':'Homme', '1':'Femme'}}}
+                    - smallDescription
+                    - description
                     - { property: 'twitter', type: 'url'}
                     - { property: 'facebook', type: 'url'}

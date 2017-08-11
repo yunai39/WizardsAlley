@@ -1,18 +1,25 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
+{% block body_style %}url('{{ asset(user.getPictureCouverture) }}'){% endblock %}
+
+{% block title_banner %}
+    <div class="imgSquare circle">
+        <div class="imgSquareContainer circle">
+            <img src="{{ asset(user.getPictureProfile()) }}" class="circle"/>
+        </div>
+    </div>
+    <h1>
+        {{ user.username }}
+    </h1>
+    <h2>
+        {{ user.smallDescription }}
+    </h2>
+{% endblock %}
 
 {% block fos_user_content %}
     <div class="row">
-        <img src="{{ asset(user.getPictureCouverture()) }}" class="col-md-12 img-responsive"/>
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="imgSquare">
-                        <div class="imgSquareContainer">
-                            <img src="{{ asset(user.getPictureProfile()) }}"/>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-md-9 col-xs-12">
                     <div class="row">
                         <div class="col-md-6">
@@ -60,51 +67,56 @@
             </div>
 
         </div>
-        <div class="col-md-6 col-sm-12">
-            <div>
-                <h3>{% trans %}wizard.user.profile.title.friend_list{% endtrans %}
-            </div>
-            <div class="col-md-12" id="div_friend"
-                 prototype='<a href="{{ path("wizardalley_user_wall") }}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
-            </div>
-            <div class="col-md-12">
-                <button onClick="loadMoreFriends()">More</button>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-12">
-            <div>
-                <h3>{% trans %}wizard.user.profile.title.page_followed{% endtrans %}
-            </div>
-            <div class="col-md-12" id="div_page_followed"
-                 prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
-            </div>
-            <div class="col-md-12">
-                <button onClick="loadMorePageFollowed()">More</button>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-12">
+        <div class="col-md-4">
+            <div class="row">
 
-            <div>
-                <h3>{% trans %}wizard.user.profile.title.page_creator{% endtrans %}
-            </div>
-            <div class="col-md-12"><a href="{{ path('page_gestion_new') }}"> {% trans %}
-                    wizard.user.profile.create_page{% endtrans %}</a></div>
-            <div class="col-md-12" id="div_page_created"
-                 prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
-            </div>
-            <div class="col-md-12">
-                <button onClick="loadMorePageCreated()">More</button>
-            </div>
-        </div>
-        <div class="col-md-6 col-sm-12">
-            <div>
-                <h3>{% trans %}wizard.user.profile.title.page_editor{% endtrans %}
-            </div>
-            <div class="col-md-12" id="div_page_editor"
-                 prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
-            </div>
-            <div class="col-md-12">
-                <button onClick="loadMorePageEditor()">More</button>
+                <div class="col-sm-12">
+                    <div>
+                        <h3>{% trans %}wizard.user.profile.title.friend_list{% endtrans %}
+                    </div>
+                    <div class="col-md-12" id="div_friend"
+                         prototype='<a href="{{ path("wizardalley_user_wall") }}/__id__"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                    </div>
+                    <div class="col-md-12">
+                        <button onClick="loadMoreFriends()">More</button>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div>
+                        <h3>{% trans %}wizard.user.profile.title.page_followed{% endtrans %}
+                    </div>
+                    <div class="col-md-12" id="div_page_followed"
+                         prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                    </div>
+                    <div class="col-md-12">
+                        <button onClick="loadMorePageFollowed()">More</button>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+
+                    <div>
+                        <h3>{% trans %}wizard.user.profile.title.page_creator{% endtrans %}
+                    </div>
+                    <div class="col-md-12"><a href="{{ path('page_gestion_new') }}"> {% trans %}
+                            wizard.user.profile.create_page{% endtrans %}</a></div>
+                    <div class="col-md-12" id="div_page_created"
+                         prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                    </div>
+                    <div class="col-md-12">
+                        <button onClick="loadMorePageCreated()">More</button>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div>
+                        <h3>{% trans %}wizard.user.profile.title.page_editor{% endtrans %}
+                    </div>
+                    <div class="col-md-12" id="div_page_editor"
+                         prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-md-4 col-sm-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
+                    </div>
+                    <div class="col-md-12">
+                        <button onClick="loadMorePageEditor()">More</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

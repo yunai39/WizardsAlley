@@ -27,7 +27,6 @@ h1, h2, h3, h4, h5, h6 {
   margin-left: 10px; }
 
 body {
-  background: url("../../../images/bg.png") no-repeat top;
   background-size: cover;
   background-attachment: fixed; }
 
@@ -321,7 +320,11 @@ header nav .nav-full li:hover {
   padding: 5vh 15vw;
   justify-content: center;
   align-items: center;
-  color: #FFF; }
+  color: #FFF;
+  height: 60vh; }
+  .head .imgSquare {
+    width: 15vh;
+    margin: auto; }
 
 .navbar-header {
   width: 100%;

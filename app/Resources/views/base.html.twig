@@ -20,7 +20,7 @@
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="/assets/images/favicon-site.ico"/>
 </head>
-<body>
+<body style="background: {% block body_style %}url('/images/bg.png'){% endblock %} no-repeat top;background-size: cover;background-attachment: fixed;" >
 {% block before_body %}
     <header>
         <nav class="navbar navbar-custom navbar-fixed-top">
@@ -163,11 +163,11 @@
 
 
     <div class="head">
+        {% block title_banner %}
         <h1>
-            {% block title_banner %}
-                {% trans %}wizard.banner{% endtrans %}
-            {% endblock %}
+            {% trans %}wizard.banner{% endtrans %}
         </h1>
+        {% endblock %}
     </div>
 
     <main class="background-wizard">

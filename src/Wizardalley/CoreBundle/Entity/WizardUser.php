@@ -57,6 +57,19 @@ class WizardUser extends BaseUser implements ParticipantInterface
      */
     private $facebook;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="small_description", type="string", length=128, nullable=true)
+     */
+    private $smallDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
 
     /**
      * @var string
@@ -76,7 +89,6 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $pathProfile;
-
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -169,6 +181,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public function setLastname($lastname)
     {
         $this->lastname = $lastname;
+
         return $this;
     }
 
@@ -188,6 +201,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public function setFirstname($firstname)
     {
         $this->firstname = $firstname;
+
         return $this;
     }
 
@@ -207,6 +221,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public function setFacebook($facebook)
     {
         $this->facebook = $facebook;
+
         return $this;
     }
 
@@ -226,6 +241,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public function setTwitter($twitter)
     {
         $this->twitter = $twitter;
+
         return $this;
     }
 
@@ -245,6 +261,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public function setSexe($sexe)
     {
         $this->sexe = $sexe;
+
         return $this;
     }
 
@@ -293,7 +310,11 @@ class WizardUser extends BaseUser implements ParticipantInterface
      */
     public function getPictureProfile()
     {
-        return null === $this->pathProfile ? $this->getDefaultProfile() : $this->getUploadDir() . '/' . $this->pathProfile;
+        return null === $this->pathProfile
+            ? $this->getDefaultProfile()
+            : $this->getUploadDir() .
+              '/' .
+              $this->pathProfile;
     }
 
     /**
@@ -301,7 +322,11 @@ class WizardUser extends BaseUser implements ParticipantInterface
      */
     public function getPictureCouverture()
     {
-        return null === $this->pathCouverture ? $this->getDefaultCouverture() : $this->getUploadDir() . '/' . $this->pathCouverture;
+        return null === $this->pathCouverture
+            ? $this->getDefaultCouverture()
+            : $this->getUploadDir() .
+              '/' .
+              $this->pathCouverture;
     }
 
     /**
@@ -348,6 +373,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
         foreach ($this->getPagesFollowed() as $p) {
             $collection[] = $p->getPage();
         }
+
         return $collection;
     }
 
@@ -356,7 +382,6 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var UploadedFile
      */
     public $fileProfile;
-
 
     /**
      * @Assert\File(maxSize="6000000")
@@ -457,7 +482,6 @@ class WizardUser extends BaseUser implements ParticipantInterface
         return $this->pathCouverture;
     }
 
-
     /**
      * Add friendsWithMe
      *
@@ -540,7 +564,6 @@ class WizardUser extends BaseUser implements ParticipantInterface
     {
         return ($this->myFriends->indexOf($user) !== false and $this->friendsWithMe->indexOf($user) !== false);
     }
-
 
     /**
      * Add pagesCreated
@@ -784,6 +807,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * Set setLastConnect
      *
      * @param \DateTime $lastConect
+     *
      * @return WizardUser
      */
     public function setLastConnect($lastConnect)
@@ -796,26 +820,32 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Get lastConnect
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getLastConnect()
     {
         return $this->lastConnect;
     }
 
-    public function getExpiresAt(){
+    public function getExpiresAt()
+    {
         return $this->expiresAt;
     }
-    public function setExpiresAt(\DateTime $expireAt){
+
+    public function setExpiresAt(\DateTime $expireAt)
+    {
         $this->expiresAt = $expireAt;
 
         return $this;
     }
 
-    public function getCredentialsExpireAt(){
+    public function getCredentialsExpireAt()
+    {
         return $this->credentialsExpireAt;
     }
-    public function setCredentialsExpireAt(\DateTime $credentialsExpireAt){
+
+    public function setCredentialsExpireAt(\DateTime $credentialsExpireAt)
+    {
         $this->credentialsExpireAt = $credentialsExpireAt;
 
         return $this;
@@ -825,6 +855,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * Add pagesChecker
      *
      * @param \Wizardalley\CoreBundle\Entity\Page $pagesChecker
+     *
      * @return WizardUser
      */
     public function addPagesChecker(\Wizardalley\CoreBundle\Entity\Page $pagesChecker)
@@ -847,10 +878,56 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Get pagesChecker
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPagesChecker()
     {
         return $this->pagesChecker;
+    }
+
+    /**
+     * Set smallDescription
+     *
+     * @param string $smallDescription
+     * @return WizardUser
+     */
+    public function setSmallDescription($smallDescription)
+    {
+        $this->smallDescription = $smallDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get smallDescription
+     *
+     * @return string 
+     */
+    public function getSmallDescription()
+    {
+        return $this->smallDescription;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return WizardUser
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }
