@@ -11,4 +11,3 @@ app/cache/
 app/logs/
 bin/
 .vagrant/
-/app/config/parameters.yml

@@ -46,6 +46,20 @@ class ProfileFormType extends BaseForm
                 ]
             )
             ->add(
+                'small_description',
+                'text',
+                array(
+                    'label' =>'wizard.register.label.small_description',
+                )
+            )
+            ->add(
+                'description',
+                null,
+                array(
+                    'label' =>'wizard.register.label.description',
+                )
+            )
+            ->add(
                 'twitter',
                 'text',
                 [

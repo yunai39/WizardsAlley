@@ -95,7 +95,9 @@ wizard:
         label:
             firstname: Prénom 
             lastname: Nom 
-            sexe: Genre 
+            description: Description
+            small_description: Introduction
+            sexe: Genre
             facebook: Facebook
             twitter: Twitter
         field:
