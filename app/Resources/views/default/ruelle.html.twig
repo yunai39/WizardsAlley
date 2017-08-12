@@ -1,80 +1,68 @@
 {% extends '::base.html.twig' %}
 
-{% block body_style %}url('{{ asset('images/street.png')}}'){% endblock %}
+{% block body_style %}url('{{ asset('images/street.png') }}'){% endblock %}
 
 {% block body %}
     <div class="row">
         <br>
         <div class="col-md-4">
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="col-md-12">
-                            <h3>{% trans %}wizard.home.user_online{% endtrans %}</h3>
-                            <hr>
-                        </div>
-                        <div class="last-connected-wrapper col-md-12">
-                        </div>
-                    </div>
-                    <div class="panel-footer text-center">
-                        <span class="glyphicon glyphicon-chevron-down clickable refresh-last-connected-commented" aria-hidden="true"></span>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans %}wizard.home.user_online{% endtrans %}</h3>
+                    <hr>
+                    <div class="last-connected-wrapper">
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="col-md-12">
-                            <h3>{% trans %}wizard.home.most_commented{% endtrans %}</h3>
-                            <hr>
-                        </div>
-                        <div class="most-commented-block-wrapper col-md-12">
-
-                        </div>
-                    </div>
-                    <div class="panel-footer text-center">
-                        <span class="glyphicon glyphicon-chevron-down clickable load-more-most-commented" aria-hidden="true"></span>
-                    </div>
+                <div class="panel-footer text-center">
+                    <span class="glyphicon glyphicon-chevron-down clickable refresh-last-connected-commented"
+                          aria-hidden="true"></span>
                 </div>
             </div>
-            <div class="row">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="col-md-12">
-                            <h3>{% trans %}wizard.home.informations{% endtrans %}</h3>
-                            <hr>
-                        </div>
-                        <div class="information-block-wrapper col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans %}wizard.home.most_commented{% endtrans %}</h3>
+                    <hr>
+                    <div class="most-commented-block-wrapper">
 
-                        </div>
                     </div>
-                    <div class="panel-footer text-center">
-                        <span class="glyphicon glyphicon-chevron-down clickable load-more-information" aria-hidden="true"></span>
+                </div>
+                <div class="panel-footer text-center">
+                        <span class="glyphicon glyphicon-chevron-down clickable load-more-most-commented"
+                              aria-hidden="true"></span>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans %}wizard.home.informations{% endtrans %}</h3>
+                    <hr>
+                    <div class="information-block-wrapper">
+
                     </div>
+                </div>
+                <div class="panel-footer text-center">
+                        <span class="glyphicon glyphicon-chevron-down clickable load-more-information"
+                              aria-hidden="true"></span>
                 </div>
             </div>
 
         </div>
         <div class="col-md-8">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <h2>{% trans %}wizard.home.express_yourself{% endtrans %}</h2>
-                            <hr>
-                            {{ form_start(formSmallPublication, { attr: {id: 'wizardalley_publicationbundle_add_small_publication'}}) }}
-                            {{ form_row(formSmallPublication.content) }}
-                            {{ form_row(formSmallPublication.submit) }}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h2>{% trans %}wizard.home.express_yourself{% endtrans %}</h2>
+                    <hr>
+                    {{ form_start(formSmallPublication, { attr: {id: 'wizardalley_publicationbundle_add_small_publication'}}) }}
+                    {{ form_row(formSmallPublication.content) }}
+                    {{ form_row(formSmallPublication.submit) }}
 
-                            {{ form_end(formSmallPublication) }}
-                            <h3>{% trans %}wizard.home.your_publication{% endtrans %}</h3>
-                            <div class="publication-block-wrapper">
-                            </div>
-                        </div>
-                        <div class="panel-footer text-center">
-                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication" aria-hidden="true"></span>
-                        </div>
+                    {{ form_end(formSmallPublication) }}
+                    <h3>{% trans %}wizard.home.your_publication{% endtrans %}</h3>
+                    <div class="publication-block-wrapper">
                     </div>
+                </div>
+                <div class="panel-footer text-center">
+                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"
+                                  aria-hidden="true"></span>
                 </div>
             </div>
         </div>
