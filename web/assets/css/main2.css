@@ -1,18 +1,9 @@
 @font-face {
-    font-family: "bettyregular";
-    src: url("../fonts/BettyRegular/betty_regular.woff") format("woff"), url("../fonts/BettyRegular/betty_regular.ttf") format("truetype");
-}
-
-.navbar-head, h1, h2, h3, h4, h5, h6, footer {
-    font-family: "bettyregular", sans-serif;
-}
-
-@font-face {
     font-family: "Timeless";
     src: url("../fonts/Timeless/timeless.woff") format("woff"), url("../fonts/Timeless/timeless.ttf") format("truetype");
 }
 
-header nav, p {
+.navbar-head, h1, h2, h3, h4, h5, h6, footer, header nav, p {
     font-family: "Timeless", sans-serif;
 }
 
@@ -56,8 +47,6 @@ body {
     padding: 2%;
     width: 90%;
 }
-
-/*Transformer une image en carre parfait on peut aussi rajouter la class circle*/
 
 .imgSquare {
     position: relative;

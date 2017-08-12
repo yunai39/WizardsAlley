@@ -2,9 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Wizard's Alley{% endblock %}</title>
     {% block stylesheets %}
         <meta name="viewport" content="width=device-width">
+<<<<<<< HEAD
         <link rel="stylesheet" href="{{ asset('/assets/css/adminStats.css') }}"/>
         <link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}"/>
         <link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.icon-large.min.css') }}"/>
@@ -18,9 +19,9 @@
         <link rel="stylesheet" href="{{ asset('/assets/jquery-ui/jquery-ui.theme.min.css') }}"/>
         <link rel="stylesheet" href="{{ asset('/assets/jquery-ui/jquery-ui.structure.min.css') }}"/>
     {% endblock %}
-    <link rel="icon" type="image/x-icon" href="/assets/images/favicon-site.ico"/>
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon-site.ico"/>
 </head>
-<body style="background: {% block body_style %}url('/images/bg.png'){% endblock %} no-repeat top;background-size: cover;background-attachment: fixed;" >
+<body style="background: {% block body_style %}url('images/bg.png'){% endblock %} no-repeat top;background-size: cover;background-attachment: fixed;" >
 {% block before_body %}
     <header>
         <nav class="navbar navbar-custom navbar-fixed-top">
@@ -90,16 +91,6 @@
 
                                 <i class="wizard-icondiscover"></i>
                                 {% trans %}wizard.menu.link.discover{% endtrans %}
-                            </a>
-                        </li>
-
-
-                        <li>
-                            <a {% if app.request.get('_route') == 'wizardalley_discover_map' %} class="active" {% endif %}
-                                    href="{{ path('wizardalley_discover_map') }}">
-
-                                <i class="wizard-icondiscover"></i>
-                                {% trans %}wizard.menu.link.discover_map{% endtrans %}
                             </a>
                         </li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
