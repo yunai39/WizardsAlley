@@ -17,7 +17,7 @@ wizardalley_user_wall:
 
 
 wizardalley_user_wall_publication:
-    path:   /user/wall/publication/{page}
+    path:   /user/wall/publication/{user_id}/{page}
     defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationUser, page: 1 }
     options:
         expose: true

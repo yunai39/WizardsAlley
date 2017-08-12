@@ -211,14 +211,15 @@ class DefaultController extends BaseController
 
     /**
      * @param int $page
+     * @param int $user_id
      *
      * @return JsonResponse
      */
-    public function displayPublicationUserAction($page = 1)
+    public function displayPublicationUserAction($user_id, $page = 1)
     {
         /** @var WizardUserRepository $repo */
         $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
-        $publications = $repo->findPublication($this->getUser(), $page);
+        $publications = $repo->findPublication($repo->find($user_id), $page);
 
         return $this->sendJsonResponse(
             'success',
