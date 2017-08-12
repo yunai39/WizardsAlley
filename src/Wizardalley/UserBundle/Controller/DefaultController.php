@@ -82,17 +82,17 @@ class DefaultController extends BaseController
         $followedNotification = new FollowedNotification();
 
         $followedNotification->setType($notificationType)->setChecked(false)->setUser($friend)->setCreatedAt(
-                new \DateTime()
-            )->setUpdatedAt(new \DateTime())->setDataNotification(
-                json_encode(
-                    [
-                        'asked_from'          => $userAsking->getId(),
-                        'asked_from_username' => $userAsking->getUsername(),
-                        'asked_to'            => $id_user
-                    ],
-                    true
-                )
+            new \DateTime()
+        )->setUpdatedAt(new \DateTime())->setDataNotification(
+            json_encode(
+                [
+                    'asked_from'          => $userAsking->getId(),
+                    'asked_from_username' => $userAsking->getUsername(),
+                    'asked_to'            => $id_user
+                ],
+                true
             )
+        )
         ;
 
         $em->persist($userAsking);
@@ -236,9 +236,36 @@ class DefaultController extends BaseController
         );
     }
 
-    public function displayUserConnectedLastAction() {
+    /**
+     * @param int $page
+     *
+     * @return JsonResponse
+     */
+    public function displayPublicationProfileAction($page = 1)
+    {
         /** @var WizardUserRepository $repo */
         $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+        $publications = $repo->findPublication($this->getUser(), $page);
+
+        return $this->sendJsonResponse(
+            'success',
+            null,
+            200,
+            [
+                'html' => $this->renderView(
+                    '::user/publication.html.twig',
+                    [
+                        'publications' => $publications,
+                    ]
+                )
+            ]
+        );
+    }
+
+    public function displayUserConnectedLastAction()
+    {
+        /** @var WizardUserRepository $repo */
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
 
         $users = $repo->findUserLastAction();
 
@@ -255,7 +282,6 @@ class DefaultController extends BaseController
                 )
             ]
         );
-
     }
 
     /**

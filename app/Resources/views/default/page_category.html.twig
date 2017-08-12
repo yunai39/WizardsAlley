@@ -1,28 +1,31 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-        <div class="row">
-            <div class="col-md-12">
-                <h2><strong>{% trans %}wizard.category.name{% endtrans %}:</strong> {{ category.name }}</h2>
-                <p>{{ category.description }}</p>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2><strong>{% trans %}wizard.category.name{% endtrans %}:</strong> {{ category.name }}</h2>
+                    <p>{{ category.description }}</p>
+                </div>
             </div>
-        </div>
-        <hr>
-        <div class="row">
-            {% for page in pages %}
-                <div class="col-md-6">
-                    <div class="row text-center">
-                        <div class="col-xs-12">
-                            <img src="/uploads/page/profile/{{ page.pathProfile }}" alt="" class="img-responsive margin-auto" style="height:250px;">
-                        </div>
-                        <div class="col-xs-12">
-                            <h3><a href="{{ path('page_show', {id_page: page.id}) }}">{{ page.name }}</a></h3>
-                            <p>{{ page.description | raw }}</p>
+            <hr>
+            <div class="row">
+                {% for page in pages %}
+                    <div class="col-md-6">
+                        <div class="row text-center">
+                            <div class="col-xs-12">
+                                <img src="/uploads/page/profile/{{ page.pathProfile }}" alt="" class="img-responsive margin-auto" style="height:250px;">
+                            </div>
+                            <div class="col-xs-12">
+                                <h3><a href="{{ path('page_show', {id_page: page.id}) }}">{{ page.name }}</a></h3>
+                                <p>{{ page.description | raw }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-
+                {% endfor %}
+            </div>
         </div>
+    </div>
 
 {% endblock %}

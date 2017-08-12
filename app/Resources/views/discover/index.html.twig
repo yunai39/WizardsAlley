@@ -13,19 +13,15 @@
         <div class="col-md-4">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>
-                        {% trans %}wizard.discover.team_choice{% endtrans %}
-                    </h2>
-                    <hr>
-                </div>
-                <div class="col-md-12">
-                    <h3>{% trans %}wizard.discover.favorite.page{% endtrans %}</h3>
-                    <hr>
-                    <div class="row">
-                        <div id="fav_pages" class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h3>{% trans %}wizard.discover.favorite.page{% endtrans %}</h3>
+                            <hr>
+                            <div class="row">
+                                <div id="fav_pages" class="col-xs-12">
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="panel">
                         <div class="panel-footer text-center">
                             <span class="glyphicon glyphicon-chevron-down clickable" aria-hidden="true"
                                   id="loadMorePage"></span>
@@ -34,12 +30,10 @@
                 </div>
                 <div class="col-md-12">
 
-                    <div class="panel panel-wizard">
-                        <div class="panel-heading">
-                            <h3>{% trans %}wizard.discover.favorite.publication{% endtrans %}</h3>
-                        </div>
+                    <div class="panel panel-default">
                         <div class="panel-body">
-
+                            <h3>{% trans %}wizard.discover.favorite.publication{% endtrans %}</h3>
+                            <hr>
                             <div class="row">
                                 <div id="fav_publications" class="col-xs-12">
                                 </div>
@@ -53,7 +47,7 @@
                 </div>
                 <div class="col-md-12">
 
-                    <div class="panel panel-wizard">
+                    <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3>{% trans %}wizard.category.name{% endtrans %}</h3>
                         </div>
@@ -77,13 +71,13 @@
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>{% trans %}wizard.discover.last_publication{% endtrans %}</h2>
-                    <hr>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    {{ render(controller('WizardalleyPublicationBundle:Publication:getLatestPublication')) }}
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h2>{% trans %}wizard.discover.last_publication{% endtrans %}</h2>
+                            <hr>
+                            {{ render(controller('WizardalleyPublicationBundle:Publication:getLatestPublication')) }}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

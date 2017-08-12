@@ -2,12 +2,16 @@
 
 {% block body %}
     <div class="row">
-        <h2>{% trans %}wizard.utility.search{% endtrans %}</h2>
-        <div class="col-md-12">{{form(form)}}</div>
-        <hr>
-        <div class="col-md-12" id="wizard_search_result"></div>
-        <div class="col-md-12">
-            <button class="load-more-search">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h2>{% trans %}wizard.utility.search{% endtrans %}</h2>
+                <div class="col-md-12">{{form(form)}}</div>
+                <hr>
+                <div class="col-md-12" id="wizard_search_result"></div>
+                <div class="col-md-12">
+                    <button class="load-more-search">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

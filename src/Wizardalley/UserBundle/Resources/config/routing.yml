@@ -22,6 +22,12 @@ wizardalley_user_wall_publication:
     options:
         expose: true
 
+wizardalley_user_profile_publication:
+    path:   /user/wall/publication/{page}
+    defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationProfile, page: 1 }
+    options:
+        expose: true
+
 wizardalley_user_wall_publication_json:
     path:   /user/wall/publicationJson/{id}
     defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationWall, id: null }
