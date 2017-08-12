@@ -1,32 +1,27 @@
 {% extends '::gestionPage/template.html.twig' %}
 
 {% block gestion %}
-
     <div class="row">
         <div class="col-md-12">
-            <div class="row">
-                {{ form_start(form) }}
-                {{ form_errors(form) }}
-
-
-                <div class="ui-widget">
-                    <label for="search_user">{% trans %}wizard.page.edit_user.search{% endtrans %}</label>
-                    <input id="search_user">
-                </div>
-                {% if form.editors %}
-                    <ul class="editor" data-prototype="{{ form_widget(form.editors.vars.prototype)|e }}">
-                        {% for editor in form.editors %}
-                            <li>
-                                {{ form_errors(editor) }}
-                                {{ form_row(editor.id) }}</br>
-                                {{ form_row(editor.username) }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-                {{ form_row(form.submit) }}
-                {{ form_end(form) }}
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            <div class="ui-widget">
+                <label for="search_user">{% trans %}wizard.page.edit_user.search{% endtrans %}</label>
+                <input id="search_user">
             </div>
+            {% if form.editors %}
+                <ul class="editor" data-prototype="{{ form_widget(form.editors.vars.prototype)|e }}">
+                    {% for editor in form.editors %}
+                        <li>
+                            {{ form_errors(editor) }}
+                            {{ form_row(editor.id) }}</br>
+                            {{ form_row(editor.username) }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {{ form_row(form.submit) }}
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}

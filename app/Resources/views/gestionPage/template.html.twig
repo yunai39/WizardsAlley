@@ -2,45 +2,57 @@
 
 {% block body %}
     {% set isAdmin = (page.creator.id == app.user.id ) %}
-    <h2>{{ page.name }} - {% trans %} wizard.page.gestion.title.edit {% endtrans %}</h2>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h2>{{ page.name }} - {% trans %} wizard.page.gestion.title.edit {% endtrans %}</h2>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-3">
-            <p>
-                <a href="{{ path('page_show',{'id_page': page.id}) }}">
-                    <span class="glyphicon glyphicon-file"></span>
-                    &nbsp; {% trans %} wizard.page.gestion.back {% endtrans %}
-                </a>
-            </p>
-            <p>
-                <a href="{{ path('page_gestion_show',{'id_page': page.id}) }}">
-                    <span class="glyphicon glyphicon-cog"></span>
-                    &nbsp; {% trans %}wizard.page.gestion.edit {% endtrans %}
-                </a>
-            </p>
-            <p>
-                <a href="{{ path('page_gestion_publication',{'id_page': page.id}) }}">
-                    <span class="glyphicon glyphicon-duplicate"></span>
-                    &nbsp; {% trans %}wizard.page.gestion.publication.edit {% endtrans %}
-                </a>
-            </p>
-            {%  if isAdmin == true %}
-                <p>
-                    <a href="{{ path('page_gestion_user_writer',{'id_page': page.id}) }}">
-                        <span class="glyphicon glyphicon-user"></span>
-                        &nbsp; {% trans %}wizard.page.gestion.editor{% endtrans %}
-                    </a>
-                </p>
-                <p>
-                    <a href="{{ path('page_gestion_user_checker',{'id_page': page.id}) }}">
-                        <span class="glyphicon glyphicon-user"></span>
-                        &nbsp; {% trans %}wizard.page.gestion.checker{% endtrans %}
-                    </a>
-                </p>
-            {% endif %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>
+                        <a href="{{ path('page_show',{'id_page': page.id}) }}">
+                            <span class="glyphicon glyphicon-file"></span>
+                            &nbsp; {% trans %} wizard.page.gestion.back {% endtrans %}
+                        </a>
+                    </p>
+                    <p>
+                        <a href="{{ path('page_gestion_show',{'id_page': page.id}) }}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            &nbsp; {% trans %}wizard.page.gestion.edit {% endtrans %}
+                        </a>
+                    </p>
+                    <p>
+                        <a href="{{ path('page_gestion_publication',{'id_page': page.id}) }}">
+                            <span class="glyphicon glyphicon-duplicate"></span>
+                            &nbsp; {% trans %}wizard.page.gestion.publication.edit {% endtrans %}
+                        </a>
+                    </p>
+                    {%  if isAdmin == true %}
+                        <p>
+                            <a href="{{ path('page_gestion_user_writer',{'id_page': page.id}) }}">
+                                <span class="glyphicon glyphicon-user"></span>
+                                &nbsp; {% trans %}wizard.page.gestion.editor{% endtrans %}
+                            </a>
+                        </p>
+                        <p>
+                            <a href="{{ path('page_gestion_user_checker',{'id_page': page.id}) }}">
+                                <span class="glyphicon glyphicon-user"></span>
+                                &nbsp; {% trans %}wizard.page.gestion.checker{% endtrans %}
+                            </a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
         <div class="col-md-9">
-            {% block gestion %}
-            {% endblock %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {% block gestion %}
+                    {% endblock %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
