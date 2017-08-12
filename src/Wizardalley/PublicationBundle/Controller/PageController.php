@@ -5,6 +5,7 @@ namespace Wizardalley\PublicationBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\PageCategory;
 use Wizardalley\CoreBundle\Entity\PageRepository;
 use Wizardalley\CoreBundle\Entity\PageUserFollow;
@@ -15,6 +16,7 @@ use Wizardalley\CoreBundle\Entity\PublicationRepository;
 
 /**
  * Class PageController
+ *
  * @package Wizardalley\PublicationBundle\Controller
  */
 class PageController extends \Wizardalley\DefaultBundle\Controller\BaseController
@@ -24,24 +26,28 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     /**
      * @param $category_id
      * @Route("/category/{category_id}", name="wizardalley_page_category", requirements={"category_id" = "\d+"})
+     *
      * @return Response
      */
     public function categoryPageIndexAction($category_id)
     {
         /* @var $em \Doctrine\ORM\EntityManager */
-        $em = $this->getDoctrine()->getManager();
+        $em       = $this->getDoctrine()->getManager();
         $category = $em->getRepository('WizardalleyCoreBundle:PageCategory')->find($category_id);
         if (!$category instanceof PageCategory) {
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
 
         /** @var PageRepository $pageRepository */
-        $pageRepository =  $em->getRepository('WizardalleyCoreBundle:Page');
+        $pageRepository = $em->getRepository('WizardalleyCoreBundle:Page');
 
-        return $this->render(':default:page_category.html.twig', [
-            'category'  => $category,
-            'pages'     => $pageRepository->findBy(['category' => $category])
-        ]);
+        return $this->render(
+            ':default:page_category.html.twig',
+            [
+                'category' => $category,
+                'pages'    => $pageRepository->findBy(['category' => $category])
+            ]
+        );
     }
 
     /**
@@ -61,13 +67,16 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
             throw $this->createNotFoundException('Unable to find Page entity.');
         }
         $latestFollower = $em->getRepository('WizardalleyCoreBundle:Page')->findLatestFollower($page->getId(), 9);
-        return $this->render('::page/show.html.twig'
-            , [
-                'page' => $page,
-                'followers' => $latestFollower,
+
+        return $this->render(
+            '::page/show.html.twig',
+            [
+                'page'       => $page,
+                'followers'  => $latestFollower,
                 'creator_id' => $page->getCreator()->getId(),
-                'editors' => $page->getEditors(),
-            ]);
+                'editors'    => $page->getEditors(),
+            ]
+        );
     }
 
     /**
@@ -88,6 +97,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
         /** @var PublicationRepository $repo */
         $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Publication');
         $publications = $repo->findPublicationsPage($id, $page, self::LIMIT_PER_PAGE);
+
         return $this->sendJsonResponse(
             'success',
             null,
@@ -95,9 +105,9 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
             [
                 'html' => $this->renderView(
                     '::page/publication.html.twig',
-                    array(
+                    [
                         'publications' => $publications,
-                    )
+                    ]
                 )
             ]
         );
@@ -182,19 +192,41 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
     {
         $page_id = $request->request->get('page_id');
 
-        $em           = $this->getDoctrine()->getManager();
-        $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Page');
-        $page         = $repo->find($page_id);
-        $pageFollowed = new PageUserFollow();
-        $pageFollowed
-            ->setPage($page)
-            ->setUser($this->getUser());
-        $pageFollowed->setDateInscription(new \DateTime('now'));
-        $em->persist($pageFollowed);
-        $em->flush();
+        $em   = $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:Page');
+        $page = $repo->find($page_id);
 
-        return $this->sendJsonResponse('success', [
-            'message' => 'wizard.page.like.success'
-        ]);
+        if (!$page instanceof Page) {
+            return $this->sendJsonResponse(
+                'error',
+                [
+                    'message' => 'wizard.page.like.error.unknown_page'
+                ]
+            );
+        }
+
+        // Chercher si l'utilisateur aime deja la page
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:PageUserFollow');
+        $pageLike = $repo->findOneBy(
+            [
+                'user'        => $this->getUser()->getId(),
+                'page' => $page->getId()
+            ]
+        );
+
+        if (!$pageLike instanceof PageUserFollow) {
+            $pageFollowed = new PageUserFollow();
+            $pageFollowed->setPage($page)->setUser($this->getUser());
+            $pageFollowed->setDateInscription(new \DateTime('now'));
+            $em->persist($pageFollowed);
+            $em->flush();
+        }
+
+        return $this->sendJsonResponse(
+            'success',
+            [
+                'message' => 'wizard.page.like.success'
+            ]
+        );
     }
 }

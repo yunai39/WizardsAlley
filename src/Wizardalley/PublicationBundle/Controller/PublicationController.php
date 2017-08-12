@@ -3,6 +3,7 @@
 namespace Wizardalley\PublicationBundle\Controller;
 
 use Composer\Repository\RepositoryInterface;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -595,7 +596,7 @@ class PublicationController extends BaseController
     {
         /** @var WizardUser $user */
         $user = $this->getUser();
-        /** @var RepositoryInterface $repo */
+        /** @var EntityRepository $repo */
         $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:PublicationUserLike");
         $publicationLike = $repo->findOneBy(
             [
