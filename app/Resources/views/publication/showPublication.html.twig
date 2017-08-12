@@ -17,7 +17,8 @@
             <p>Par <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a>,
                 le {{ entity.createdAt|date('Y-m-d') }}
             <p>{{ entity.content | raw }}</p>
-            <div class="row">
+            {% if entity.getImages()|length > 0 %}
+                <div class="row">
                 <div class="col-xs-8 col-xs-offset-2">
                     <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
@@ -57,6 +58,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 
