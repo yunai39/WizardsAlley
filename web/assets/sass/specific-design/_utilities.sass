@@ -74,8 +74,20 @@ hr
 textarea
   resize: none
 
-button, .btn-default, .btn
+button
   background-color: $color-base-blue !important
+  padding: 3.75px
+  margin: 3.75px
+  display: inline
+  font-size: 75%
+  font-weight: 700
+  line-height: 1
+  color: #fff
+  text-align: center
+  white-space: nowrap
+  vertical-align: baseline
+  border-radius: .25em
+  border: 1px solid transparent
 
 @font-face
   font-family: "Timeless"
@@ -83,3 +95,17 @@ button, .btn-default, .btn
 
 #fav_pages .page:nth-child(even) .img-wrapper
   float: right
+
+.clickable
+  color: $color-light-black
+  &:hover
+    cursor: hand
+    cursor: pointer
+    color: $color-black
+
+.panel-wizard
+  border-color: $color-light-blue
+  .panel-heading
+    color: $color-white
+    background-color: $color-base-blue
+    border-color: $color-base-blue

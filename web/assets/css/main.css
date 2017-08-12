@@ -166,14 +166,40 @@ hr {
 textarea {
   resize: none; }
 
-button, .btn-default, .btn {
-  background-color: #454a72 !important; }
+button {
+  background-color: #454a72 !important;
+  padding: 3.75px;
+  margin: 3.75px;
+  display: inline;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
+  border: 1px solid transparent; }
 
 @font-face {
   font-family: "Timeless";
   src: url("../fonts/Timeless/timeless.woff") format("woff"), url("../fonts/Timeless/timeless.ttf") format("truetype"); }
 #fav_pages .page:nth-child(even) .img-wrapper {
   float: right; }
+
+.clickable {
+  color: #444; }
+  .clickable:hover {
+    cursor: hand;
+    cursor: pointer;
+    color: #000; }
+
+.panel-wizard {
+  border-color: #ACB0E4; }
+  .panel-wizard .panel-heading {
+    color: #FFF;
+    background-color: #454a72;
+    border-color: #454a72; }
 
 .wizard-icondiscover, .wizard-iconhome, .wizard-iconmail, .wizard-iconnotifications, .wizard-iconsearch, .wizard-iconhat, .wizard-iconbroom {
   display: inline-block;

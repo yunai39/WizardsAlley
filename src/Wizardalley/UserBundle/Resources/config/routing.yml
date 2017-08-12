@@ -91,6 +91,11 @@ user_notification:
     type:     annotation
     prefix:   /
 
+user_message:
+    resource: "@WizardalleyUserBundle/Controller/MessageController.php"
+    type:     annotation
+    prefix:   /
+
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"

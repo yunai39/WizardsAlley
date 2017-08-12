@@ -104,8 +104,8 @@
                         </li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <li>
-                                <a {% if app.request.get('_route') == 'fos_message_inbox' %} class="active" {% endif %}
-                                        href="{{ path('fos_message_inbox') }}">
+                                <a {% if app.request.get('_route') == 'user_message_all' %} class="active" {% endif %}
+                                        href="{{ path('user_message_all') }}">
 
                                     <i class="wizard-iconmail"></i>
                                     {% trans %}wizard.menu.link.mail{% endtrans %}
