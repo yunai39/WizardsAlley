@@ -39,103 +39,119 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-3">
-                    <div class="row">
-                        {% if app.user %}
+                    <div class="panel panel-default">
+                            <div class="panel-body">
+                                {% if app.user %}
 
-                            {% if  app.user in editors or app.user.id == creator_id %}
+                                    {% if  app.user in editors or app.user.id == creator_id %}
+                                        <div class="col-md-12">
+                                            <a href="{{ path('page_gestion_show',{'id_page': page.id } ) }}"> <span
+                                                        class="icon-large icon icon-book"></span>{% trans %}
+                                                wizard.page.gestion.edit {% endtrans %}</a>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
                                 <div class="col-md-12">
-                                    <a href="{{ path('page_gestion_show',{'id_page': page.id } ) }}"> <span
-                                                class="icon-large icon icon-book"></span>{% trans %}
-                                        wizard.page.gestion.edit {% endtrans %}</a>
+                                    {% if page.urlFacebook != null %}
+                                        <a href="{{ page.urlFacebook }}"/><span class="icon-large icon-facebook"
+                                                                                aria-hidden="true"></span> {{ page.urlFacebook }}</a>
+                                    {% endif %}
                                 </div>
-                            {% endif %}
-                        {% endif %}
-                        <div class="col-md-12">
-                            {% if page.urlFacebook != null %}
-                                <a href="{{ page.urlFacebook }}"/><span class="icon-large icon-facebook"
-                                                                        aria-hidden="true"></span> {{ page.urlFacebook }}</a>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-12">
-                            <span class="icon-large icon  icon-heart"></span> {% trans %}
-                            wizard.page.followers {% endtrans %} {{ page.followers | length }}
-                        </div>
-                        {% if app.user %}
-                            <div class="col-md-12">
-                                {% if page in app.user.getPageFollowedEntity %}
-                                    <a href=""><span class="icon-large icon icon-user"></span> {% trans %}
-                                        page.invite_friend {% endtrans %}</a>
-                                {% else %}
-                                    <a href="javascript:util.likePage({{ page.id }})"><span
-                                                class="icon-large icon icon-user"></span> {% trans %}
-                                        page.like {% endtrans %}
-                                    </a>
+                                <div class="col-md-12">
+                                    <span class="icon-large icon  icon-heart"></span> {% trans %}
+                                    wizard.page.followers {% endtrans %} {{ page.followers | length }}
+                                </div>
+                                {% if app.user %}
+                                    <div class="col-md-12">
+                                        {% if page in app.user.getPageFollowedEntity %}
+                                            <a href=""><span class="icon-large icon icon-user"></span> {% trans %}
+                                                page.invite_friend {% endtrans %}</a>
+                                        {% else %}
+                                            <a href="javascript:util.likePage({{ page.id }})"><span
+                                                        class="icon-large icon icon-user"></span> {% trans %}
+                                                page.like {% endtrans %}
+                                            </a>
+                                        {% endif %}
+                                    </div>
                                 {% endif %}
                             </div>
-                        {% endif %}
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <h3>{% trans %} wizard.page.followers {% endtrans %}</h3>
-                            <hr>
-                            {% for user in followers %}
-                                <div class="squareUser">
-                                    <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
-                                        <div class="imgSquare">
-                                            <div class="imgSquareContainer">
-                                                <img src="
-                                        {% if user.pathProfile %}
-                                             {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) }}
-                                        {% else %}
-                                            {{ asset('uploads/profile/default.png') }}
-                                        {% endif %}"/>
-                                                <p class="imgTitre">{{ user.username }}</p>
-                                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <h3>{% trans %} wizard.page.followers {% endtrans %}</h3>
+                                    <hr>
+                                    {% for user in followers %}
+                                        <div class="squareUser">
+                                            <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
+                                                <div class="imgSquare">
+                                                    <div class="imgSquareContainer">
+                                                        <img src="
+                                                {% if user.pathProfile %}
+                                                     {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) }}
+                                                {% else %}
+                                                    {{ asset('uploads/profile/default.png') }}
+                                                {% endif %}"/>
+                                                        <p class="imgTitre">{{ user.username }}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    {% endfor %}
                                 </div>
-                            {% endfor %}
+                            </div>
                         </div>
                         <div class="col-md-12">
-                            <h3>{% trans %} wizard.page.editor {% endtrans %}</h3>
-                            <hr>
-                            {% for user in editors %}
-                                <div class="squareUser">
-                                    <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
-                                        <div class="imgSquare">
-                                            <div class="imgSquareContainer">
-                                                <img src="
-                                        {% if user.pathProfile %}
-                                             {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) }}
-                                        {% else %}
-                                            {{ asset('uploads/profile/default.png') }}
-                                        {% endif %}"/>
-                                                <p class="imgTitre">{{ user.username }}</p>
-                                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <h3>{% trans %} wizard.page.editor {% endtrans %}</h3>
+                                    <hr>
+                                    {% for user in editors %}
+                                        <div class="squareUser">
+                                            <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
+                                                <div class="imgSquare">
+                                                    <div class="imgSquareContainer">
+                                                        <img src="
+                                                {% if user.pathProfile %}
+                                                     {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) }}
+                                                {% else %}
+                                                    {{ asset('uploads/profile/default.png') }}
+                                                {% endif %}"/>
+                                                        <p class="imgTitre">{{ user.username }}</p>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    {% endfor %}
                                 </div>
-                            {% endfor %}
+                            </div>
                         </div>
                     </div>
 
                 </div>
                 <div class="col-md-9">
-                    <p>{{ page.description | raw }}</p>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <p>{{ page.description | raw }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
         </div>
         <div class="col-xs-12">
-            <h3>
-                {% trans %}wizard.page.publications{% endtrans %}
-            </h3>
-
-            <div id="my_publication">
-
-            </div>
-            <div>
-                <button class="load-more-publication">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>
+                        {% trans %}wizard.page.publications{% endtrans %}
+                    </h3>
+                    <div id="my_publication">
+                    </div>
+                </div>
+                <div class="panel-footer text-center">
+                    <span class="glyphicon glyphicon-chevron-down clickable load-more-publication" aria-hidden="true"></span>
+                </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block body_style %}url('/images/street.jpg'){% endblock %}
+{% block body_style %}url('{{ asset('images/street.png')}}'){% endblock %}
 
 {% block body %}
     <div class="row">

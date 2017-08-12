@@ -1,83 +1,93 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <div class="row">
-        <div class="col-xs-10">
-            <h1>{{ entity.title }}</h1>
-        </div>
-        <div class="col-xs-2">
-            <h3>
-                <i class="icon-large icon-heart"></i>&nbsp;{{ entity.countLike }}
-            </h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <h2><a href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a></h2>
-            <p>Par <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a>,
-                le {{ entity.createdAt|date('Y-m-d') }}
-            <p>{{ entity.content | raw }}</p>
-            {% if entity.getImages()|length > 0 %}
-                <div class="row">
-                <div class="col-xs-8 col-xs-offset-2">
-                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-10">
+                    <h1>{{ entity.title }}</h1>
+                </div>
+                <div class="col-xs-2">
+                    <h3>
+                        <i class="icon-large icon-heart"></i>&nbsp;{{ entity.countLike }}
+                    </h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2><a href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a></h2>
+                    <p>Par
+                        <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a>,
+                        le {{ entity.createdAt|date('Y-m-d') }}
+                    <p>{{ entity.content | raw }}</p>
+                    {% if entity.getImages()|length > 0 %}
+                        <div class="row">
+                            <div class="col-xs-8 col-xs-offset-2">
+                                <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
-                        <ol class="carousel-indicators">
-                            {% set i = 0 %}
-                            {% for image in entity.getImages() %}
+                                    <ol class="carousel-indicators">
+                                        {% set i = 0 %}
+                                        {% for image in entity.getImages() %}
 
-                                <li data-target="#myCarousel"
-                                    data-slide-to="{{ i }}" {% if i == 0 %} class="active"{% endif %} ></li>
+                                            <li data-target="#myCarousel"
+                                                data-slide-to="{{ i }}" {% if i == 0 %} class="active"{% endif %} ></li>
 
-                                {% set i = i + 1 %}
-                            {% endfor %}
-                        </ol>
+                                            {% set i = i + 1 %}
+                                        {% endfor %}
+                                    </ol>
 
-                        <div class="carousel-inner " role="listbox">
-                            {% set i = 0 %}
-                            {% for image in entity.getImages() %}
+                                    <div class="carousel-inner " role="listbox">
+                                        {% set i = 0 %}
+                                        {% for image in entity.getImages() %}
 
-                                <div class="item {% if i == 0 %} active{% endif %}">
-                                    <img src="{{ asset(image.getWebPath()) }}" alt="{{ i }}">
-                                    <div class="carousel-caption">
-                                        {{ image.description }}
+                                            <div class="item {% if i == 0 %} active{% endif %}">
+                                                <img src="{{ asset(image.getWebPath()) }}" alt="{{ i }}">
+                                                <div class="carousel-caption">
+                                                    {{ image.description }}
+                                                </div>
+                                            </div>
+                                            {% set i = i + 1 %}
+                                        {% endfor %}
                                     </div>
-                                </div>
-                                {% set i = i + 1 %}
-                            {% endfor %}
-                        </div>
 
-                        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-                            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
+                                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="right carousel-control" href="#myCarousel" role="button"
+                                       data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
-            {% endif %}
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12">
 
-            <h3>{% trans %}publication.comments{% endtrans %}</h3>
-            <div class="comment_block">
-                <div id="comment_content">
-
-                </div>
-                <button class="wizard-load-comments">{% trans %}publication.more_comments{% endtrans %}</button>
-
-                {% if app.user %}
-                    <div>
-                        {{ form(comment_form) }}
+                    <h3>{% trans %}publication.comments{% endtrans %}</h3>
+                    <div class="comment_block">
+                        <div id="comment_content">
+                        </div>
                     </div>
-                {% endif %}
+                    {% if app.user %}
+                        <div>
+                            {{ form(comment_form) }}
+                        </div>
+                    {% endif %}
+                </div>
             </div>
+        </div>
+        <div class="panel-footer text-center">
+            <span class="glyphicon glyphicon-chevron-down clickable wizard-load-comments" aria-hidden="true"></span>
         </div>
     </div>
 {% endblock %}
@@ -135,7 +145,7 @@
 
         function addComment(comment) {
             var $tpl = _.template($('#comment-template').html()),
-                $div = $('#comment_content');
+                    $div = $('#comment_content');
             $div.append($tpl({
                 srcImg: '{{ asset('uploads/profile/') }}' + comment.id + '/' + comment.pathProfile,
                 message: comment[0].content,
