@@ -10,31 +10,41 @@ class SearchType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $choices = [
+            'page'        => 'wizard.search.label.page',
+            'publication' => 'wizard.search.label.publication',
+        ];
+        if ($options['isOnline']) {
+            $choices['user'] = 'wizard.search.label.user';
+        }
         $builder
-                ->add('searchType', 'choice', [
-                    'label' => 'wizard.search.type.label',
-                    'choices' => [
-                        'user' => 'wizard.search.label.user',
-                        'page' => 'wizard.search.label.page',
-                        'publication' => 'wizard.search.label.publication',
-                    ]
-                ])
-                ->add('field', 'text',['label' => 'wizard.search.label.field'])
+            ->add(
+                'searchType',
+                'choice',
+                [
+                    'label'   => 'wizard.search.type.label',
+                    'choices' => $choices
+                ]
+            )
+            ->add('field', 'text', ['label' => 'wizard.search.label.field'])
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'mapped' => 'false'
-        ));
+        $resolver->setDefaults(
+            [
+                'mapped'   => 'false',
+                'isOnline' => false
+            ]
+        );
     }
 
     /**

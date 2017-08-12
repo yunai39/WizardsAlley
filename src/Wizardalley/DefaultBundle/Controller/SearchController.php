@@ -4,6 +4,7 @@ namespace Wizardalley\DefaultBundle\Controller;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
+use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\DefaultBundle\Form\SearchType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -29,6 +30,7 @@ class SearchController extends BaseController
             null,
             [
                 'method' => 'POST',
+                'isOnline' => ($this->getUser() instanceof WizardUser)
             ]
         );
         $form->add(
