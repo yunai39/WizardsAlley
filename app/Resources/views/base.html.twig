@@ -59,13 +59,6 @@
                                             </li>
                                         </ul>
                                 </li>
-                            {% else %}
-                                <li class="login">
-                                    <a href="{{ path('wizardalley_user_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                                </li>
-                                <li class="register">
-                                    <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
-                                </li>
                             {% endif %}
 
                         </ul>
@@ -75,6 +68,33 @@
                     <div class="collapse navbar-collapse header-wizard" id="bs-example-navbar-collapse-1">
 
                         <ul class="nav navbar-nav nav-full">
+
+                            {% if app.user %}
+                                <li class="hidden-sm hidden-md hidden-lg">
+                                    <a href="{{ path('fos_user_profile_show') }}">
+                                        <i class="wizard-iconhat"></i>
+                                        {% trans %}wizard.user.profile.display{% endtrans %}
+                                    </a>
+                                </li>
+                                <li class="hidden-sm hidden-md hidden-lg"><a href="{{ path('logout') }}">
+                                        <i class="wizard-iconbroom"></i>
+                                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="login">
+                                    <a href="{{ path('wizardalley_user_login') }}">
+                                        <i class="wizard-iconhome"></i>
+                                        {{ 'layout.login'|trans({}, 'FOSUserBundle') }}
+                                    </a>
+                                </li>
+                                <li class="register">
+                                    <a href="{{ path('fos_user_registration_register') }}">
+                                        <i class="wizard-iconhat"></i>
+                                        {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
+                                    </a>
+                                </li>
+                            {% endif %}
                             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                                 <li>
                                     <a {% if app.request.get('_route') == 'wizardalley_default_homepage' %} class="active" {% endif %}
@@ -121,30 +141,11 @@
                                     {% trans %}wizard.menu.link.search{% endtrans %}
                                 </a>
                             </li>
-
-                            {% if app.user %}
-                                <li class="hidden-sm hidden-md hidden-lg">
-                                    <a href="{{ path('fos_user_profile_show') }}">
-                                        <i class="wizard-iconhat"></i>
-                                        {% trans %}wizard.user.profile.display{% endtrans %}
-                                    </a>
-                                </li>
-                                <li class="hidden-sm hidden-md hidden-lg"><a href="{{ path('logout') }}">
-                                        <i class="wizard-iconbroom"></i>
-                                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                                    </a>
-                                </li>
-                            {% else %}
-                                <li class="login  hidden-sm hidden-md hidden-lg">
-                                    <a href="{{ path('wizardalley_user_login') }}">
-                                        <i class="wizard-iconhat"></i>
-                                        {{ 'layout.login'|trans({}, 'FOSUserBundle') }}
-                                    </a>
-                                </li>
-                                <li class="register  hidden-sm hidden-md hidden-lg">
-                                    <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
-                                </li>
-                            {% endif %}
+                            <li>
+                                <a href="https://blog.thewizardsalley.com">
+                                    <i class="wizard-iconnotifications"></i>{% trans %}wizard.menu.link.blog{% endtrans %}
+                                </a>
+                            </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->

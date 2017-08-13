@@ -65,6 +65,7 @@ wizard:
             search: Rechercher
             wall: mur
             mail: Messagerie
+            blog: Blog de l'équipe
             notification: Notification
     user:
         change_password: Changer le mot de passe
