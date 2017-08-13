@@ -82,7 +82,7 @@ wizard_get_friends_view:
 
 wizard_get_publication_view:
     path:   /user/getPublication/{page}
-    defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationPage, page: 1 }
+    defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationRuelle, page: 1 }
     options:
         expose: true
 
