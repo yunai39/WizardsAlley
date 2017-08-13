@@ -11,22 +11,6 @@ wizardalley_user_couverture_edit_picture:
     path:   /user/editPictureCouverture
     defaults: { _controller: WizardalleyUserBundle:ProfilePicture:editCouverturePicture }
 
-wizardalley_user_wall:
-    path:   /user/wall/display/{id}
-    defaults: { _controller: WizardalleyUserBundle:Default:userWall, id : 1 }
-
-
-wizardalley_user_wall_publication:
-    path:   /user/wall/publication/{user}/{page}
-    defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationWall, page: 1 }
-    options:
-        expose: true
-
-wizardalley_user_profile_publication:
-    path:   /user/profile/publication/{page}
-    defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationProfile, page: 1 }
-    options:
-        expose: true
 
 login_check:
     pattern:   /login_check
@@ -34,60 +18,13 @@ login_check:
 logout:
     pattern:   /logout
 
-wizard_add_as_a_friend:
-    path:   /user/addAsAFriend/{id_user}
-    defaults: { _controller: WizardalleyUserBundle:Default:addAsAFriend }
-
-wizard_validate_friend:
-    path:   /user/validateFriend/{id}
-    defaults: { _controller: WizardalleyUserBundle:Default:validateUserAsFriends}
-
-wizard_friend_list:
-    path:   /user/getFriendLIst
-    defaults: { _controller: WizardalleyUserBundle:Default:getFriendList }
-    options:
-        expose: true
-
-
-wizard_last_connected_list:
-    path:   /user/lastConnected
-    defaults: { _controller: WizardalleyUserBundle:Default:displayUserConnectedLast }
-    options:
-        expose: true
-
-wizard_user_connected:
-    path:   /user/getUserConnected
-    defaults: { _controller: WizardalleyUserBundle:Default:getUserConnected }
-    options:
-        expose: true
-
-
-wizard_get_friends_json:
-    path:   /user/getFriendsJson/{page}
-    defaults: { _controller: WizardalleyUserBundle:Default:friendList, page: 1 }
-    options:
-        expose: true
-
-
-wizard_get_friends_view:
-    path:   /user/getFriendsView
-    defaults: { _controller: WizardalleyUserBundle:Default:displayFriendList }
-
-
-wizard_get_publication_view:
-    path:   /user/getPublication/{page}
-    defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationRuelle, page: 1 }
-    options:
-        expose: true
-
-wizard_search_user_json:
-    path:   /search/user/{search}
-    defaults: { _controller: WizardalleyUserBundle:Default:searchUserJson, search: -1}
-
-
-
 user_notification:
     resource: "@WizardalleyUserBundle/Controller/NotificationController.php"
+    type:     annotation
+    prefix:   /
+
+user_default:
+    resource: "@WizardalleyUserBundle/Controller/DefaultController.php"
     type:     annotation
     prefix:   /
 

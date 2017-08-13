@@ -11,6 +11,7 @@ use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\CoreBundle\Entity\WizardUserRepository;
 use Wizardalley\DefaultBundle\Controller\BaseController;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
  * Class DefaultController
@@ -24,16 +25,17 @@ class DefaultController extends BaseController
      *
      * This action will present the presentation page of the web site
      *
-     * pattern: /user/wall/{id}
-     * road_name: wizardalley_user_wall
-     *
+     * @Route("/user/wall/display/{id}", name="wizardalley_user_wall")
      * @param integer $id id for the user
      *
      * @return Response
      */
-    public function userWallAction($id)
+    public function userWallAction($id = 1)
     {
-        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+        $repo =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
         $user = $repo->find($id);
         if (!$user) {
             return new NotFoundResourceException();
@@ -52,9 +54,7 @@ class DefaultController extends BaseController
      *
      * This action will add a user as a friend
      *
-     * pattern: /user/addAsAFriend/{id_user}
-     * road_name: wizard_add_as_a_friend
-     *
+     * @Route("/user/addAsAFriend/{id_user}", name="wizard_add_as_a_friend")
      * @param integer $id_user id for the user
      * @param Request $request
      *
@@ -63,8 +63,14 @@ class DefaultController extends BaseController
     public function addAsAFriendAction(Request $request,
                                        $id_user)
     {
-        $em   = $this->getDoctrine()->getManager();
-        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+        $em   =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
+        $repo =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
 
         /** @var WizardUser $friend */
         $friend = $repo->find($id_user);
@@ -81,18 +87,24 @@ class DefaultController extends BaseController
         // Creer la notification
         $followedNotification = new FollowedNotification();
 
-        $followedNotification->setType($notificationType)->setChecked(false)->setUser($friend)->setCreatedAt(
-            new \DateTime()
-        )->setUpdatedAt(new \DateTime())->setDataNotification(
-            json_encode(
-                [
-                    'asked_from'          => $userAsking->getId(),
-                    'asked_from_username' => $userAsking->getUsername(),
-                    'asked_to'            => $id_user
-                ],
-                true
+        $followedNotification
+            ->setType($notificationType)
+            ->setChecked(false)
+            ->setUser($friend)
+            ->setCreatedAt(
+                new \DateTime()
             )
-        )
+            ->setUpdatedAt(new \DateTime())
+            ->setDataNotification(
+                json_encode(
+                    [
+                        'asked_from'          => $userAsking->getId(),
+                        'asked_from_username' => $userAsking->getUsername(),
+                        'asked_to'            => $id_user
+                    ],
+                    true
+                )
+            )
         ;
 
         $em->persist($userAsking);
@@ -105,6 +117,7 @@ class DefaultController extends BaseController
     /**
      * @param Request $request
      * @param         $id
+     * @Route("/user/validateFriend/{id}", name="wizard_validate_friend")
      *
      * @return Response
      */
@@ -112,11 +125,21 @@ class DefaultController extends BaseController
                                                 $id)
     {
         /** @var WizardUser $user */
-        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $user =
+            $this->get('security.token_storage')
+                 ->getToken()
+                 ->getUser()
+        ;
         /** @var WizardUserRepository $repoUser */
-        $repoUser = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+        $repoUser =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
         /** @var FollowedNotificationRepository $repoNotification */
-        $repoNotification = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:FollowedNotification');
+        $repoNotification =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:FollowedNotification')
+        ;
         /** @var FollowedNotification $notification */
         $notification     = $repoNotification->find($id);
         $dataNotification = $notification->getData();
@@ -125,15 +148,27 @@ class DefaultController extends BaseController
             $dataNotification[ 'asked_to' ] != $user->getId() ||
             !($friend instanceof WizardUser)
         ) {
-            $request->getSession()->getFlashBag()->add('error', 'wizard.unknown_error');
+            $request->getSession()
+                    ->getFlashBag()
+                    ->add(
+                        'error',
+                        'wizard.unknown_error'
+                    )
+            ;
 
             return $this->redirect($this->generateUrl('user_notification_index'));
         }
 
-        $this->addAsAFriendAction($request, $user->getId());
+        $this->addAsAFriendAction(
+            $request,
+            $user->getId()
+        );
 
         return $this->redirect(
-            $this->generateUrl('wizardalley_user_wall', ['id' => $dataNotification[ 'asked_from' ]])
+            $this->generateUrl(
+                'wizardalley_user_wall',
+                ['id' => $dataNotification[ 'asked_from' ]]
+            )
         );
     }
 
@@ -142,8 +177,7 @@ class DefaultController extends BaseController
      *
      * This action will return a list of friends
      *
-     * pattern: /user/getFriendsJson
-     * road_name: wizard_get_friends_json
+     * @Route("/user/getFriendsJson/{page}", name="wizard_get_friends_json",  options={"expose"=true})
      *
      * @param int $page
      *
@@ -153,10 +187,21 @@ class DefaultController extends BaseController
     {
         $numberDisplay = 3;
         $user          = $this->getUser();
-        $repo          = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
-        $friends       = $repo->findFriends($user, $page, $numberDisplay);
+        $repo          =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
+        $friends       =
+            $repo->findFriends(
+                $user,
+                $page,
+                $numberDisplay
+            );
 
-        return $this->sendJsonResponse('success', $friends);
+        return $this->sendJsonResponse(
+            'success',
+            $friends
+        );
     }
 
     /**
@@ -164,15 +209,17 @@ class DefaultController extends BaseController
      *
      * This action will display a list of friends
      *
-     * pattern: /user/getFriendsView
-     * road_name: wizard_get_friends_view
+     * @Route("/user/getFriendsView", name="wizard_get_friends_view",  options={"expose"=true})
      *
      * @return JsonResponse
      */
     public function displayFriendListAction()
     {
         $user    = $this->getUser();
-        $repo    = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+        $repo    =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
         $friends = $repo->findFriends($user);
 
         return $this->render(
@@ -186,13 +233,21 @@ class DefaultController extends BaseController
     /**
      * @param int $page
      *
+     * @Route("/user/getPublication", name="wizard_get_publication_view",  options={"expose"=true})
      * @return Response
      */
-    public function displayPublicationRuelleAction($page)
+    public function displayPublicationRuelleAction($page = 1)
     {
         /** @var WizardUserRepository $repo */
-        $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
-        $publications = $repo->findPublicationRuelle($this->getUser(), $page);
+        $repo         =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
+        $publications =
+            $repo->findPublicationRuelle(
+                $this->getUser(),
+                $page
+            );
 
         return $this->sendJsonResponse(
             'success',
@@ -218,8 +273,15 @@ class DefaultController extends BaseController
     public function displayPublicationUserAction($user_id, $page = 1)
     {
         /** @var WizardUserRepository $repo */
-        $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
-        $publications = $repo->findPublication($repo->find($user_id), $page);
+        $repo         =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
+        $publications =
+            $repo->findPublication(
+                $repo->find($user_id),
+                $page
+            );
 
         return $this->sendJsonResponse(
             'success',
@@ -238,14 +300,22 @@ class DefaultController extends BaseController
 
     /**
      * @param int $page
+     * @Route("/user/profile/publication/{page}", name="wizardalley_user_profile_publication",  options={"expose"=true})
      *
      * @return JsonResponse
      */
     public function displayPublicationProfileAction($page = 1)
     {
         /** @var WizardUserRepository $repo */
-        $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
-        $publications = $repo->findPublication($this->getUser(), $page);
+        $repo         =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
+        $publications =
+            $repo->findPublication(
+                $this->getUser(),
+                $page
+            );
 
         return $this->sendJsonResponse(
             'success',
@@ -262,10 +332,17 @@ class DefaultController extends BaseController
         );
     }
 
+    /**
+     * @return JsonResponse
+     * @Route("/user/lastConnected", name="wizard_last_connected_list",  options={"expose"=true})
+     */
     public function displayUserConnectedLastAction()
     {
         /** @var WizardUserRepository $repo */
-        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+        $repo =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
 
         $users = $repo->findUserLastAction();
 
@@ -288,13 +365,22 @@ class DefaultController extends BaseController
      * @param int $page
      * @param int $user
      *
+     * @Route("/user/wall/publication/{user}/{page}", name="wizardalley_user_wall_publication",
+     *                                                options={"expose"=true})
      * @return JsonResponse
      */
     public function displayPublicationWallAction($user, $page = 1)
     {
         /** @var WizardUserRepository $repo */
-        $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
-        $publications = $repo->findPublicationWall($this->getUser(), $page);
+        $repo         =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
+        $publications =
+            $repo->findPublicationWall(
+                $this->getUser(),
+                $page
+            );
 
         return $this->sendJsonResponse(
             'success',
@@ -312,19 +398,26 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @param mixed $search
      *
-     * @param string $search
-     *
+     * @Route("/search/user/{search}", name="wizard_search_user_json")
      * @return Response
      */
-    public function searchUserJsonAction($search)
+    public function searchUserJsonAction($search = -1)
     {
-        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+        $repo =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
 
-        return $this->sendJsonResponse('success', $repo->searchUser($search));
+        return $this->sendJsonResponse(
+            'success',
+            $repo->searchUser($search)
+        );
     }
 
     /**
+     * @Route("/user/getFriendList", name="wizard_friend_list",  options={"expose"=true})
      * @return JsonResponse
      */
     public function getFriendListAction()
@@ -345,6 +438,7 @@ class DefaultController extends BaseController
     }
 
     /**
+     * @Route("/user/getUserConnected", name="wizard_user_connected",  options={"expose"=true})
      * @return JsonResponse
      */
     public function getUserConnectedAction()
@@ -352,7 +446,10 @@ class DefaultController extends BaseController
         /** @var WizardUser $user */
         $user = $this->getUser();
         /** @var WizardUserRepository $repo */
-        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
+        $repo =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
 
         return new JsonResponse($repo->findUserConnected($user));
     }
