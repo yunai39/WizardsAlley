@@ -115,7 +115,7 @@
                 $('#my_publication').append($data['extra']['html']);
             };
             $result = util.loadMore(
-                    Routing.generate('wizardalley_user_wall_publication_json',
+                    Routing.generate('wizardalley_user_wall_publication',
                             {'user': {{ user.id }}, 'page': _$page}
                     ),
                     'GET',
