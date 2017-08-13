@@ -285,22 +285,28 @@ class DefaultController extends BaseController
     }
 
     /**
-     * @param int|null $id
+     * @param int $page
+     * @param int $user
      *
      * @return JsonResponse
      */
-    public function displayPublicationWallAction($id = null)
+    public function displayPublicationWallAction($user, $page = 1)
     {
         /** @var WizardUserRepository $repo */
         $repo         = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:WizardUser');
-        $publications = $repo->findPublicationWall($this->getUser(), $id);
+        $publications = $repo->findPublicationWall($this->getUser(), $page);
 
         return $this->sendJsonResponse(
             'success',
             null,
             200,
             [
-                'extra' => $publications
+                'html' => $this->renderView(
+                    '::user/publication.html.twig',
+                    [
+                        'publications' => $publications,
+                    ]
+                )
             ]
         );
     }

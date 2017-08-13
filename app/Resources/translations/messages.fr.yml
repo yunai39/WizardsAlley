@@ -92,6 +92,8 @@ wizard:
             no_publication: Aucune publication
             disabled: Utilisateur désactivé
             publication: Publications
+            informations: Informations
+            username: Username
     register:
         label:
             firstname: Prénom 

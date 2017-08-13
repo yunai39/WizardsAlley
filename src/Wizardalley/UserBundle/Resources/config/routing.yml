@@ -29,8 +29,8 @@ wizardalley_user_profile_publication:
         expose: true
 
 wizardalley_user_wall_publication_json:
-    path:   /user/wall/publicationJson/{id}
-    defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationWall, id: null }
+    path:   /user/wall/publicationJson/{user}/{page}
+    defaults: { _controller: WizardalleyUserBundle:Default:displayPublicationWall, page: 1 }
     options:
         expose: true
 

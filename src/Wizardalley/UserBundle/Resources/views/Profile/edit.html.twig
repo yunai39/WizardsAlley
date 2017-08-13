@@ -4,19 +4,24 @@
 
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h3>{% trans %}wizard.user.profile.edit{% endtrans %}</h3>
-            <hr>
-            <button class="btn label">
-                <a href="{{ path('fos_user_profile_show') }}">
-                    {% trans %}wizard.utility.back{% endtrans %}
-                </a>
-            </button>
-            <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="fos_user_profile_edit">
-                {{ form_widget(form) }}
-                <div>
-                    <input type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}" />
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans %}wizard.user.profile.edit{% endtrans %}</h3>
+                    <hr>
+                    <button class="btn label">
+                        <a href="{{ path('fos_user_profile_show') }}">
+                            {% trans %}wizard.utility.back{% endtrans %}
+                        </a>
+                    </button>
+                    <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST"
+                          class="fos_user_profile_edit">
+                        {{ form_widget(form) }}
+                        <div>
+                            <input type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}"/>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 

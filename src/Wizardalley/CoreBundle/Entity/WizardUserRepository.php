@@ -267,15 +267,9 @@ class WizardUserRepository extends EntityRepository
      * @return array
      * @throws \Doctrine\DBAL\DBALException
      */
-    public function findPublicationWall(WizardUser $user, $id_last, $limit = BaseController::BASE_LIMIT)
+    public function findPublicationWall(WizardUser $user, $page, $limit = BaseController::BASE_LIMIT)
     {
-        if ($id_last) {
-            $sqlLimit = "LIMIT 1," . $limit;
-            $sqlWhere = "AND pa.id < " . $id_last;
-        } else {
-            $sqlLimit = "LIMIT " . $limit;
-            $sqlWhere = "";
-        }
+        $offset = ($page - 1) * $limit;
         $sql  = "
             (
             select 
@@ -290,7 +284,7 @@ class WizardUserRepository extends EntityRepository
                 left join abstract_publication pa
                 on pa.id = pu.id
               left join page p on pu.page_id = p.id 
-            where pa.user_id = :user_id_1 {$sqlWhere})
+            where pa.user_id = :user_id_1)
             UNION
             (
             select 
@@ -306,10 +300,10 @@ class WizardUserRepository extends EntityRepository
                 left join abstract_publication pa
                 on pa.id = pu.id
             left join wizard_user w on w.id = pa.user_id
-             where pa.user_id = :user_id_2 {$sqlWhere}
+             where pa.user_id = :user_id_2
             )
             ORDER BY publication_id DESC
-            {$sqlLimit}
+            LIMIT " . $offset . ", " . $limit . "
             ";
         $conn = $this->getEntityManager()->getConnection();
         $stmt = $conn->prepare($sql);
