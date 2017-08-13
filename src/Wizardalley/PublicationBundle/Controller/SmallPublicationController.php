@@ -106,7 +106,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
         }
 
         return $this->render(
-            '::smallPublication/show.html.twig',
+            '::user/smallPublication/show.html.twig',
             [
                 'entity' => $entity,
             ]

@@ -1,13 +1,17 @@
 {% extends "::base.html.twig" %}
 
 {% block body %}
-    {% if app.session.flashbag.has('message_send') %}
-             {% for message in  app.session.flashbag.get('message_send') %}
-              {{message | trans() }}
-              {% endfor %}
-    {% endif %}
-    <h1>{% trans %}wizard.contact.title{% endtrans %}</h1>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            {% if app.session.flashbag.has('message_send') %}
+                {% for message in  app.session.flashbag.get('message_send') %}
+                    {{ message | trans() }}
+                {% endfor %}
+            {% endif %}
+            <h1>{% trans %}wizard.contact.title{% endtrans %}</h1>
 
-    {{ form(form) }}
+            {{ form(form) }}
 
+        </div>
+    </div>
 {% endblock %}

@@ -26,7 +26,7 @@ class DiscoverController extends BaseController
         $em = $this->getDoctrine()->getManager();
 
         return $this->render(
-            '::discover/index.html.twig',
+            '::default/discover.html.twig',
             [
                 'categories' => $em->getRepository('WizardalleyCoreBundle:PageCategory')->findAll()
             ]
@@ -50,7 +50,7 @@ class DiscoverController extends BaseController
             200,
             [
                 'html' => $this->renderView(
-                    '::discover/page.html.twig',
+                    '::discover/favPage.html.twig',
                     [
                         'pages' => $pages,
                     ]
@@ -76,7 +76,7 @@ class DiscoverController extends BaseController
             200,
             [
                 'html' => $this->renderView(
-                    '::discover/publication.html.twig',
+                    '::discover/favPublication.html.twig',
                     [
                         'publications' => $publications,
                     ]

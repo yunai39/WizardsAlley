@@ -32,7 +32,7 @@ class DefaultController extends Controller
     {
         $entity = new SmallPublication();
         $formSP = $this->createSmallPublicationForm($entity);
-        return $this->render('::default/ruelle.html.twig', array(
+        return $this->render('::user/home.html.twig', array(
             'formSmallPublication' => $formSP->createView()
         ));
     }

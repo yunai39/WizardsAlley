@@ -1,5 +1,8 @@
-{% extends '::gestionPage/template.html.twig' %}
+{% extends '::page/gestionPage/template.html.twig' %}
 
+{% block title %}
+    {% trans %}wizard.title.edit{% endtrans %} - {{ page.name }}
+{% endblock %}
 
 {% block gestion %}
 

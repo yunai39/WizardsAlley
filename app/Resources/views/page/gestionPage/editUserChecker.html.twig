@@ -1,30 +1,35 @@
-{% extends '::gestionPage/template.html.twig' %}
+{% extends '::page/gestionPage/template.html.twig' %}
+
+
+{% block title %}
+    {% trans %}wizard.title.edit{% endtrans %} - {{ page.name }}
+{% endblock %}
 
 {% block gestion %}
-    <div class="row">
-        <div class="col-md-12">
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-            <div class="ui-widget">
-                <label for="search_user">{% trans %}wizard.page.edit_user.search{% endtrans %}</label>
-                <input id="search_user">
-            </div>
-            {% if form.editors %}
-                <ul class="editor" data-prototype="{{ form_widget(form.editors.vars.prototype)|e }}">
-                    {% for editor in form.editors %}
-                        <li>
-                            {{ form_errors(editor) }}
-                            {{ form_row(editor.id) }}</br>
-                            {{ form_row(editor.username) }}
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            {{ form_row(form.submit) }}
-            {{ form_end(form) }}
+
+<div class="row">
+    <div class="col-md-12">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="ui-widget">
+            <label for="search_user">{% trans %}wizard.page.edit_user.search{% endtrans %}</label>
+            <input id="search_user">
         </div>
+        {% if form.checkers %}
+            <ul class="checker" data-prototype="{{ form_widget(form.checkers.vars.prototype)|e }}">
+                {% for checker in form.checkers %}
+                    <li>
+                        {{ form_errors(checker) }}
+                        {{ form_row(checker.id) }}</br>
+                        {{ form_row(checker.username) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        {{ form_row(form.submit) }}
+        {{ form_end(form) }}
     </div>
-{% endblock %}
+    {% endblock %}
 
 
     {% block javascripts %}
@@ -38,10 +43,10 @@
 
             jQuery(document).ready(function () {
                 // Get the ul that holds the collection of tags
-                $collectionHolder = $('ul.editor');
+                $collectionHolder = $('ul.checker');
 
                 $collectionHolder.find('li').each(function () {
-                    addEditorFormDeleteLink($(this));
+                    addCheckerFormDeleteLink($(this));
                 });
 
                 // count the current form inputs we have (e.g. 2), use that as the new
@@ -62,12 +67,12 @@
                 },
                 minLength: 3,
                 select: function (event, ui) {
-                    addEditorForm($collectionHolder, ui.item);
+                    addCheckerForm($collectionHolder, ui.item);
                 },
             });
 
-            function addEditorForm($collectionHolder, item) {
-                // test if the editor is not already in the list
+            function addCheckerForm($collectionHolder, item) {
+                // test if the checker is not already in the list
                 if ($('input[value=' + item.id + ']').length == 1) {
                     alert('{% trans %}wizard.page.edit_user.alrady_selected{% endtrans %}');
                     return;
@@ -92,19 +97,19 @@
                 // Display the form in the page in an li, before the "Add a tag" link li
                 var $newFormLi = $('<li></li>').append(newForm);
                 $collectionHolder.append($newFormLi);
-                addEditorFormDeleteLink($newFormLi);
+                addCheckerFormDeleteLink($newFormLi);
             }
 
-            function addEditorFormDeleteLink($editorFormLi) {
-                var $removeFormA = $('<a href="#">{% trans %}wizard.page.edit_user.delete_editor{% endtrans %}</a>');
-                $editorFormLi.append($removeFormA);
+            function addCheckerFormDeleteLink($checkerFormLi) {
+                var $removeFormA = $('<a href="#">{% trans %}wizard.page.edit_user.delete_checker{% endtrans %}</a>');
+                $checkerFormLi.append($removeFormA);
 
                 $removeFormA.on('click', function (e) {
                     // prevent the link from creating a "#" on the URL
                     e.preventDefault();
 
                     // remove the li for the tag form
-                    $editorFormLi.remove();
+                    $checkerFormLi.remove();
                 });
             }
         </script>

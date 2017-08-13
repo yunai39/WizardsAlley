@@ -2,6 +2,9 @@
 
 {% block body_style %} url('{{ asset(page.getPictureCouverture) }}'){% endblock %}
 
+{% block title %}
+    {{ page.name }}
+{% endblock %}
 
 {% block title_banner %}
     <div class="imgSquare circle">

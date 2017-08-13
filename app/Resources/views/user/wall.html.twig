@@ -1,0 +1,138 @@
+{% extends "::base.html.twig" %}
+
+{% block body_style %}url('{{ asset(user.getPictureCouverture) }}'){% endblock %}
+
+{% block title %}
+    {% trans with {'%username%': user.username} from "messages" %}wizard.title.wall{% endtrans %}
+    {{ user.username }}
+{% endblock %}
+
+{% block title_banner %}
+    <div class="imgSquare circle">
+        <div class="imgSquareContainer circle">
+            <img src="{{ asset(user.getPictureProfile()) }}" class="circle"/>
+        </div>
+    </div>
+    <h1>
+        {{ user.username }}
+    </h1>
+    <h2>
+        {{ user.smallDescription }}
+    </h2>
+{% endblock %}
+
+{% block body %}
+            {% if user.locked == true %}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3 class="text-center">{% trans %}wizard.user.wall.disabled{% endtrans %}</h3>
+                    </div>
+                </div>
+            {% else %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <h4>{% trans %}wizard.user.wall.informations{% endtrans %}</h4>
+                                        <hr>
+                                        {% if app.user %}
+                                            {% if app.user.id != user.id %}
+                                                {% if app.user.isFriend(user) %}
+                                                    <div><h4>{% trans %}wizard.wall.friend{% endtrans %}</h4></div>
+                                                {% elseif app.user.askedAsAFriend(user) %}
+                                                    <div>{% trans %}wizard.wall.ask_ongoing{% endtrans %}</div>
+                                                {% elseif app.user.askingForFriendship(user) %}
+                                                    <div><a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">Demande d'amitié,
+                                                            confirmer la demande</a></div>
+                                                {% else %}
+                                                    <a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">Ajouter en tant
+                                                        qu'amis</a>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                        <dl>
+                                            <dt>{% trans %}wizard.user.wall.username{% endtrans %}</dt>
+                                            <dd>{{ user.username }}</dd>
+                                            <dt>{% trans %}wizard.user.profile.last_login{% endtrans %}</dt>
+                                            <dd>{{ user.lastLogin|localizeddate('full', 'none') }} {{ user.lastLogin|date("H:i") }}</dd>
+                                        </dl>
+                                        {% if app.user %}
+                                            {% if app.user.id == user.id %}
+                                                <h6>
+                                                    <a href="{{ path('wizardalley_user_couverture_edit_picture') }}">{% trans %}
+                                                        wizard.user.profile.edit_picture_wall{% endtrans %}</a>
+                                                </h6>
+                                            {% endif %}
+                                        {% endif %}
+
+                                        {% if user.facebook != null %}
+                                            <a href="{{ user.facebook }}"/><span class="icon-large icon-facebook" aria-hidden="true"></span></a>
+                                        {% endif %}
+                                        {% if user.twitter != null %}
+                                            <a href="{{ user.twitter }}"/><span class="icon-large icon-twitter" aria-hidden="true"></span></a>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-8">
+                                        <h4>{{ user.smallDescription }}</h4>
+                                        {{ user.description }}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <h3>{% trans %}wizard.user.wall.publication{% endtrans %}</h3>
+                                <hr>
+                                <div id="my_publication"></div>
+                            </div>
+                            <div class="panel-footer text-center">
+                        <span class="glyphicon glyphicon-chevron-down clickable" id="loadMorePublication"
+                              aria-hidden="true"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        _$page = 1;
+        loadMore();
+        $('#loadMorePublication').on('click', function () {
+            loadMore();
+        });
+
+
+        function loadMore() {
+            var _handler = function ($data) {
+                $('#my_publication').append($data['extra']['html']);
+            };
+            $result = util.loadMore(
+                    Routing.generate('wizardalley_user_wall_publication',
+                            {'user': {{ user.id }}, 'page': _$page}
+                    ),
+                    'GET',
+                    _handler
+            );
+            _$page = _$page + 1;
+        }
+        ;
+
+        function addPublication($data) {
+            $('#my_publication').append($data['extra']['html']);
+        }
+        ;
+
+
+    </script>
+{% endblock %}

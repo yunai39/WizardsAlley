@@ -50,7 +50,7 @@ class GestionPageController extends Controller
         $form = $this->editFormPage($page);
 
         return $this->render(
-            '::gestionPage/index.html.twig',
+            '::page/gestionPage/index.html.twig',
             [
                 'page' => $page,
                 'form' => $form->createView(),
@@ -80,7 +80,7 @@ class GestionPageController extends Controller
         $form = $this->createFormUserPage($page, 'page_gestion_user_writer_edit', new PageEditorType());
 
         return $this->render(
-            '::gestionPage/editUser.html.twig',
+            '::page/gestionPage/editUser.html.twig',
             [
                 'page' => $page,
                 'form' => $form->createView(),
@@ -130,7 +130,7 @@ class GestionPageController extends Controller
         }
 
         return $this->render(
-            '::gestionPage/editUser.html.twig',
+            '::page/gestionPage/editUser.html.twig',
             [
                 'page' => $entity,
                 'form' => $editForm->createView(),
@@ -161,7 +161,7 @@ class GestionPageController extends Controller
         $form = $this->createFormUserPage($page, 'page_gestion_user_checker_edit', new PageCheckerType());
 
         return $this->render(
-            '::gestionPage/editUserChecker.html.twig',
+            '::page/gestionPage/editUserChecker.html.twig',
             [
                 'page' => $page,
                 'form' => $form->createView(),
@@ -212,7 +212,7 @@ class GestionPageController extends Controller
         }
 
         return $this->render(
-            '::gestionPage/editUserChecker.html.twig',
+            '::page/gestionPage/editUserChecker.html.twig',
             [
                 'page' => $entity,
                 'form' => $editForm->createView(),
@@ -256,7 +256,7 @@ class GestionPageController extends Controller
         }
 
         return $this->render(
-            '::gestionPage/index.html.twig',
+            '::page/gestionPage/index.html.twig',
             [
                 'page' => $entity,
                 'form' => $editForm->createView(),
@@ -277,7 +277,7 @@ class GestionPageController extends Controller
         $form = $this->createFormPage($entity);
 
         return $this->render(
-            '::page/new.html.twig',
+            '::user/page/new.html.twig',
             [
                 'entity' => $entity,
                 'form'   => $form->createView(),
@@ -316,7 +316,7 @@ class GestionPageController extends Controller
         }
 
         return $this->render(
-            '::page/new.html.twig',
+            '::user/page/new.html.twig',
             [
                 'entity' => $entity,
                 'form'   => $form->createView(),
@@ -363,7 +363,7 @@ class GestionPageController extends Controller
         );
 
         return $this->render(
-            '::gestionPage/list.html.twig',
+            '::page/gestionPage/list.html.twig',
             [
                 'id_page'    => $id_page,
                 'pagination' => $pagination,

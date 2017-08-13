@@ -89,7 +89,7 @@ class PublicationController extends BaseController
         }
 
         return $this->render(
-            '::publication/new.html.twig',
+            '::user/publication/new.html.twig',
             [
                 'entity' => $entity,
                 'form'   => $form->createView(),
@@ -155,7 +155,7 @@ class PublicationController extends BaseController
         );
 
         return $this->render(
-            '::publication/new.html.twig',
+            '::user/publication/new.html.twig',
             [
                 'entity' => $entity,
                 'form'   => $form->createView(),
@@ -191,7 +191,7 @@ class PublicationController extends BaseController
         );
 
         return $this->render(
-            '::publication/showPublication.html.twig',
+            '::user/publication/show.html.twig',
             [
                 'entity'       => $entity,
                 'entity_id'    => $id,
@@ -228,7 +228,7 @@ class PublicationController extends BaseController
         }
 
         return $this->render(
-            '::publication/previewPublication.html.twig',
+            '::user/publication/preview.html.twig',
             [
                 'entity'    => $entity,
                 'entity_id' => $id
@@ -255,7 +255,7 @@ class PublicationController extends BaseController
         $editForm = $this->createEditForm($entity);
 
         return $this->render(
-            '::publication/edit.html.twig',
+            '::user/publication/edit.html.twig',
             [
                 'entity'    => $entity,
                 'edit_form' => $editForm->createView(),
@@ -387,7 +387,7 @@ class PublicationController extends BaseController
         }
 
         return $this->render(
-            '::publication/edit.html.twig',
+            '::user/publication/edit.html.twig',
             [
                 'entity'    => $entity,
                 'edit_form' => $editForm->createView(),
@@ -565,7 +565,7 @@ class PublicationController extends BaseController
     /**
      * getLatestPublicationAction
      *
-     * @Route("/publication/getLatest", name="publication_get_latest")
+     * @Route("/publication/latestPublication", name="publication_get_latest")
      *
      * @return Response
      */

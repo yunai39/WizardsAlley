@@ -40,7 +40,7 @@ class DefaultController extends BaseController
         }
 
         return $this->render(
-            '::user/home.html.twig',
+            '::user/wall.html.twig',
             [
                 'user' => $user,
             ]
@@ -176,7 +176,7 @@ class DefaultController extends BaseController
         $friends = $repo->findFriends($user);
 
         return $this->render(
-            '::user/friendList.html.twig',
+            '::user/getFriendsView.html.twig',
             [
                 'friends' => $friends,
             ]

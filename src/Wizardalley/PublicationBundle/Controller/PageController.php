@@ -42,7 +42,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
         $pageRepository = $em->getRepository('WizardalleyCoreBundle:Page');
 
         return $this->render(
-            ':default:page_category.html.twig',
+            '::default/category.html.twig',
             [
                 'category' => $category,
                 'pages'    => $pageRepository->findBy(['category' => $category])
