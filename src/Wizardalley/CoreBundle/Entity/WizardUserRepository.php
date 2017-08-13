@@ -220,7 +220,7 @@ class WizardUserRepository extends EntityRepository
                 left join page pa on pu.page_id = pa.id
                 left join page_user_follow puf on puf.page_id = pa.id
                 left join comment_publication cp on cp.publication_id = pu.id
-            where puf.wizard_user_id = :user_id_1 or pu.user_id = :user_id_1
+            where puf.wizard_user_id = :user_id_1
             )
             UNION
             (
@@ -241,7 +241,7 @@ class WizardUserRepository extends EntityRepository
                 left join friends f1 on f1.user_id = ap.user_id
                 left join friends f2 on f1.friend_user_id = f2.user_id
                 left join comment_publication csp on csp.publication_id = pu.id
-            where f1.friend_user_id = :user_id_2 or pu.user_id = :user_id_2
+            where f1.friend_user_id = :user_id_2
             )
             ORDER BY publication_id DESC
             LIMIT " . $offset . ", " . $limit . "
