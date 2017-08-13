@@ -122,6 +122,7 @@ class WizardUserRepository extends EntityRepository
         return $stmt->fetchAll();
     }
 
+
     /**
      *
      * @param WizardUser $user
@@ -173,6 +174,74 @@ class WizardUserRepository extends EntityRepository
                 left join friends f2 on f1.friend_user_id = f2.user_id
                 left join comment_publication csp on csp.publication_id = pu.id
             where f1.friend_user_id = :user_id_2 or ap.user_id = :user_id_2
+            )
+            ORDER BY publication_id DESC
+            LIMIT " . $offset . ", " . $limit . "
+            ";
+        $conn = $this->getEntityManager()->getConnection();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(
+            [
+                'user_id_1'      => $user->getId(),
+                'user_id_2'      => $user->getId(),
+            ]
+        );
+
+
+        return $stmt->fetchAll();
+    }
+
+    /**
+     *
+     * @param WizardUser $user
+     * @param int        $page
+     * @param int        $limit
+     *
+     * @return array
+     */
+    public function findPublication(WizardUser $user, $page, $limit = BaseController::BASE_LIMIT)
+    {
+        $offset = ($page - 1) * $limit;
+        $sql  = "
+            (
+            select
+                pu.id as 'publication_id',
+                ap.created_at,
+                pu.title,
+                pu.small_content as 'content',
+                pa.id as 'writer_id',
+                pa.name,
+                pa.path_profile,
+                'page_publication' as type
+            from
+                abstract_publication ap
+                    left join publication pu
+                    on ap.id = pu.id
+                left join page pa on pu.page_id = pa.id
+                left join page_user_follow puf on puf.page_id = pa.id
+                left join comment_publication cp on cp.publication_id = pu.id
+            where puf.wizard_user_id = :user_id_1 or pu.user_id = :user_id_1
+            )
+            UNION
+            (
+            select
+                pu.id as 'publication_id',
+                ap.created_at,
+                '' as title,
+                ap.content,
+                w.id as 'writer_id',
+                w.username as 'name',
+                w.path_profile,
+                'user_publication' as type
+            from
+                abstract_publication ap
+                    left join small_publication pu
+                    on ap.id = pu.id
+                left join wizard_user w on w.id = ap.user_id
+                left join friends f1 on f1.user_id = ap.user_id
+                left join friends f2 on f1.friend_user_id = f2.user_id
+                left join comment_publication csp on csp.publication_id = pu.id
+            where f1.friend_user_id = :user_id_2 or pu.user_id = :user_id_2
             )
             ORDER BY publication_id DESC
             LIMIT " . $offset . ", " . $limit . "
