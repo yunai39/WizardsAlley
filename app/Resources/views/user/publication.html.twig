@@ -26,14 +26,16 @@
                     </p>
                 {% endif %}
                 <p class="lead">
+                    {% trans %}wizard.utility.by{% endtrans %}:
                     {% if publication.type == 'page_publication' %}
                         <a href="{{ path('page_show', {'id_page': publication.writer_id}) }}">{{ publication.name }}</a>
                     {% else %}
-                        <a href="{{ path('wizardalley_user_wall', {'id': publication.writer_id}) }}">{{ publication.name }}</a>
+                        <a class="publication-author" href="{{ path('wizardalley_user_wall', {'id': publication.writer_id}) }}">{{ publication.name }}</a>
                     {% endif %}
                 </p>
-                <p>{{ publication.created_at | date('d/m/Y') }}
-                    - {{ publication.created_at | date('H:i:s') }}</p>
+                <p class="publication-date">{{ publication.created_at | date('d/m/Y') }}
+                    - <span  class="publication-date">{{ publication.created_at | date('H:i:s') }}</span>
+                </p>
             </div>
         </div>
         <br/>

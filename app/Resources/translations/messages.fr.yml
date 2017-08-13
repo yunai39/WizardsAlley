@@ -19,6 +19,7 @@ wizard:
         search: Recherche
         refresh: Rafraichir
         back: Retour
+        by: Par
     notification:
         page_publication: >
             <a href="%page_link%">%page_name%</a> vient de publier une nouvelle publication: <a href="%publication_link%">%publication_name%</a>

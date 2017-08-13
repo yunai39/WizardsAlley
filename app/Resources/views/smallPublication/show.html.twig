@@ -12,9 +12,9 @@
                     </div>
                 </div>
                 <div class="col-xs-8">
-                    <h3>Par 
-                            <a href="{{path('wizardalley_user_wall', {'id': entity.user.id})}}" >{{entity.user.username}}</a>
-                        , le {{entity.createdAt | date('Y-m-d')}} à {{entity.createdAt | date('H:i:s')}}
+                    <h3>{% trans %}wizard.utility.by{% endtrans %}:
+                            <a  class="publication-author" href="{{path('wizardalley_user_wall', {'id': entity.user.id})}}" >{{entity.user.username}}</a>
+                        , le <span class="publication-date">{{entity.createdAt | date('Y-m-d')}} à {{entity.createdAt | date('H:i:s')}}</span>
                     </h3>
                 </div>
             </div>

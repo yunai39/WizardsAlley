@@ -14,15 +14,19 @@
                     <p class="lead">
                         <a href="{{ path('publication_show',{'id':publication.id}) }}">{{ publication.title }}</a>
                     </p>
+                <p class="lead">
+                    {% trans %}wizard.utility.by{% endtrans %}:
+                    <a class="publication-author" href="{{ path('wizardalley_user_wall', {'id': publication.user.id}) }}">{{ publication.user.username }}</a>
+                    -
+                    <a href="{{ path('page_show', {'id_page': publication.page.id}) }}">{{ publication.page.name }}</a>
+                </p>
             </div>
         </div>
         <div class="row ">
             <div class="col-xs-12">
-                <p class="lead">
-                        <a href="{{ path('page_show', {'id_page': publication.page.id}) }}">{{ publication.page.name }}</a>
+                <p>
+                    <span class="publication-date">{{ publication.createdAt | date('d/m/Y') }} - {{ publication.createdAt | date('H:i:s') }}</span>
                 </p>
-                <p>{{ publication.createdAt | date('d/m/Y') }}
-                    - {{ publication.createdAt | date('H:i:s') }}</p>
             </div>
         </div>
 
