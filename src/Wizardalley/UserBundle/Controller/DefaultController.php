@@ -378,7 +378,7 @@ class DefaultController extends BaseController
         ;
         $publications =
             $repo->findPublicationWall(
-                $this->getUser(),
+                $repo->find($user),
                 $page
             );
 

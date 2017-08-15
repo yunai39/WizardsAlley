@@ -242,8 +242,6 @@
         $('body .down-button a').click(function () {
             var $main = $('#main'),
                     $navbar = $('header nav .container-fluid');
-            console.log($main.height());
-            console.log($navbar.height());
             $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
             return false;
         });
