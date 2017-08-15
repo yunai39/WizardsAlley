@@ -266,40 +266,6 @@ class DefaultController extends BaseController
 
     /**
      * @param int $page
-     * @param int $user_id
-     *
-     * @return JsonResponse
-     */
-    public function displayPublicationUserAction($user_id, $page = 1)
-    {
-        /** @var WizardUserRepository $repo */
-        $repo         =
-            $this->getDoctrine()
-                 ->getRepository('WizardalleyCoreBundle:WizardUser')
-        ;
-        $publications =
-            $repo->findPublication(
-                $repo->find($user_id),
-                $page
-            );
-
-        return $this->sendJsonResponse(
-            'success',
-            null,
-            200,
-            [
-                'html' => $this->renderView(
-                    '::user/publication.html.twig',
-                    [
-                        'publications' => $publications,
-                    ]
-                )
-            ]
-        );
-    }
-
-    /**
-     * @param int $page
      * @Route("/user/profile/publication/{page}", name="wizardalley_user_profile_publication",  options={"expose"=true})
      *
      * @return JsonResponse
