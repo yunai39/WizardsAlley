@@ -17,9 +17,8 @@
     margin: 40px;
 }
 
-.information-block-wrapper {
-    height: 500px;
-    overflow-y: scroll;
+.information-block-wrapper .publication {
+    margin: 0px;
 }
 
 .nav-footer {
