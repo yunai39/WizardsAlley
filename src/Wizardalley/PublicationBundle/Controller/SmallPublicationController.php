@@ -45,6 +45,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
         if ($form->isValid()) {
             $user = $this->getUser();
             $entity->setUser($user);
+            $entity->setOnline(true);
             $entity->setCreatedAt(new \DateTime('now'));
             $entity->setUpdatedAt(new \DateTime('now'));
             $em = $this->getDoctrine()->getManager();

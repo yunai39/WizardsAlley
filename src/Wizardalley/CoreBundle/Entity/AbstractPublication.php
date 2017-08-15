@@ -17,6 +17,7 @@ use Wizardalley\CoreBundle\Entity\Traits\TimedEntityTrait;
 class AbstractPublication implements TimedEntityInterface
 {
     use TimedEntityTrait;
+
     /**
      * @var integer
      *
@@ -25,6 +26,7 @@ class AbstractPublication implements TimedEntityInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
     /**
      * @var string
      *
@@ -32,32 +34,40 @@ class AbstractPublication implements TimedEntityInterface
      */
     private $content;
 
-
     /**
-    * @ORM\OneToMany(targetEntity="CommentPublication", mappedBy="publication", cascade={"remove", "persist"})
-    */
+     * @ORM\OneToMany(targetEntity="CommentPublication", mappedBy="publication", cascade={"remove", "persist"})
+     */
     private $comments;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="publications" )
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-    */
+     */
     private $user;
+
+    /**
+     *
+     * @var \boolean
+     *
+     * @ORM\Column(name="online", type="boolean", options={"default" = 0}, nullable=true)
+     */
+    private $online;
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
     }
-    
+
     /**
      * Set content
      *
      * @param string $content
+     *
      * @return Publication
      */
     public function setContent($content)
@@ -70,7 +80,7 @@ class AbstractPublication implements TimedEntityInterface
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -89,6 +99,7 @@ class AbstractPublication implements TimedEntityInterface
      * Add comments
      *
      * @param \Wizardalley\CoreBundle\Entity\CommentPublication $comments
+     *
      * @return Publication
      */
     public function addComment(\Wizardalley\CoreBundle\Entity\CommentPublication $comments)
@@ -111,18 +122,18 @@ class AbstractPublication implements TimedEntityInterface
     /**
      * Get comments
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getComments()
     {
         return $this->comments;
     }
 
-
     /**
      * Set user
      *
      * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
+     *
      * @return Publication
      */
     public function setUser(\Wizardalley\CoreBundle\Entity\WizardUser $user = null)
@@ -135,7 +146,7 @@ class AbstractPublication implements TimedEntityInterface
     /**
      * Get user
      *
-     * @return \Wizardalley\CoreBundle\Entity\WizardUser 
+     * @return \Wizardalley\CoreBundle\Entity\WizardUser
      */
     public function getUser()
     {
@@ -143,48 +154,92 @@ class AbstractPublication implements TimedEntityInterface
     }
 
     /**
+     * Set online
+     *
+     * @param boolean $online
+     *
+     * @return Publication
+     */
+    public function setOnline($online)
+    {
+        $this->online = $online;
+
+        return $this;
+    }
+
+    /**
+     * Get online
+     *
+     * @return boolean
+     */
+    public function getOnline()
+    {
+        return $this->online;
+    }
+
+    /**
      * @param string $string
+     *
      * @return int
      */
-    public function strip($html,$maxLength=200) {
+    public function strip($html, $maxLength = 200)
+    {
         $isUtf8 = true;
         $printedLength = 0;
         $position = 0;
-        $tags = array();
+        $tags = [];
         $finalStr = "";
         // For UTF-8, we need to count multibyte sequences as one character.
-        $re = $isUtf8 ? '{</?([a-z]+)[^>]*>|&#?[a-zA-Z0-9]+;|[\x80-\xFF][\x80-\xBF]*}' : '{</?([a-z]+)[^>]*>|&#?[a-zA-Z0-9]+;}';
+        $re =
+            $isUtf8 ? '{</?([a-z]+)[^>]*>|&#?[a-zA-Z0-9]+;|[\x80-\xFF][\x80-\xBF]*}' : '{</?([a-z]+)[^>]*>|&#?[a-zA-Z0-9]+;}';
 
-        while ($printedLength < $maxLength && preg_match($re, $html, $match, PREG_OFFSET_CAPTURE, $position)) {
-            list($tag, $tagPosition) = $match[0];
+        while ($printedLength < $maxLength &&
+               preg_match(
+                   $re,
+                   $html,
+                   $match,
+                   PREG_OFFSET_CAPTURE,
+                   $position
+               )) {
+            list($tag, $tagPosition) = $match[ 0 ];
             // Print text leading up to the tag.
-            $str = substr($html, $position, $tagPosition - $position);
+            $str =
+                substr(
+                    $html,
+                    $position,
+                    $tagPosition - $position
+                );
             if ($printedLength + strlen($str) > $maxLength) {
-                $finalStr .= substr($str, 0, $maxLength - $printedLength);
+                $finalStr .= substr(
+                    $str,
+                    0,
+                    $maxLength - $printedLength
+                );
                 $printedLength = $maxLength;
                 break;
             }
 
             $finalStr .= $str;
             $printedLength += strlen($str);
-            if ($printedLength >= $maxLength)
+            if ($printedLength >= $maxLength) {
                 break;
+            }
 
-            if ($tag[0] == '&' || ord($tag) >= 0x80) {
+            if ($tag[ 0 ] == '&' || ord($tag) >= 0x80) {
                 // Pass the entity or UTF-8 multibyte sequence through unchanged.
                 $finalStr .= $tag;
                 $printedLength++;
             } else {
                 // Handle the tag.
-                $tagName = $match[1][0];
-                if ($tag[1] == '/') {
+                $tagName = $match[ 1 ][ 0 ];
+                if ($tag[ 1 ] == '/') {
                     // This is a closing tag.
 
                     $openingTag = array_pop($tags);
                     assert($openingTag == $tagName); // check that tags are properly nested.
 
                     $finalStr .= $tag;
-                } else if ($tag[strlen($tag) - 2] == '/') {
+                } else if ($tag[ strlen($tag) - 2 ] == '/') {
                     // Self-closing tag.
                     $finalStr .= $tag;
                 } else {
@@ -199,15 +254,20 @@ class AbstractPublication implements TimedEntityInterface
         }
 
         // Print any remaining text.
-        if ($printedLength < $maxLength && $position < strlen($html))
-            $finalStr .= substr($html, $position, $maxLength - $printedLength);
+        if ($printedLength < $maxLength && $position < strlen($html)) {
+            $finalStr .= substr(
+                $html,
+                $position,
+                $maxLength - $printedLength
+            );
+        }
 
         // Close any open tags.
-        while (!empty($tags)){
+        while (!empty($tags)) {
             $tag = array_pop($tags);
             $finalStr .= "</{$tag}>";
         }
+
         return $finalStr;
     }
-
 }

@@ -82,7 +82,7 @@ class WizardUserRepository extends EntityRepository
                 left join page_user_follow puf on puf.page_id = pa.id
                 left join comment_publication cp on cp.publication_id = pu.id
             where puf.wizard_user_id = :user_id_1
-                and ( pu.id < :publication_id or :publication_id = -1)
+                and ( pu.id < :publication_id or :publication_id = -1) and ap.online = 1
             )
             UNION
             (
@@ -104,7 +104,7 @@ class WizardUserRepository extends EntityRepository
                 left join friends f2 on f1.friend_user_id = f2.user_id
                 left join comment_publication csp on csp.publication_id = pu.id
             where f1.friend_user_id = :user_id_2
-                and ( pu.id < :publication_id or :publication_id = -1)
+                and ( pu.id < :publication_id or :publication_id = -1) and ap.online = 1
             )
             ORDER BY publication_id DESC
             LIMIT " . $limit . "
@@ -152,7 +152,7 @@ class WizardUserRepository extends EntityRepository
                 left join page pa on pu.page_id = pa.id
                 left join page_user_follow puf on puf.page_id = pa.id
                 left join comment_publication cp on cp.publication_id = pu.id
-            where puf.wizard_user_id = :user_id_1 or ap.user_id = :user_id_1
+            where (puf.wizard_user_id = :user_id_1 or ap.user_id = :user_id_1) and ap.online = 1
             )
             UNION
             (
@@ -173,7 +173,7 @@ class WizardUserRepository extends EntityRepository
                 left join friends f1 on f1.user_id = ap.user_id
                 left join friends f2 on f1.friend_user_id = f2.user_id
                 left join comment_publication csp on csp.publication_id = pu.id
-            where f1.friend_user_id = :user_id_2 or ap.user_id = :user_id_2
+            where (f1.friend_user_id = :user_id_2 or ap.user_id = :user_id_2) and ap.online = 1
             )
             ORDER BY publication_id DESC
             LIMIT " . $offset . ", " . $limit . "
@@ -219,7 +219,7 @@ class WizardUserRepository extends EntityRepository
                     on ap.id = pu.id
                 right join page pa on pu.page_id = pa.id
                 where
-                   ap.user_id = :user_id_1
+                   ap.user_id = :user_id_1 and ap.online = 1
             )
             UNION
             (
@@ -237,7 +237,7 @@ class WizardUserRepository extends EntityRepository
                     right join small_publication pu
                     on ap.id = pu.id
                 right join wizard_user w on w.id = ap.user_id
-            where w.id = :user_id_2
+            where w.id = :user_id_2 and ap.online = 1
             )
             ORDER BY publication_id DESC
             LIMIT " . $offset . ", " . $limit . "
@@ -272,7 +272,7 @@ class WizardUserRepository extends EntityRepository
                 pu.id as 'publication_id', 
                 pa.created_at,
                 pu.title, pu.small_content as 'content', 
-                pa.id as 'writer_id', 
+                pa.id as 'writer_id',
                 p.name, 
                 p.path_profile, 
                 'page_publication' as type
@@ -280,14 +280,15 @@ class WizardUserRepository extends EntityRepository
                 left join abstract_publication pa
                 on pa.id = pu.id
               left join page p on pu.page_id = p.id 
-            where pa.user_id = :user_id_1)
+            where pa.user_id = :user_id_1 and pa.online = 1
+            )
             UNION
             (
             select 
-                pa.id as 'publication_id', 
+                pa.id as 'publication_id',
                 pa.created_at,
                 '' as title, 
-                pa.content, 
+                pa.content,
                 w.id as 'writer_id', 
                 w.username as 'name', 
                 w.path_profile, 
@@ -296,7 +297,7 @@ class WizardUserRepository extends EntityRepository
                 left join abstract_publication pa
                 on pa.id = pu.id
             left join wizard_user w on w.id = pa.user_id
-             where pa.user_id = :user_id_2
+             where pa.user_id = :user_id_2 and pa.online = 1
             )
             ORDER BY publication_id DESC
             LIMIT " . $offset . ", " . $limit . "
