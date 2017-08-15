@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "bettyregular";
+  src: url("fonts/betty/betty_regular.woff") format("woff"), url("fonts/betty/Betty%20Regular.ttf") format("truetype"); }
+h1, h2, h3, h4, h5, h6 {
+  font-family: "bettyregular", Helvetica, Arial, sans-serif; }
+
 @media (min-width: 768px) {
   .publication {
     padding: 20px;
@@ -156,6 +162,40 @@ h4 {
   font-size: 2.5rem;
   text-align: center; }
 
+h5 {
+  font-size: 2rem;
+  text-align: center; }
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2.5em; }
+
+  h2 {
+    font-size: 2em; }
+
+  h3 {
+    font-size: 1.7em; }
+
+  h4 {
+    font-size: 1.5em; }
+
+  h5 {
+    font-size: 1em; } }
+@media (max-width: 640px) and (min-width: 481px) {
+  h1 {
+    font-size: 3em; }
+
+  h2 {
+    font-size: 2.5em; }
+
+  h3 {
+    font-size: 2em; }
+
+  h4 {
+    font-size: 1.5em; }
+
+  h5 {
+    font-size: 1em; } }
 hr {
   height: 6px;
   background: url(../images/hr.png) repeat-x 0 0;
@@ -244,7 +284,7 @@ button {
   height: 45px; }
 
 .navbar-head, h1, h2, h3, h4, h5, h6, footer {
-  font-family: "Timeless", sans-serif; }
+  font-family: "bettyregular", sans-serif; }
 
 .user-profil {
   width: 5vw;
@@ -304,17 +344,17 @@ header a, .navbar-brand, .navbar-nav > li > a, .navbar-brand, .navbar-nav > li >
 
 .login {
   margin-right: 2vw;
-  padding-bottom: 2px;
+  padding-bottom: 0.5vh;
   border-bottom: 2px solid transparent;
   transition: 0.2s linear; }
 
 .register {
-  padding-bottom: 2px;
-  border-bottom: 3px solid transparent;
+  padding-bottom: 0.5vh;
+  border-bottom: 2px solid transparent;
   transition: 0.2s linear; }
 
 .login:hover, .register:hover {
-  border-bottom: 3px solid #FFF; }
+  border-bottom: 2px solid #FFF; }
 
 @media (min-width: 768px) {
   .two-row .navbar-collapse {
@@ -324,19 +364,14 @@ header a, .navbar-brand, .navbar-nav > li > a, .navbar-brand, .navbar-nav > li >
     margin: 0 auto;
     display: table;
     table-layout: fixed;
-    float: none; 
-  } }
+    float: none; } }
 @media screen and (max-width: 1420px) {
   header nav {
     margin: 0vh 0vw;
-    max-width: 180vw; } }
-header nav .nav-full li {
-    border-bottom: 3px solid transparent;
-    transition: 0.2s linear;
-}
-
-header nav .nav-full li:hover, header nav .nav-full .active {
-  border-bottom: 3px solid #FFF; }
+    max-width: 180vw;
+    overflow-x: scroll; } }
+header nav .nav-full li:hover {
+  border-bottom: 5px solid #FFF; }
 
 .navbar-toggle {
   margin-right: 0px; }
@@ -351,19 +386,78 @@ header nav .nav-full li:hover, header nav .nav-full .active {
   padding: 5vh 5vw 20vh; }
 
 .head {
-  margin-top: 20vh;
-  padding: 5vh 15vw 15vh;
   justify-content: center;
   align-items: center;
-  color: #FFF;}
+  color: #FFF; }
+  @media (max-width: 480px) {
+    .head {
+      padding: 5vh 5vw;
+      margin: 10vh 5vw;
+      height: 80vh; } }
+  @media (max-width: 640px) and (min-width: 481px) {
+    .head {
+      padding: 5vh 5vw;
+      margin: 10vh 5vw;
+      height: 80vh; } }
+  @media (max-width: 767px) and (min-width: 641px) {
+    .head {
+      padding: 5vh 5vw;
+      margin: 10vh 5vw;
+      height: 80vh; } }
+  @media (min-width: 768px) and (max-width: 991px) {
+    .head {
+      padding: 5vh 5vw;
+      margin: 10vh 5vw;
+      height: 80vh; }
+      .head h1 {
+        margin-top: 10vh; } }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .head {
+      padding: 5vh 15vw;
+      margin: 20vh 0vh 10vw 0vw;
+      height: 70vh; }
+      .head h1 {
+        margin-top: 10vh; } }
+  @media (min-width: 1200px) {
+    .head {
+      padding: 5vh 15vw;
+      margin: 20vh 0vh 10vw 0vw;
+      height: 70vh; }
+      .head h1 {
+        margin-top: 10vh; } }
   .head .imgSquare {
     width: 15vh;
     margin: auto; }
+  .head > div.down-button {
+    position: absolute;
+    text-align: center;
+    vertical-align: middle; }
+    @media screen and (min-width: 767px) {
+      .head > div.down-button {
+        bottom: 10vh;
+        height: 10vh;
+        width: 10vh;
+        left: 45vw; } }
+    @media screen and (max-width: 768px) {
+      .head > div.down-button {
+        bottom: 5vh;
+        height: 5vh;
+        width: 5vh;
+        left: 47.5vw; } }
+    .head > div.down-button a {
+      color: white; }
+      @media screen and (min-width: 767px) {
+        .head > div.down-button a {
+          font-size: 3em; } }
+      @media screen and (max-width: 768px) {
+        .head > div.down-button a {
+          font-size: 2em; } }
 
 .navbar-header {
   width: 100%;
   padding-right: 5vw;
-  padding-left: 5vw;}
+  padding-left: 5vw;
+  font-family: "bettyregular", sans-serif; }
 
 footer {
   position: fixed;
@@ -384,8 +478,7 @@ footer {
   footer ul {
     display: flex; }
   footer li {
-    margin: 1vh 2vw 0vh;
-    list-style-type: none;}
+    margin: 1vh 2vw 0vh; }
     footer li a {
       color: #ffffff;
       transition: 0.4s linear;
@@ -399,15 +492,6 @@ footer {
     font-size: 1rem;
     text-align: center; }
 
-
-@media screen and (max-width: 1500px) {
-    footer a, footer li {
-      font-size: 1rem; } 
-    footer p {
-      font-size: 0.8rem;
-    }
-}
-
 @media screen and (max-width: 850px) {
   footer {
     height: 2vh;
@@ -419,7 +503,6 @@ footer {
       flex-direction: column;
       justify-content: center; }
     footer li {
-      text-align: center; } 
-}
+      text-align: center; } }
 
 /*# sourceMappingURL=main.css.map */

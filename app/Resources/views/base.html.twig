@@ -159,9 +159,14 @@
                 {% trans %}wizard.banner{% endtrans %}
             </h1>
             {% endblock %}
+            <div class="down-button">
+                <a>
+                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                </a>
+            </div>
         </div>
 
-        <main class="background-wizard">
+        <main id="main" class="background-wizard">
 
             <div class="full-container">
                 {% if app.session.flashbag.has('error') %}
@@ -233,7 +238,16 @@
         <script src="{{ asset('assets/js/underscore.min.js') }}"></script>
         <script src="{{ asset('assets/js/main.js') }}"></script>
         <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-
+        <script>
+            $('body .down-button a').click(function(){
+                var $main = $('#main'),
+                    $navbar = $('header nav .container-fluid');
+                console.log($main.height());
+                console.log( $navbar.height());
+                $("body").animate({ scrollTop: $main.position().top - $navbar.height()}, 300);
+                return false;
+            });
+        </script>
     {% endblock %}
     </body>
 </html>
