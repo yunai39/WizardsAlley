@@ -2,7 +2,6 @@
     <div class="publication">
         <div class="row ">
             <div class="col-xs-2">
-
                 <div class="imgSquare">
                     <div class="imgSquareContainer circle">
                         {% if publication.type == 'page_publication' %}
@@ -46,23 +45,19 @@
                 {% else %}
                     <p>{{ publication.content }}</p>
                 {% endif %}
-
-
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12 text-align-right">
-                <button class="label defaut-label btn">
 
-                    {% if publication.type == 'page_publication' %}
-                        <a href="{{ path('publication_show',{'id':publication.publication_id}) }}">{% trans %}
-                            publication.display.link{% endtrans %}</a>
-                    {% else %}
-                        <a href="{{ path('user_small_publication_show',{'id':publication.publication_id}) }}">{% trans %}
-                            publication.display.link{% endtrans %}</a>
-                    {% endif %}
-                </button>
+                {% if publication.type == 'page_publication' %}
+                    <a class="label defaut-label btn" href="{{ path('publication_show',{'id':publication.publication_id}) }}">{% trans %}
+                        publication.display.link{% endtrans %}</a>
+                {% else %}
+                    <a class="label defaut-label btn"  href="{{ path('user_small_publication_show',{'id':publication.publication_id}) }}">{% trans %}
+                        publication.display.link{% endtrans %}</a>
+                {% endif %}
                 <button class="label defaut-label btn">
                     {% trans %}publication.comments{% endtrans %}
                 </button>
