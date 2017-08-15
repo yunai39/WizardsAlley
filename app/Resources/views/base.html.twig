@@ -154,15 +154,17 @@
 
 
         <div class="head">
-            {% block title_banner %}
-            <h1>
-                {% trans %}wizard.banner{% endtrans %}
-            </h1>
-            {% endblock %}
-            <div class="down-button">
-                <a>
-                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
-                </a>
+            <div class="title-wrapper">
+                {% block title_banner %}
+                    <h1>
+                        {% trans %}wizard.banner{% endtrans %}
+                    </h1>
+                {% endblock %}
+                <div class="down-button">
+                    <a>
+                        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+                    </a>
+                </div>
             </div>
         </div>
 

@@ -391,36 +391,36 @@ header nav .nav-full li:hover {
   color: #FFF; }
   @media (max-width: 480px) {
     .head {
-      padding: 5vh 5vw;
+      padding: 0vh 5vw;
       margin: 10vh 5vw;
       height: 80vh; } }
   @media (max-width: 640px) and (min-width: 481px) {
     .head {
-      padding: 5vh 5vw;
+      padding: 0vh 5vw;
       margin: 10vh 5vw;
       height: 80vh; } }
   @media (max-width: 767px) and (min-width: 641px) {
     .head {
-      padding: 5vh 5vw;
+      padding: 0vh 5vw;
       margin: 10vh 5vw;
       height: 80vh; } }
   @media (min-width: 768px) and (max-width: 991px) {
     .head {
-      padding: 5vh 5vw;
+      padding: 0vh 5vw;
       margin: 10vh 5vw;
       height: 80vh; }
       .head h1 {
         margin-top: 10vh; } }
   @media (min-width: 992px) and (max-width: 1199px) {
     .head {
-      padding: 5vh 15vw;
+      padding: 0vh 15vw;
       margin: 20vh 0vh 10vw 0vw;
       height: 70vh; }
       .head h1 {
         margin-top: 10vh; } }
   @media (min-width: 1200px) {
     .head {
-      padding: 5vh 15vw;
+      padding: 0vh 15vw;
       margin: 20vh 0vh 10vw 0vw;
       height: 70vh; }
       .head h1 {
@@ -428,30 +428,33 @@ header nav .nav-full li:hover {
   .head .imgSquare {
     width: 15vh;
     margin: auto; }
-  .head > div.down-button {
-    position: absolute;
-    text-align: center;
-    vertical-align: middle; }
-    @media screen and (min-width: 767px) {
-      .head > div.down-button {
-        bottom: 10vh;
-        height: 10vh;
-        width: 10vh;
-        left: 45vw; } }
-    @media screen and (max-width: 768px) {
-      .head > div.down-button {
-        bottom: 5vh;
-        height: 5vh;
-        width: 5vh;
-        left: 47.5vw; } }
-    .head > div.down-button a {
-      color: white; }
+  .head .title-wrapper {
+    height: 100%;
+    padding: 10vh 0; }
+    .head .title-wrapper .down-button {
+      position: inherit;
+      text-align: center;
+      margin: auto; }
       @media screen and (min-width: 767px) {
-        .head > div.down-button a {
-          font-size: 3em; } }
+        .head .title-wrapper .down-button {
+          bottom: 10vh;
+          height: 10vh;
+          width: 10vh;
+          left: 45vw; } }
       @media screen and (max-width: 768px) {
-        .head > div.down-button a {
-          font-size: 2em; } }
+        .head .title-wrapper .down-button {
+          bottom: 5vh;
+          height: 5vh;
+          width: 5vh;
+          left: 47.5vw; } }
+      .head .title-wrapper .down-button a {
+        color: white; }
+        @media screen and (min-width: 767px) {
+          .head .title-wrapper .down-button a {
+            font-size: 3em; } }
+        @media screen and (max-width: 768px) {
+          .head .title-wrapper .down-button a {
+            font-size: 2em; } }
 
 .navbar-header {
   width: 100%;
