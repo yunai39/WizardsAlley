@@ -233,7 +233,7 @@ class DefaultController extends BaseController
     /**
      * @param int $page
      *
-     * @Route("/user/getPublication", name="wizard_get_publication_view",  options={"expose"=true})
+     * @Route("/user/getPublication/{page}", name="wizard_get_publication_view",  options={"expose"=true})
      * @return Response
      */
     public function displayPublicationRuelleAction($page = 1)
