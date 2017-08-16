@@ -209,7 +209,7 @@
             var _handler = function ($data) {
                 $('#my_publication').append($data['extra']['html']);
             };
-            $result = util.loadMore(Routing.generate('wizardalley_user_profile_publication', {'page': $pagePublication}), 'GET', _handler);
+            $result = util.loadMore(Routing.generate('wizardalley_user_profile_publication', {'user': {{ user.id }}, 'page': $pagePublication}), 'GET', _handler);
             $pagePublication = $pagePublication + 1;
         }
         ;
@@ -233,7 +233,7 @@
                     $divPageFollowed.append($div);
                 });
             };
-            $result = util.loadMore(Routing.generate('page_user_followed_get', {'page': $pagePageFollowed}), 'GET', _handler);
+            $result = util.loadMore(Routing.generate('page_user_followed_get', {'user': {{ user.id }},'page': $pagePageFollowed}), 'GET', _handler);
             $pagePageFollowed = $pagePageFollowed + 1;
         }
         ;
@@ -253,7 +253,7 @@
                     $divFriend.append($div);
                 });
             }
-            $result = util.loadMore(Routing.generate('wizard_get_friends_json', {'page': $pageFriends}), 'GET', _handler);
+            $result = util.loadMore(Routing.generate('wizard_get_friends_json', {'user': {{ user.id }},'page': $pageFriends}), 'GET', _handler);
             $pageFriends = $pageFriends + 1;
         }
         ;
@@ -274,7 +274,7 @@
                     $divPageCreated.append($div);
                 });
             };
-            $result = util.loadMore(Routing.generate('page_user_created_get', {'page': $pageCreated}), 'GET', _handler);
+            $result = util.loadMore(Routing.generate('page_user_created_get', {'user': {{ user.id }}, 'page': $pageCreated}), 'GET', _handler);
             $pageCreated = $pageCreated + 1;
         }
         ;

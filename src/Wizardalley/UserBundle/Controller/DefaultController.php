@@ -177,16 +177,21 @@ class DefaultController extends BaseController
      *
      * This action will return a list of friends
      *
-     * @Route("/user/getFriendsJson/{page}", name="wizard_get_friends_json",  options={"expose"=true})
+     * @Route("/user/getFriendsJson/{user}/{page}", name="wizard_get_friends_json",  options={"expose"=true})
      *
      * @param int $page
+     * @param int $user
      *
      * @return JsonResponse
      */
-    public function friendListAction($page = 1)
+    public function friendListAction($user, $page = 1)
     {
         $numberDisplay = 3;
-        $user          = $this->getUser();
+        $userRepo          =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
+        $user          = $userRepo->find($user);
         $repo          =
             $this->getDoctrine()
                  ->getRepository('WizardalleyCoreBundle:WizardUser')
@@ -266,20 +271,22 @@ class DefaultController extends BaseController
 
     /**
      * @param int $page
-     * @Route("/user/profile/publication/{page}", name="wizardalley_user_profile_publication",  options={"expose"=true})
+     * @Route("/user/profile/publication/{user}/{page}", name="wizardalley_user_profile_publication",  options={"expose"=true})
      *
      * @return JsonResponse
      */
-    public function displayPublicationProfileAction($page = 1)
+    public function displayPublicationProfileAction($user, $page = 1)
     {
         /** @var WizardUserRepository $repo */
         $repo         =
             $this->getDoctrine()
                  ->getRepository('WizardalleyCoreBundle:WizardUser')
         ;
+        $user = $repo->find($user);
+
         $publications =
             $repo->findPublication(
-                $this->getUser(),
+                $user,
                 $page
             );
 

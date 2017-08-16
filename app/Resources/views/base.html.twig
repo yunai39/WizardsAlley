@@ -227,6 +227,7 @@
 {% endblock %}
 
 {% block javascripts %}
+
     {% javascripts
     'bundles/fosjsrouting/js/router.js' %}
     <script src="{{ asset_url }}"></script>
@@ -239,12 +240,14 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     <script>
-        $('body .down-button a').click(function () {
-            var $main = $('#main'),
-                    $navbar = $('header nav .container-fluid');
-            $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
-            return false;
-        });
+        $(document).ready(
+                $('body .down-button a').click(function () {
+                    var $main = $('#main'),
+                            $navbar = $('header nav .container-fluid');
+                    $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
+                    return false;
+                })
+        );
     </script>
 {% endblock %}
 </body>

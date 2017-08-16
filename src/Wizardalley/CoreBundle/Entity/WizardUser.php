@@ -91,7 +91,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public $pathProfile;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+         * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $pathCouverture;
 
