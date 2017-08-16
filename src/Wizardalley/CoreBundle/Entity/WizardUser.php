@@ -67,7 +67,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text",  nullable=true)
      */
     private $description;
 

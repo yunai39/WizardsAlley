@@ -31,6 +31,7 @@ easy_admin:
         menu:
             - { entity: 'Page', icon: 'group' }
             - { entity: 'Publication', icon: 'sticky-note' }
+            - { entity: 'SmallPublication', icon: 'sticky-note' }
             - { entity: 'InformationBillet', label: 'Billet d''information', icon: 'info' }
             - { entity: 'MapObject', label: 'Objet de carte', icon: 'map' }
             - { entity: 'PageCategory', label: 'Catégorie des pages', icon: 'tag' }
@@ -120,7 +121,21 @@ easy_admin:
                     - { property: 'content', type: 'ckeditor'}
                     - user
                     - { property: 'images', type: 'collection', type_options: { entry_type: 'Wizardalley\AdminBundle\Form\ImagePublicationType', by_reference: false } }
-
+        SmallPublication:
+              disabled_actions: ['new']
+              class: Wizardalley\CoreBundle\Entity\SmallPublication
+              list:
+                  fields:
+                      - id
+                      - online
+                      - content
+                      - user
+                      - created_at
+              form:
+                  fields:
+                      - { property: 'user', type_options: { disabled: true } }
+                      - content
+                      - online
         WizardUser:
             disabled_actions: ['delete']
             class: Wizardalley\CoreBundle\Entity\WizardUser
