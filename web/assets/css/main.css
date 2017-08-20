@@ -119,8 +119,14 @@ main {
 .margin-bottom {
   margin-bottom: 30px; }
 
+.margin-bottom-middle {
+  margin-bottom: 15px; }
+
 .margin-top {
   margin-top: 30px; }
+
+.margin-top-middle {
+  margin-top: 15px; }
 
 .padding-right {
   padding-right: 30px; }
@@ -199,13 +205,7 @@ textarea {
   resize: none; }
 
 button, .btn-default, .btn {
-  background-color: #454a72 !important;
-  padding: 5px;
-  margin: 3.75px;
-  display: inline;
-  font-size: 75%;
-  font-weight: 700;
-  line-height: 1;
+  background-color: #454a72;
   color: #fff;
   text-align: center;
   white-space: nowrap;

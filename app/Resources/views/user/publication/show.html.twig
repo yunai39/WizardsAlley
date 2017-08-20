@@ -8,7 +8,12 @@
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">
-                <div class="col-xs-10">
+                <div class="col-xs-2">
+                    {% if app.user.id == entity.user.id %}
+                        {% include '::includes/disablePublicationButton.html.twig' with {'id': entity.id} %}
+                    {% endif %}
+                </div>
+                <div class="col-xs-8">
                     <h1>{{ entity.title }}</h1>
                 </div>
                 <div class="col-xs-2">

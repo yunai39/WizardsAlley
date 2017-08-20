@@ -71,7 +71,8 @@ class WizardUserRepository extends EntityRepository
                 ap.created_at,
                 pu.title, 
                 pu.small_content as 'content', 
-                pa.id as 'writer_id', 
+                pa.id as 'writer_id',
+                w.id as 'user_id',
                 pa.name, pa.path_profile, 
                 'page_publication' as type
             from 
@@ -79,6 +80,8 @@ class WizardUserRepository extends EntityRepository
                     left join publication pu 
                     on ap.id = pu.id
                 left join page pa on pu.page_id = pa.id
+                left join wizard_user w on ap.user_id = w.id
+                left join wizard_user w on ap.user_id = w.id
                 left join page_user_follow puf on puf.page_id = pa.id
                 left join comment_publication cp on cp.publication_id = pu.id
             where puf.wizard_user_id = :user_id_1
@@ -92,7 +95,8 @@ class WizardUserRepository extends EntityRepository
                 '' as title, 
                 ap.content, 
                 w.id as 'writer_id', 
-                w.username as 'name', 
+                w.id as 'user_id',
+                w.username as 'name',
                 w.path_profile, 
                 'user_publication' as type
             from 
@@ -141,6 +145,7 @@ class WizardUserRepository extends EntityRepository
                 ap.created_at,
                 pu.title,
                 pu.small_content as 'content',
+                w.id as 'user_id',
                 pa.id as 'writer_id',
                 pa.name,
                 pa.path_profile,
@@ -149,6 +154,7 @@ class WizardUserRepository extends EntityRepository
                 abstract_publication ap
                     left join publication pu
                     on ap.id = pu.id
+                left join wizard_user w on w.id = ap.user_id
                 left join page pa on pu.page_id = pa.id
                 left join page_user_follow puf on puf.page_id = pa.id
                 left join comment_publication cp on cp.publication_id = pu.id
@@ -161,6 +167,7 @@ class WizardUserRepository extends EntityRepository
                 ap.created_at,
                 '' as title,
                 ap.content,
+                w.id as 'user_id',
                 w.id as 'writer_id',
                 w.username as 'name',
                 w.path_profile,
@@ -210,6 +217,7 @@ class WizardUserRepository extends EntityRepository
                 pu.title,
                 pu.small_content as 'content',
                 pa.id as 'writer_id',
+                w.id as 'user_id',
                 pa.name,
                 pa.path_profile,
                 'page_publication' as type
@@ -217,6 +225,7 @@ class WizardUserRepository extends EntityRepository
                 abstract_publication ap
                     left join publication pu
                     on ap.id = pu.id
+                left join wizard_user w on w.id = ap.user_id
                 right join page pa on pu.page_id = pa.id
                 where
                    ap.user_id = :user_id_1 and ap.online = 1
@@ -229,6 +238,7 @@ class WizardUserRepository extends EntityRepository
                 '' as title,
                 ap.content,
                 w.id as 'writer_id',
+                w.id as 'user_id',
                 w.username as 'name',
                 w.path_profile,
                 'user_publication' as type
@@ -273,7 +283,8 @@ class WizardUserRepository extends EntityRepository
                 pa.created_at,
                 pu.title, pu.small_content as 'content', 
                 pa.id as 'writer_id',
-                p.name, 
+                pa.user_id as 'user_id',
+                p.name,
                 p.path_profile, 
                 'page_publication' as type
             from publication pu 
@@ -290,7 +301,8 @@ class WizardUserRepository extends EntityRepository
                 '' as title, 
                 pa.content,
                 w.id as 'writer_id', 
-                w.username as 'name', 
+                w.id as 'user_id',
+                w.username as 'name',
                 w.path_profile, 
                 'user_publication' as type
             from small_publication pu

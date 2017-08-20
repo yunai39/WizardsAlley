@@ -9,6 +9,7 @@
     font-style: none
     & > :focus, &:hover
       color: white
+
 .well
   background-color: white
 
@@ -30,8 +31,14 @@
 .margin-bottom
   margin-bottom: $base-gutter
 
+.margin-bottom-middle
+  margin-bottom: $base-gutter/2
+
 .margin-top
   margin-top: $base-gutter
+
+.margin-top-middle
+  margin-top: $base-gutter/2
 
 .padding-right
   padding-right: $base-gutter
@@ -66,6 +73,7 @@ h3
 h4
   font-size: 2.5rem
   text-align: center
+
 h5
   font-size: 2rem
   text-align: center
@@ -81,6 +89,7 @@ h5
     font-size: 1.5em
   h5
     font-size: 1em
+
 @include breakpoint(xxs)
   h1
     font-size: 3em
@@ -92,6 +101,7 @@ h5
     font-size: 1.5em
   h5
     font-size: 1em
+
 hr
   height: 6px
   background: url(../images/hr.png) repeat-x 0 0
@@ -102,13 +112,7 @@ textarea
   resize: none
 
 button, .btn-default, .btn
-  background-color: $color-base-blue !important
-  padding: 5px
-  margin: 3.75px
-  display: inline
-  font-size: 75%
-  font-weight: 700
-  line-height: 1
+  background-color: $color-base-blue
   color: #fff
   text-align: center
   white-space: nowrap

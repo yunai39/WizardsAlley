@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-10">
+            <div class="col-xs-8">
                 {% if publication.type == 'page_publication' %}
                     <p class="lead">
                         <a href="{{ path('publication_show',{'id':publication.publication_id}) }}">{{ publication.title }}</a>
@@ -35,6 +35,11 @@
                 <p class="publication-date">{{ publication.created_at | date('d/m/Y') }}
                     - <span  class="publication-date">{{ publication.created_at | date('H:i:s') }}</span>
                 </p>
+            </div>
+            <div class="col-xs-2">
+                {% if app.user.id == publication.user_id %}
+                    {% include '::includes/disablePublicationButton.html.twig' with {'id': publication.publication_id} %}
+                {% endif %}
             </div>
         </div>
         <br/>
