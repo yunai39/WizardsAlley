@@ -26,6 +26,7 @@ wizard:
         refresh: Rafraichir
         back: Retour
         by: Par
+        delete: Supprimer
     notification:
         page_publication: >
             <a href="%page_link%">%page_name%</a> vient de publier une nouvelle publication: <a href="%publication_link%">%publication_name%</a>
@@ -42,6 +43,7 @@ wizard:
             page: Nos pages préférées
             publication: Nos publications préférées
     publication:
+        delete_confirmation: Êtes vous sur de vouloir supprimer la publication ?
         edit: Édition de publication
         add_image: Ajouter une image
         delete_image: Supprimer une image

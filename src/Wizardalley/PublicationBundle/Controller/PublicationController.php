@@ -17,6 +17,7 @@ use Wizardalley\CoreBundle\Entity\PublicationRepository;
 use Wizardalley\CoreBundle\Entity\PublicationUserLike;
 use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\DefaultBundle\Controller\BaseController;
+use Wizardalley\PublicationBundle\Form\DeletePublicationType;
 use Wizardalley\PublicationBundle\Form\PublicationType;
 use Wizardalley\PublicationBundle\Form\CommentType;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -807,42 +808,41 @@ class PublicationController extends BaseController
      */
     public function removePublicationAction($id)
     {
-        /** @var WizardUser $user */
-        $user        = $this->getUser();
-        $repo        =
-            $this->getDoctrine()
-                 ->getRepository("WizardalleyCoreBundle:Publication")
-        ;
+        $form = $this->createForm(new DeletePublicationType());
+
+        $form->handleRequest($this->get('request'));
+        $repo = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:Publication");
         $publication = $repo->find($id);
 
         if (!$publication instanceof Publication) {
-            $repo        =
-                $this->getDoctrine()
-                     ->getRepository("WizardalleyCoreBundle:SmallPublication")
-            ;
+            $repo        = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:SmallPublication");
             $publication = $repo->find($id);
         }
 
-        if (!$publication instanceof AbstractPublication) {
-            throw $this->createNotFoundException('Unable to find Publication.');
+        if ($form->isValid()) {
+            /** @var WizardUser $user */
+            $user = $this->getUser();
+
+            if (!$publication instanceof AbstractPublication) {
+                throw $this->createNotFoundException('Unable to find Publication.');
+            }
+            if ($publication->getUser()->getId() != $user->getId()) {
+                throw $this->createAccessDeniedException('This is not your publication');
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($publication);
+            $em->flush();
+
+            return $this->redirectToRoute(
+                'wizardalley_user_wall',
+                ['id' => $user->getId()]
+            );
         }
 
-        if ($publication->getUser()
-                        ->getId() != $user->getId()
-        ) {
-            throw $this->createAccessDeniedException('This is not your publication');
-        }
-
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
-        $em->remove($publication);
-        $em->flush();
-
-        return $this->redirectToRoute(
-            'wizardalley_user_wall',
-            ['id' => $user->getId()]
+        return $this->render(
+            '::user/publication/deletePublication.html.twig',
+            ['form' => $form->createView(), 'id' => $publication->getId()]
         );
     }
 }

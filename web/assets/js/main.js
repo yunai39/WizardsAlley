@@ -29,7 +29,10 @@ var util = (function () {
          *
          */
         "init": function () {
-
+            var _this = this;
+            $('body').on('click', '.btn-modal-form', function () {
+                _this.displayModalForm($(this).data('url'), {});
+            });
         },
         /**
          *
@@ -175,6 +178,28 @@ var util = (function () {
                     toastr.error(data['data']['message']);
                 }
             }
+        },
+
+        /**
+         *
+         * @param url
+         * @param data
+         */
+        "displayModalForm": function (url, data) {
+            $formModal = $($('#dialog-form'));
+            $.ajax({
+                method: "GET",
+                data: data,
+                url: url,
+                success: function (result, textStatus, jqXHR) {
+                    $formModal.html(result);
+                    $formModal.dialog();
+                }
+            });
         }
     }
 })();
+
+$( document ).ready(function() {
+    util.init();
+});

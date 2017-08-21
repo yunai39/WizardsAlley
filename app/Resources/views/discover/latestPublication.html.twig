@@ -37,7 +37,7 @@
                         {{ publication.page.category.name }}
                     </a>
                 </span>
-                {% if app.user.id == publication.user.id %}
+                {% if app.user and app.user.id == publication.user.id %}
                     <div class="margin-top-middle">
                         {% include '::includes/disablePublicationButton.html.twig' with {'id': publication.id} %}
                     </div>
