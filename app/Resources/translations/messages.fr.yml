@@ -25,7 +25,7 @@ wizard:
         search: Recherche
         refresh: Rafraichir
         back: Retour
-        by: Par
+        by: Publié par
         delete: Supprimer
     notification:
         page_publication: >
