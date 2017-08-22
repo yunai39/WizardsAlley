@@ -243,12 +243,12 @@
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     <script>
         $(document).ready(
-                $('body .down-button a').click(function () {
-                    var $main = $('#main'),
-                            $navbar = $('header nav .container-fluid');
-                    $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
-                    return false;
-                })
+            $('body .down-button a').click(function () {
+                var $main = $('#main'),
+                        $navbar = $('header nav .container-fluid');
+                $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
+                return false;
+            });
         );
     </script>
 {% endblock %}

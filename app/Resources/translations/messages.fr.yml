@@ -27,6 +27,7 @@ wizard:
         back: Retour
         by: Publié par
         delete: Supprimer
+        blame: Envoyer le blame
     notification:
         page_publication: >
             <a href="%page_link%">%page_name%</a> vient de publier une nouvelle publication: <a href="%publication_link%">%publication_name%</a>
@@ -44,6 +45,8 @@ wizard:
             page: Nos pages préférées
             publication: Nos publications préférées
     publication:
+        add_blame:
+            notification: Êtes vous sur de vouloir faire un blame ?
         delete_confirmation: Êtes vous sur de vouloir supprimer la publication ?
         edit: Édition de publication
         add_image: Ajouter une image
@@ -53,6 +56,9 @@ wizard:
         create: Création d'une publication
         images:
           label: Image de la publication
+    blame:
+        label:
+            comment: Commentaire
     login:
         login: Login
         password: Mot de passe

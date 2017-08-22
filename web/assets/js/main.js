@@ -29,9 +29,18 @@ var util = (function () {
          *
          */
         "init": function () {
-            var _this = this;
-            $('body').on('click', '.btn-modal-form', function () {
+            var _this = this,
+                $body = $('body');
+            $body.on('click', '.btn-modal-form', function () {
                 _this.displayModalForm($(this).data('url'), {});
+            });
+            $body.on('click', '.btn-add-blame', function () {
+                _this.displayModalForm(
+                    Routing.generate(
+                        'wizardalley_add_blame',
+                        {type: $(this).data('type'), id: $(this).data('id')}
+                    )
+                );
             });
         },
         /**
@@ -200,6 +209,6 @@ var util = (function () {
     }
 })();
 
-$( document ).ready(function() {
+$(document).ready(function () {
     util.init();
 });

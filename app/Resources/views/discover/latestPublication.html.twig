@@ -41,6 +41,10 @@
                     <div class="margin-top-middle">
                         {% include '::includes/disablePublicationButton.html.twig' with {'id': publication.id} %}
                     </div>
+                {% elseif app.user %}
+                    <div class="margin-top-middle">
+                        {% include '::includes/addBlameButton.html.twig' with {'id': publication.id, 'type': 'publication'} %}
+                    </div>
                 {% endif %}
             </div>
         </div>

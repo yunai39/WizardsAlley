@@ -281,7 +281,8 @@ class WizardUserRepository extends EntityRepository
             select 
                 pu.id as 'publication_id', 
                 pa.created_at,
-                pu.title, pu.small_content as 'content', 
+                pu.title,
+                pu.small_content as 'content',
                 pa.id as 'writer_id',
                 pa.user_id as 'user_id',
                 p.name,
