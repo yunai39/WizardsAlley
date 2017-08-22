@@ -38,6 +38,7 @@ wizard:
     discover:
         team_choice: Le choix de notre équipe
         title: Dépêches magiques, expressions et autres curiosités<br>à découvrir au coeur de l'Allée des sorciers
+        title_not_connected: Les dernières dépêches magiques
         last_publication: Dernières publications du monde entier
         favorite:
             page: Nos pages préférées

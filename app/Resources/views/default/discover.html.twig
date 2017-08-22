@@ -2,11 +2,18 @@
 
 {% block title_banner %}
     <h1>
-        {% trans %}wizard.discover.title{% endtrans %}
+        {% if app.user %}
+            {% trans %}wizard.discover.title{% endtrans %}
+        {% else %}
+            {% trans %}wizard.discover.title_not_connected{% endtrans %}
+        {% endif %}
     </h1>
 {% endblock %}
 
-{% block body_style %}url('{{ asset('images/discover-bg.jpg')}}'){% endblock %}
+{% block body_style %}
+    {% if app.user %}url('{{ asset('images/discover-bg.jpg')}}'){% else %}url('{{ asset('images/bghome.jpg')}}'){% endif %}
+
+{% endblock %}
 
 {% block title %}
     {% trans %}wizard.title.discover{% endtrans %}
