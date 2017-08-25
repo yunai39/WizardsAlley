@@ -30,13 +30,16 @@ easy_admin:
         brand_color: '#1ABC9C'
         menu:
             - { entity: 'Page', icon: 'group' }
+            - { entity: 'BlamePage', icon: 'group' }
             - { entity: 'Publication', icon: 'sticky-note' }
             - { entity: 'SmallPublication', icon: 'sticky-note' }
+            - { entity: 'BlamePublication', icon: 'sticky-note' }
             - { entity: 'InformationBillet', label: 'Billet d''information', icon: 'info' }
             - { entity: 'MapObject', label: 'Objet de carte', icon: 'map' }
             - { entity: 'PageCategory', label: 'Catégorie des pages', icon: 'tag' }
             - { entity: 'WizardUser', label: 'Administrateur', icon: 'user' }
             - { entity: 'User', label: 'Utilisateur', icon: 'user' }
+            - { entity: 'BlameUser', icon: 'user' }
             - { label: 'Statistique', route: 'wizardalley_admin_statistic_statistic' }
     site_name: Wizard's alley
     entities:
@@ -136,6 +139,38 @@ easy_admin:
                       - { property: 'user', type_options: { disabled: true } }
                       - content
                       - online
+        BlamePage:
+            disabled_actions: ['edit']
+            class: Wizardalley\CoreBundle\Entity\Blame
+            list:
+                dql_filter: "entity.type = '0'"
+                actions:
+                    - { name: 'redirect_blame', type: 'route' , icon: 'sticky-note', label: 'Page'}
+                fields:
+                    - user
+                    - comment
+        BlamePublication:
+            disabled_actions: ['edit']
+            class: Wizardalley\CoreBundle\Entity\Blame
+            list:
+                dql_filter: "entity.type = '1'"
+                actions:
+                    - { name: 'redirect_blame', type: 'route' , icon: 'sticky-note', label: 'Publication'}
+                fields:
+                    - user
+                    - title
+                    - comment
+        BlameUser:
+            disabled_actions: ['edit']
+            class: Wizardalley\CoreBundle\Entity\Blame
+            list:
+                dql_filter: "entity.type = '2'"
+                actions:
+                    - { name: 'redirect_blame', type: 'route' , icon: 'sticky-note', label: 'User'}
+                fields:
+                    - user
+                    - title
+                    - comment
         WizardUser:
             disabled_actions: ['delete']
             class: Wizardalley\CoreBundle\Entity\WizardUser

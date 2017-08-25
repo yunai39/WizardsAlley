@@ -3,7 +3,11 @@
 namespace Wizardalley\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Wizardalley\CoreBundle\Entity\AbstractPublication;
 use Wizardalley\CoreBundle\Entity\Blame;
+use Wizardalley\CoreBundle\Entity\Page;
+use Wizardalley\CoreBundle\Entity\Publication;
+use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\DefaultBundle\Form\BlameType;
 use Wizardalley\DefaultBundle\Form\ContactType;
 use Wizardalley\PublicationBundle\Form\SmallPublicationType;
@@ -34,7 +38,9 @@ class DefaultController extends Controller
     public function addBlameAction(Request $request, $type, $id)
     {
         $blame = new Blame();
-        $blame->setType($type)->setContentId($id);
+        $blame->setType($type)
+              ->setContentId($id)
+        ;
 
         $form = $this->createForm(
             new BlameType(),
@@ -49,10 +55,61 @@ class DefaultController extends Controller
         );
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-            $blame->setUser($this->getUser());
+        $typeArray = [
+            'page'        => 0,
+            'publication' => 1,
+            'user'        => 2,
+        ];
 
-            $em = $this->getDoctrine()->getManager();
+        if ($form->isValid()) {
+            $em =
+                $this->getDoctrine()
+                     ->getManager()
+            ;
+            $blame
+                ->setUser($this->getUser())
+                ->setType($typeArray[ $type ])
+            ;
+            if ($type == 'page') {
+                /** @var Page $entity */
+                $entity =
+                    $em->getRepository('WizardalleyCoreBundle:Page')
+                       ->find($blame->getContentId())
+                ;
+                $blame->setTitle($entity->getName());
+            } elseif ($type == 'publication') {
+                /** @var Publication $entity */
+                $entity =
+                    $em->getRepository('WizardalleyCoreBundle:Publication')
+                       ->find($blame->getContentId())
+                ;
+                if ($entity instanceof Publication) {
+                    $blame->setTitle($entity->getTitle());
+                } else {
+                    /** @var SmallPublication $entity */
+                    $entity =
+                        $em->getRepository('WizardalleyCoreBundle:SmallPublication')
+                           ->find($blame->getContentId())
+                    ;
+                    $blame->setTitle(
+                        $entity->getUser()
+                               ->getUsername() .
+                        ' - ' .
+                        substr(
+                            $entity->getContent(),
+                            0,
+                            30
+                        )
+                    );
+                }
+            } elseif ($type == 'user') {
+                /** @var WizardUser $entity */
+                $entity =
+                    $em->getRepository('WizardalleyCoreBundle:WizardUser')
+                       ->find($blame->getContentId())
+                ;
+                $blame->setTitle($entity->getUsername());
+            };
             $em->persist($blame);
             $em->flush();
 

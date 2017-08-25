@@ -43,6 +43,13 @@ class Blame
     private $comment;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="text")
+     */
+    private $title;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -51,7 +58,7 @@ class Blame
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -62,6 +69,7 @@ class Blame
      * Set type
      *
      * @param integer $type
+     *
      * @return Blame
      */
     public function setType($type)
@@ -74,7 +82,7 @@ class Blame
     /**
      * Get type
      *
-     * @return integer 
+     * @return integer
      */
     public function getType()
     {
@@ -85,6 +93,7 @@ class Blame
      * Set contentId
      *
      * @param integer $contentId
+     *
      * @return Blame
      */
     public function setContentId($contentId)
@@ -97,7 +106,7 @@ class Blame
     /**
      * Get contentId
      *
-     * @return integer 
+     * @return integer
      */
     public function getContentId()
     {
@@ -108,6 +117,7 @@ class Blame
      * Set comment
      *
      * @param string $comment
+     *
      * @return Blame
      */
     public function setComment($comment)
@@ -120,7 +130,7 @@ class Blame
     /**
      * Get comment
      *
-     * @return string 
+     * @return string
      */
     public function getComment()
     {
@@ -131,6 +141,7 @@ class Blame
      * Set user
      *
      * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
+     *
      * @return Blame
      */
     public function setUser(\Wizardalley\CoreBundle\Entity\WizardUser $user = null)
@@ -143,10 +154,33 @@ class Blame
     /**
      * Get user
      *
-     * @return \Wizardalley\CoreBundle\Entity\WizardUser 
+     * @return \Wizardalley\CoreBundle\Entity\WizardUser
      */
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Blame
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }
