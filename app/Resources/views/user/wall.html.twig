@@ -79,6 +79,12 @@
                                     <a href="{{ user.twitter }}"/><span class="icon-large icon-twitter"
                                                                         aria-hidden="true"></span></a>
                                 {% endif %}
+
+                                {% if app.user %}
+                                    <div class="margin-bottom-middle">
+                                        {% include '::includes/addBlameButton.html.twig' with {'id': user.id, 'type': 'user'} %}
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="col-md-8">
                                 <h4>{{ user.smallDescription }}</h4>

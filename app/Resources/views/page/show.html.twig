@@ -46,6 +46,9 @@
                     <div class="panel panel-default">
                             <div class="panel-body">
                                 {% if app.user %}
+                                    <div class="margin-bottom-middle">
+                                        {% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}
+                                    </div>
 
                                     {% if  app.user in editors or app.user.id == creator_id %}
                                         <div class="col-md-12">
