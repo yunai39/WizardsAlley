@@ -2,6 +2,8 @@
 
 {% block body_style %}url('{{ asset(user.getPictureCouverture) }}'){% endblock %}
 
+{% block head_extra_class %}head-profile{% endblock %}
+
 {% block title %}
     {% trans with {'%username%': user.username} from "messages" %}wizard.title.wall{% endtrans %}
     {{ user.username }}
@@ -76,6 +78,12 @@
                                 {% if user.twitter != null %}
                                     <a href="{{ user.twitter }}"/><span class="icon-large icon-twitter"
                                                                         aria-hidden="true"></span></a>
+                                {% endif %}
+
+                                {% if app.user %}
+                                    <div class="margin-bottom-middle">
+                                        {% include '::includes/addBlameButton.html.twig' with {'id': user.id, 'type': 'user'} %}
+                                    </div>
                                 {% endif %}
                             </div>
                             <div class="col-md-8">

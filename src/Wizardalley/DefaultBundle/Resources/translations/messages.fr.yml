@@ -1,3 +1,4 @@
+
 publication:
   display:
     link: Afficher
@@ -6,6 +7,8 @@ publication:
   like: Aimer
   ilike: J'aime
 wizard:
+  blane:
+    label.message: 'Commentaire'
   search:
     type.label: 'Type de recherche'
     label:

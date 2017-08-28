@@ -3,6 +3,12 @@
 namespace Wizardalley\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Wizardalley\CoreBundle\Entity\AbstractPublication;
+use Wizardalley\CoreBundle\Entity\Blame;
+use Wizardalley\CoreBundle\Entity\Page;
+use Wizardalley\CoreBundle\Entity\Publication;
+use Wizardalley\CoreBundle\Entity\WizardUser;
+use Wizardalley\DefaultBundle\Form\BlameType;
 use Wizardalley\DefaultBundle\Form\ContactType;
 use Wizardalley\PublicationBundle\Form\SmallPublicationType;
 use Wizardalley\CoreBundle\Entity\SmallPublication;
@@ -12,13 +18,110 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
-
 /**
  * Class DefaultController
+ *
  * @package Wizardalley\DefaultBundle\Controller
  */
 class DefaultController extends Controller
 {
+
+    /**
+     * indexAction
+     *
+     * This action will present the presentation page of the web site
+     *
+     * @Route("/user/addBlame/{type}/{id}", name="wizardalley_add_blame", options = {"expose" = true})
+     *
+     * @return Response
+     */
+    public function addBlameAction(Request $request, $type, $id)
+    {
+        $blame = new Blame();
+        $blame->setType($type)
+              ->setContentId($id)
+        ;
+
+        $form = $this->createForm(
+            new BlameType(),
+            $blame,
+            [
+                'action' => $this->generateUrl(
+                    'wizardalley_add_blame',
+                    ['type' => $type, 'id' => $id]
+                ),
+                'method' => 'POST',
+            ]
+        );
+        $form->handleRequest($request);
+
+        $typeArray = [
+            'page'        => 0,
+            'publication' => 1,
+            'user'        => 2,
+        ];
+
+        if ($form->isValid()) {
+            $em =
+                $this->getDoctrine()
+                     ->getManager()
+            ;
+            $blame
+                ->setUser($this->getUser())
+                ->setType($typeArray[ $type ])
+            ;
+            if ($type == 'page') {
+                /** @var Page $entity */
+                $entity =
+                    $em->getRepository('WizardalleyCoreBundle:Page')
+                       ->find($blame->getContentId())
+                ;
+                $blame->setTitle($entity->getName());
+            } elseif ($type == 'publication') {
+                /** @var Publication $entity */
+                $entity =
+                    $em->getRepository('WizardalleyCoreBundle:Publication')
+                       ->find($blame->getContentId())
+                ;
+                if ($entity instanceof Publication) {
+                    $blame->setTitle($entity->getTitle());
+                } else {
+                    /** @var SmallPublication $entity */
+                    $entity =
+                        $em->getRepository('WizardalleyCoreBundle:SmallPublication')
+                           ->find($blame->getContentId())
+                    ;
+                    $blame->setTitle(
+                        $entity->getUser()
+                               ->getUsername() .
+                        ' - ' .
+                        substr(
+                            $entity->getContent(),
+                            0,
+                            30
+                        )
+                    );
+                }
+            } elseif ($type == 'user') {
+                /** @var WizardUser $entity */
+                $entity =
+                    $em->getRepository('WizardalleyCoreBundle:WizardUser')
+                       ->find($blame->getContentId())
+                ;
+                $blame->setTitle($entity->getUsername());
+            };
+            $em->persist($blame);
+            $em->flush();
+
+            return $this->redirect($request->headers->get('referer'));
+        }
+
+        return $this->render(
+            '::user/addBlame.html.twig',
+            ['type' => $type, 'id' => $id, 'form' => $form->createView()]
+        );
+    }
+
     /**
      * indexAction
      *
@@ -32,9 +135,13 @@ class DefaultController extends Controller
     {
         $entity = new SmallPublication();
         $formSP = $this->createSmallPublicationForm($entity);
-        return $this->render('::user/home.html.twig', array(
-            'formSmallPublication' => $formSP->createView()
-        ));
+
+        return $this->render(
+            '::user/home.html.twig',
+            [
+                'formSmallPublication' => $formSP->createView()
+            ]
+        );
     }
 
     /**
@@ -50,7 +157,6 @@ class DefaultController extends Controller
     {
         return $this->render('::default/mention.html.twig');
     }
-
 
     /**
      * copyrightAction
@@ -93,33 +199,52 @@ class DefaultController extends Controller
      */
     public function contactFormAction(Request $request)
     {
-        $form = $this->createForm(new ContactType(), null, array(
-            'action' => $this->generateUrl('wizardalley_default_contact'),
-            'method' => 'POST',
-        ));
-        $form->add('submit', 'submit', array('label' => 'contact'));
+        $form = $this->createForm(
+            new ContactType(),
+            null,
+            [
+                'action' => $this->generateUrl('wizardalley_default_contact'),
+                'method' => 'POST',
+            ]
+        );
+        $form->add(
+            'submit',
+            'submit',
+            ['label' => 'contact']
+        );
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $data    = $form->getData();
-            $email   = $data['email'];
-            $name    = $data['name'];
-            $message = $data['message'];
+            $email   = $data[ 'email' ];
+            $name    = $data[ 'name' ];
+            $message = $data[ 'message' ];
             $message = \Swift_Message::newInstance()
-                ->setSubject('Demande de contact')
-                ->setFrom('contact@wizardAlley.com')//->setTo($email)
-                ->setTo('yunai39@gmail.com')
-                ->setBody($this->renderView(
-                    '::email/emailContact.html.twig',
-                    array('name' => $name, 'email' => $email, 'message' => $message)
-                ));
-            $this->get('mailer')->send($message);
-            $request->getSession()->getFlashBag()->add('message_send', 'wizard.contact.message');
+                                     ->setSubject('Demande de contact')
+                                     ->setFrom('contact@wizardAlley.com')//->setTo($email)
+                                     ->setTo('yunai39@gmail.com')
+                                     ->setBody(
+                                         $this->renderView(
+                                             '::email/emailContact.html.twig',
+                                             ['name' => $name, 'email' => $email, 'message' => $message]
+                                         )
+                                     )
+            ;
+            $this->get('mailer')
+                 ->send($message)
+            ;
+            $request->getSession()
+                    ->getFlashBag()
+                    ->add(
+                        'message_send',
+                        'wizard.contact.message'
+                    )
+            ;
         }
 
         return $this->render(
             '::default/contact.html.twig',
-            array('form' => $form->createView())
+            ['form' => $form->createView()]
         );
     }
 
@@ -132,12 +257,20 @@ class DefaultController extends Controller
      */
     private function createSmallPublicationForm(SmallPublication $entity)
     {
-        $form = $this->createForm(new SmallPublicationType(), $entity, array(
-            'action' => $this->generateUrl('user_small_publication_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            new SmallPublicationType(),
+            $entity,
+            [
+                'action' => $this->generateUrl('user_small_publication_create'),
+                'method' => 'POST',
+            ]
+        );
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add(
+            'submit',
+            'submit',
+            ['label' => 'Create']
+        );
 
         return $form;
     }

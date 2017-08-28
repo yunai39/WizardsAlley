@@ -151,7 +151,7 @@
     </header>
 
 
-    <div class="head">
+    <div class="head {% block head_extra_class %}{% endblock %}">
         <div class="title-wrapper">
             {% block title_banner %}
                 <h1>
@@ -221,6 +221,7 @@
             </ul>
         </div>
     </footer>
+    <div id="dialog-form"></div>
 {% endblock %}
 
 {% block javascripts %}
@@ -230,6 +231,7 @@
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script src="{{ asset('assets/js/jquery.js') }}"></script>
+    <script src="{{ asset('assets/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('assets/js.cookie.js') }}"></script>
     <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/toastr.min.js') }}"></script>
@@ -238,12 +240,12 @@
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     <script>
         $(document).ready(
-                $('body .down-button a').click(function () {
-                    var $main = $('#main'),
-                            $navbar = $('header nav .container-fluid');
-                    $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
-                    return false;
-                })
+            $('body .down-button a').click(function () {
+                var $main = $('#main'),
+                        $navbar = $('header nav .container-fluid');
+                $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
+                return false;
+            });
         );
     </script>
 {% endblock %}

@@ -1,0 +1,6 @@
+<form action="{{ path('publication_user_remove',{'id': id}) }}" method="POST" {{ form_enctype(form) }}
+      id="form-publication-edit">
+    <p>{% trans %}wizard.publication.delete_confirmation{% endtrans %}</p>
+    {{ form_rest(form) }}
+
+{{ form(form) }}

@@ -21,7 +21,6 @@ header nav ul i
   margin-right: 2vw
 
 header nav.nav-full li
-  margin: 0vh 2vw
   border-bottom: 5px solid transparent
   transition: 0.3s linear
 
@@ -54,11 +53,21 @@ header a, .navbar-brand, .navbar-nav > li > a, .navbar-brand, .navbar-nav > li >
   background-color: transparent
 
 .dropdown-menu
+  margin-right: 5px
   margin-left: -6vw
   margin-top: 4vh
+  border-radius: 4px
   color: $color-black
   li
     text-transform: capitalize
+
+nav .open > a, .nav .open > a:focus, .nav .open > a:hover
+  background-color: transparent
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover
+  color: #000
+  background: none
+
 
 .login
   margin-right: 2vw
@@ -111,32 +120,32 @@ header nav .nav-full li:hover
   color: $color-white
   @include breakpoint(xxxs)
     padding: 0vh 5vw
-    margin: 10vh 5vw
-    height: 80vh
+    margin: 20vh 5vw
+    height: 40vh
   @include breakpoint(xxs)
     padding: 0vh 5vw
-    margin: 10vh 5vw
-    height: 80vh
+    margin: 10vh 5vw 20vh
+    height: 40vh
   @include breakpoint(xs)
     padding: 0vh 5vw
-    margin: 10vh 5vw
-    height: 80vh
+    margin: 10vh 5vw 20vh
+    height: 40vh
   @include breakpoint(sm)
     padding: 0vh 5vw
-    margin: 10vh 5vw
-    height: 80vh
+    margin: 10vh 5vw 20vh
+    height: 40vh
     h1
       margin-top: 10vh
   @include breakpoint(md)
     padding: 0vh 15vw
-    margin: 20vh 0vh 10vw 0vw
-    height: 70vh
+    margin: 5vh 0vh 20vw 0vw
+    height: 40vh
     h1
       margin-top: 10vh
   @include breakpoint(lg)
     padding: 0vh 15vw
-    margin: 20vh 0vh 10vw 0vw
-    height: 70vh
+    margin: 10vh 0vh 10vw 0vw
+    height: 30vh
     h1
       margin-top: 10vh
   .imgSquare
@@ -170,4 +179,4 @@ header nav .nav-full li:hover
   width: 100%
   padding-right: 5vw
   padding-left: 5vw
-  font-family: "bettyregular", sans-serif
+  font-family: "Timeless", sans-serif

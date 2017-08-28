@@ -1,0 +1,6 @@
+<form action="{{ path('wizardalley_add_blame',{'type': type, 'id': id}) }}" method="POST" {{ form_enctype(form) }}
+      id="form-publication-edit">
+    <p>{% trans %}wizard.publication.add_blame.notification{% endtrans %}</p>
+    {{ form_rest(form) }}
+
+{{ form(form) }}

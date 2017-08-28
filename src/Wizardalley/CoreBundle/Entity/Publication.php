@@ -14,12 +14,12 @@ class Publication extends AbstractPublication
 {
     /**
      * @var PublicationFavorite
-     * @ORM\OneToOne(targetEntity="PublicationFavorite", mappedBy="publication")
+     * @ORM\OneToOne(targetEntity="PublicationFavorite", mappedBy="publication", cascade={"remove", "persist"})
      */
     private $favorite;
 
     /**
-     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PublicationUserLike", mappedBy="publication")
+     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PublicationUserLike", mappedBy="publication", cascade={"remove", "persist"})
      */
     private $usersLiking;
 
