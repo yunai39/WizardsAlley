@@ -9,7 +9,7 @@
 
                         <div class="imgSquare">
                             <div class="imgSquareContainer">
-                                <img src="{{ asset(entity.user.getPictureProfile ) }}"/>
+                                <img src="{{ asset(entity.user.getPictureProfile )| imagine_filter('small_thumb')  }}"/>
                             </div>
                         </div>
                     </div>
@@ -58,7 +58,7 @@
 
                                     <div class="imgSquare">
                                         <div class="imgSquareContainer">
-                                            <img src="{{ asset(entity.user.getPictureProfile ) }}"/>
+                                            <img src="{{ asset(entity.user.getPictureProfile ) | imagine_filter('small_thumb') }}"/>
                                         </div>
                                     </div>
                                 </div>

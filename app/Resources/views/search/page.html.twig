@@ -3,7 +3,7 @@
         <div class="col-md-2" >
             <div class="imgSquare">
                 <div class="imgSquareContainer" >
-                    <img src="{{ asset( page.getPictureProfile() ) }}" />
+                    <img src="{{ asset( page.getPictureProfile() | imagine_filter('small_thumb') ) }}" />
                 </div>
             </div>
         </div>

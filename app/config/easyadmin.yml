@@ -57,6 +57,16 @@ easy_admin:
                     - { property: 'officialPage', type: 'toggle'}
                     - { property: 'redactorPage', type: 'toggle'}
                     - { property: 'created_at', type: 'datetime' }
+        BlamePage:
+            disabled_actions: ['edit']
+            class: Wizardalley\CoreBundle\Entity\Blame
+            list:
+                dql_filter: "entity.type = '0'"
+                actions:
+                    - { name: 'redirect_blame', type: 'route' , icon: 'sticky-note', label: 'Page'}
+                fields:
+                    - user
+                    - comment
             form:
                 fields:
                     - name
@@ -139,16 +149,6 @@ easy_admin:
                       - { property: 'user', type_options: { disabled: true } }
                       - content
                       - online
-        BlamePage:
-            disabled_actions: ['edit']
-            class: Wizardalley\CoreBundle\Entity\Blame
-            list:
-                dql_filter: "entity.type = '0'"
-                actions:
-                    - { name: 'redirect_blame', type: 'route' , icon: 'sticky-note', label: 'Page'}
-                fields:
-                    - user
-                    - comment
         BlamePublication:
             disabled_actions: ['edit']
             class: Wizardalley\CoreBundle\Entity\Blame

@@ -7,9 +7,9 @@
                     <div class="imgSquareContainer circle">
                         {% if publication.user.pathProfile %}
                             <img class="circle"
-                                 src="{{ asset('uploads/profile/'~publication.user.id ~ '/' ~ publication.user.pathProfile) }}"/>
+                                 src="{{ asset('uploads/profile/'~publication.user.id ~ '/' ~ publication.user.pathProfile) | imagine_filter('small_thumb') }}"/>
                         {% else %}
-                            <img class="circle" src="{{ asset('uploads/profile/default.png') }}"/>
+                            <img class="circle" src="{{ asset('uploads/profile/default.png') | imagine_filter('small_thumb') }}"/>
                         {% endif %}
                     </div>
                 </div>

@@ -46,7 +46,7 @@
                                    aria-haspopup="true" aria-expanded="false">
                                     <div class="imgSquare">
                                         <div class="imgSquareContainer circle">
-                                            <img src="{{ asset(app.user.getPictureProfile()) }}" class="circle"/>
+                                            <img src="{{ asset(app.user.getPictureProfile())  | imagine_filter('small_thumb')}}" class="circle"/>
                                         </div>
                                     </div>
                                     <ul class="dropdown-menu">

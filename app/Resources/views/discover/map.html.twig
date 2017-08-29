@@ -9,7 +9,7 @@
         {% for map in maps %}
             <div class="col-md-3">
                 <h3>{{ map.title }}</h3>
-                <img src="/uploads/map/{{ map.logo }}" alt="" class="img-responsive">
+                <img src="{{ asset('uploads/map/' ~ map.logo) | imagine_filter('medium_thumb')  }}" alt="" class="img-responsive">
                 <br>
                 <p>{{ map.description }}</p>
                 <br>

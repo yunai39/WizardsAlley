@@ -8,7 +8,7 @@
                         {% if pubFav.images|length > 0 %}
                             <div class="imgSquare">
                                 <div class="imgSquareContainer" >
-                                    <img src="/uploads/publications/{{ pubFav.images.0.path }}" />
+                                    <img src="{{ assets('/uploads/page/profile/' ~ pubFav.images.0.path)| imagine_filter('small_thumb') }}"/>
                                 </div>
                             </div>
                         {% endif %}

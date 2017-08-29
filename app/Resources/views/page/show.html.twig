@@ -10,7 +10,7 @@
 {% block title_banner %}
     <div class="imgSquare circle">
         <div class="imgSquareContainer circle">
-            <img src="{{ asset(page.getPictureProfile()) }}" class="circle"/>
+            <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb')}}" class="circle"/>
         </div>
     </div>
     <h1>
@@ -96,9 +96,9 @@
                                                     <div class="imgSquareContainer">
                                                         <img src="
                                                 {% if user.pathProfile %}
-                                                     {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) }}
+                                                     {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) | imagine_filter('small_thumb')  }}
                                                 {% else %}
-                                                    {{ asset('uploads/profile/default.png') }}
+                                                    {{ asset('uploads/profile/default.png') | imagine_filter('small_thumb')  }}
                                                 {% endif %}"/>
                                                         <p class="imgTitre">{{ user.username }}</p>
                                                     </div>
