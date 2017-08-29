@@ -1,4 +1,4 @@
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
   .publication {
     padding: 20px;
     margin: 40px; } }
@@ -375,7 +375,7 @@ nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
     margin: 0vh 0vw;
     max-width: 180vw;
     overflow-x: scroll; } }
-header nav .nav-full li:hover {
+header nav .nav-full li:hover, header nav .nav-full li.active {
   border-bottom: 5px solid #FFF; }
 
 .navbar-toggle {
