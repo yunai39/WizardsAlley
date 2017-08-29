@@ -133,7 +133,7 @@ class PublicationRepository extends EntityRepository
                 left join wizard_user w on w.id = pa.user_id 
                 left join page p on p.id = pu.page_id
             where
-                p.id = ? and pu.online = 1
+                p.id = ? and pa.online = 1
                 order by pa.created_at desc
                 limit {$firstResult},{$limit}
                 ";
