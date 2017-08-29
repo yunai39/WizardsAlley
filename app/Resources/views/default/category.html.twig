@@ -15,7 +15,7 @@
                     <div class="col-md-6">
                         <div class="row text-center">
                             <div class="col-xs-12">
-                                <img src="{{ assets('uploads/page/profile/' ~ page.pathProfile ) | imagine_filter('small_thumb') }}" alt="" class="img-responsive margin-auto" style="height:250px;">
+                                <img src="{{ asset('uploads/page/profile/' ~ page.pathProfile ) | imagine_filter('small_thumb') }}" alt="" class="img-responsive margin-auto" style="height:250px;">
                             </div>
                             <div class="col-xs-12">
                                 <h3><a href="{{ path('page_show', {id_page: page.id}) }}">{{ page.name }}</a></h3>
