@@ -15,7 +15,7 @@
                 'assets/jquery-ui/jquery-ui.min.css'
                 'assets/jquery-ui/jquery-ui.theme.min.css'
                'assets/jquery-ui/jquery-ui.structure.min.css'
-                filter='cssrewrite' %}
+                filter='?uglifycss,cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
     {% endblock %}
@@ -235,6 +235,7 @@
         'assets/js/toastr.min.js'
         'assets/js/underscore.min.js'
         'assets/js/main.js'
+        filter='?uglifyjs2'
     %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
