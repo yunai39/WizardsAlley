@@ -16,7 +16,7 @@
                 'assets/jquery-ui/jquery-ui.theme.min.css'
                'assets/jquery-ui/jquery-ui.structure.min.css'
                 filter='?uglifycss,cssrewrite' %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
+            <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
         {% endstylesheets %}
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/favicon-site.ico') }}"/>
@@ -237,10 +237,10 @@
         'assets/js/main.js'
         filter='?uglifyjs2'
     %}
-    <script src="{{ asset_url }}"></script>
+    <script type="text/javascript" language="Javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-    <script>
+    <script type="text/javascript" language="Javascript" src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script type="text/javascript" language="Javascript">
         $(document).ready(
             $('body .down-button a').click(function () {
                 var $main = $('#main'),
