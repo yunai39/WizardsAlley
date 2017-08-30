@@ -130,6 +130,41 @@ class EasyAdminController extends Controller
     }
 
     /**
+     * @Route(path="/pageBlame/view", name="page_view_blame")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function viewPageBlameAction(Request $request)
+    {
+        $id     = $request->get('id');
+        $page   =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:Page')
+                 ->find($id)
+        ;
+        $blames =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:Blame')
+                 ->findBy(
+                     [
+                         'contentId' => $id,
+                         'type'      => 0
+                     ],
+                     [
+                         'dateBlame' => 'DESC'
+                     ]
+                 )
+        ;
+
+        return $this->render(
+            'WizardalleyAdminBundle:Blame:page.html.twig',
+            [
+                'page'   => $page,
+                'blames' => $blames,
+            ]
+        );
+    }
+
+    /**
      * @Route(path="/page/unfav", name="page_unfav")
      * @Security("has_role('ROLE_ADMIN')")
      */

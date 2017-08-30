@@ -50,6 +50,7 @@ easy_admin:
                 actions:
                     - { name: 'page_fav', type: 'route' , icon: 'heart', label: 'Ajouter favoris'}
                     - { name: 'page_unfav', type: 'route', icon: 'heart-o', label: 'Supprimer des favoris' }
+                    - { name: 'page_view_blame', type: 'route' , label: 'Voir les blames'}
                 fields:
                     - id
                     - name

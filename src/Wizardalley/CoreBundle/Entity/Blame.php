@@ -56,6 +56,14 @@ class Blame
     private $user;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateBlame", type="datetime")
+     */
+    private $dateBlame;
+
+
+    /**
      * Get id
      *
      * @return integer
@@ -182,5 +190,28 @@ class Blame
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Set dateBlame
+     *
+     * @param \DateTime $dateBlame
+     * @return Blame
+     */
+    public function setDateBlame($dateBlame)
+    {
+        $this->dateBlame = $dateBlame;
+
+        return $this;
+    }
+
+    /**
+     * Get dateBlame
+     *
+     * @return \DateTime 
+     */
+    public function getDateBlame()
+    {
+        return $this->dateBlame;
     }
 }
