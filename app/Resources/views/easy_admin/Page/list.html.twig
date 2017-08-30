@@ -8,7 +8,7 @@
             {# remove the 'delete' action from published items #}
         {% elseif action_name == 'page_unfav' and item.favorite is null %}
         {% else %}
-            {% if action_name == 'page_view_blame' and item.favorite is not null %}
+            {% if action_name == 'page_view_blame' %}
                 {% set numberOfBlame = blame_count(0, item.id) %}
                 {% set action_config = action_config|merge({'label' :  action_config.label ~ ' (' ~ numberOfBlame ~ ')' }) %}
             {% endif %}

@@ -1,0 +1,25 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>
+                <a href="{{ path('easyadmin', {'id': publication.id,'action': 'edit', 'entity': 'Publication'}) }}">Publication: {{ publication.title }}</a>
+            </h2>
+            <h3>Nombre de blames: {{ blames|length }}</h3>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                {% for blame in blames %}
+                    <div class="col-xs-6 col-md-4">
+                        <div class="alert alert-warning">
+                            <p>Par: {{ blame.user.username }}</p>
+                            <p>Le: {{ blame.dateBlame.format('Y-m-d H:i:s') }}</p>
+                            <p>{{ blame.comment }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
