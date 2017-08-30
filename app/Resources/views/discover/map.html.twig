@@ -1,9 +1,9 @@
 {% extends "::base.html.twig" %}
 
-
 {% block title %}
-    {% trans %}wizard.title.map{% endtrans %}
+    {% trans %}wizard.title.base{% endtrans %} {% trans %}wizard.title.map{% endtrans %}
 {% endblock %}
+
 {% block body %}
     <div class="row">
         {% for map in maps %}

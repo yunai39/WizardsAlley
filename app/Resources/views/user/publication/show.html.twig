@@ -1,9 +1,9 @@
 {% extends '::base.html.twig' %}
 
-{% block title %}
-    {{ entity.title }} - {{ entity.page.name }}
-{% endblock %}
 
+{% block title %}
+    {% trans %}wizard.title.base{% endtrans %} {{ entity.title }} - {{ entity.page.name }}
+{% endblock %}
 {% block body -%}
     <div class="panel panel-default">
         <div class="panel-body">

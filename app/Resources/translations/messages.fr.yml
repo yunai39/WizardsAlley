@@ -6,6 +6,7 @@ publication:
     unlike: Unlike
 wizard:
     title:
+        base: Wizard's Alley ::
         ruelle: Ma ruelle
         edit: Modification
         map: Carte

@@ -67,6 +67,11 @@
                                     </div>
                                 {% endif %}
                             </div>
+                            <div class="fos_user_user_show">
+                                <p>{% trans %}wizard.user.profile.last_login{% endtrans %}
+                                    :&nbsp;{{ user.lastLogin|localizeddate('full', 'none') }} {{ user.lastLogin|date("H:i") }}</p>
+                                <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
+                            </div>
                         </div>
                     </div>
 
@@ -156,11 +161,6 @@
                 <div class="col-sm-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <div class="fos_user_user_show">
-                                <p>{% trans %}wizard.user.profile.last_login{% endtrans %}
-                                    :&nbsp;{{ user.lastLogin|localizeddate('full', 'none') }} {{ user.lastLogin|date("H:i") }}</p>
-                                <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
-                            </div>
                             <h3>{% trans %}wizard.user.profile.publish_on_wall{% endtrans %}</h3>
                             <hr>
                             {{ render(

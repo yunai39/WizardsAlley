@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
+
+{% block title %}
+    {% trans %}wizard.title.base{% endtrans %} {% trans %}wizard.menu.link.search{% endtrans %}
+{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="panel panel-default">
