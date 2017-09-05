@@ -201,4 +201,46 @@ body {
     }
 }
 
+header nav {
+    overflow-x: hidden;
+}
+
+.register, .login, .navbar-nav li, header nav .nav-full li:hover {
+	padding-bottom: 0.5vh;
+	border-bottom: 4px solid transparent;
+	transition: 0.2s linear;
+}
+
+header nav .nav-full li:hover, .navbar-nav .active  {
+	border-bottom-color: #fff;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+.head .title-wrapper {
+    padding: 20vh 0 10vh;
+}
+
+label {
+    display: none;
+}
+
+#wizardalley_publicationbundle_add_small_publication_content {
+    border-radius: 0px;
+}
+
+.information-block-wrapper {
+    height: auto;
+}
+
+.most-commented-block-wrapper .publication {
+    padding: 0px;
+}
+
+.dropdown-menu {
+    border-radius: 5px!important;
+}
+
 /*# sourceMappingURL=main.css.map */
