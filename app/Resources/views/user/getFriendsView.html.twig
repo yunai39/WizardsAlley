@@ -8,7 +8,7 @@
         <div class="col-md-3">
             <div class="imgSquare">
                 <div class="imgSquareContainer">
-                    <img src="{{asset('/uploads/profile/' ~ path )}}" />
+                    <img src="{{asset('/uploads/profile/' ~ path ) | imagine_filter('small_thumb') }}" />
                 </div>
             </div>
             <a href="{{path('wizardalley_user_wall', {id: friend.id})}}">{{friend.username}}</a>

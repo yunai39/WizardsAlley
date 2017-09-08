@@ -1,0 +1,17 @@
+{# app/Resources/views/easy_admin/SmallPublication/list.html.twig #}
+{% extends '@EasyAdmin/default/list.html.twig' %}
+
+{% block item_actions %}
+    {% set filtered_actions = {} %}
+    {% for action_name, action_config in _list_item_actions %}
+        {% if action_name == 'small_publication_view_blame' %}
+            {% set numberOfBlame = blame_count(1, item.id) %}
+            {% set action_config = action_config|merge({'label' :  action_config.label ~ ' (' ~ numberOfBlame ~ ')' }) %}
+        {% endif %}
+        {% set filtered_actions = filtered_actions|merge([action_config]) %}
+    {% endfor %}
+
+    {% set _list_item_actions = filtered_actions %}
+
+    {{ parent() }}
+{% endblock item_actions %}

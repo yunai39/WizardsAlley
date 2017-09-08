@@ -3,7 +3,7 @@
         <div class="col-md-2" >
             <div class="imgSquare">
                 <div class="imgSquareContainer" >
-                    <img src="{{ asset( '/uploads/publications/' ~ publication.images.0.path) }}" />
+                    <img src="{{ asset( '/uploads/publications/' ~ publication.images.0.path) | imagine_filter('small_thumb') }}" />
                 </div>
             </div>
         </div>

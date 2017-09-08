@@ -130,6 +130,146 @@ class EasyAdminController extends Controller
     }
 
     /**
+     * @Route(path="/pageBlame/view", name="page_view_blame")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function viewPageBlameAction(Request $request)
+    {
+        $id     = $request->get('id');
+        $page   =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:Page')
+                 ->find($id)
+        ;
+        $blames =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:Blame')
+                 ->findBy(
+                     [
+                         'contentId' => $id,
+                         'type'      => 0
+                     ],
+                     [
+                         'dateBlame' => 'DESC'
+                     ]
+                 )
+        ;
+
+        return $this->render(
+            'WizardalleyAdminBundle:Blame:page.html.twig',
+            [
+                'page'   => $page,
+                'blames' => $blames,
+            ]
+        );
+    }
+
+    /**
+     * @Route(path="/publicationBlame/view", name="publication_view_blame")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function viewPublicationBlameAction(Request $request)
+    {
+        $id          = $request->get('id');
+        $publication =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:Publication')
+                 ->find($id)
+        ;
+        $blames      =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:Blame')
+                 ->findBy(
+                     [
+                         'contentId' => $id,
+                         'type'      => 1
+                     ],
+                     [
+                         'dateBlame' => 'DESC'
+                     ]
+                 )
+        ;
+
+        return $this->render(
+            'WizardalleyAdminBundle:Blame:publication.html.twig',
+            [
+                'publication' => $publication,
+                'blames'      => $blames,
+            ]
+        );
+    }
+
+    /**
+     * @Route(path="/smallPublicationBlame/view", name="small_publication_view_blame")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function viewSmallPublicationBlameAction(Request $request)
+    {
+        $id          = $request->get('id');
+        $publication =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:SmallPublication')
+                 ->find($id)
+        ;
+        $blames      =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:Blame')
+                 ->findBy(
+                     [
+                         'contentId' => $id,
+                         'type'      => 1
+                     ],
+                     [
+                         'dateBlame' => 'DESC'
+                     ]
+                 )
+        ;
+
+        return $this->render(
+            'WizardalleyAdminBundle:Blame:smallPublication.html.twig',
+            [
+                'publication' => $publication,
+                'blames'      => $blames,
+            ]
+        );
+    }
+
+    /**
+     * @Route(path="/userBlame/view", name="user_view_blame")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function viewUserBlameAction(Request $request)
+    {
+        $id     = $request->get('id');
+        $user   =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+                 ->find($id)
+        ;
+        $blames =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:Blame')
+                 ->findBy(
+                     [
+                         'contentId' => $id,
+                         'type'      => 2
+                     ],
+                     [
+                         'dateBlame' => 'DESC'
+                     ]
+                 )
+        ;
+
+        return $this->render(
+            'WizardalleyAdminBundle:Blame:user.html.twig',
+            [
+                'user'   => $user,
+                'blames' => $blames,
+            ]
+        );
+    }
+
+    /**
      * @Route(path="/page/unfav", name="page_unfav")
      * @Security("has_role('ROLE_ADMIN')")
      */

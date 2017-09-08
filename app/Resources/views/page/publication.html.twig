@@ -1,15 +1,15 @@
 {% for publication in publications %}
     <div class="publication">
         <div class="row ">
-            <div class="col-md-2">
+            <div class="col-xs-4 col-md-2">
 
                 <div class="imgSquare">
                     <div class="imgSquareContainer" >
-                        <img src="{{asset('uploads/publications/' ~ publication.path)}}" />
+                        <img src="{{asset('uploads/publications/' ~ publication.path)| imagine_filter('small_thumb') }}" />
                     </div>
                 </div>
             </div>
-            <div class="col-md-10">
+            <div class="col-xs-8 col-md-10">
                 <h2><a href="{{path('publication_show',{'id': publication.id })}}" >{{publication.title}}</a></h2>
                 <h3>{% trans %}wizard.utility.by{% endtrans %}: <a  class="publication-author" href="{{path('wizardalley_user_wall',{'id': publication.user_id})}}" >{{publication.username}}</a>,
                     le <span class="publication-date">{{publication.created_at | date('Y-m-d')}} à {{publication.created_at | date('H:i:s')}}</span>

@@ -1,6 +1,6 @@
 {% for notification in notifications %}
     <div class="col-xs-12 col-md-4">
-        <div class="jumbotron
+        <div class="alert
         {% if notification.checked %}alert-info notification-viewed{% else %}notification-not-viewed alert-success{% endif %}"
         >
             {% if notification.type == 'publication' %}

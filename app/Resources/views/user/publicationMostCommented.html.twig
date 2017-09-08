@@ -6,7 +6,7 @@
                 <div class="imgSquare">
                     <div class="imgSquareContainer circle">
                             <img class="circle"
-                                 src="{{ asset('uploads/page/profile/' ~ publication.page.pathProfile) }}"/>
+                                 src="{{ asset('uploads/page/profile/' ~ publication.page.pathProfile) | imagine_filter('small_thumb') }}"/>
                     </div>
                 </div>
             </div>

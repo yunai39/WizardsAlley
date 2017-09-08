@@ -39,6 +39,7 @@ class DefaultController extends Controller
     {
         $blame = new Blame();
         $blame->setType($type)
+            ->setDateBlame(new \DateTime())
               ->setContentId($id)
         ;
 
