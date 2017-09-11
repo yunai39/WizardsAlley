@@ -58,22 +58,23 @@
                 <div class="col-md-12">
 
                     <div class="panel panel-default">
-                        <div class="panel-heading">
+                        <div class="panel-body">
                             <h3>{% trans %}wizard.category.name{% endtrans %}</h3>
-                        </div>
-                        {% for category in categories %}
-                            <div class="panel-body">
-                                <div class="col-md-12">
-                                    <h4>
-                                        <a href="{{ path('wizardalley_page_category', {category_id:category.id}) }}">
-                                            <strong>{% trans %}wizard.category.name{% endtrans %}
-                                                :</strong> {{ category.name }}
-                                        </a>
-                                    </h4>
-                                    <p>{{ category.description }}</p>
-                                </div>
+                            <hr>
+                            <div class="row">
+                                {% for category in categories %}
+                                    <div class="col-md-12">
+                                        <h4>
+                                            <a href="{{ path('wizardalley_page_category', {category_id:category.id}) }}">
+                                                <strong>{% trans %}wizard.category.name{% endtrans %}
+                                                    :</strong> {{ category.name }}
+                                            </a>
+                                        </h4>
+                                        <p>{{ category.description }}</p>
+                                    </div>
+                                {% endfor %}
                             </div>
-                        {% endfor %}
+                        </div>
                     </div>
                 </div>
             </div>
