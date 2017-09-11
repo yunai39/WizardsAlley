@@ -3,17 +3,15 @@
         <div class="row ">
             <div class="col-xs-2">
 
-                <div class="imgSquare">
-                    <div class="imgSquareContainer circle">
+                <div class="imgSquare circle">
+                    <div class="imgSquareContainer">
                         {% if publication.type == 'page_publication' %}
-                            <img class="circle"
-                                 src="{{ asset('uploads/page/'~publication.writer_id ~ '/' ~ publication.path_profile) | imagine_filter('small_thumb') }}"/>
+                            <img src="{{ asset('uploads/page/'~publication.writer_id ~ '/' ~ publication.path_profile) | imagine_filter('small_thumb') }}"/>
                         {% else %}
                             {% if publication.path_profile %}
-                                <img class="circle"
-                                     src="{{ asset('uploads/profile/'~publication.writer_id ~ '/' ~ publication.path_profile)| imagine_filter('small_thumb')  }}"/>
+                                <img src="{{ asset('uploads/profile/'~publication.writer_id ~ '/' ~ publication.path_profile)| imagine_filter('small_thumb')  }}"/>
                             {% else %}
-                                <img class="circle" src="{{ asset('uploads/profile/default.png')| imagine_filter('small_thumb')  }}"/>
+                                <img src="{{ asset('uploads/profile/default.png')| imagine_filter('small_thumb')  }}"/>
                             {% endif %}
                         {% endif %}
                     </div>

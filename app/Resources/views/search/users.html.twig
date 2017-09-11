@@ -1,14 +1,21 @@
 {% for user in users|reverse %}
-    <div class="col-md-6 search-users-container">
-        <div class="col-md-2" >
-            <div class="imgSquare">
-                <div class="imgSquareContainer" >
-                    <img src="{{ asset( user.getPictureProfile() ) | imagine_filter('small_thumb') }}" />
+    <div class="col-xs-6 col-md-4 search-users-container">
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="imgSquare circle">
+                    <div class="imgSquareContainer" >
+                        <img src="{{ asset( user.getPictureProfile() ) | imagine_filter('small_thumb') }}" />
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-10">
-            <a href="{{ path('wizardalley_user_wall' , {'id': user.id})}}">{{ user.username }}</a>
+            <div class="col-md-9">
+                <h5>
+                    <a href="{{ path('wizardalley_user_wall' , {'id': user.id})}}">{{ user.username }}</a>
+                </h5>
+                <p>
+                    {{ user.smallDescription }}
+                </p>
+            </div>
         </div>
     </div>
 {% endfor %}

@@ -5,6 +5,8 @@ publication:
     like: Like
     unlike: Unlike
 wizard:
+    messagerie:
+        beta: La messagerie est actuellement en BETA
     title:
         base: Wizard's Alley ::
         ruelle: Ma ruelle
@@ -60,6 +62,7 @@ wizard:
     blame:
         label:
             comment: Commentaire
+            button: Signaler
     login:
         login: Login
         password: Mot de passe

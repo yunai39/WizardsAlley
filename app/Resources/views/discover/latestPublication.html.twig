@@ -3,13 +3,12 @@
         <div class="row">
             <div class="col-xs-2">
 
-                <div class="imgSquare">
-                    <div class="imgSquareContainer circle">
+                <div class="imgSquare circle">
+                    <div class="imgSquareContainer">
                         {% if publication.user.pathProfile %}
-                            <img class="circle"
-                                 src="{{ asset('uploads/profile/'~publication.user.id ~ '/' ~ publication.user.pathProfile) | imagine_filter('small_thumb') }}"/>
+                            <img src="{{ asset('uploads/profile/'~publication.user.id ~ '/' ~ publication.user.pathProfile) | imagine_filter('small_thumb') }}"/>
                         {% else %}
-                            <img class="circle" src="{{ asset('uploads/profile/default.png') | imagine_filter('small_thumb') }}"/>
+                            <img src="{{ asset('uploads/profile/default.png') | imagine_filter('small_thumb') }}"/>
                         {% endif %}
                     </div>
                 </div>
@@ -37,15 +36,6 @@
                         {{ publication.page.category.name }}
                     </a>
                 </span>
-                {% if app.user and app.user.id == publication.user.id %}
-                    <div class="margin-top-middle">
-                        {% include '::includes/disablePublicationButton.html.twig' with {'id': publication.id} %}
-                    </div>
-                {% elseif app.user %}
-                    <div class="margin-top-middle">
-                        {% include '::includes/addBlameButton.html.twig' with {'id': publication.id, 'type': 'publication'} %}
-                    </div>
-                {% endif %}
             </div>
         </div>
         <br/>
@@ -76,6 +66,11 @@
                             {% trans %}publication.like{% endtrans %}
                         {% endif %}
                     </button>
+                {% endif %}
+                {% if app.user and app.user.id == publication.user.id %}
+                        {% include '::includes/disablePublicationButton.html.twig' with {'id': publication.id} %}
+                {% elseif app.user %}
+                        {% include '::includes/addBlameButton.html.twig' with {'id': publication.id, 'type': 'publication'} %}
                 {% endif %}
             </div>
         </div>

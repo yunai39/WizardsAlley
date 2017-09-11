@@ -5,22 +5,7 @@
     <title>{% block title %}Wizard's Alley{% endblock %}</title>
     <meta name="viewport" content="width=device-width">
     {% block stylesheets %}
-<<<<<<< HEAD
-        <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="{{ asset('assets/css/adminStats.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.icon-large.min.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/bootstrap-theme.min.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/datatable.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/toastr.min.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/typeahead.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/main2.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/jquery-ui/jquery-ui.min.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/jquery-ui/jquery-ui.theme.min.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('assets/jquery-ui/jquery-ui.structure.min.css') }}"/>
-=======
+
         {% stylesheets
                 'assets/css/bootstrap.min.css'
                 'assets/css/bootstrap.icon-large.min.css'
@@ -28,13 +13,13 @@
                 'assets/css/toastr.min.css'
                 'assets/css/typeahead.css'
                 'assets/css/main.css'
+                'assets/css/main2.css'
                 'assets/jquery-ui/jquery-ui.min.css'
                 'assets/jquery-ui/jquery-ui.theme.min.css'
                'assets/jquery-ui/jquery-ui.structure.min.css'
                 filter='?uglifycss,cssrewrite' %}
             <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
         {% endstylesheets %}
->>>>>>> 89e286e5dcbcf56a664bb5e50407ca6b913e2aa7
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/favicon-site.ico') }}"/>
 </head>
@@ -62,9 +47,9 @@
                                    data-toggle="dropdown"
                                    role="button"
                                    aria-haspopup="true" aria-expanded="false">
-                                    <div class="imgSquare">
-                                        <div class="imgSquareContainer circle">
-                                            <img src="{{ asset(app.user.getPictureProfile())  | imagine_filter('small_thumb')}}" class="circle"/>
+                                    <div class="imgSquare circle">
+                                        <div class="imgSquareContainer">
+                                            <img src="{{ asset(app.user.getPictureProfile())  | imagine_filter('small_thumb')}}" />
                                         </div>
                                     </div>
                                     <ul class="dropdown-menu">
@@ -259,7 +244,7 @@
                         $navbar = $('header nav .container-fluid');
                 $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
                 return false;
-            });
+            })
         );
     </script>
 {% endblock %}

@@ -6,7 +6,7 @@
             {% set path = 'default.png'%}
         {% endif %}
         <div class="col-md-3">
-            <div class="imgSquare">
+            <div class="imgSquare circle">
                 <div class="imgSquareContainer">
                     <img src="{{asset('/uploads/profile/' ~ path ) | imagine_filter('small_thumb') }}" />
                 </div>
