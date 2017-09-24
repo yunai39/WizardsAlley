@@ -142,11 +142,13 @@
                                 {% trans %}wizard.menu.link.search{% endtrans %}
                             </a>
                         </li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == false %}
                         <li>
                             <a href="https://blog.thewizardsalley.com">
                                 <i class="wizard-iconnotifications"></i>{% trans %}wizard.menu.link.blog{% endtrans %}
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
