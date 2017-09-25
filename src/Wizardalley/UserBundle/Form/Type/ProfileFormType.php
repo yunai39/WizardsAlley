@@ -38,14 +38,6 @@ class ProfileFormType extends BaseForm
                 ]
             )
             ->add(
-                'facebook',
-                'text',
-                [
-                    'label' => 'wizard.register.label.facebook',
-                    'required' => false
-                ]
-            )
-            ->add(
                 'small_description',
                 'text',
                 array(
@@ -58,6 +50,14 @@ class ProfileFormType extends BaseForm
                 array(
                     'label' =>'wizard.register.label.description',
                 )
+            )
+            ->add(
+                'facebook',
+                'text',
+                [
+                    'label' => 'wizard.register.label.facebook',
+                    'required' => false
+                ]
             )
             ->add(
                 'twitter',

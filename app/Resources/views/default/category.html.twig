@@ -1,5 +1,6 @@
 {% extends "::base.html.twig" %}
 
+{% block head_extra_class %}head-category{% endblock %}
 
 {% block title %}
     {% trans %}wizard.title.base{% endtrans %} {{ category.name }}
