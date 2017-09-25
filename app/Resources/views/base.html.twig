@@ -74,6 +74,13 @@
 
                     <ul class="nav navbar-nav nav-full">
 
+                        <li {% if app.request.get('_route') == 'wizardalley_discover_index' %} class="active" {% endif %}>
+                            <a href="{{ path('wizardalley_discover_index') }}">
+
+                                <i class="wizard-icondiscover"></i>
+                                {% trans %}wizard.menu.link.discover{% endtrans %}
+                            </a>
+                        </li>
                         {% if app.user %}
                             <li class="hidden-sm hidden-md hidden-lg  {% if app.request.get('_route') == 'fos_user_profile_show' %}active{% endif %}">
                                 <a href="{{ path('fos_user_profile_show') }}">
@@ -109,13 +116,6 @@
                                 </a>
                             </li>
                         {% endif %}
-                        <li {% if app.request.get('_route') == 'wizardalley_discover_index' %} class="active" {% endif %}>
-                            <a href="{{ path('wizardalley_discover_index') }}">
-
-                                <i class="wizard-icondiscover"></i>
-                                {% trans %}wizard.menu.link.discover{% endtrans %}
-                            </a>
-                        </li>
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                             <li {% if app.request.get('_route') == 'user_message_all' %} class="active" {% endif %}>
                                 <a href="{{ path('user_message_all') }}">
