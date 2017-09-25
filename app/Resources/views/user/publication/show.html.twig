@@ -1,5 +1,21 @@
 {% extends '::base.html.twig' %}
 
+{% block body_style %}url('{{ asset(entity.user.getPictureCouverture) }}'){% endblock %}
+
+{% block title_banner %}
+    <div class="imgSquare circle">
+        <div class="imgSquareContainer circle">
+            <img src="{{ asset( entity.user.getPictureProfile()) }}" class="circle"/>
+        </div>
+    </div>
+    <h1>
+        {{ entity.user.username }}
+    </h1>
+    <h2>
+        {{ entity.user.smallDescription }}
+    </h2>
+{% endblock %}
+
 
 {% block title %}
     {% trans %}wizard.title.base{% endtrans %} {{ entity.title }} - {{ entity.page.name }}

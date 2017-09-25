@@ -6,7 +6,7 @@
                 <div class="imgSquare circle">
                     <div class="imgSquareContainer">
                         {% if publication.user.pathProfile %}
-                            <img src="{{ asset('uploads/profile/'~publication.user.id ~ '/' ~ publication.user.pathProfile) | imagine_filter('small_thumb') }}"/>
+                            <img src="{{ asset('uploads/page/profile/' ~ publication.page.pathProfile) | imagine_filter('small_thumb') }}"/>
                         {% else %}
                             <img src="{{ asset('uploads/profile/default.png') | imagine_filter('small_thumb') }}"/>
                         {% endif %}
@@ -15,14 +15,8 @@
             </div>
             <div class="col-xs-8">
                 <p class="lead">
-                    {% trans %}wizard.utility.by{% endtrans %}:
-                    <a class="publication-author"
-                       href="{{ path('wizardalley_user_wall',{'id':publication.user.id}) }}">{{ publication.user.username }}</a>
-                </p>
-                <p class="lead">
                     <a href="{{ path('publication_show',{'id':publication.id}) }}">{{ publication.title }}</a>
-                </p>
-                <p class="lead">
+                    -
                     <a href="{{ path('page_show', {'id_page': publication.page.id}) }}">{{ publication.page.name }}</a>
                 </p>
                 <p>
