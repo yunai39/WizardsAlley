@@ -13,6 +13,10 @@ wizard:
         edit: Modification
         map: Carte
         discover: Découverte en tous genre
+        not-connected:
+            discover1: Bienvenue amis sorciers sur le portail magique de
+            discover2: l'Allée des Sorciers.
+            discover3: Ouverture prochaine.
         wall: Mur de %username%
     banner: Dépêches favorites et publications de vos amis du monde magique
     home:

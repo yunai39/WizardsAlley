@@ -1,17 +1,24 @@
 {% extends '::base.html.twig' %}
 
 {% block title_banner %}
-    <h1>
-        {% if app.user %}
-            {% trans %}wizard.discover.title{% endtrans %}
-        {% else %}
-            {% trans %}wizard.discover.title_not_connected{% endtrans %}
-        {% endif %}
-    </h1>
+    {% if app.user %}
+        <h2>{% trans %}wizard.discover.title{% endtrans %}</h2>
+    {% else %}
+        <h3>
+            {% trans %}wizard.title.not-connected.discover1{% endtrans %}
+
+        </h3>
+        <h2>
+            {% trans %}wizard.title.not-connected.discover2{% endtrans %}
+        </h2>
+        <h3>
+            {% trans %}wizard.title.not-connected.discover3{% endtrans %}
+        </h3>
+    {% endif %}
 {% endblock %}
 
 {% block body_style %}
-    {% if app.user %}url('{{ asset('images/discover-bg.jpg')}}'){% else %}url('{{ asset('images/bghome.jpg')}}'){% endif %}
+    {% if app.user %}url('{{ asset('images/discover-bg.jpg') }}'){% else %}url('{{ asset('images/bghome.jpg') }}'){% endif %}
 
 {% endblock %}
 
