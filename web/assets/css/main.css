@@ -42,6 +42,13 @@ main {
   padding: 2%;
   width: 90%; }
 
+.imgSquare.circle {
+  border-radius: 50%; }
+  .imgSquare.circle .imgSquareContainer {
+    border-radius: 50%; }
+    .imgSquare.circle .imgSquareContainer img {
+      border-radius: 50%; }
+
 .imgSquare {
   position: relative;
   width: 100%; }
@@ -236,6 +243,24 @@ button, .btn-default, .btn {
     color: #FFF;
     background-color: #454a72;
     border-color: #454a72; }
+
+.btn-default {
+  background-color: #454a72;
+  background-image: none; }
+
+.btn {
+  padding: 3.75px;
+  margin: 3.75px;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
+  border: 1px solid transparent;
+  transition: 0.2s linear;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1; }
 
 .wizard-icondiscover, .wizard-iconhome, .wizard-iconmail, .wizard-iconnotifications, .wizard-iconsearch, .wizard-iconhat, .wizard-iconbroom {
   display: inline-block;

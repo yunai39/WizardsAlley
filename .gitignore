@@ -13,3 +13,4 @@ bin/
 .vagrant/
 /web/uploads/
 /web/assets/.sass-cache/
+/app/config/parameters.yml

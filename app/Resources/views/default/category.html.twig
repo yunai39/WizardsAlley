@@ -5,6 +5,17 @@
     {% trans %}wizard.title.base{% endtrans %} {{ category.name }}
 {% endblock %}
 
+{% block title_banner %}
+    <div class="imgSquare circle">
+        <div class="imgSquareContainer">
+            <img src="{{ asset('/uploads/page/category/' ~ category.logo) | imagine_filter('small_thumb')}}"/>
+        </div>
+    </div>
+    <h1>
+        {{ category.name }}
+    </h1>
+{% endblock %}
+
 {% block body %}
     <div class="panel panel-default">
         <div class="panel-body">

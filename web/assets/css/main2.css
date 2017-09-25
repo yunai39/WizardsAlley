@@ -247,5 +247,21 @@ label {
     border-radius: 5px!important;
 }
 
+/* MENU RESPONSIVE */
+@media (max-width: 767px) {
+    
+    header nav .nav-full li:hover, header nav .nav-full li.active {
+        border-bottom-color: transparent;
+    }
+    
+    .navbar-nav > li > a {
+        text-align: center;
+    }
+    
+    nav navbar-nav nav-full, .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+        height: 100vh;
+        max-height: none;
+    }
+}
 
 /*# sourceMappingURL=main.css.map */

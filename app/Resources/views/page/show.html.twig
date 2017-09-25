@@ -9,8 +9,8 @@
 
 {% block title_banner %}
     <div class="imgSquare circle">
-        <div class="imgSquareContainer circle">
-            <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb')}}" class="circle"/>
+        <div class="imgSquareContainer">
+            <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb')}}"/>
         </div>
     </div>
     <h1>
@@ -93,16 +93,16 @@
                                     {% for user in followers %}
                                         <div class="squareUser">
                                             <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
-                                                <div class="imgSquare">
+                                                <div class="imgSquare circle">
                                                     <div class="imgSquareContainer">
-                                                        <img src="
+                                                        <img  src="
                                                 {% if user.pathProfile %}
                                                      {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) | imagine_filter('small_thumb')  }}
                                                 {% else %}
                                                     {{ asset('uploads/profile/default.png') | imagine_filter('small_thumb')  }}
                                                 {% endif %}"/>
-                                                        <p class="imgTitre">{{ user.username }}</p>
                                                     </div>
+                                                    <p class=" text-center">{{ user.username }}</p>
                                                 </div>
                                             </a>
                                         </div>
@@ -118,16 +118,16 @@
                                     {% for user in editors %}
                                         <div class="squareUser">
                                             <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
-                                                <div class="imgSquare">
-                                                    <div class="imgSquareContainer">
+                                                <div class="imgSquare circle">
+                                                    <div class="imgSquareContainer ">
                                                         <img src="
                                                 {% if user.pathProfile %}
                                                      {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) }}
                                                 {% else %}
                                                     {{ asset('uploads/profile/default.png') }}
                                                 {% endif %}"/>
-                                                        <p class="imgTitre">{{ user.username }}</p>
                                                     </div>
+                                                    <p class=" text-center">{{ user.username }}</p>
                                                 </div>
                                             </a>
                                         </div>

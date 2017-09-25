@@ -2,8 +2,8 @@
     {% for user in users %}
         <div class="col-xs-6 col-md-3">
             <div class="imgSquare circle">
-                <div class="imgSquareContainer circle">
-                    <img src="{{asset(user.getWebPathProfile()) | imagine_filter('small_thumb')}}" class="circle"/>
+                <div class="imgSquareContainer">
+                    <img src="{{asset(user.getWebPathProfile()) | imagine_filter('small_thumb')}}"/>
                 </div>
             </div>
             <p class="text-center">

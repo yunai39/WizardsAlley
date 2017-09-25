@@ -5,7 +5,6 @@
     <title>{% block title %}Wizard's Alley{% endblock %}</title>
     <meta name="viewport" content="width=device-width">
     {% block stylesheets %}
-
         <meta name="viewport" content="width=device-width">
         {% stylesheets
                 'assets/css/bootstrap.min.css'
@@ -14,6 +13,7 @@
                 'assets/css/toastr.min.css'
                 'assets/css/typeahead.css'
                 'assets/css/main.css'
+                'assets/css/main2.css'
                 'assets/jquery-ui/jquery-ui.min.css'
                 'assets/jquery-ui/jquery-ui.theme.min.css'
                 'assets/css/main2.css'
@@ -48,9 +48,9 @@
                                    data-toggle="dropdown"
                                    role="button"
                                    aria-haspopup="true" aria-expanded="false">
-                                    <div class="imgSquare">
-                                        <div class="imgSquareContainer circle">
-                                            <img src="{{ asset(app.user.getPictureProfile())  | imagine_filter('small_thumb')}}" class="circle"/>
+                                    <div class="imgSquare circle">
+                                        <div class="imgSquareContainer">
+                                            <img src="{{ asset(app.user.getPictureProfile())  | imagine_filter('small_thumb')}}" />
                                         </div>
                                     </div>
                                     <ul class="dropdown-menu">
@@ -245,7 +245,7 @@
                         $navbar = $('header nav .container-fluid');
                 $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
                 return false;
-            });
+            })
         );
     </script>
 {% endblock %}

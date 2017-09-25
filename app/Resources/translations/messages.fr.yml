@@ -1,16 +1,18 @@
 page:
     invite_friend: Inviter un ami
-    like: Liker la page
+    like: Aimer la page
 publication:
-    like: Like
-    unlike: Unlike
+    like: Aimer
+    unlike: Ne plus aimer
 wizard:
+    messagerie:
+        beta: La messagerie est actuellement en BETA
     title:
         base: Wizard's Alley ::
         ruelle: Ma ruelle
-        edit: Modification
+        edit: Modifications
         map: Carte
-        discover: Découverte en tous genre
+        discover: Découvertes en tous genre
         wall: Mur de %username%
     banner: Dépêches favorites et publications de vos amis du monde magique
     home:
@@ -20,21 +22,21 @@ wizard:
         your_publication: Vos publications
         most_commented: Sujets les plus commentés
         informations: Billet d'information
-        user_online: Sorcier en ligne
+        user_online: Sorciers en ligne
     utility:
         load_more: Charger plus
         search: Recherche
         refresh: Rafraichir
         back: Retour
-        by: Publié par
+        by: Publié.e par
         delete: Supprimer
-        blame: Envoyer le blame
+        blame: Signaler
     notification:
         page_publication: >
-            <a href="%page_link%">%page_name%</a> vient de publier une nouvelle publication: <a href="%publication_link%">%publication_name%</a>
+            <a href="%page_link%">%page_name%</a> vient de publier: <a href="%publication_link%">%publication_name%</a>
         user_message: >
             <a href="%user_link%">%user_name%</a> a envoyer une nouvelle réponse sur le sujet <a href="%thread_link%">%thread_name%</a>
-        ask_as_friend: <a href="%user_link%">%user_name%</a> vous a envoyer une demande d'amitié
+        ask_as_friend: <a href="%user_link%">%user_name%</a> vous a envoyé.e une demande d'amitié
         ask_as_friend_valid: Ajouter en tant qu'ami
         answer_ask_friend: Vous êtes maintenant amis avec <a href="%user_link%">%user_name%</a> !!
     discover:
@@ -49,21 +51,22 @@ wizard:
         add_blame:
             notification: Êtes vous sur de vouloir faire un blame ?
         delete_confirmation: Êtes vous sur de vouloir supprimer la publication ?
-        edit: Édition de publication
+        edit: Editer une publication
         add_image: Ajouter une image
         delete_image: Supprimer une image
-        edit_success: La modification à été effectué
+        edit_success: La modification à été effectuée
         new_success: La publication a bien été crée
         create: Création d'une publication
         images:
           label: Image de la publication
     blame:
         label:
-            comment: Commentaire
+            comment: Commentaire(s)
+            button: Signaler
     login:
-        login: Login
+        login: Pseudonyme
         password: Mot de passe
-        title: Formulaire de connexion
+        title: Se connecter
         message: >
             Bienvenue sorcier, sorcière en tout genre.
             Prends un peu de poudre de cheminette et prononce clairement
@@ -74,22 +77,22 @@ wizard:
             home: Ma Ruelle
             discover: Découvrir
             discover_map: Carte
-            mention_legal: Mention Légal
+            mention_legal: Mentions Légales
             blog: Blog
             contact: Contact
             confidentiality: Politique de Confidentialité
             copyright: Copyright
             search: Rechercher
-            wall: mur
-            mail: Messagerie
+            wall: Mur
+            mail: Messages privés
             blog: Blog de l'équipe
-            notification: Notification
+            notification: Notifications
     user:
         change_password: Changer le mot de passe
         notification:
             title: Notifications
             mark_all_as_read: Tous marquer comme lu
-            load_more: Plus de notification
+            load_more: Plus de notifications
 
         profile:
             edit: Modifier mes informations
@@ -98,8 +101,8 @@ wizard:
             about: A propos
             publish_on_wall: Publier sur le mur
             firstname: Nom
-            edit: Personnaliser mon profile
-            edit_picture: Modifier la photo de profile
+            edit: Personnaliser mon profil
+            edit_picture: Modifier la photo de profil
             edit_picture_wall: Modifier la couverture
             friend_list: Liste des amis
             change_pwd: Changer de mot de passe
@@ -107,10 +110,10 @@ wizard:
             last_login: Dernière connexion
         wall:
             no_publication: Aucune publication
-            disabled: Utilisateur désactivé
+            disabled: Utilisateur(s) désactivé(s)
             publication: Publications
             informations: Informations
-            username: Username
+            username: Pseudonyme
     register:
         label:
             firstname: Prénom 
@@ -125,7 +128,7 @@ wizard:
                 male: Masculin
                 female: Féminin
     contact:
-        message: Merci !! Le message a bien été envoyé
+        message: Merci, le message a bien été envoyé !
         title: Nous envoyer un hiboux
         label:
             nom: Votre nom
@@ -133,7 +136,7 @@ wizard:
             message: Votre message
     wall:
         friend: Amis
-        ask_ongoing: Demande en cours
+        ask_ongoing: Demande(s) en cours
     page:
         new_success: La page a bien été créée
         publication_list: Liste des publications
@@ -148,7 +151,7 @@ wizard:
             show: Afficher
             preview: Prévisualiser
             create_publication: Créer une nouvelle publication
-        number_publication: Nombre de publication total
+        number_publication: Nombres d'applications
         edit_user:
             search: Rechercher un utilisateur
             alrady_selected: Utilisateur déjà sélectionné

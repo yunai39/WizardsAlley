@@ -3,10 +3,9 @@
         <div class="row ">
             <div class="col-xs-4">
 
-                <div class="imgSquare">
-                    <div class="imgSquareContainer circle">
-                            <img class="circle"
-                                 src="{{ asset('uploads/page/profile/' ~ publication.page.pathProfile) | imagine_filter('small_thumb') }}"/>
+                <div class="imgSquare circle">
+                    <div class="imgSquareContainer">
+                            <img src="{{ asset('uploads/page/profile/' ~ publication.page.pathProfile) | imagine_filter('small_thumb') }}"/>
                     </div>
                 </div>
             </div>
