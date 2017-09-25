@@ -9,9 +9,9 @@
                             <img src="{{ asset('uploads/page/'~publication.writer_id ~ '/' ~ publication.path_profile) | imagine_filter('small_thumb') }}"/>
                         {% else %}
                             {% if publication.path_profile %}
-                                <img src="{{ asset('uploads/profile/'~publication.writer_id ~ '/' ~ publication.path_profile)| imagine_filter('small_thumb')  }}"/>
+                                <img src="{{ asset('uploads/profile/'~publication.writer_id ~ '/' ~ publication.path_profile)| imagine_filter('small_thumb') }}"/>
                             {% else %}
-                                <img src="{{ asset('uploads/profile/default.png')| imagine_filter('small_thumb')  }}"/>
+                                <img src="{{ asset('uploads/profile/default.png')| imagine_filter('small_thumb') }}"/>
                             {% endif %}
                         {% endif %}
                     </div>
@@ -21,15 +21,14 @@
                 {% if publication.type == 'page_publication' %}
                     <p class="lead">
                         <a href="{{ path('publication_show',{'id':publication.publication_id}) }}">{{ publication.title }}</a>
+                        -
+                        <a href="{{ path('page_show', {'id_page': publication.writer_id}) }}">{{ publication.name }}</a>
+                    </p>
+                {% else %}
+                    <p class="lead">
+                        <a href="{{ path('wizardalley_user_wall', {'id': publication.writer_id}) }}">{{ publication.name }}</a>
                     </p>
                 {% endif %}
-                <p class="lead">
-                    {% if publication.type == 'page_publication' %}
-                        <a href="{{ path('page_show', {'id_page': publication.writer_id}) }}">{{ publication.name }}</a>
-                    {% else %}
-                        <a href="{{ path('wizardalley_user_wall', {'id': publication.writer_id}) }}">{{ publication.name }}</a>
-                    {% endif %}
-                </p>
                 <p>{{ publication.createdAt | date('d/m/Y') }}
                     - {{ publication.createdAt | date('H:i:s') }}</p>
             </div>

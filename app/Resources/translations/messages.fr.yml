@@ -13,6 +13,10 @@ wizard:
         edit: Modifications
         map: Carte
         discover: Découvertes en tous genre
+        not-connected:
+            discover1: Bienvenue amis sorciers sur le portail magique de
+            discover2: l'Allée des Sorciers.
+            discover3: Ouverture prochaine.
         wall: Mur de %username%
     banner: Dépêches favorites et publications de vos amis du monde magique
     home:
@@ -75,7 +79,7 @@ wizard:
     menu:
         link:
             home: Ma Ruelle
-            discover: Découvrir
+            discover: Dépêches magiques
             discover_map: Carte
             mention_legal: Mentions Légales
             blog: Blog
@@ -121,8 +125,8 @@ wizard:
             description: Description
             small_description: Introduction
             sexe: Genre
-            facebook: Facebook
-            twitter: Twitter
+            facebook: Pseudo Facebook
+            twitter: Pseudo twitter
         field:
             sexe:
                 male: Masculin

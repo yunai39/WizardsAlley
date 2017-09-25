@@ -97,7 +97,7 @@ class PublicationController extends BaseController
 
             return $this->redirect(
                 $this->generateUrl(
-                    'publication_show',
+                    'publication_preview',
                     ['id' => $entity->getId()]
                 )
             );

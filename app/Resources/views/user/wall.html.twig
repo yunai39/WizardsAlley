@@ -34,7 +34,6 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="row">
-
                     <div class="col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-body">
@@ -68,17 +67,17 @@
                                         <div class="row">
                                             {% if user.facebook != null %}
                                                 <div class="col-md-6 col-xs-12">
-                                                    <a href="{{ user.facebook }}">
+                                                    <a href="https://www.facebook.com/{{ user.facebook }}">
                                         <span class="icon-large icon-facebook"
-                                              aria-hidden="true"></span>&nbsp;{{ user.facebook }}
+                                              aria-hidden="true"></span>&nbsp;https://www.facebook.com/{{ user.facebook }}
                                                     </a>
                                                 </div>
                                             {% endif %}
                                             {% if user.twitter != null %}
                                                 <div class="col-md-6 col-xs-12">
-                                                    <a href="{{ user.twitter }}">
+                                                    <a href="https://twitter.com/{{ user.twitter }}">
                                         <span class="icon-large icon-twitter"
-                                              aria-hidden="true"></span>&nbsp;{{ user.twitter }}
+                                              aria-hidden="true"></span>&nbsp;https://twitter.com/{{ user.twitter }}
                                                     </a>
                                                 </div>
                                             {% endif %}
