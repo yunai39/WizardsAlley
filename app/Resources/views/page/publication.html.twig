@@ -10,14 +10,17 @@
                 </div>
             </div>
             <div class="col-xs-8 col-md-10">
-                <h2><a href="{{path('publication_show',{'id': publication.id })}}" >{{publication.title}}</a></h2>
-                <h3>{% trans %}wizard.utility.by{% endtrans %}: <a  class="publication-author" href="{{path('wizardalley_user_wall',{'id': publication.user_id})}}" >{{publication.username}}</a>,
-                    le <span class="publication-date">{{publication.created_at | date('Y-m-d')}} à {{publication.created_at | date('H:i:s')}}</span>
+                <h3 class="text-left">
+                    <a  class="publication-author" href="{{path('wizardalley_user_wall',{'id': publication.user_id})}}" >{{publication.username}}</a>
+                    <br>
+                    <span class="publication-date">{{publication.created_at | date('Y-m-d')}} à {{publication.created_at | date('H:i:s')}}</span>
                 </h3>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
+
+                <h2><a href="{{path('publication_show',{'id': publication.id })}}" >{{publication.title}}</a></h2>
                 <p>{{publication.small_content | raw}}</p>
             </div>
         </div>

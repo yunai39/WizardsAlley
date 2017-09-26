@@ -1,15 +1,13 @@
 
     {% for pageFav in pages %}
-        <div class="page col-xs-12">
+        <div class="page col-xs-6 col-sm-4 ">
             <div class="row search-pages-container">
-                <div class="col-xs-4 img-wrapper">
-                    <div class="imgSquare">
+                <div class="col-xs-12 img-wrapper circle">
+                    <div class="imgSquare circle">
                         <div class="imgSquareContainer">
                             <img src="{{ asset('/uploads/page/profile/' ~ pageFav.page.pathProfile)| imagine_filter('small_thumb') }}"/>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-8">
                     <h4>
                         <a href="{{ path('page_show' , {'id_page': pageFav.page.id}) }}">{{ pageFav.page.name }}</a>
                     </h4>
