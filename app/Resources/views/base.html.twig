@@ -74,6 +74,14 @@
 
                     <ul class="nav navbar-nav nav-full">
 
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li {% if app.request.get('_route') == 'wizardalley_default_homepage' %} class="active" {% endif %}>
+                                <a href="{{ path('wizardalley_default_homepage') }}">
+                                    <i class="wizard-iconhome"></i>
+                                    {% trans %}wizard.menu.link.home{% endtrans %}
+                                </a>
+                            </li>
+                        {% endif %}
                         <li {% if app.request.get('_route') == 'wizardalley_discover_index' %} class="active" {% endif %}>
                             <a href="{{ path('wizardalley_discover_index') }}">
 
@@ -105,14 +113,6 @@
                                 <a href="{{ path('fos_user_registration_register') }}">
                                     <i class="wizard-iconhat"></i>
                                     {{ 'layout.register'|trans({}, 'FOSUserBundle') }}
-                                </a>
-                            </li>
-                        {% endif %}
-                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                            <li {% if app.request.get('_route') == 'wizardalley_default_homepage' %} class="active" {% endif %}>
-                                <a href="{{ path('wizardalley_default_homepage') }}">
-                                    <i class="wizard-iconhome"></i>
-                                    {% trans %}wizard.menu.link.home{% endtrans %}
                                 </a>
                             </li>
                         {% endif %}

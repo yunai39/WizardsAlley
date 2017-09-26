@@ -32,7 +32,8 @@ class ProfilePictureController extends Controller
         }
 
         return $this->render('WizardalleyUserBundle:Profile:editPicture.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $this->getUser()
         ));
     }
 
@@ -56,7 +57,8 @@ class ProfilePictureController extends Controller
         }
 
         return $this->render('WizardalleyUserBundle:Profile:editPictureCouverture.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'user' => $this->getUser()
         ));
     }
 }

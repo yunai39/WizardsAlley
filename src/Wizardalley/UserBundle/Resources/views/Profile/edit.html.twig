@@ -1,9 +1,9 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "::user/profileBase.html.twig" %}
 
-{% block fos_user_content %}
+{% block profile_body %}
 
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h3>{% trans %}wizard.user.profile.edit{% endtrans %}</h3>
@@ -26,4 +26,4 @@
     </div>
 
 
-{% endblock fos_user_content %}
+{% endblock %}

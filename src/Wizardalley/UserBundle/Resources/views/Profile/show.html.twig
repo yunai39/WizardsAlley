@@ -1,304 +1,32 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "::user/profileBase.html.twig" %}
 
-{% block body_style %}url('{{ asset(user.getPictureCouverture) }}'){% endblock %}
-
-{% block head_extra_class %}head-profile{% endblock %}
-
-{% block title_banner %}
-    <div class="imgSquare circle">
-        <div class="imgSquareContainer circle">
-            <img src="{{ asset(user.getPictureProfile()) }}" class="circle"/>
-        </div>
-    </div>
-    <div>
-        <h1>
-            {{ user.username }}
-        </h1>
-    </div>
-    <h2>
-        {{ user.smallDescription }}
-    </h2>
-{% endblock %}
-
-{% block fos_user_content %}
+{% block profile_body %}
     <div class="row">
-        <div class="col-md-4">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <h3>
-                                {% trans %}wizard.user.profile.edit{% endtrans %}
-                                <hr>
-                            </h3>
-
-                            <p><a href="{{ path('wizardalley_user_profile_edit_picture') }}">{% trans %}
-                                    wizard.user.profile.edit_picture{% endtrans %}</a></p>
-                            <p><a href="{{ path('wizardalley_user_couverture_edit_picture') }}">{% trans %}
-                                    wizard.user.profile.edit_picture_wall{% endtrans %}</a></p>
-                            <p>
-                                <a href="{{ path('fos_user_change_password') }}">{{ 'wizard.user.profile.change_pwd'|trans({}) }}</a>
-                            </p>
-                            <p>
-                                <a href="{{ path('fos_user_profile_edit') }}">{{ 'wizard.user.profile.edit'|trans({}) }}</a>
-                            </p>
-                            <h3>
-                                {% trans %}wizard.user.profile.about{% endtrans %}
-                            </h3>
-                            <hr>
-                            <p>
-                                {{ user.description }}
-                            </p>
-                            <div class="row">
-                                {% if user.facebook != null %}
-                                    <div class="col-md-6 col-xs-12">
-                                        <a href="https://www.facebook.com/{{ user.facebook }}">
-                                        <span class="icon-large icon-facebook"
-                                              aria-hidden="true"></span>&nbsp;https://www.facebook.com/{{ user.facebook }}
-                                        </a>
-                                    </div>
-                                {% endif %}
-                                {% if user.twitter != null %}
-                                    <div class="col-md-6 col-xs-12">
-                                        <a href="https://twitter.com/{{ user.twitter }}">
-                                        <span class="icon-large icon-twitter"
-                                              aria-hidden="true"></span>&nbsp;https://twitter.com/{{ user.twitter }}
-                                        </a>
-                                    </div>
-                                {% endif %}
-                            </div>
-                            <div class="fos_user_user_show">
-                                <p>{% trans %}wizard.user.profile.last_login{% endtrans %}
-                                    :&nbsp;{{ user.lastLogin|localizeddate('full', 'none') }} {{ user.lastLogin|date("H:i") }}</p>
-                                <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div>
-                                <h3>{% trans %}wizard.user.profile.title.friend_list{% endtrans %}</h3>
-                                <hr>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row" id="div_friend"
-                                     prototype='<a href="{{ path("wizardalley_user_wall") }}/__id__"><div class="col-sm-4 col-md-6 col-xs-6"><div class="imgSquare circle"><div class="imgSquareContainer circle"><img src="/uploads/profile/__picture__"></div></div><h4 class="imgTitre">__title__</h4></div></a>'>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-footer text-center">
-                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"  onClick="loadMoreFriends()" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div>
-                                <h3>{% trans %}wizard.user.profile.title.page_followed{% endtrans %}</h3>
-                                <hr>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row" id="div_page_followed"
-                                     prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-sm-4 col-md-6 col-xs-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-footer text-center">
-                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"  onClick="loadMorePageFollowed()" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div>
-                                <h3>{% trans %}wizard.user.profile.title.page_creator{% endtrans %}</h3>
-                                <hr>
-                            </div>
-                            <div class="col-md-12"><a href="{{ path('page_gestion_new') }}"> {% trans %}
-                                    wizard.user.profile.create_page{% endtrans %}</a>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row" id="div_page_created"
-                                     prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-sm-4 col-md-6 col-xs-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-footer text-center">
-                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"  onClick="loadMorePageCreated()" aria-hidden="true"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div>
-                                <h3>{% trans %}wizard.user.profile.title.page_editor{% endtrans %}</h3>
-                                <hr>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="row" id="div_page_editor"
-                                     prototype='<a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="col-sm-4 col-md-6 col-xs-6"><div class="imgSquare"><div class="imgSquareContainer"><img src="/uploads/page/profile/__picture__"><h4 class="imgTitre">__title__</h4></div></div></div></a>'>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel-footer text-center">
-                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"  onClick="loadMorePageEditor()" aria-hidden="true"></span>
-                        </div>
-                    </div>
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans %}wizard.user.profile.publish_on_wall{% endtrans %}</h3>
+                    <hr>
+                    {{ render(
+                    controller(
+                    'WizardalleyPublicationBundle:SmallPublication:renderSmallPublication'
+                    )) }}
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <h3>{% trans %}wizard.user.profile.publish_on_wall{% endtrans %}</h3>
-                            <hr>
-                            {{ render(
-                            controller(
-                            'WizardalleyPublicationBundle:SmallPublication:renderSmallPublication'
-                            )) }}
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <h3>{% trans %}wizard.user.wall.publication{% endtrans %}</h3>
-                            <div id="my_publication"></div>
-                        </div>
-                        <div class="panel-footer text-center">
-                            <span id="loadMorePublication" class="glyphicon glyphicon-chevron-down clickable load-more-publication" aria-hidden="true"></span>
-                        </div>
-                    </div>
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h3>{% trans %}wizard.user.wall.publication{% endtrans %}</h3>
+                    <div id="my_publication"></div>
+                </div>
+                <div class="panel-footer text-center">
+                    <span id="loadMorePublication"
+                          class="glyphicon glyphicon-chevron-down clickable load-more-publication"
+                          aria-hidden="true"></span>
                 </div>
             </div>
         </div>
     </div>
-
-{% endblock fos_user_content %}
-
-{% block javascripts %}
-    {{ parent() }}
-    <script>
-        $pagePublication = 1;
-        $pagePageFollowed = 1;
-        $pageFriends = 1;
-        $pageCreated = 1;
-        $pageEditor = 1;
-        loadMorePageFollowed();
-        loadMoreFriends();
-        loadMorePageCreated();
-        loadMorePageEditor();
-        loadMorePublication();
-
-
-        $('#loadMorePublication').on('click', function () {
-            loadMorePublication();
-        });
-
-        function loadMorePublication() {
-            var _handler = function ($data) {
-                $('#my_publication').append($data['extra']['html']);
-            };
-            $result = util.loadMore(Routing.generate('wizardalley_user_profile_publication', {'user': {{ user.id }}, 'page': $pagePublication}), 'GET', _handler);
-            $pagePublication = $pagePublication + 1;
-        }
-        ;
-
-        function addPublication($data) {
-            $('#my_publication').append($data['extra']['html']);
-        }
-        ;
-        function loadMorePageFollowed() {
-            var _handler = function (data) {
-                var $divPageFollowed = $('#div_page_followed');
-                $.each(data['data'], function (index, item) {
-                    $prototype = $divPageFollowed.attr('prototype');
-                    $div = $prototype.replace('__id__', item.p_id);
-                    if (item.p_pathProfile != null && item.p_pathProfile != "") {
-                        $div = $div.replace('__picture__', item.p_pathProfile);
-                    } else {
-                        $div = $div.replace('__picture__', 'default.png');
-                    }
-                    $div = $div.replace('__title__', item.p_name);
-                    $divPageFollowed.append($div);
-                });
-            };
-            $result = util.loadMore(Routing.generate('page_user_followed_get', {'user': {{ user.id }},'page': $pagePageFollowed}), 'GET', _handler);
-            $pagePageFollowed = $pagePageFollowed + 1;
-        }
-        ;
-
-        function loadMoreFriends() {
-            var _handler = function (data) {
-                var $divFriend = $('#div_friend');
-                $.each(data['data'], function (index, item) {
-                    $prototype = $divFriend.attr('prototype');
-                    $div = $prototype.replace('__id__', item.id);
-                    if (item.path_profile != null && item.path_profile != "") {
-                        $div = $div.replace('__picture__', item.id + '/' + item.path_profile);
-                    } else {
-                        $div = $div.replace('__picture__', 'default.png');
-                    }
-                    $div = $div.replace('__title__', item.username);
-                    $divFriend.append($div);
-                });
-            }
-            $result = util.loadMore(Routing.generate('wizard_get_friends_json', {'user': {{ user.id }},'page': $pageFriends}), 'GET', _handler);
-            $pageFriends = $pageFriends + 1;
-        }
-        ;
-
-
-        function loadMorePageCreated() {
-            var $divPageCreated = $('#div_page_created');
-            var _handler = function (data) {
-                $.each(data['data'], function (index, item) {
-                    $prototype = $divPageCreated.attr('prototype');
-                    $div = $prototype.replace('__id__', item.p_id);
-                    if (item.p_pathProfile != null && item.p_pathProfile != "") {
-                        $div = $div.replace('__picture__', item.p_pathProfile);
-                    } else {
-                        $div = $div.replace('__picture__', 'default.png');
-                    }
-                    $div = $div.replace('__title__', item.p_name);
-                    $divPageCreated.append($div);
-                });
-            };
-            $result = util.loadMore(Routing.generate('page_user_created_get', {'user': {{ user.id }}, 'page': $pageCreated}), 'GET', _handler);
-            $pageCreated = $pageCreated + 1;
-        }
-        ;
-
-        function loadMorePageEditor() {
-            var _handler = function (data) {
-                var $divPageEditor = $('#div_page_editor');
-                $.each(data['data'], function (index, item) {
-                    $prototype = $divPageEditor.attr('prototype');
-                    $div = $prototype.replace('__id__', item.p_id);
-                    if (item.p_pathProfile != null && item.p_pathProfile != "") {
-                        $div = $div.replace('__picture__', item.p_pathProfile);
-                    } else {
-                        $div = $div.replace('__picture__', 'default.png');
-                    }
-                    $div = $div.replace('__title__', item.p_name);
-                    $divPageEditor.append($div);
-                });
-            };
-            $result = util.loadMore(Routing.generate('page_user_editor_get', {'page': $pageEditor}), 'GET', _handler);
-            $pageEditor = $pageEditor + 1;
-        }
-        ;
-    </script>
 {% endblock %}
