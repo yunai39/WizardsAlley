@@ -23,7 +23,6 @@
                     </p>
                 {% endif %}
                 <p class="lead">
-                    {% trans %}wizard.utility.by{% endtrans %}:
                     {% if publication.type == 'page_publication' %}
                         <a href="{{ path('page_show', {'id_page': publication.writer_id}) }}">{{ publication.name }}</a>
                     {% else %}

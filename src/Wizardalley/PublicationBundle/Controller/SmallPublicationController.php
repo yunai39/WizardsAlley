@@ -48,12 +48,18 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             $entity->setOnline(true);
             $entity->setCreatedAt(new \DateTime('now'));
             $entity->setUpdatedAt(new \DateTime('now'));
-            $em = $this->getDoctrine()->getManager();
+            $em =
+                $this->getDoctrine()
+                     ->getManager()
+            ;
             $em->persist($entity);
             $em->flush();
 
             if ($request->isXmlHttpRequest()) {
-                return $this->sendJsonResponse('success', ['message' => 'wizard.smallPublication.add.success']);
+                return $this->sendJsonResponse(
+                    'success',
+                    ['message' => 'wizard.smallPublication.add.success']
+                );
             } else {
                 return $this->redirect($this->getRequest()->headers->get('referer'));
             }
@@ -87,7 +93,11 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             ]
         );
 
-        $form->add('submit', 'submit', ['label' => 'Create']);
+        $form->add(
+            'submit',
+            'submit',
+            ['label' => 'Create']
+        );
 
         return $form;
     }
@@ -98,9 +108,15 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
 
-        $entity = $em->getRepository('WizardalleyCoreBundle:SmallPublication')->find($id);
+        $entity =
+            $em->getRepository('WizardalleyCoreBundle:SmallPublication')
+               ->find($id)
+        ;
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find SmallPublication entity.');
@@ -110,6 +126,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             '::user/smallPublication/show.html.twig',
             [
                 'entity' => $entity,
+                'user'   => $entity->getUser()
             ]
         );
     }

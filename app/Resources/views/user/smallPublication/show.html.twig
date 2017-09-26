@@ -1,10 +1,10 @@
-{% extends '::base.html.twig' %}
+{% extends '::user/profileBase.html.twig' %}
 
 {% block title %}
     {% trans %}wizard.title.base{% endtrans %} {{ entity.user.username }}
 {% endblock %}
 
-{% block body -%}
+{% block profile_body -%}
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="publication">
@@ -18,11 +18,11 @@
                         </div>
                     </div>
                     <div class="col-xs-6">
-                        <h3>{% trans %}wizard.utility.by{% endtrans %}:
+                        <h3>
                             <a class="publication-author"
                                href="{{ path('wizardalley_user_wall', {'id': entity.user.id}) }}">{{ entity.user.username }}</a>
-                            , le <span class="publication-date">{{ entity.createdAt | date('Y-m-d') }}
-                                à {{ entity.createdAt | date('H:i:s') }}</span>
+                            <br>
+                            <span class="publication-date">{{ entity.createdAt | date('Y-m-d') }} à {{ entity.createdAt | date('H:i:s') }}</span>
                         </h3>
                     </div>
                     <div class="col-xs-2">

@@ -11,6 +11,7 @@ use Wizardalley\CoreBundle\Entity\AbstractPublication;
 use Wizardalley\CoreBundle\Entity\ImagePublication;
 use Wizardalley\CoreBundle\Entity\ImagePublicationRepository;
 use Wizardalley\CoreBundle\Entity\Page;
+use Wizardalley\CoreBundle\Entity\PageUserFollow;
 use Wizardalley\CoreBundle\Entity\Publication;
 use Wizardalley\CoreBundle\Entity\CommentPublication;
 use Wizardalley\CoreBundle\Entity\PublicationRepository;
@@ -217,10 +218,21 @@ class PublicationController extends BaseController
             $id
         );
 
+        $followers = [];
+        /** @var PageUserFollow $follower */
+        foreach($entity->getPage()->getFollowers() as $follower) {
+            $followers[] = $follower->getUser();
+        }
+
+
         return $this->render(
             '::user/publication/show.html.twig',
             [
                 'entity'       => $entity,
+                'page'         => $entity->getPage(),
+                'creator_id'   => $entity->getPage()->getCreator()->getId(),
+                'editors'      => $entity->getPage()->getEditors(),
+                'followers'    => $followers,
                 'entity_id'    => $id,
                 'comment_form' => $commentForm->createView(),
             ]
@@ -811,11 +823,17 @@ class PublicationController extends BaseController
         $form = $this->createForm(new DeletePublicationType());
 
         $form->handleRequest($this->get('request'));
-        $repo = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:Publication");
+        $repo        =
+            $this->getDoctrine()
+                 ->getRepository("WizardalleyCoreBundle:Publication")
+        ;
         $publication = $repo->find($id);
 
         if (!$publication instanceof Publication) {
-            $repo        = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:SmallPublication");
+            $repo        =
+                $this->getDoctrine()
+                     ->getRepository("WizardalleyCoreBundle:SmallPublication")
+            ;
             $publication = $repo->find($id);
         }
 
@@ -826,11 +844,16 @@ class PublicationController extends BaseController
             if (!$publication instanceof AbstractPublication) {
                 throw $this->createNotFoundException('Unable to find Publication.');
             }
-            if ($publication->getUser()->getId() != $user->getId()) {
+            if ($publication->getUser()
+                            ->getId() != $user->getId()
+            ) {
                 throw $this->createAccessDeniedException('This is not your publication');
             }
 
-            $em = $this->getDoctrine()->getManager();
+            $em =
+                $this->getDoctrine()
+                     ->getManager()
+            ;
             $em->remove($publication);
             $em->flush();
 

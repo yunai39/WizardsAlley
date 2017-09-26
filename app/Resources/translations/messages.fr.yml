@@ -32,7 +32,7 @@ wizard:
         search: Recherche
         refresh: Rafraichir
         back: Retour
-        by: Publié.e par
+        by: Publié par
         delete: Supprimer
         blame: Signaler
     notification:

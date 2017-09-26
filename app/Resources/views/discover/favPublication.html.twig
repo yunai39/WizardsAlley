@@ -2,25 +2,15 @@
 
     <div class="row ">
         {% for pubFav in publications %}
-            <div class="col-xs-12 col-sm-6 col-md-12 col-lg-6">
-                <div class="row">
-                    <div class="col-xs-4">
-                        {% if pubFav.images|length > 0 %}
-                            <div class="imgSquare">
-                                <div class="imgSquareContainer" >
-                                    <img src="{{ asset('/uploads/publications/' ~ pubFav.images.0.path)| imagine_filter('small_thumb') }}"/>
-                                </div>
-                            </div>
-                        {% endif %}
+            <div class="col-xs-6 col-sm-4 ">
+                {% if pubFav.images|length > 0 %}
+                    <div class="imgSquare circle">
+                        <div class="imgSquareContainer circle" >
+                            <img src="{{ asset('/uploads/publications/' ~ pubFav.images.0.path)| imagine_filter('small_thumb') }}"/>
+                        </div>
                     </div>
-                    <div class="col-xs-8">
-                        <h4><a href="{{ path('publication_show',{'id': pubFav.id }) }}">{{ pubFav.title }}</a></h4>
-                        <p>{% trans %}wizard.utility.by{% endtrans %}:
-                            <a  class="publication-author" href="{{ path('wizardalley_user_wall',{'id': pubFav.user.id}) }}">{{ pubFav.user.username }}</a>, le
-                            <span class="publication-date">{{ pubFav.createdAt | date('Y-m-d') }}</span>
-                        </p>
-                    </div>
-                </div>
+                {% endif %}
+                <h4><a href="{{ path('publication_show',{'id': pubFav.id }) }}">{{ pubFav.title }}</a></h4>
             </div>
         {% endfor %}
     </div>

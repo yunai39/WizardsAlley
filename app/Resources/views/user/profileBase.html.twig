@@ -27,21 +27,23 @@
                 <div class="col-sm-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <h3>
-                                {% trans %}wizard.user.profile.edit{% endtrans %}
-                                <hr>
-                            </h3>
+                            {%  if app.user and app.user.id == user.id %}
+                                <h3>
+                                    {% trans %}wizard.user.profile.edit{% endtrans %}
+                                    <hr>
+                                </h3>
 
-                            <p><a href="{{ path('wizardalley_user_profile_edit_picture') }}">{% trans %}
-                                    wizard.user.profile.edit_picture{% endtrans %}</a></p>
-                            <p><a href="{{ path('wizardalley_user_couverture_edit_picture') }}">{% trans %}
-                                    wizard.user.profile.edit_picture_wall{% endtrans %}</a></p>
-                            <p>
-                                <a href="{{ path('fos_user_change_password') }}">{{ 'wizard.user.profile.change_pwd'|trans({}) }}</a>
-                            </p>
-                            <p>
-                                <a href="{{ path('fos_user_profile_edit') }}">{{ 'wizard.user.profile.edit'|trans({}) }}</a>
-                            </p>
+                                <p><a href="{{ path('wizardalley_user_profile_edit_picture') }}">{% trans %}
+                                        wizard.user.profile.edit_picture{% endtrans %}</a></p>
+                                <p><a href="{{ path('wizardalley_user_couverture_edit_picture') }}">{% trans %}
+                                        wizard.user.profile.edit_picture_wall{% endtrans %}</a></p>
+                                <p>
+                                    <a href="{{ path('fos_user_change_password') }}">{{ 'wizard.user.profile.change_pwd'|trans({}) }}</a>
+                                </p>
+                                <p>
+                                    <a href="{{ path('fos_user_profile_edit') }}">{{ 'wizard.user.profile.edit'|trans({}) }}</a>
+                                </p>
+                            {%  endif %}
                             <h3>
                                 {% trans %}wizard.user.profile.about{% endtrans %}
                             </h3>
