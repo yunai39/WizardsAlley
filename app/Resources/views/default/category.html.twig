@@ -3,7 +3,7 @@
 {% block head_extra_class %}head-category{% endblock %}
 
 {% block title %}
-    {% trans %}wizard.title.base{% endtrans %} {{ category.name }}
+    {{ category.name }}
 {% endblock %}
 
 {% block title_banner %}
@@ -22,7 +22,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                    <h2><strong>{% trans %}wizard.category.name{% endtrans %}:</strong> {{ category.name }}</h2>
+                    <h2>{{ category.name }}</h2>
                     <p>{{ category.description }}</p>
                 </div>
             </div>
