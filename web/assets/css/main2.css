@@ -215,12 +215,16 @@ header nav .nav-full li:hover, .navbar-nav .active  {
 	border-bottom-color: #fff;
 }
 
-h1 {
-    font-size: 3rem;
-}
-
 .head .title-wrapper {
     padding: 20vh 0 10vh;
+}
+
+.head h1 {
+    margin-top: 0vh;
+}
+
+h1 {
+    font-size: 3rem;
 }
 
 #wizardalley_publicationbundle_add_small_publication_content {
@@ -237,6 +241,23 @@ h1 {
 
 .dropdown-menu {
     border-radius: 5px!important;
+}
+
+/* MENU RESPONSIVE */
+@media (max-width: 767px) {
+    
+    header nav .nav-full li:hover, header nav .nav-full li.active {
+        border-bottom-color: transparent;
+    }
+    
+    .navbar-nav > li > a {
+        text-align: center;
+    }
+    
+    nav navbar-nav nav-full, .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+        height: 100vh;
+        max-height: none;
+    }
 }
 
 /*# sourceMappingURL=main.css.map */

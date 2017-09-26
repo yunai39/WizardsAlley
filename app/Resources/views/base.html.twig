@@ -5,7 +5,7 @@
     <title>{% block title %}Wizard's Alley{% endblock %}</title>
     <meta name="viewport" content="width=device-width">
     {% block stylesheets %}
-
+        <meta name="viewport" content="width=device-width">
         {% stylesheets
                 'assets/css/bootstrap.min.css'
                 'assets/css/bootstrap.icon-large.min.css'
@@ -16,6 +16,7 @@
                 'assets/css/main2.css'
                 'assets/jquery-ui/jquery-ui.min.css'
                 'assets/jquery-ui/jquery-ui.theme.min.css'
+                'assets/css/main2.css'
                'assets/jquery-ui/jquery-ui.structure.min.css'
                 filter='?uglifycss,cssrewrite' %}
             <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
