@@ -99,7 +99,7 @@ fos_user:
     registration:
         confirmation:
             from_email: 
-                address:        admin@wizardalley.com
+                address:        noreplywizardsalley@gmail.com 
                 sender_name:    Great Wizard
             enabled:    true # change to true for required email confirmation
             template:   FOSUserBundle:Registration:email.txt.twig
