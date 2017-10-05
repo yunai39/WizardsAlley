@@ -7,7 +7,7 @@
 {% block title_banner %}
     <div class="imgSquare circle">
         <div class="imgSquareContainer circle">
-            <img src="{{ asset(user.getPictureProfile()) }}" class="circle"/>
+            <img src="{{ asset(user.getPictureProfile()) | imagine_filter('small_thumb')}}" class="circle"/>
         </div>
     </div>
     <div>
