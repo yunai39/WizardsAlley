@@ -32,7 +32,7 @@ wizard:
         user_online: Sorciers en ligne
     utility:
         load_more: Charger plus
-        search: Recherche
+        search: Effectuer une recherche précise
         refresh: Rafraichir
         back: Retour
         by: Publié par

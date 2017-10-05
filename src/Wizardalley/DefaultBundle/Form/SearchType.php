@@ -18,19 +18,26 @@ class SearchType extends AbstractType
             'page'        => 'wizard.search.label.page',
             'publication' => 'wizard.search.label.publication',
         ];
-        if ($options['isOnline']) {
-            $choices['user'] = 'wizard.search.label.user';
+        if ($options[ 'isOnline' ]) {
+            $choices[ 'user' ] = 'wizard.search.label.user';
         }
         $builder
             ->add(
                 'searchType',
                 'choice',
                 [
-                    'label'   => 'wizard.search.type.label',
+                    'label'   => false,
                     'choices' => $choices
                 ]
             )
-            ->add('field', 'text', ['label' => 'wizard.search.label.field'])
+            ->add(
+                'field',
+                'text',
+                [
+                    'label' => false,
+                    'attr'  => ['placeholder' => 'wizard.search.label.field']
+                ]
+            )
         ;
     }
 

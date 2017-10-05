@@ -13,9 +13,9 @@ wizard:
     type.label: 'Type de recherche'
     label:
       field: 'Recherche'
-      user: 'Utilisateur'
-      page: 'Page'
-      publication: 'Publication de page'
+      user: 'Rechercher des utilisateurs'
+      page: 'Rechercher dans les pages'
+      publication: 'Rechercher des publications'
     action: 'Rechercher'
   user:
     profile:
