@@ -6,6 +6,14 @@
     {% trans %}wizard.title.base{% endtrans %} {% trans %}wizard.menu.link.search{% endtrans %}
 {% endblock %}
 
+
+ {% block body_style %}url('{{ asset('images/background-search.jpg')}}'){% endblock %}
+{% block title_banner %}
+    <h1>
+        {% trans %}wizard.title.search{% endtrans %}
+    </h1>
+{% endblock %}
+
 {% block body %}
     <div class="row">
         <div class="panel panel-default">

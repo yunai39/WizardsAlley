@@ -26,6 +26,31 @@ class NotificationController extends BaseController
     }
 
     /**
+     * @Route("/user/notificationStatus/list/{status}/{page}", name="user_notification_status_list", options={"expose"=true})
+     * @param int $page
+     *
+     * @return Response
+     */
+    public function listStatusNotificationJsonAction($status, $page)
+    {
+        $repo = $this->getDoctrine()->getRepository('WizardalleyCoreBundle:FollowedNotification');
+
+        return $this->sendJsonResponse(
+            'success',
+            $this->renderView(
+                '::notification/list.html.twig',
+                [
+                    'notifications' => $repo->findStatusNotification(
+                        $this->get('security.token_storage')->getToken()->getUser()->getId(),
+                        $page,
+                        $status
+                    )
+                ]
+            )
+        );
+    }
+
+    /**
      * @Route("/user/notification/list/{page}", name="user_notification_list", options={"expose"=true})
      * @param int $page
      *

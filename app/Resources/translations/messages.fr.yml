@@ -13,6 +13,9 @@ wizard:
         edit: Modifications
         map: Carte
         discover: Découvertes en tous genre
+        messagerie: La volière électronique
+        notification: Notifications du monde magique
+        search: Registre des sorciers et communautés de l'Allée des Sorciers
         not-connected:
             discover1: Bienvenue amis sorciers sur le portail magique de
             discover2: l'Allée des Sorciers.
@@ -36,6 +39,8 @@ wizard:
         delete: Supprimer
         blame: Signaler
     notification:
+        latest: Dernières notifications
+        old: Notifications archivées
         page_publication: >
             <a href="%page_link%">%page_name%</a> vient de publier: <a href="%publication_link%">%publication_name%</a>
         user_message: >
