@@ -288,6 +288,10 @@ h1 {
 
 /* BLOCKS PAGES */
 
+.head .title-wrapper {
+    padding: 27vh 0 10vh;
+}
+
 #wizardalley_publicationbundle_add_small_publication_content {
     border-radius: 0px;
 }
