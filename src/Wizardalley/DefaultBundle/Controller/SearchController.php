@@ -36,7 +36,7 @@ class SearchController extends BaseController
         $form->add(
             'submit',
             'submit',
-            ['label' => 'wizard.search.action']
+            ['label' => 'wizard.search.action', 'attr' => ['class' => 'btn-block']]
         );
 
         return $this->render(
