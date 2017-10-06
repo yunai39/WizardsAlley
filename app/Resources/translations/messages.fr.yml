@@ -136,6 +136,9 @@ wizard:
             sexe:
                 male: Masculin
                 female: Féminin
+    search:
+        online_wizard: Les sorciers en ligne
+        all_wizard: Tous les sorciers
     contact:
         message: Merci, le message a bien été envoyé !
         title: Nous envoyer un hiboux

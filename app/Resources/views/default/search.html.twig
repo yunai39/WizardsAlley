@@ -7,7 +7,7 @@
 {% endblock %}
 
 
- {% block body_style %}url('{{ asset('images/background-search.jpg')}}'){% endblock %}
+ {% block body_style %}url('{{ asset('images/background-search.jpg') }}'){% endblock %}
 {% block title_banner %}
     <h1>
         {% trans %}wizard.title.search{% endtrans %}
@@ -16,29 +16,60 @@
 
 {% block body %}
     <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h2 class="text-left">{% trans %}wizard.utility.search{% endtrans %}</h2>
-                <hr>
-                <div class="col-md-12">
+        <div class="col-xs-10 col-xs-offset-1">
+            <div class="panel panel-default">
+                <div class="panel-body">
                     <div class="row">
-                        {{ form_start(form) }}
-                        <div class="col-md-4 col-xs-12">
-                            {{ form_row(form.searchType) }}
+                        <div class="col-xs-12">
+                            <h3 class="text-left">{% trans %}wizard.utility.search{% endtrans %}</h3>
                         </div>
-                        <div class="col-md-4 col-xs-12">
-                            {{ form_row(form.field) }}
-                        </div>
-                        <div class="col-md-4 col-xs-12">
-                            {{ form_row(form.submit) }}
-                        </div>
-                        {{ form_end(form) }}
                     </div>
-                </div>
-                <hr>
-                <div class="col-md-12" id="wizard_search_result"></div>
-                <div class="col-md-12">
-                    <button class="load-more-search">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                {{ form_start(form) }}
+                                <div class="col-md-4 col-xs-12">
+                                    {{ form_row(form.searchType) }}
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    {{ form_row(form.field) }}
+                                </div>
+                                <div class="col-md-4 col-xs-12">
+                                    {{ form_row(form.submit) }}
+                                </div>
+                                {{ form_end(form) }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="col-xs-12" id="wizard_search_result"></div>
+                        <div class="col-xs-12 text-right">
+                            <button class="load-more-search">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3 class="text-left">{% trans %}wizard.search.online_wizard{% endtrans %}</h3>
+                            <hr>
+                        </div>
+                        <div class="col-xs-12" id="wizard_search_online_result"></div>
+                        <div class="col-xs-12 text-right">
+                            <button class="load-more-online-search">{% trans %}wizard.utility.load_more{% endtrans %}</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3 class="text-left">{% trans %}wizard.search.all_wizard{% endtrans %}</h3>
+                            <hr>
+                        </div>
+                        <hr>
+                        <div class="col-xs-12" id="wizard_search_all_result"></div>
+                        <div class="col-xs-12 text-right">
+                            <button class="load-more-all-search">{% trans %}
+                                wizard.utility.load_more{% endtrans %}</button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -46,12 +77,14 @@
 {% endblock %}
 
 {% block javascripts %}
-    {{parent()}}
+    {{ parent() }}
     <script>
-        var field = null;
-        var researchType = null;
-        _$page = 1;
-        $('form').submit(function(event){
+        var field = null,
+                researchType = null,
+                _$page = 1,
+                _$pageOnline = 1,
+                _$pageAll = 1;
+        $('form').submit(function (event) {
             _$page = 1;
             event.preventDefault();
             field = $('#wizard_search_form_field').val();
@@ -60,18 +93,45 @@
             loadMore();
         });
 
-        $('button.load-more-search').on('click', function() {
+        $('button.load-more-search').on('click', function () {
             loadMore();
         });
+        $('button.load-more-all-search').on('click', function () {
+            loadMoreAll();
+        });
+        $('button.load-more-online-search').on('click', function () {
+            loadMoreAll();
+        });
 
-        $('#wizard_search_form_searchType').on('change', function() {
+        $('#wizard_search_form_searchType').on('change', function () {
             $('#wizard_search_result').html('');
             _$page = 1;
         });
 
-        function loadMore(){
-            $result = util.loadMoreSearch(researchType,field ,  _$page);
-            _$page = _$page+1;
+        function loadMore() {
+            util.loadMoreSearch(researchType, field, _$page);
+            _$page = _$page + 1;
         }
+        ;
+
+        function loadMoreAll() {
+            var _handler = function ($data) {
+                $('#wizard_search_all_result').append($data['extra']['html']);
+            };
+            util.loadMore(Routing.generate('wizardalley_search_all_user', {'page': _$pageAll}), 'GET', _handler);
+            _$pageAll = _$pageAll + 1;
+        }
+        ;
+        function loadMoreOnline() {
+            var _handler = function ($data) {
+                $('#wizard_search_online_result').append($data['extra']['html']);
+            };
+            util.loadMore(Routing.generate('wizardalley_search_online_page', {'page': _$pageOnline}), 'GET', _handler);
+            _$pageOnline = _$pageOnline + 1;
+        }
+        ;
+        loadMoreAll();
+        loadMoreOnline();
+
     </script>
 {% endblock %}

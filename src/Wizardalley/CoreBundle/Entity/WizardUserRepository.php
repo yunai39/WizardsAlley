@@ -373,6 +373,50 @@ class WizardUserRepository extends EntityRepository
         return $query->getResult();
     }
 
+
+    /**
+     *
+     * @param int    $page
+     * @param int    $limit
+     *
+     * @return array
+     */
+    public function findUsersOrderCreated($page = 1, $limit = BaseController::BASE_LIMIT)
+    {
+        $firstResult = ($page - 1) * $limit;
+
+        $qb    = $this->_em->createQueryBuilder()->select('u')->from($this->_entityName, 'u');
+        $query = $qb
+                    ->orderBy('u.lastLogin', 'DESC')
+                    ->setFirstResult($firstResult)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
+    /**
+     *
+     * @param int    $page
+     * @param int    $limit
+     *
+     * @return array
+     */
+    public function findUsersOrderLastAction($page = 1, $limit = BaseController::BASE_LIMIT)
+    {
+        $firstResult = ($page - 1) * $limit;
+
+        $qb    = $this->_em->createQueryBuilder()->select('u')->from($this->_entityName, 'u');
+        $query = $qb
+                    ->orderBy('u.lastConnect', 'DESC')
+                    ->setFirstResult($firstResult)
+                    ->setMaxResults($limit)
+                    ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
+
     /**
      * @param int        $limit
      * @param WizardUser $user

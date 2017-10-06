@@ -45,6 +45,44 @@ class SearchController extends BaseController
         );
     }
 
+
+
+    /**
+     * @param int $page
+     * @Route(
+     *     "/searchAllUser/{page}",
+     *      name="wizardalley_search_all_user",
+     *      defaults={"page" = 1},
+     *      requirements={"page" = "\d+"},
+     *      options={"expose": true}
+     *     )
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function searchAllUserAction($page = 1)
+    {
+        $em    = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('WizardalleyCoreBundle:WizardUser')->findUsersOrderCreated(
+            $page,
+            2
+        )
+        ;
+
+        return $this->sendJsonResponse(
+            'success',
+            null,
+            200,
+            [
+                'html' => $this->renderView(
+                    '::search/users.html.twig',
+                    [
+                        'users' => $users,
+                    ]
+                )
+            ]
+        );
+    }
+
     /**
      * @param     $field
      * @param int $page
@@ -115,6 +153,42 @@ class SearchController extends BaseController
                     '::search/page.html.twig',
                     [
                         'pages' => $pages,
+                    ]
+                )
+            ]
+        );
+    }
+
+    /**
+     * @param int $page
+     * @Route(
+     *     "/searchOnline/{page}",
+     *      name="wizardalley_search_online_page",
+     *      defaults={"page" = 1},
+     *      requirements={"page" = "\d+"},
+     *      options={"expose": true}
+     *     )
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function searchOnlineUserAction($page = 1)
+    {
+        $em    = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('WizardalleyCoreBundle:WizardUser')->findUsersOrderLastAction(
+            $page,
+            2
+        )
+        ;
+
+        return $this->sendJsonResponse(
+            'success',
+            null,
+            200,
+            [
+                'html' => $this->renderView(
+                    '::search/users.html.twig',
+                    [
+                        'users' => $users,
                     ]
                 )
             ]
