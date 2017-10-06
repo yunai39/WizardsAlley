@@ -631,4 +631,29 @@ class Page implements TimedEntityInterface
     {
         return $this->checkers;
     }
+
+
+    /**
+     * @return string
+     */
+    public function getWebPathProfile()
+    {
+        if (empty($this->getPathProfile())) {
+            return $this->getDefaultProfile();
+        } else {
+            return $this->getUploadDir() . 'profile/' . $this->getPathProfile();
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getWebPathCouverture()
+    {
+        if (empty($this->getPathCouverture())) {
+            return $this->getDefaultCouverture();
+        } else {
+            return $this->getUploadDir() . 'cover/' . $this->getPathCouverture();
+        }
+    }
 }

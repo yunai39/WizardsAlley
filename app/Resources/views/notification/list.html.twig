@@ -1,10 +1,42 @@
 {% for notification in notifications %}
-    <div class="col-xs-6 col-md-3">
-        <div class="text-center
+    <div class="col-xs-4 col-sm-3 col-lg-2">
+        <div class="
         {% if notification.checked %}notification-viewed{% else %}notification-not-viewed{% endif %}"
         >
             <div class="row">
                 <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            {% if notification.type == 'publication' %}
+                                <div class="imgSquare circle">
+                                    <div class="imgSquareContainer circle" >
+                                        <img src="{{ asset( image_profile_page_id(notification.getData.page_id)| imagine_filter('small_thumb') ) }}" />
+                                    </div>
+                                </div>
+
+                            {% elseif notification.type == 'message' %}
+                                <div class="imgSquare circle">
+                                    <div class="imgSquareContainer circle" >
+                                        <img src="{{ asset( image_profile_page_id(notification.getData.sender_id)| imagine_filter('small_thumb') ) }}" />
+                                    </div>
+                                </div>
+                            {% elseif notification.type == 'answer_ask_friend' %}
+                                <div class="imgSquare circle">
+                                    <div class="imgSquareContainer circle" >
+                                        <img src="{{ asset( image_profile_page_id(notification.getData.asked_from) | imagine_filter('small_thumb')) }}" />
+                                    </div>
+                                </div>
+                            {% elseif notification.type == 'ask_friend' %}
+                                <div class="imgSquare circle">
+                                    <div class="imgSquareContainer circle" >
+                                        <img src="{{ asset( image_profile_page_id(notification.getData.asked_from) | imagine_filter('small_thumb')) }}" />
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center">
                     {% if notification.type == 'publication' %}
                         {% trans with {
                         '%page_link%': path('page_show', {id_page: notification.getData.page_id}),
