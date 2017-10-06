@@ -1,10 +1,16 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
-{% block body_style %}url('{{ asset(user.getPictureCouverture) }}'){% endblock %}
+{% block body_style %}
+    {% if user is not defined %}
+        {% set user = app.user %}
+    {% endif %}url('{{ asset(user.getPictureCouverture) }}'){% endblock %}
 
 {% block head_extra_class %}head-profile{% endblock %}
 
 {% block title_banner %}
+    {% if user is not defined %}
+        {% set user = app.user %}
+    {% endif %}
     <div class="imgSquare circle">
         <div class="imgSquareContainer circle">
             <img src="{{ asset(user.getPictureProfile()) | imagine_filter('small_thumb')}}" class="circle"/>
@@ -167,6 +173,9 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {% if user is not defined %}
+        {% set user = app.user %}
+    {% endif %}
     <script>
         $pagePublication = 1;
         $pagePageFollowed = 1;

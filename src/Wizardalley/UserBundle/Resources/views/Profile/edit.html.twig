@@ -1,7 +1,13 @@
 {% extends "::user/profileBase.html.twig" %}
 
+{% block fos_user_content %}
+    {% set user = app.user %}
+    {{ parent() }}
+{% endblock %}
+
 {% block profile_body %}
 
+    {% set user = app.user %}
     <div class="row">
         <div class="col-xs-12">
             <div class="panel panel-default">
