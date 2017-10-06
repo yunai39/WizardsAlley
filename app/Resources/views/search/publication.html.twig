@@ -1,14 +1,18 @@
 {% for publication in publications|reverse %}
-    <div class="col-md-6 search-publication-container">
-        <div class="col-md-2" >
-            <div class="imgSquare">
-                <div class="imgSquareContainer" >
-                    <img src="{{ asset( '/uploads/publications/' ~ publication.images.0.path) | imagine_filter('small_thumb') }}" />
+    <div class="col-md-3 col-xs-4 col-lg-2 search-publication-container">
+        <div class="row">
+            <div class="col-xs-12" >
+                <div class="imgSquare circle">
+                    <div class="imgSquareContainer circle" >
+                        <img src="{{ asset( '/uploads/publications/' ~ publication.images.0.path) | imagine_filter('small_thumb') }}" />
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-10">
-            <a href="{{ path('publication_show' , {'id': publication.id})}}">{{ publication.title }}</a>
+            <div class="col-xs-12" >
+                <h4>
+                    <a href="{{ path('publication_show' , {'id': publication.id})}}">{{ publication.title }}</a>
+                </h4>
+            </div>
         </div>
     </div>
 {% endfor %}
