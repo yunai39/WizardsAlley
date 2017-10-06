@@ -10,26 +10,26 @@
                             {% if notification.type == 'publication' %}
                                 <div class="imgSquare circle">
                                     <div class="imgSquareContainer circle" >
-                                        <img src="{{ asset( image_profile_page_id(notification.getData.page_id)| imagine_filter('small_thumb') ) }}" />
+                                        <img src="{{ asset( image_profile_page_id(notification.getData.page_id)) }}" />
                                     </div>
                                 </div>
 
                             {% elseif notification.type == 'message' %}
                                 <div class="imgSquare circle">
                                     <div class="imgSquareContainer circle" >
-                                        <img src="{{ asset( image_profile_page_id(notification.getData.sender_id)| imagine_filter('small_thumb') ) }}" />
+                                        <img src="{{ asset( image_profile_page_id(notification.getData.sender_id) ) }}" />
                                     </div>
                                 </div>
                             {% elseif notification.type == 'answer_ask_friend' %}
                                 <div class="imgSquare circle">
                                     <div class="imgSquareContainer circle" >
-                                        <img src="{{ asset( image_profile_page_id(notification.getData.asked_from) | imagine_filter('small_thumb')) }}" />
+                                        <img src="{{ asset( image_profile_page_id(notification.getData.asked_from) ) }}" />
                                     </div>
                                 </div>
                             {% elseif notification.type == 'ask_friend' %}
                                 <div class="imgSquare circle">
                                     <div class="imgSquareContainer circle" >
-                                        <img src="{{ asset( image_profile_page_id(notification.getData.asked_from) | imagine_filter('small_thumb')) }}" />
+                                        <img src="{{ asset( image_profile_page_id(notification.getData.asked_from) ) }}" />
                                     </div>
                                 </div>
                             {% endif %}
