@@ -14,7 +14,13 @@ class SmallPublicationType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('content', 'textarea')
+                ->add('content', 'textarea',[
+                    'label' => false,
+                    'required' => true,
+                    'attr' => [
+                        'placeholder' => 'wizard.small_publication.placeholder'
+                    ]
+                ])
         ;
     }
 

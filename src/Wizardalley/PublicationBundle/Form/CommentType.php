@@ -14,7 +14,12 @@ class CommentType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('content')
+                ->add('content','textarea',[
+                    'label' => false,
+                    'required' => true,
+                    'attr' => [
+                        'placeholder' => 'wizard.comment.placeholder',
+                    ]])
         ;
     }
 

@@ -61,7 +61,12 @@ wizard:
         favorite:
             page: Nos pages préférées
             publication: Nos publications préférées
+    small_publication:
+        placeholder: Contenu de la publication
+    comment:
+        placeholder: Contenu du commentaire
     publication:
+        placeholder: Contenu de la publication
         add_blame:
             notification: Êtes vous sur de vouloir faire un blame ?
         delete_confirmation: Êtes vous sur de vouloir supprimer la publication ?

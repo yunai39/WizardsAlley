@@ -25,7 +25,10 @@ class PublicationType extends AbstractType
                     'content',
                     'textarea',
                     [
+                        'label' => false,
+                        'required' => true,
                         'attr' => [
+                            'placeholder' => 'wizard.publication.placeholder',
                             'class'      => 'tinymce',
                             'data-theme' => 'bbcode' // Skip it if you want to use default theme
                         ]
