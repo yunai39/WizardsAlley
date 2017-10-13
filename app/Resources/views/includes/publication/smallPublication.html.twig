@@ -1,0 +1,9 @@
+
+{% if publication.images|length > 0 %}
+    <div class="imgSquare circle">
+        <div class="imgSquareContainer circle" >
+            <img src="{{ asset('/uploads/publications/' ~ publication.images.0.path)| imagine_filter('small_thumb') }}"/>
+        </div>
+    </div>
+{% endif %}
+<h4><a href="{{ path('publication_show',{'id': publication.id }) }}">{{ publication.title }}</a></h4>

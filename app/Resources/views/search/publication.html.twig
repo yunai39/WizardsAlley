@@ -1,17 +1,8 @@
 {% for publication in publications|reverse %}
     <div class="col-md-3 col-xs-4 col-lg-2 search-publication-container">
         <div class="row">
-            <div class="col-xs-12" >
-                <div class="imgSquare circle">
-                    <div class="imgSquareContainer circle" >
-                        <img src="{{ asset( '/uploads/publications/' ~ publication.images.0.path) | imagine_filter('small_thumb') }}" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12" >
-                <h4>
-                    <a href="{{ path('publication_show' , {'id': publication.id})}}">{{ publication.title }}</a>
-                </h4>
+            <div class="col-xs-12">
+                {% include 'includes/publication/smallPublication.html.twig' with {'publication': publication} %}
             </div>
         </div>
     </div>

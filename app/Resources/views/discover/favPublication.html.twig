@@ -1,16 +1,7 @@
-
-
-    <div class="row ">
-        {% for pubFav in publications %}
-            <div class="col-xs-6 col-sm-4 ">
-                {% if pubFav.images|length > 0 %}
-                    <div class="imgSquare circle">
-                        <div class="imgSquareContainer circle" >
-                            <img src="{{ asset('/uploads/publications/' ~ pubFav.images.0.path)| imagine_filter('small_thumb') }}"/>
-                        </div>
-                    </div>
-                {% endif %}
-                <h4><a href="{{ path('publication_show',{'id': pubFav.id }) }}">{{ pubFav.title }}</a></h4>
-            </div>
-        {% endfor %}
-    </div>
+<div class="row ">
+    {% for pubFav in publications %}
+        <div class="col-xs-6 col-sm-4 ">
+            {% include 'includes/publication/smallPublication.html.twig' with {'publication': pubFav} %}
+        </div>
+    {% endfor %}
+</div>
