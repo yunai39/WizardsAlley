@@ -13,6 +13,29 @@ use Wizardalley\DefaultBundle\Controller\BaseController;
  */
 class PageRepository extends EntityRepository
 {
+
+    /**
+     *
+     * @param int    $page
+     * @param int    $limit
+     *
+     * @return array
+     */
+    public function findPagesOrderCreated($page = 1, $limit = BaseController::BASE_LIMIT)
+    {
+        $firstResult = ($page - 1) * $limit;
+
+        $qb    = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
+        $query = $qb
+            ->orderBy('p.createdAt', 'DESC')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($limit)
+            ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
+
     /**
      * @param     $id_page
      * @param int $limit

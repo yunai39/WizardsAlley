@@ -70,6 +70,19 @@
                         </div>
 
                     </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h3 class="text-left">{% trans %}wizard.search.all_community{% endtrans %}</h3>
+                            <hr>
+                        </div>
+                        <hr>
+                        <div class="col-xs-12" id="wizard_search_all_community_result"></div>
+                        <div class="col-xs-12 text-right">
+                            <button class="load-more-all-community-search">{% trans %}
+                                wizard.utility.load_more{% endtrans %}</button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
@@ -83,6 +96,7 @@
                 researchType = null,
                 _$page = 1,
                 _$pageOnline = 1,
+                _$pageCommunityAll = 1,
                 _$pageAll = 1;
         $('form').submit(function (event) {
             _$page = 1;
@@ -100,7 +114,10 @@
             loadMoreAll();
         });
         $('button.load-more-online-search').on('click', function () {
-            loadMoreAll();
+            loadMoreOnline();
+        });
+        $('button.load-more-all-community-search').on('click', function () {
+            loadMoreAllCommunity();
         });
 
         $('#wizard_search_form_searchType').on('change', function () {
@@ -122,6 +139,14 @@
             _$pageAll = _$pageAll + 1;
         }
         ;
+        function loadMoreAllCommunity() {
+            var _handler = function ($data) {
+                $('#wizard_search_all_community_result').append($data['extra']['html']);
+            };
+            util.loadMore(Routing.generate('wizardalley_search_all_community', {'page': _$pageCommunityAll}), 'GET', _handler);
+            _$pageCommunityAll = _$pageCommunityAll + 1;
+        }
+        ;
         function loadMoreOnline() {
             var _handler = function ($data) {
                 $('#wizard_search_online_result').append($data['extra']['html']);
@@ -132,6 +157,7 @@
         ;
         loadMoreAll();
         loadMoreOnline();
+        loadMoreAllCommunity();
 
     </script>
 {% endblock %}

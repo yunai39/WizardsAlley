@@ -7,6 +7,11 @@ publication:
 wizard:
     messagerie:
         beta: La messagerie est actuellement en BETA
+        start_new:
+            title: Commencer une nouvelle discussion
+            description: Ecrire à l'un de vos contacts du monde magique
+        latest_discussion:
+            title: Vos dernières discussions
     title:
         base: Wizard's Alley ::
         ruelle: Ma ruelle
@@ -139,6 +144,7 @@ wizard:
     search:
         online_wizard: Les sorciers en ligne
         all_wizard: Tous les sorciers
+        all_community: Toutes les communautés magiques
     contact:
         message: Merci, le message a bien été envoyé !
         title: Nous envoyer un hiboux

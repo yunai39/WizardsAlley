@@ -14,3 +14,8 @@ services:
         arguments: ['@security.token_storage', '@doctrine.orm.default_entity_manager']
         tags:
             - { name: twig.extension }
+    wizard.user.twig.message:
+        class: Wizardalley\UserBundle\Twig\MessageExtension
+        arguments: ['@security.token_storage', '@doctrine.orm.default_entity_manager']
+        tags:
+            - { name: twig.extension }

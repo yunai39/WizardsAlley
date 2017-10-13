@@ -83,6 +83,43 @@ class SearchController extends BaseController
         );
     }
 
+
+    /**
+     * @param int $page
+     * @Route(
+     *     "/searchAllCommunity/{page}",
+     *      name="wizardalley_search_all_community",
+     *      defaults={"page" = 1},
+     *      requirements={"page" = "\d+"},
+     *      options={"expose": true}
+     *     )
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function searchAllCommunityAction($page = 1)
+    {
+        $em    = $this->getDoctrine()->getManager();
+        $pages = $em->getRepository('WizardalleyCoreBundle:Page')->findPagesOrderCreated(
+            $page,
+            2
+        )
+        ;
+
+        return $this->sendJsonResponse(
+            'success',
+            null,
+            200,
+            [
+                'html' => $this->renderView(
+                    '::search/page.html.twig',
+                    [
+                        'pages' => $pages,
+                    ]
+                )
+            ]
+        );
+    }
+
     /**
      * @param     $field
      * @param int $page
