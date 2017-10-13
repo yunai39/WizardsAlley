@@ -82,8 +82,7 @@ wizard:
         password: Mot de passe
         title: Se connecter
         message: >
-            Bienvenue sorcier, sorcière en tout genre.
-            Prends un peu de poudre de cheminette et prononce clairement
+            Bienvenue sorcier, sorcière en tout genre. Prends un peu de poudre de cheminette et prononce clairement
     category:
         name: Catégorie
     menu:
@@ -129,6 +128,7 @@ wizard:
             informations: Informations
             username: Pseudonyme
     register:
+        title: S'inscrire
         label:
             firstname: Prénom 
             lastname: Nom 

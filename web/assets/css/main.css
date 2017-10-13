@@ -226,7 +226,14 @@ button, .btn-default, .btn {
 
 @font-face {
   font-family: "Timeless";
-  src: url("../fonts/Timeless/timeless.woff") format("woff"), url("../fonts/Timeless/timeless.ttf") format("truetype"); }
+  src: url("../fonts/Timeless/timeless.woff") format("woff"), url("../fonts/Timeless/timeless.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Timeless";
+  src: url("../fonts/Timeless/timeless-bold.ttf");
+  font-weight: bold;
+}
 #fav_pages .page:nth-child(even) .img-wrapper {
   float: right; }
 
@@ -304,6 +311,11 @@ button, .btn-default, .btn {
   background-position: -5px -150px;
   width: 43px;
   height: 45px; }
+
+.container-login-title .login-title {
+  font-size: 1.2em; }
+.container-login-title .login-title-description {
+  font-size: 1.5em; }
 
 .navbar-head, h1, h2, h3, h4, h5, h6, footer {
   font-family: "Timeless", sans-serif; }

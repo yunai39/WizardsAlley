@@ -1,0 +1,18 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block body_style %}url('{{ asset('images/bg-train.jpg') }}'){% endblock %}
+
+{% block title_banner %}
+    <div class="container-login-title text-center">
+        <p class="login-title-description">
+            {{ 'wizard.login.message' | trans | raw }}
+            <br>
+            <b>"Wizard's Alley"</b>
+        </p>
+    </div>
+{% endblock %}
+
+{% block fos_user_content %}
+    <h3>{{ 'wizard.register.title' | trans }}</h3>
+    {% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock fos_user_content %}
