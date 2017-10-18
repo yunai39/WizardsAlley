@@ -1,37 +1,14 @@
 {% for publication in publications %}
-    <div class="publication">
-        <div class="row ">
-            <div class="col-xs-4 col-md-2">
-
-                <div class="imgSquare circle">
-                    <div class="imgSquareContainer" >
-                        <img src="{{asset('uploads/publications/' ~ publication.path)| imagine_filter('small_thumb') }}" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-8 col-md-10">
-
-                <p class="lead">
-                    <a  class="publication-author" href="{{path('wizardalley_user_wall',{'id': publication.user_id})}}" >{{publication.username}}</a>
-                </p>
-                <p class="lead">
-                    <span class="publication-date">{{publication.created_at | date('Y-m-d')}} à {{publication.created_at | date('H:i:s')}}</span>
-
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-
-                <h2><a href="{{path('publication_show',{'id': publication.id })}}" >{{publication.title}}</a></h2>
-                <p>{{publication.small_content | raw}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <h6>{% trans %}publication.comments{% endtrans %}</h6>
-            </div>
-        </div>
-
-    </div>
+    {% include 'includes/publication/bigPublication.html.twig' with {
+        'publication_path': publication.path,
+        'publication_user_id': publication.user_id,
+        'publication_user_path_profile': publication.path_profile,
+        'publication_user_username': publication.user_id,
+        'publication_created_at': publication.created_at,
+        'publication_id': publication.id,
+        'publication_type': 'page_publication',
+        'publication_title': publication.title,
+        'publication_name': publication.name,
+        'publication_content': publication.small_content
+    } %}
 {% endfor %}

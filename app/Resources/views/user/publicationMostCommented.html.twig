@@ -1,57 +1,14 @@
 {% for publication in publications %}
-    <div class="publication">
-        <div class="row ">
-            <div class="col-xs-4">
-
-                <div class="imgSquare circle">
-                    <div class="imgSquareContainer">
-                            <img src="{{ asset('uploads/page/profile/' ~ publication.page.pathProfile) | imagine_filter('small_thumb') }}"/>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-8">
-                    <p class="lead">
-                        <a href="{{ path('publication_show',{'id':publication.id}) }}">{{ publication.title }}</a>
-                    </p>
-                <p class="lead">
-                    {% trans %}wizard.utility.by{% endtrans %}:
-                    <a class="publication-author" href="{{ path('wizardalley_user_wall', {'id': publication.user.id}) }}">{{ publication.user.username }}</a>
-                    -
-                    <a href="{{ path('page_show', {'id_page': publication.page.id}) }}">{{ publication.page.name }}</a>
-                </p>
-            </div>
-        </div>
-        <div class="row ">
-            <div class="col-xs-12">
-                <p>
-                    <span class="publication-date">{{ publication.createdAt | date('d/m/Y') }} - {{ publication.createdAt | date('H:i:s') }}</span>
-                </p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12">
-                    <button class="label defaut-label btn">
-
-                            <a href="{{ path('publication_show',{'id':publication.id}) }}">{% trans %}
-                                publication.display.link{% endtrans %}</a>
-                    </button>
-                    <button class="label defaut-label btn">
-                        <span>{{ publication.comments|length }}</span> {% trans %}publication.comments{% endtrans %}
-                    </button>
-                    <button class="label defaut-label like-unlike-button btn"
-                            data-id="{{ publication.id }}"
-                            onclick="util.likeOrUnlikePublication({{ publication.id }})"
-                        {% if is_like(publication.id) %}
-                            value="unlike">
-                            {% trans %}publication.unlike{% endtrans %}
-                        {% else %}
-                            value="like">
-                            {% trans %}publication.like{% endtrans %}
-                        {% endif %}
-                    </button>
-            </div>
-        </div>
-
-    </div>
+    {% include 'includes/publication/bigPublication.html.twig' with {
+    'publication_path': publication.page.pathProfile,
+    'publication_user_id': publication.user.id ,
+    'publication_user_path_profile': publication.page.pathProfile,
+    'publication_user_username': publication.user.username,
+    'publication_created_at': publication.createdAt,
+    'publication_id': publication.id,
+    'publication_type': 'page_publication',
+    'publication_title': publication.title,
+    'publication_content': publication.smallContent,
+    'publication_name':  publication.page.name
+    } %}
 {% endfor %}

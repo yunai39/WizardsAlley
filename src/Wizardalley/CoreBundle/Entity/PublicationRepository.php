@@ -116,7 +116,16 @@ class PublicationRepository extends EntityRepository
     ) {
         $firstResult = ($page - 1)*$limit;
         $sql = "
-        select distinct w.username, w.id as 'user_id',pu.id as id, pu.title, pu.small_content, pa.created_at,
+        select
+            distinct w.username,
+            w.path_profile as 'path_profile',
+            w.id as 'user_id',
+            pu.id as id,
+            pu.title,
+            pu.small_content,
+            pa.content,
+            pa.created_at,
+            p.name as 'name',
             (
                 SELECT
                     path

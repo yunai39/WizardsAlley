@@ -1,80 +1,14 @@
 {% for publication in publications %}
-    <div class="publication">
-        <div class="row ">
-            <div class="col-xs-2">
-
-                <div class="imgSquare circle">
-                    <div class="imgSquareContainer">
-                        {% if publication.type == 'page_publication' %}
-                            <img src="{{ asset('uploads/page/'~publication.writer_id ~ '/' ~ publication.path_profile) | imagine_filter('small_thumb') }}"/>
-                        {% else %}
-                            {% if publication.path_profile %}
-                                <img src="{{ asset('uploads/profile/'~publication.writer_id ~ '/' ~ publication.path_profile)| imagine_filter('small_thumb') }}"/>
-                            {% else %}
-                                <img src="{{ asset('uploads/profile/default.png')| imagine_filter('small_thumb') }}"/>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-10">
-                {% if publication.type == 'page_publication' %}
-                    <p class="lead">
-                        <a href="{{ path('publication_show',{'id':publication.publication_id}) }}">{{ publication.title }}</a>
-                        -
-                        <a href="{{ path('page_show', {'id_page': publication.writer_id}) }}">{{ publication.name }}</a>
-                    </p>
-                {% else %}
-                    <p class="lead">
-                        <a href="{{ path('wizardalley_user_wall', {'id': publication.writer_id}) }}">{{ publication.name }}</a>
-                    </p>
-                {% endif %}
-                <p>{{ publication.createdAt | date('d/m/Y') }}
-                    - {{ publication.createdAt | date('H:i:s') }}</p>
-            </div>
-        </div>
-        <br/>
-        <div class="row">
-            <div class="col-md-12">
-                {% if publication.type == 'page_publication' %}
-                    <p>{{ publication.content | raw }}</p>
-                {% else %}
-                    <p>{{ publication.content }}</p>
-                {% endif %}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12 text-align-right">
-                    <span class="label defaut-label">
-
-                        {% if publication.type == 'page_publication' %}
-                            <a href="{{ path('publication_show',{'id':publication.publication_id}) }}">{% trans %}
-                                publication.display.link{% endtrans %}</a>
-                        {% else %}
-                            <a href="{{ path('user_small_publication_show',{'id':publication.publication_id}) }}">{% trans %}
-                                publication.display.link{% endtrans %}</a>
-                        {% endif %}
-                    </span>
-                    <span class="label defaut-label">
-                        {% trans %}publication.comments{% endtrans %}
-                    </span>
-                {% if publication.type == 'page_publication' %}
-                    <button class="label defaut-label like-unlike-button"
-                            onclick="util.likeOrUnlikePublication({{ publication.publication_id }})"
-                            {% if is_like(publication.publication_id) %}
-                            value="unlike"
-                    >
-                        {% trans %}publication.unlike{% endtrans %}
-                        {% else %}
-                            value="like"
-                            >
-                            {% trans %}publication.like{% endtrans %}
-                        {% endif %}
-                    </button>
-                {% endif %}
-            </div>
-        </div>
-
-    </div>
+    {% include 'includes/publication/bigPublication.html.twig' with {
+    'publication_path': publication.path_profile,
+    'publication_user_id': publication.writer_id ,
+    'publication_user_path_profile': publication.path_profile,
+    'publication_user_username': publication.user.username,
+    'publication_created_at': publication.createdAt,
+    'publication_id': publication.publication_id,
+    'publication_type': publication.type,
+    'publication_title': publication.title,
+    'publication_content': publication.content,
+    'publication_name':  publication.name
+    } %}
 {% endfor %}

@@ -1,0 +1,85 @@
+
+<div class="publication">
+    <div class="row ">
+        <div class="col-xs-2">
+            <div class="imgSquare circle">
+                <div class="imgSquareContainer ">
+                    {% if publication_type == 'page_publication' %}
+                        <img src="{{ asset('uploads/page/profile/' ~ publication_path) | imagine_filter('small_thumb') }}"/>
+                    {% else %}
+                        {% if publication.path_profile %}
+                            <img src="{{ asset('uploads/profile/'~publication_user_id ~ '/' ~ publication_user_path_profile) | imagine_filter('small_thumb') }}"/>
+                        {% else %}
+                            <img src="{{ asset('uploads/profile/default.png')| imagine_filter('small_thumb')  }}"/>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-10">
+            {% if publication_type == 'page_publication' %}
+                <p class="lead">
+                    <a href="{{ path('publication_show',{'id': publication_id}) }}">{{ publication_title }}</a>
+                </p>
+            {% endif %}
+            <p class="lead">
+                {% if publication_type == 'page_publication' %}
+                    <a href="{{ path('page_show', {'id_page': publication_user_id}) }}">{{ publication_name }}</a>
+                {% else %}
+                    <a class="publication-author" href="{{ path('wizardalley_user_wall', {'id': publication_user_id}) }}">{{ publication_name }}</a>
+                {% endif %}
+            </p>
+            <p class="publication-date">{{ publication_created_at | date('d/m/Y') }}
+                - <span  class="publication-date">{{ publication_created_at | date('H:i:s') }}</span>
+            </p>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12">
+            {% if publication_type == 'page_publication' %}
+                <p>{{ publication_content | raw }}</p>
+            {% else %}
+                <p>{{ publication_content }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-align-right">
+
+            {% if publication_type == 'page_publication' %}
+                <a class="label defaut-label btn" href="{{ path('publication_show',{'id':publication_id}) }}">{% trans %}
+                    publication.display.link{% endtrans %}</a>
+            {% else %}
+                <a class="label defaut-label btn"  href="{{ path('user_small_publication_show',{'id':publication_id}) }}">{% trans %}
+                    publication.display.link{% endtrans %}</a>
+            {% endif %}
+            <button class="label defaut-label btn">
+                {% trans %}publication.comments{% endtrans %}
+            </button>
+            {% if publication_type == 'page_publication' %}
+                <button class="label defaut-label like-unlike-button btn"
+                        data-id="{{ publication_id }}"
+                        onclick="util.likeOrUnlikePublication({{ publication_id }})"
+                        {% if is_like(publication_id) %}
+                        value="unlike"
+                >
+                    {% trans %}publication.unlike{% endtrans %}
+                    {% else %}
+                        value="like"
+                        >
+                        {% trans %}publication.like{% endtrans %}
+                    {% endif %}
+                </button>
+            {% endif %}
+            {% if app.user.id == publication_user_id %}
+                {% include '::includes/disablePublicationButton.html.twig' with {'id': publication_id} %}
+            {% elseif app.user %}
+                {% include '::includes/addBlameButton.html.twig' with {'id': publication_id, 'type': 'publication'} %}
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
