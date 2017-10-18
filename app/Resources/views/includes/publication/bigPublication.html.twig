@@ -74,9 +74,11 @@
                 </button>
             {% endif %}
             {% if app.user %}
-                {% include '::includes/addBlameButton.html.twig' with {'id': publication_id, 'type': 'publication'} %}
-            {% elseif app.user.id == publication_user_id %}
-                {% include '::includes/disablePublicationButton.html.twig' with {'id': publication_id} %}
+                {% if app.user.id == publication_user_id %}
+                    {% include '::includes/disablePublicationButton.html.twig' with {'id': publication_id} %}
+                {% else %}
+                    {% include '::includes/addBlameButton.html.twig' with {'id': publication_id, 'type': 'publication'} %}
+                {% endif %}
             {% endif %}
         </div>
     </div>
