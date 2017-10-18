@@ -24,7 +24,7 @@
             {% endif %}
             <p class="lead">
                 {% if publication_type == 'page_publication' %}
-                    <a href="{{ path('page_show', {'id_page': publication_user_id}) }}">{{ publication_name }}</a>
+                    <a href="{{ path('page_show', {'id_page': publication_page_id}) }}">{{ publication_name }}</a>
                 {% else %}
                     <a class="publication-author" href="{{ path('wizardalley_user_wall', {'id': publication_user_id}) }}">{{ publication_name }}</a>
                 {% endif %}

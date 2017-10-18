@@ -149,6 +149,7 @@ class WizardUserRepository extends EntityRepository
                 pa.id as 'writer_id',
                 pa.name,
                 pa.path_profile,
+                pa.id as 'page_id',
                 'page_publication' as type
             from
                 abstract_publication ap
@@ -171,6 +172,7 @@ class WizardUserRepository extends EntityRepository
                 w.id as 'writer_id',
                 w.username as 'name',
                 w.path_profile,
+                1 as page_id,
                 'user_publication' as type
             from
                 abstract_publication ap

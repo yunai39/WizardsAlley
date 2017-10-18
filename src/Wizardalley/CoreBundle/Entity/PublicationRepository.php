@@ -126,6 +126,7 @@ class PublicationRepository extends EntityRepository
             pa.content,
             pa.created_at,
             p.name as 'name',
+            p.id as page_id,
             (
                 SELECT
                     path
