@@ -73,10 +73,10 @@
                     {% endif %}
                 </button>
             {% endif %}
-            {% if app.user.id == publication_user_id %}
-                {% include '::includes/disablePublicationButton.html.twig' with {'id': publication_id} %}
-            {% elseif app.user %}
+            {% if app.user %}
                 {% include '::includes/addBlameButton.html.twig' with {'id': publication_id, 'type': 'publication'} %}
+            {% elseif app.user.id == publication_user_id %}
+                {% include '::includes/disablePublicationButton.html.twig' with {'id': publication_id} %}
             {% endif %}
         </div>
     </div>
