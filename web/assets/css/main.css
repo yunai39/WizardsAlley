@@ -108,6 +108,9 @@ main {
 .well {
   background-color: white; }
 
+.text-center {
+  text-align: center; }
+
 .text-align-right {
   text-align: right; }
 
@@ -226,14 +229,7 @@ button, .btn-default, .btn {
 
 @font-face {
   font-family: "Timeless";
-  src: url("../fonts/Timeless/timeless.woff") format("woff"), url("../fonts/Timeless/timeless.ttf") format("truetype");
-}
-
-@font-face {
-  font-family: "Timeless";
-  src: url("../fonts/Timeless/timeless-bold.ttf");
-  font-weight: bold;
-}
+  src: url("../fonts/Timeless/timeless.woff") format("woff"), url("../fonts/Timeless/timeless.ttf") format("truetype"); }
 #fav_pages .page:nth-child(even) .img-wrapper {
   float: right; }
 

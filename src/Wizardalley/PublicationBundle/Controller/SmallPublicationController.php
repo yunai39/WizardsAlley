@@ -104,7 +104,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
 
     /**
      * Finds and displays a SmallPublication entity.
-     * @Route("/smallPublication/{id}/show", name="user_small_publication_show", requirements={"id" = "\d+"})
+     * @Route("/{id}/show", name="user_small_publication_show", requirements={"id" = "\d+"})
      */
     public function showAction($id)
     {

@@ -189,7 +189,7 @@ class PublicationController extends BaseController
     /**
      * Finds and displays a Publication entity.
      *
-     * @Route("/publication/{id}/show", name="publication_show")
+     * @Route("/{id}/show", name="publication_show")
      * @param int $id
      *
      * @return Response

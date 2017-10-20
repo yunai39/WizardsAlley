@@ -18,11 +18,11 @@
         </div>
         <div class="col-xs-10">
             {% if publication_type == 'page_publication' %}
-                <p class="lead">
+                <h5>
                     <a href="{{ path('publication_show',{'id': publication_id}) }}">{{ publication_title }}</a>
-                </p>
+                </h5>
             {% endif %}
-            <p class="lead">
+            <p>
                 {% if publication_type == 'page_publication' %}
                     <a href="{{ path('page_show', {'id_page': publication_page_id}) }}">{{ publication_name }}</a>
                 {% else %}
