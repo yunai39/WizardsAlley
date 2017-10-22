@@ -1,6 +1,10 @@
 {% extends '::base.html.twig' %}
 
-{% block head_extra_class %}head-discover{% endblock %}
+{% block head_extra_class %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == false %}
+        head-discover
+    {% endif %}
+{% endblock %}
 {% block title_banner %}
     {% if app.user %}
         <h2>{% trans %}wizard.discover.title{% endtrans %}</h2>

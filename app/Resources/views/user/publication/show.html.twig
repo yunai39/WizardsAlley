@@ -34,43 +34,14 @@
                     {% if entity.getImages()|length > 0 %}
                         <div class="row">
                             <div class="col-xs-8 col-xs-offset-2">
-                                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-
-                                    <ol class="carousel-indicators">
-                                        {% set i = 0 %}
-                                        {% for image in entity.getImages() %}
-
-                                            <li data-target="#myCarousel"
-                                                data-slide-to="{{ i }}" {% if i == 0 %} class="active"{% endif %} ></li>
-
-                                            {% set i = i + 1 %}
-                                        {% endfor %}
-                                    </ol>
-
-                                    <div class="carousel-inner " role="listbox">
-                                        {% set i = 0 %}
-                                        {% for image in entity.getImages() %}
-
-                                            <div class="item {% if i == 0 %} active{% endif %}">
-                                                <img src="{{ asset(image.getWebPath()) }}" alt="{{ i }}">
-                                                <div class="carousel-caption">
-                                                    {{ image.description }}
-                                                </div>
-                                            </div>
-                                            {% set i = i + 1 %}
-                                        {% endfor %}
+                                {% for image in entity.getImages() %}
+                                    <div class="publication-image-container">
+                                        <img class="publication-image-img img-responsive" src="{{ asset(image.getWebPath()) }}"">
+                                        <div class="publication-image-caption">
+                                            {{ image.description }}
+                                        </div>
                                     </div>
-
-                                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-                                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="right carousel-control" href="#myCarousel" role="button"
-                                       data-slide="next">
-                                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     {% endif %}
