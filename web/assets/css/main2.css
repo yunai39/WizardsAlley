@@ -3,202 +3,13 @@
     src: url("../fonts/Timeless/timeless.woff") format("woff"), url("../fonts/Timeless/timeless.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "oldsh";
+    src: url("../fonts/oldsh/oldsh.woff") format("woff"), url("../fonts/oldsh/oldsh.ttf") format("truetype");
+}
+
 .navbar-head, h1, h2, h3, h4, h5, h6, footer, header nav, p {
-    font-family: "Timeless", sans-serif;
-}
-
-.user-profil {
-    width: 5vw;
-    height: 5vw;
-}
-
-.publication {
-    padding: 20px;
-    margin: 40px;
-}
-
-.information-block-wrapper .publication {
-    margin: 0px;
-}
-
-.nav-footer {
-    margin-bottom: 0;
-}
-
-.full-container {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-}
-
-body {
-    background: url("../images/bg.png") no-repeat top;
-    background-size: 100%;
-    background-attachment: fixed;
-}
-
-.background-wizard {
-    background-color: white;
-}
-
-.comment_content {
-    margin: 10px 5%;
-    padding: 2%;
-    width: 90%;
-}
-
-.imgSquare {
-    position: relative;
-    width: 100%;
-}
-.imgSquare .imgSquareContainer {
-    background-color: white;
-    box-shadow: none;
-    margin: 5%;
-    padding-bottom: 100%;
-    position: relative;
-    width: 90%;
-}
-
-.imgSquare .imgSquareContainer img {
-    height: 100%;
-    overflow: hidden;
-    position: absolute;
-    width: 100%;
-}
-.imgSquareContainer .imgTitre {
-    padding: 2px;
-    position: absolute;
-    left: 0;
-}
-
-.circle {
-    border-radius: 50%;
-}
-
-.squareUser div.imgSquare {
-    width: 30%;
-    float: left;
-}
-
-.search-publication-container {
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.main-title {
-    color: white;
-}
-
-.defaut-label {
-    background-color: #454a72;
-}
-
-.label {
-    padding: 3.75px;
-    margin: 3.75px;
-}
-
-.label a {
-    color: white;
-    font-style: none;
-}
-
-.label a > :focus, .label a:hover {
-    color: white;
-}
-
-.text-align-right {
-    text-align: right;
-}
-
-.text-align-left {
-    text-align: left;
-}
-
-.margin-right {
-    margin-right: 30px;
-}
-
-.margin-left {
-    margin-left: 30px;
-}
-
-.margin-bottom {
-    margin-bottom: 30px;
-}
-
-.margin-top {
-    margin-top: 30px;
-}
-
-.padding-right {
-    padding-right: 30px;
-}
-
-.padding-left {
-    padding-left: 30px;
-}
-
-.padding-top {
-    padding-top: 30px;
-}
-
-.padding-bottom {
-    padding-bottom: 30px;
-}
-
-.messenger_thread_message .messenger_thread_message_info {
-    font-weight: bold;
-}
-
-.messenger_thread_message .messenger_thread_message_body {
-    padding-left: 30px;
-}
-
-.wizard-icondiscover, .wizard-iconhome, .wizard-iconmail, .wizard-iconnotifications, .wizard-iconsearch {
-    display: inline-block;
-    background: url("../images/sprite-menu.png") no-repeat;
-    overflow: hidden;
-    text-indent: -9999px;
-    text-align: left;
-    vertical-align: middle;
-}
-
-.wizard-icondiscover {
-    background-position: -5px 0px;
-    width: 43px;
-    height: 45px;
-}
-
-.wizard-iconhome {
-    background-position: -53px 0px;
-    width: 43px;
-    height: 45px;
-}
-
-.wizard-iconmail {
-    background-position: -5px -50px;
-    width: 43px;
-    height: 45px;
-}
-
-.wizard-iconnotifications {
-    background-position: -53px -50px;
-    width: 43px;
-    height: 45px;
-}
-
-.wizard-iconsearch {
-    background-position: -5px -100px;
-    width: 43px;
-    height: 45px;
-}
-
-@media screen and (max-width: 1598px) {
-    h1 {
-        font-size: 1rem;
-    }
+    font-family: "oldsh", serif;
 }
 
 /* HEADER */
@@ -207,15 +18,16 @@ header nav {
     overflow-x: hidden;
 }
 
-.register, .login, .navbar-nav li, header nav .nav-full li:hover {
+header nav .nav-full li:hover, header nav .nav-full li.active {
 	padding-bottom: 0.5vh;
 	border-bottom: 4px solid transparent;
 	transition: 0.2s linear;
 }
 
 header nav .nav-full li:hover, .navbar-nav .active  {
-	border-bottom-color: #fff;
+	border-bottom: 4px solid #fff!important;
 }
+
 
 .head .title-wrapper {
     padding: 23vh 0vw 10vh!important;
@@ -247,6 +59,7 @@ h1 {
 }
 
 /* BOUTONS */
+
 .wizardsalley-login-form-submit, .wizardsalley-register-form-submit, .btn-default, .btn, .btn.btn-danger.btn-add-blame, .label.defaut-label.btn, .btn-default.active.focus, .btn-default.active, .btn-default.active, .btn-default.focus, .btn-default, .btn-default, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default, .open > .dropdown-toggle.btn-default, .fos_user_registration_register .register {
     border: 0px;
     background: #454a72;
@@ -355,18 +168,24 @@ h1 {
     align-content: center;
 }
 
-.head-discover h2, .head-discover h3 {
+.head-discover h2, .head-discover h3, .login-title-description {
 	color: #fff;
 	text-align: center;
 	text-shadow: 1px 1px 12px #000;
+    padding: 0px;
+    margin: 0px;
 }
 
 .head-discover h2 {
-	font-size: 4rem;
+	font-size: 6rem!important;
 }
 
-.head-discover h3 {
-	font-size: 2rem;
+.head-discover h3, .login-title-description {
+	font-size: 4rem!important;
+}
+
+.login-title-description {
+    padding: 0px 5vw;
 }
 
 
@@ -385,35 +204,6 @@ h1 {
 .head-notification {
     padding: 0px;   
 }
-
-
-/* Profil */
-/*
-.panel-body p {
-    font-size: 1.8rem;
-}
-
-.panel-body p a {
-	width: auto;
-	font-size: 2rem;
-	padding-bottom: 1vh;
-	border-bottom: 2px solid transparent;
-}
-
-.panel-body p a:hover {
-	border-bottom-color: #23527c;
-	text-decoration: none;
-}
-
-.row a {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-}
-
-.fos_user_user_show {
-    margin-top: 5vh;
-}*/
 
 /* MENU RESPONSIVE */
 @media (max-width: 767px) {
@@ -439,4 +229,69 @@ h1 {
     }
 
 }
+
+/* PUBLICATIONS */
+
+#wizardalley_publicationbundle_add_small_publication_submit {
+    width: 100%;
+    padding: 15px 5vw;
+}
+
+.publication {
+    margin-bottom: 5vh;
+}
+
+.publication p {
+    font-size: 25px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.publication-author {
+    font-size: 30px;
+    text-transform: capitalize;
+}
+
+.publication-date {
+    font-size: 10px;
+}
+
+.publication .text-align-right {
+    margin-top: 5vh;
+}
+
+.publication .text-align-right .label, .btn, .btn-danger, .btn-add-blame {
+	font-size: 12px !important;
+}
+
+.publication h5 {
+    margin: 0px;
+    text-align: left;
+}
+
+/* PROFILS */
+
+.col-md-3 .panel-body p {
+    font-size: 20px;
+    text-align: justify;
+}
+
+.col-md-3 .panel-body .col-md-12 {
+	padding: 0px;
+	margin: 5px 0px;
+}
+
+.col-md-3 .panel-body .col-md-12 a {
+	display: flex;
+	align-items: center;
+	align-content: center;
+}
+
+/* FOOTER */
+
+footer ul {
+    padding: 0px;
+    margin: 1px 0vw 2vpx 0vw;
+}
+
 /*# sourceMappingURL=main.css.map */
