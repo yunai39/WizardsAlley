@@ -39,7 +39,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="{{ path('wizardalley_default_homepage') }}" class="title navbar-brand">
-                        Wizard Alley
+                        Wizard's Alley
                     </a>
                     <ul class="nav navbar-nav navbar-right hidden-xs ">
                         {% if app.user %}
@@ -143,6 +143,14 @@
                                 {% trans %}wizard.menu.link.search{% endtrans %}
                             </a>
                         </li>
+                        {% if is_granted("ROLE_ADMIN") == false %}
+                            <a href="{{ path('easyadmin') }}">
+
+                                <i class="wizard-administration"></i>
+                                {% trans %}wizard.menu.link.administration{% endtrans %}
+                            </a>
+                            </li>
+                        {% endif %}
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == false %}
                         <li>
                             <a href="https://blog.thewizardsalley.com">

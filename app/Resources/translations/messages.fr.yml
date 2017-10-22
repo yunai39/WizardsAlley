@@ -93,6 +93,7 @@ wizard:
     menu:
         link:
             home: Ma Ruelle
+            administration: Administration
             discover: Dépêches magiques
             discover_map: Carte
             mention_legal: Mentions Légales

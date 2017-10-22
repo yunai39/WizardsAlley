@@ -1,11 +1,23 @@
 {% extends '::page/pageBase.html.twig' %}
 {% block page_body %}
-    <div class="panel panel-default">
+    <div class="panel panel-default full-publication">
         <div class="panel-body">
-            <div class="row">
+            <div class="row publication-top">
 
                 <div class="col-xs-10">
-                    <h1>{{ entity.title }}</h1>
+                    <div class="row ">
+                        <div class="col-xs-3 img-container">
+                            <div class="imgSquare circle">
+                                <div class="imgSquareContainer">
+                                    <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb')}}"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-9 title-container">
+                            <div class="page-name"><a href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a></div>
+                            <div class="publication-name">{{ entity.title }}</div>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-xs-2">
                     <h3>
@@ -15,7 +27,6 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <h2><a href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a></h2>
                     <p>Par
                         <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a>,
                         le {{ entity.createdAt|date('Y-m-d') }}

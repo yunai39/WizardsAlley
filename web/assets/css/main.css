@@ -308,6 +308,13 @@ button, .btn-default, .btn {
   width: 43px;
   height: 45px; }
 
+.full-publication .publication-top {
+  height: 10vh; }
+  .full-publication .publication-top .page-name {
+    font-size: 3em; }
+  .full-publication .publication-top .publication-name {
+    font-size: 1.5em; }
+
 .container-login-title .login-title {
   font-size: 1.2em; }
 .container-login-title .login-title-description {
