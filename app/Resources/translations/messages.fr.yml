@@ -1,5 +1,5 @@
 page:
-    invite_friend: Inviter un ami
+    invite_friend: Inviter un(e) ami(e)
     like: Aimer la page
 publication:
     like: Aimer
@@ -13,7 +13,7 @@ wizard:
         latest_discussion:
             title: Vos dernières discussions
     title:
-        base: Wizard's Alley ::
+        base: Wizard's Alley -
         ruelle: Ma ruelle
         edit: Modifications
         map: Carte
@@ -34,13 +34,13 @@ wizard:
         your_publication: Vos publications
         most_commented: Sujets les plus commentés
         informations: Billet d'information
-        user_online: Sorciers en ligne
+        user_online: Sorciers en lignes
     utility:
         load_more: Charger plus
         search: Effectuer une recherche précise
-        refresh: Rafraichir
+        refresh: Rafraîchir
         back: Retour
-        by: Publié par
+        by: Publié(e) par
         delete: Supprimer
         blame: Signaler
     notification:
@@ -49,10 +49,10 @@ wizard:
         page_publication: >
             <a href="%page_link%">%page_name%</a><br>Vient de publier<br><a href="%publication_link%">%publication_name%</a>
         user_message: >
-            <a href="%user_link%">%user_name%</a><br>a envoyer une nouvelle réponse<br><a href="%thread_link%">%thread_name%</a>
+            <a href="%user_link%">%user_name%</a><br>a envoyé.e une nouvelle réponse<br><a href="%thread_link%">%thread_name%</a>
         ask_as_friend: <a href="%user_link%">%user_name%</a><br> vous a envoyé.e une demande d'amitié
-        ask_as_friend_valid: Ajouter en tant qu'ami
-        answer_ask_friend: Vous êtes maintenant amis avec <br><a href="%user_link%">%user_name%</a> !!
+        ask_as_friend_valid: Ajouter en tant qu'ami(e)
+        answer_ask_friend: Vous êtes maintenant ami(e) avec <br><a href="%user_link%">%user_name%</a> !!
     discover:
         team_choice: Le choix de notre équipe
         title: Dépêches magiques, expressions et autres curiosités<br>à découvrir au coeur de l'Allée des sorciers
@@ -68,13 +68,13 @@ wizard:
     publication:
         placeholder: Contenu de la publication
         add_blame:
-            notification: Êtes vous sur de vouloir faire un blame ?
+            notification: Êtes vous sur de vouloir signaler ce contenu ?
         delete_confirmation: Êtes vous sur de vouloir supprimer la publication ?
         edit: Editer une publication
         add_image: Ajouter une image
         delete_image: Supprimer une image
         edit_success: La modification à été effectuée
-        new_success: La publication a bien été crée
+        new_success: La publication a bien été créée
         create: Création d'une publication
         images:
           label: Image de la publication
@@ -89,7 +89,7 @@ wizard:
         message: >
             Bienvenue sorcier, sorcière en tout genre. Prends un peu de poudre de cheminette et prononce clairement
     category:
-        name: Catégorie
+        name: Catégories
     menu:
         link:
             home: Ma Ruelle
@@ -139,7 +139,7 @@ wizard:
             firstname: Prénom 
             lastname: Nom 
             description: Description
-            small_description: Introduction
+            small_description: Quelques mots sur vous
             sexe: Genre
             facebook: Pseudo Facebook
             twitter: Pseudo twitter
@@ -198,4 +198,4 @@ wizard:
                 edit: Édition de la page
         edit_success: Les editeurs ont bien été modifiés
         user:
-            edit_success: Les modifications ont bien été modifiés
+            edit_success: Les modifications ont bien été effectuées
