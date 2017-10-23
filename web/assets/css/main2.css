@@ -24,6 +24,7 @@
 
 .navbar.navbar-custom.navbar-fixed-top, footer {
 	box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.71);
+    background-color: #454A72;
 }
 
 /* HEADER */

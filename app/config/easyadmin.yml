@@ -27,20 +27,24 @@ vich_uploader:
 
 easy_admin:
     design:
-        brand_color: '#1ABC9C'
+        brand_color: '#454A72'
         menu:
-            - { entity: 'Page', icon: 'group' }
-            - { entity: 'BlamePage', icon: 'group' }
-            - { entity: 'Publication', icon: 'sticky-note' }
-            - { entity: 'SmallPublication', icon: 'sticky-note' }
-            - { entity: 'BlamePublication', icon: 'sticky-note' }
-            - { entity: 'InformationBillet', label: 'Billet d''information', icon: 'info' }
-            - { entity: 'MapObject', label: 'Objet de carte', icon: 'map' }
-            - { entity: 'PageCategory', label: 'Catégorie des pages', icon: 'tag' }
-            - { entity: 'WizardUser', label: 'Administrateur', icon: 'user' }
-            - { entity: 'User', label: 'Utilisateur', icon: 'user' }
-            - { entity: 'BlameUser', icon: 'user' }
-            - { label: 'Statistique', route: 'wizardalley_admin_statistic_statistic' }
+            - { label: 'Communautés magiques' }
+            - { entity: 'Page', label: 'Toutes les communautés', icon: 'group' }
+            - { entity: 'PageCategory', label: 'Catégories des communautés', icon: 'tag' }
+            - { entity: 'Publication', label: 'Articles publiés', icon: 'sticky-note' }
+            - { label: 'Sorciers et sorcières' }
+            - { entity: 'User', label: 'Sorciers et sorcières', icon: 'user' }
+            - { entity: 'WizardUser', label: "Membres de l'équipe", icon: 'user' }
+            - { entity: 'SmallPublication', label: 'Publications des sorciers', icon: 'sticky-note' }
+            - { label: 'Signalements' }
+            - { entity: 'BlamePage', label: 'Communautés signalées', icon: 'group' }
+            - { entity: 'BlamePublication', label: 'Publications signalées', icon: 'sticky-note' }
+            - { entity: 'BlameUser', label: 'Sorciers signalés', icon: 'user' }
+            - { label: 'Divers' }
+            - { entity: 'InformationBillet', label: 'Billets d''information', icon: 'info' }
+            - { entity: 'MapObject', label: 'Fonctionnalité obselette', icon: 'map' }
+            - { label: 'Statistique', label: 'Statistiques du site', route: 'wizardalley_admin_statistic_statistic' }
     site_name: Wizard's alley
     entities:
         Page:
@@ -48,9 +52,9 @@ easy_admin:
             class: Wizardalley\CoreBundle\Entity\Page
             list:
                 actions:
-                    - { name: 'page_fav', type: 'route' , icon: 'heart', label: 'Ajouter favoris'}
+                    - { name: 'page_fav', type: 'route' , icon: 'heart', label: 'Ajouter aux favoris'}
                     - { name: 'page_unfav', type: 'route', icon: 'heart-o', label: 'Supprimer des favoris' }
-                    - { name: 'page_view_blame', type: 'route' , label: 'Voir les blames'}
+                    - { name: 'page_view_blame', type: 'route' , label: 'Voir les éléments signalés'}
                 fields:
                     - id
                     - name
@@ -120,9 +124,9 @@ easy_admin:
             class: Wizardalley\CoreBundle\Entity\Publication
             list:
                 actions:
-                    - { name: 'publication_fav', type: 'route' , icon: 'heart', label: 'Ajouter favoris'}
+                    - { name: 'publication_fav', type: 'route' , icon: 'heart', label: 'Ajouter aux favoris'}
                     - { name: 'publication_unfav', type: 'route', icon: 'heart-o', label: 'Supprimer des favoris' }
-                    - { name: 'publication_view_blame', type: 'route' , label: 'Voir les blames'}
+                    - { name: 'publication_view_blame', type: 'route' , label: 'Voir les éléments signalés'}
                 fields:
                     - id
                     - online
@@ -141,7 +145,7 @@ easy_admin:
               class: Wizardalley\CoreBundle\Entity\SmallPublication
               list:
                   actions:
-                      - { name: 'small_publication_view_blame', type: 'route' , label: 'Voir les blames'}
+                      - { name: 'small_publication_view_blame', type: 'route' , label: 'Voir les éléments signalés'}
                   fields:
                       - id
                       - online
@@ -170,7 +174,7 @@ easy_admin:
             list:
                 dql_filter: "entity.type = '2'"
                 actions:
-                    - { name: 'redirect_blame', type: 'route' , icon: 'sticky-note', label: 'User'}
+                    - { name: 'redirect_blame', type: 'route' , icon: 'sticky-note', label: 'Sorciers et sorcières'}
                 fields:
                     - user
                     - title
@@ -184,8 +188,8 @@ easy_admin:
             list:
                 dql_filter: "entity.roles like '%%ROLE_ADMIN%%'"
                 actions:
-                  - { name: 'new', label: 'Créer un adminstrateur' }
-                  - { name: 'admin_user_edit', type: 'route' , icon: 'view', label: 'Information'}
+                  - { name: 'new', label: 'Créer un administrateur' }
+                  - { name: 'admin_user_edit', type: 'route' , icon: 'view', label: 'A propos'}
             form:
                 fields:
                     - username
