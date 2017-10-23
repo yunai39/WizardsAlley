@@ -8,8 +8,13 @@
     src: url("../fonts/oldsh/oldsh.woff") format("woff"), url("../fonts/oldsh/oldsh.ttf") format("truetype");
 }
 
-.navbar-head, h1, h2, h3, h4, h5, h6, footer, header nav, p, .table, .publication p, .publication h5, .panel-body p, .alert, .messenger_thread_message_info, .messenger_thread_message, .messenger_thread_message_body, .notification-viewed a, .notification-viewed .text-center, .publication-top .title-container, a {
-    font-family: "oldsh", serif!important;
+@font-face {
+    font-family: "Alegreya";
+    src: url("../fonts/Alegreya/Alegreya.woff") format("woff"), url("../fonts/Alegreya/Alegreya.ttf") format("truetype");
+}
+
+body, .navbar-head, h1, h2, h3, h4, h5, h6, footer, header nav, p, .table, .publication p, .publication h5, .panel-body p, .alert, .messenger_thread_message_info, .messenger_thread_message, .messenger_thread_message_body, .notification-viewed a, .notification-viewed .text-center, .publication-top .title-container, a, label, input, footer {
+    font-family: "Alegreya", serif !important;
 }
 
 /* MAIN */
