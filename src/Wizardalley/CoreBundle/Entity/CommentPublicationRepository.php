@@ -3,6 +3,7 @@
 namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Wizardalley\UserBundle\Controller\DefaultController;
 
 /**
  * CommentRepository
@@ -12,7 +13,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommentPublicationRepository extends EntityRepository
 {
-    public function findCommentsPublication( $id_publication, $page = 1, $limit = 25){
+    /**
+     * @param     $id_publication
+     * @param int $page
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function findCommentsPublication( $id_publication, $page = 1, $limit = DefaultController::BASE_LIMIT){
         $firstResult = ($page - 1)*$limit;
         
         $qb = $this->_em->createQueryBuilder()
