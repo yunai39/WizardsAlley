@@ -32,6 +32,17 @@ body, .navbar-head, h1, h2, h3, h4, h5, h6, footer, header nav, p, .table, .publ
     background-color: #454A72;
 }
 
+a {
+	color: #454a72;
+	padding: 2px;
+}
+
+a:hover {
+	color: #fff;
+	background-color: #454a72;
+	text-decoration: none;
+}
+
 /* HEADER */
 
 header nav {
@@ -56,6 +67,7 @@ header nav .nav-full li:hover, .navbar-nav .active  {
 .head {
     padding: 0px!important;
     margin: 10vh 5vw 15vh!important;
+    height: auto!important;
 }
 
 .head-profile, .head-page {
@@ -189,7 +201,7 @@ h1 {
 
 .head-discover, .head-discover .title-wrapper {
     padding: 15vh 5vw 15vh;
-    height: 70vh;
+    height: 70vh!important;
     display: flex;
     flex-direction: column;
     justify-content: center;
