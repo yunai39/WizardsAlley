@@ -4,8 +4,9 @@
 
 {% block head_extra_class %}head-profile{% endblock %}
 
+
 {% block title %}
-    {% trans with {'%username%': user.username} from "messages" %}wizard.title.wall{% endtrans %}
+    {% trans %}wizard.title.base{% endtrans %} {% trans with {'%username%': user.username} from "messages" %}wizard.title.wall{% endtrans %}
     {{ user.username }}
 {% endblock %}
 
