@@ -50,12 +50,21 @@
                                         {% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}
                                     </div>
 
-                                    {% if  app.user in editors or app.user.id == creator_id %}
+                                    {% if  app.user in editors or app.user.id == creator_id or app.user in checkers %}
                                         <div class="col-md-12">
                                             <a href="{{ path('page_gestion_show',{'id_page': page.id } ) }}"> <span
                                                         class="icon-large icon icon-book"></span>{% trans %}
                                                 wizard.page.gestion.edit {% endtrans %}</a>
                                         </div>
+
+                                        {% if  app.user in editors or app.user.id == creator_id %}
+                                            <div class="col-md-12">
+                                                <a href="{{ path('page_gestion_publication',{'id_page': page.id } ) }}"> <span
+                                                            class="icon-large icon icon-book"></span>
+                                                    {% trans %}wizard.page.gestion.publication.edit {% endtrans %}
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                     {% endif %}
                                 {% endif %}
                                 <div class="col-md-12">
@@ -114,6 +123,21 @@
                                 <div class="panel-body">
                                     <h3>{% trans %} wizard.page.editor {% endtrans %}</h3>
                                     <hr>
+                                    <div class="squareUser">
+                                        <a href="{{ path('wizardalley_user_wall',{'id': page.creator.id}) }}">
+                                            <div class="imgSquare circle">
+                                                <div class="imgSquareContainer ">
+                                                    <img src="
+                                                {% if page.creator.pathProfile %}
+                                                     {{ asset('uploads/profile/' ~ page.creator.id ~ '/' ~ page.creator.pathProfile) }}
+                                                {% else %}
+                                                    {{ asset('uploads/profile/default.png') }}
+                                                {% endif %}"/>
+                                                </div>
+                                                <p class=" text-center">{{ page.creator.username }}</p>
+                                            </div>
+                                        </a>
+                                    </div>
                                     {% for user in editors %}
                                         <div class="squareUser">
                                             <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">

@@ -94,6 +94,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
                 'creator_id' => $page->getCreator()
                                      ->getId(),
                 'editors'    => $page->getEditors(),
+                'checkers'    => $page->getCheckers(),
             ]
         );
     }
