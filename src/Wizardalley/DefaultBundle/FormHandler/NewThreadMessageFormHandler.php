@@ -10,10 +10,14 @@ use FOS\MessageBundle\FormModel\NewThreadMessage;
 use FOS\MessageBundle\Model\MessageInterface;
 use FOS\MessageBundle\Security\ParticipantProviderInterface;
 use FOS\MessageBundle\Sender\SenderInterface;
-use JMS\Serializer\Exception\ValidationFailedException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Wizardalley\CoreBundle\Entity\WizardUser;
 
+/**
+ * Class NewThreadMessageFormHandler
+ *
+ * @package Wizardalley\DefaultBundle\FormHandler
+ */
 class NewThreadMessageFormHandler extends BaseMessageFormHandler
 {
     /** @var EntityManager */
@@ -43,6 +47,7 @@ class NewThreadMessageFormHandler extends BaseMessageFormHandler
      * @return MessageInterface the composed message ready to be sent
      *
      * @throws \InvalidArgumentException if the message is not a NewThreadMessage
+     * @throws \Exception
      */
     public function composeMessage(AbstractMessage $message)
     {

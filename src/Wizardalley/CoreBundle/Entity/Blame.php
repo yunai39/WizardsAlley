@@ -62,7 +62,6 @@ class Blame
      */
     private $dateBlame;
 
-
     /**
      * Get id
      *
@@ -173,6 +172,7 @@ class Blame
      * Set title
      *
      * @param string $title
+     *
      * @return Blame
      */
     public function setTitle($title)
@@ -185,7 +185,7 @@ class Blame
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -196,6 +196,7 @@ class Blame
      * Set dateBlame
      *
      * @param \DateTime $dateBlame
+     *
      * @return Blame
      */
     public function setDateBlame($dateBlame)
@@ -208,7 +209,7 @@ class Blame
     /**
      * Get dateBlame
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateBlame()
     {

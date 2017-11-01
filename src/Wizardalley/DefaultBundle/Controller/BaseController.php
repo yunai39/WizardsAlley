@@ -7,11 +7,13 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
  * Class BaseController
+ *
  * @package Wizardalley\DefaultBundle\Controller
  */
 class BaseController extends Controller
 {
     const BASE_LIMIT = 10;
+
     /**
      * @param int   $status
      * @param array $data
@@ -22,10 +24,13 @@ class BaseController extends Controller
      */
     protected function sendJsonResponse($status, $data, $returnCode = 200, $extra = null)
     {
-        return new JsonResponse([
-            'status' => $status,
-            'data' => $data,
-            'extra' => $extra
-        ], $returnCode);
+        return new JsonResponse(
+            [
+                'status' => $status,
+                'data'   => $data,
+                'extra'  => $extra
+            ],
+            $returnCode
+        );
     }
 }

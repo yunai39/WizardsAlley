@@ -21,17 +21,32 @@ class PageFavoriteRepository extends AdminRepository
     public function findPageLimit(
         $page = 1,
         $limit = BaseController::BASE_LIMIT
-    ) {
+    )
+    {
         $firstResult = ($page - 1) * $limit;
 
-        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query = $qb
-            ->join('p.page', 'pa')
+        $qb     =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
+        $query  = $qb
+            ->join(
+                'p.page',
+                'pa'
+            )
             ->addSelect('pa')
-            ->orderBy('p.dateFavorite', 'DESC')
+            ->orderBy(
+                'p.dateFavorite',
+                'DESC'
+            )
             ->setFirstResult($firstResult)
             ->setMaxResults($limit)
-            ->getQuery();
+            ->getQuery()
+        ;
         $result = $query->getArrayResult();
 
         return $result;

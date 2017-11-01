@@ -47,6 +47,7 @@ class Message extends BaseMessage
      * Add metadata
      *
      * @param \Wizardalley\CoreBundle\Entity\MessageMetadata $metadata
+     *
      * @return Message
      */
     public function addMetadatum(\Wizardalley\CoreBundle\Entity\MessageMetadata $metadata)
@@ -69,7 +70,7 @@ class Message extends BaseMessage
     /**
      * Get metadata
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMetadata()
     {

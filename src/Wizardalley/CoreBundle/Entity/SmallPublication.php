@@ -12,9 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class SmallPublication extends AbstractPublication
 {
-
     /**
      * Get id
+     *
      * @return integer
      */
     public function getId()

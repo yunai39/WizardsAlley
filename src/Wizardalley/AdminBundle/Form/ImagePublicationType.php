@@ -7,6 +7,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+/**
+ * Class ImagePublicationType
+ *
+ * @package Wizardalley\AdminBundle\Form
+ */
 class ImagePublicationType extends AbstractType
 {
 
@@ -20,7 +25,11 @@ class ImagePublicationType extends AbstractType
     ) {
         $builder
             ->add('description')
-            ->add('file','vich_image');
+            ->add(
+                'file',
+                'vich_image'
+            )
+        ;
     }
 
     /**
@@ -29,9 +38,10 @@ class ImagePublicationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
-            array(
+            [
                 'data_class' => 'Wizardalley\CoreBundle\Entity\ImagePublication'
-            ));
+            ]
+        );
     }
 
     /**
@@ -41,5 +51,4 @@ class ImagePublicationType extends AbstractType
     {
         return 'wizardalley_publicationbundle_image';
     }
-
 }

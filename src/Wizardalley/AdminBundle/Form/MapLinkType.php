@@ -7,11 +7,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Wizardalley\CoreBundle\Entity\MapLink;
 
+/**
+ * Class MapLinkType
+ *
+ * @package Wizardalley\AdminBundle\Form
+ */
 class MapLinkType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,11 +31,13 @@ class MapLinkType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-           'data_class'   => MapLink::class,
-           'allow_add'    => true,
-           'allow_delete' => true
-       ));
+        $resolver->setDefaults(
+            [
+                'data_class'   => MapLink::class,
+                'allow_add'    => true,
+                'allow_delete' => true
+            ]
+        );
     }
 
     /**

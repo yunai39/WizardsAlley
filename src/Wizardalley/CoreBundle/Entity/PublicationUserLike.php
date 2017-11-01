@@ -21,17 +21,17 @@ class PublicationUserLike
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\Publication", inversedBy="usersLiking")
      * @ORM\JoinColumn(name="publication_id", referencedColumnName="id")
-    */
+     */
     private $publication;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="publicationLiked")
      * @ORM\JoinColumn(name="wizard_user_id", referencedColumnName="id")
-    */
+     */
     private $user;
 
     /**
@@ -54,6 +54,7 @@ class PublicationUserLike
      * Set page
      *
      * @param Publication $publication
+     *
      * @return PageUserFollow
      */
     public function setPage(Publication $publication = null)
@@ -77,6 +78,7 @@ class PublicationUserLike
      * Set user
      *
      * @param WizardUser $user
+     *
      * @return PublicationUserLike
      */
     public function setUser(WizardUser $user = null)
@@ -100,6 +102,7 @@ class PublicationUserLike
      * Set dateLike
      *
      * @param \DateTime $dateLike
+     *
      * @return PublicationUserLike
      */
     public function setDateLike($dateLike)
@@ -122,10 +125,11 @@ class PublicationUserLike
     /**
      * Set publication
      *
-     * @param \Wizardalley\CoreBundle\Entity\Publication $publication
+     * @param Publication $publication
+     *
      * @return PublicationUserLike
      */
-    public function setPublication(\Wizardalley\CoreBundle\Entity\Publication $publication = null)
+    public function setPublication(Publication $publication = null)
     {
         $this->publication = $publication;
 

@@ -16,9 +16,13 @@ use Wizardalley\CoreBundle\Entity\Traits\TimedEntityTrait;
 class FollowedNotification implements TimedEntityInterface
 {
     const TYPE_ASK_FRIEND = 'ask_friend';
+
     const TYPE_ANSWERS_ASK_FRIEND = 'answer_ask_friend';
+
     const TYPE_MESSAGE = 'message';
+
     const TYPE_PUBLICATION = 'publication';
+
     use TimedEntityTrait;
 
     /**
@@ -56,7 +60,6 @@ class FollowedNotification implements TimedEntityInterface
      * @ORM\Column(name="type", type="string", length=20)
      */
     private $type;
-
 
     /**
      * Set dataNotification
@@ -169,6 +172,9 @@ class FollowedNotification implements TimedEntityInterface
      */
     public function getData()
     {
-        return json_decode($this->dataNotification, true);
+        return json_decode(
+            $this->dataNotification,
+            true
+        );
     }
 }

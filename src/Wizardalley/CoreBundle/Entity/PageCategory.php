@@ -46,7 +46,6 @@ class PageCategory
      */
     private $logo;
 
-
     /**
      * @ORM\Column(type="datetime")
      * @var \DateTime
@@ -72,6 +71,7 @@ class PageCategory
      * Set name
      *
      * @param string $name
+     *
      * @return PageCategory
      */
     public function setName($name)
@@ -95,6 +95,7 @@ class PageCategory
      * Set description
      *
      * @param string $description
+     *
      * @return PageCategory
      */
     public function setDescription($description)
@@ -118,6 +119,7 @@ class PageCategory
      * Set logo
      *
      * @param string $logo
+     *
      * @return PageCategory
      */
     public function setLogo($logo)
@@ -136,6 +138,7 @@ class PageCategory
     {
         return $this->logo;
     }
+
     /**
      * Constructor
      */
@@ -148,6 +151,7 @@ class PageCategory
      * Add pages
      *
      * @param \Wizardalley\CoreBundle\Entity\Page $pages
+     *
      * @return PageCategory
      */
     public function addPage(\Wizardalley\CoreBundle\Entity\Page $pages)
@@ -176,7 +180,6 @@ class PageCategory
     {
         return $this->pages;
     }
-
 
     protected function getUploadRootDir()
     {
@@ -226,10 +229,17 @@ class PageCategory
         if (null === $this->fileLogo) {
             return;
         }
-        $ext  = pathinfo($this->fileLogo->getClientOriginalName(), PATHINFO_EXTENSION);
+        $ext  =
+            pathinfo(
+                $this->fileLogo->getClientOriginalName(),
+                PATHINFO_EXTENSION
+            );
         $name = 'profile.' . $ext;
-        $this->fileLogo->move($this->getUploadRootDir(), $name);
-        $this->logo = $name;
+        $this->fileLogo->move(
+            $this->getUploadRootDir(),
+            $name
+        );
+        $this->logo     = $name;
         $this->fileLogo = null;
     }
 
@@ -237,6 +247,7 @@ class PageCategory
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
+     *
      * @return PageCategory
      */
     public function setUpdatedAt($updatedAt)
@@ -249,7 +260,7 @@ class PageCategory
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {

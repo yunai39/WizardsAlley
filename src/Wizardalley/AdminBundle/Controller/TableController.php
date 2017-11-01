@@ -6,56 +6,60 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Wizardalley\AdminBundle\Table\AbstractTable;
-use Wizardalley\AdminBundle\Table\TableHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
 /**
  * Class TableController
+ *
  * @package Wizardalley\AdminBundle\Controller
- * @Route("/admin")
+ * @Configuration\Route("/admin")
  */
 class TableController extends Controller
 {
 
     /**
      * Lists all Page entities.
-     * @Route("/list/{tableName}", name="admin_list_page")
-     * @Method("GET")
-     * @param $name
+     * @Configuration\Route("/list/{tableName}", name="admin_list_page")
+     * @Configuration\Method("GET")
+     *
+     * @param string $tableName
+     *
      * @return string
      */
-    public function listAction($tableName){
-        $table = $this->container->get('wizardalley.admin.table.'.$tableName);
+    public function listAction($tableName)
+    {
+        $table = $this->container->get('wizardalley.admin.table.' . $tableName);
+
         return $this->render(
             $table->getTemplate(),
             [
                 'config' => $table->getConfig(),
-                'name' => $tableName,
+                'name'   => $tableName,
             ]
         );
     }
 
     /**
-     * @Route("/jsonTable/{name}", name="admin_list_json")
-     * @Method("GET")
+     * @Configuration\Route("/jsonTable/{name}", name="admin_list_json")
+     * @Configuration\Method("GET")
      * @param Request $request
-     * @param $name
+     * @param         $name
+     *
      * @return JsonResponse
      */
-    public function getJsonResultAction(Request $request, $name){
+    public function getJsonResultAction(Request $request, $name)
+    {
 
         /** @var AbstractTable $table */
-        $table = $this->container->get('wizardalley.admin.table.'.$name);
+        $table = $this->container->get('wizardalley.admin.table.' . $name);
+
         return new JsonResponse(
             [
-                "draw" => $request->query->get('sEcho'),
-                "recordsTotal"=> $table->getTotal(),
-                "recordsFiltered"=> $table->getTotal(),
-                'data' => $table->getArrayResult($request)
+                "draw"            => $request->query->get('sEcho'),
+                "recordsTotal"    => $table->getTotal(),
+                "recordsFiltered" => $table->getTotal(),
+                'data'            => $table->getArrayResult($request)
             ]
         );
     }
-
 }

@@ -6,11 +6,16 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class MapObjectType
+ *
+ * @package Wizardalley\AdminBundle\Form
+ */
 class MapObjectType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -18,23 +23,29 @@ class MapObjectType extends AbstractType
             ->add('title')
             ->add('fileLogo')
             ->add('description')
-            ->add('links', 'collection', [
-                'type' => new MapLinkType(),
-                'allow_add' => true,
-                'allow_delete' => true,
-                'by_reference' => false,
-            ])
+            ->add(
+                'links',
+                'collection',
+                [
+                    'type'         => new MapLinkType(),
+                    'allow_add'    => true,
+                    'allow_delete' => true,
+                    'by_reference' => false,
+                ]
+            )
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'Wizardalley\CoreBundle\Entity\MapObject'
-        ));
+        $resolver->setDefaults(
+            [
+                'data_class' => 'Wizardalley\CoreBundle\Entity\MapObject'
+            ]
+        );
     }
 
     /**

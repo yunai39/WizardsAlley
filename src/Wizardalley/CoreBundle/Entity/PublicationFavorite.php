@@ -36,9 +36,9 @@ class PublicationFavorite
     }
 
     /**
-     * @param int $publication
+     * @param Publication $publication
      *
-     * @return Publication
+     * @return PublicationFavorite
      */
     public function setPublication($publication)
     {
@@ -58,7 +58,7 @@ class PublicationFavorite
     /**
      * @param \DateTime $dateFavorite
      *
-     * @return PageFavorite
+     * @return PublicationFavorite
      */
     public function setDateFavorite($dateFavorite)
     {

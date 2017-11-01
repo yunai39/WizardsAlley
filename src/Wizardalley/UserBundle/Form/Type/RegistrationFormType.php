@@ -17,6 +17,7 @@ class RegistrationFormType extends BaseType {
             ->add('firstname','text',array(
                 'label' =>'wizard.register.label.firstname',
             ))
+            ->add('accept_cgv', 'checkbox')
             ->add('sexe','choice', array(
                 'label'     => 'wizard.register.label.sexe',
                 'choices'   => array(

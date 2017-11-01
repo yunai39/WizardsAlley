@@ -184,11 +184,11 @@ class AbstractPublication implements TimedEntityInterface
      */
     public function strip($html, $maxLength = 200)
     {
-        $isUtf8 = true;
+        $isUtf8        = true;
         $printedLength = 0;
-        $position = 0;
-        $tags = [];
-        $finalStr = "";
+        $position      = 0;
+        $tags          = [];
+        $finalStr      = "";
         // For UTF-8, we need to count multibyte sequences as one character.
         $re =
             $isUtf8 ? '{</?([a-z]+)[^>]*>|&#?[a-zA-Z0-9]+;|[\x80-\xFF][\x80-\xBF]*}' : '{</?([a-z]+)[^>]*>|&#?[a-zA-Z0-9]+;}';

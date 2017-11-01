@@ -7,17 +7,18 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Translation\Translator;
 
 /**
  * Class AbstractTable
+ *
  * @package Wizardalley\AdminBundle\Table
  */
 abstract class AbstractTable
 {
     /** @var TableColumn[] */
     protected $columns = [];
+
     /** @var TableColumn[] */
     protected $columnsNum = [];
 
@@ -49,6 +50,9 @@ abstract class AbstractTable
         $this->generateTable();
     }
 
+    /**
+     * @return mixed
+     */
     abstract public function generateTable();
 
     /**
@@ -67,8 +71,14 @@ abstract class AbstractTable
      */
     protected function addColumn($name, $label, $options = [])
     {
-        $this->columns[$name] = new TableColumn($name, $label, $options);
-        $this->columnsNum[count($this->columnsNum)] = $this->columns[$name];
+        $this->columns[ $name ]                       =
+            new TableColumn(
+                $name,
+                $label,
+                $options
+            );
+        $this->columnsNum[ count($this->columnsNum) ] = $this->columns[ $name ];
+
         return $this;
     }
 
@@ -81,12 +91,13 @@ abstract class AbstractTable
     protected function addAction($name, $options)
     {
 
-        $this->actions[$name] = new TableAction(
+        $this->actions[ $name ] = new TableAction(
             $name,
-            $options['type'],
-            $options['render'],
-            isset($options['template']) ? $options['template'] : TableAction::ACTION_TEMPLATE
+            $options[ 'type' ],
+            $options[ 'render' ],
+            isset($options[ 'template' ]) ? $options[ 'template' ] : TableAction::ACTION_TEMPLATE
         );
+
         return $this;
     }
 
@@ -98,15 +109,20 @@ abstract class AbstractTable
      */
     protected function addModalAction($name, $options)
     {
-        $action = new TableAction($name, $options['type'], $options['render']);
-        $action->setTemplate($options['template']);
-        if (isset($options['data'])) {
-            $action->setData($options['data']);
+        $action =
+            new TableAction(
+                $name,
+                $options[ 'type' ],
+                $options[ 'render' ]
+            );
+        $action->setTemplate($options[ 'template' ]);
+        if (isset($options[ 'data' ])) {
+            $action->setData($options[ 'data' ]);
         }
-        $this->actions[$name] = $action;
+        $this->actions[ $name ] = $action;
+
         return $this;
     }
-
 
     /**
      * @param Request $request
@@ -121,7 +137,8 @@ abstract class AbstractTable
         /** @var QueryBuilder $query */
         $query = $repo->createQueryBuilder('r')
                       ->setMaxResults($limit)
-                      ->setFirstResult($offset);
+                      ->setFirstResult($offset)
+        ;
         // Si on a un champs de recherche
         if ($request->query->has('sSearch') && !empty($request->query->get('sSearch'))) {
             $search = $request->query->get('sSearch');
@@ -130,11 +147,17 @@ abstract class AbstractTable
             foreach ($this->columns as $column) {
                 if ($column->getSearch()) {
                     $query->orWhere('r.' . $column->getName() . '  LIKE :' . $column->getName());
-                    $query->setParameter($column->getName(), '%' . $search . '%');
+                    $query->setParameter(
+                        $column->getName(),
+                        '%' . $search . '%'
+                    );
                 }
-
             }
-            $query = $this->searchQuery($query, $search);
+            $query =
+                $this->searchQuery(
+                    $query,
+                    $search
+                );
         }
 
         // Utilisation des filtre de recherche yadcf
@@ -146,7 +169,10 @@ abstract class AbstractTable
                     $search = $request->query->get('sSearch_' . $num);
                     if ($filter == TableColumn::FILTER_TEXT_TYPE) {
                         $query->orWhere('r.' . $column->getName() . '  LIKE :' . $column->getName());
-                        $query->setParameter($column->getName(), '%' . $search . '%');
+                        $query->setParameter(
+                            $column->getName(),
+                            '%' . $search . '%'
+                        );
                     }
                 }
             }
@@ -156,9 +182,12 @@ abstract class AbstractTable
         if ($request->query->has('iSortCol_0') && $request->query->has('sSortDir_0')) {
             $colSortNum = $request->query->get('iSortCol_0');
             /** @var TableColumn $columnSort */
-            $columnSort = $this->columnsNum[$colSortNum];
-            $direction = $request->query->get('sSortDir_0');
-            $query->orderBy('r.' .$columnSort->getName(), $direction);
+            $columnSort = $this->columnsNum[ $colSortNum ];
+            $direction  = $request->query->get('sSortDir_0');
+            $query->orderBy(
+                'r.' . $columnSort->getName(),
+                $direction
+            );
         }
 
         return $query->getQuery();
@@ -183,9 +212,9 @@ abstract class AbstractTable
     public function getTotal()
     {
         $repo = $this->em->getRepository($this->getTableName());
+
         return count($repo->findAll());
     }
-
 
     /**
      * @return int
@@ -193,6 +222,7 @@ abstract class AbstractTable
     public function getTotalFiltered(Request $request)
     {
         $repo = $this->em->getRepository($this->getTableName());
+
         return count($repo->findAll());
     }
 
@@ -203,33 +233,36 @@ abstract class AbstractTable
     {
         $config = [];
         foreach ($this->columns as $column) {
-            $config['column'][$column->getName()] = [
-                'type' => 'info',
+            $config[ 'column' ][ $column->getName() ] = [
+                'type'  => 'info',
                 'label' => $column->getLabel()
             ];
         }
         foreach ($this->actions as $column) {
-            $config['action'][$column->getName()] = [
-                'type' => 'action',
+            $config[ 'action' ][ $column->getName() ] = [
+                'type'  => 'action',
                 'label' => $column->getName()
             ];
         }
-        $config['datatable'] = [
+        $config[ 'datatable' ] = [
             "bProcessing" => true,
             "bServerSide" => true,
-            "paging" => true,
+            "paging"      => true,
             "oStdClasses" => [
                 "sFilter" => 'form-control',
             ],
-            "sAjaxSource" => $this->router->generate('admin_list_json', ['name' => $this->getName()]),
+            "sAjaxSource" => $this->router->generate(
+                'admin_list_json',
+                ['name' => $this->getName()]
+            ),
         ];
         foreach ($this->columns as $column) {
-            $config['datatable']['columns'][] = ['data' => $column->getName()];
+            $config[ 'datatable' ][ 'columns' ][] = ['data' => $column->getName()];
         }
         foreach ($this->actions as $action) {
-            $config['datatable']['columns'][] = ['data' => $action->getName()];
+            $config[ 'datatable' ][ 'columns' ][] = ['data' => $action->getName()];
         }
-        $config['yadcf'] = $this->getYadcfConfig();
+        $config[ 'yadcf' ] = $this->getYadcfConfig();
 
         return $config;
     }
@@ -246,14 +279,14 @@ abstract class AbstractTable
                 if ($column->getFilter() == TableColumn::FILTER_SELECT_MULTIPLE_TYPE) {
                     $config[] = [
                         'column_number' => $i,
-                        'filter_type' => 'multi_select',
-                        'style_class' => 'form-control',
+                        'filter_type'   => 'multi_select',
+                        'style_class'   => 'form-control',
                     ];
                 } elseif ($column->getFilter() == TableColumn::FILTER_TEXT_TYPE) {
                     $config[] = [
                         'column_number' => $i,
-                        'filter_type' => 'text',
-                        'style_class' => 'form-control',
+                        'filter_type'   => 'text',
+                        'style_class'   => 'form-control',
                     ];
                 }
             }
@@ -270,7 +303,10 @@ abstract class AbstractTable
      */
     public function getArrayResult(Request $request)
     {
-        $datas = $this->getQueryResult($request)->getResult();
+        $datas =
+            $this->getQueryResult($request)
+                 ->getResult()
+        ;
         $array = [];
         /** @var Object $data */
         foreach ($datas as $data) {
@@ -280,11 +316,15 @@ abstract class AbstractTable
             foreach ($this->columns as $column) {
                 $columnData = [];
 
-                $renderFunctionName      = $column->getRenderFunctionName();
-                $columnData['data']      = $column->getData($data);
-                $columnData['template']  = $column->getTemplateName();
-                $columnData['render']    = $this->$renderFunctionName($column, $data);
-                $row[$column->getName()] = $columnData;
+                $renderFunctionName        = $column->getRenderFunctionName();
+                $columnData[ 'data' ]      = $column->getData($data);
+                $columnData[ 'template' ]  = $column->getTemplateName();
+                $columnData[ 'render' ]    =
+                    $this->$renderFunctionName(
+                        $column,
+                        $data
+                    );
+                $row[ $column->getName() ] = $columnData;
             }
             /** @var TableAction $action */
             foreach ($this->actions as $action) {
@@ -298,16 +338,20 @@ abstract class AbstractTable
                         $template = TableAction::ACTION_TEMPLATE;
                     }
                 }
-                $columnAction            = [
-                    'data' => $action->getName(),
-                    'action' => $action->getActionType(),
+                $columnAction              = [
+                    'data'     => $action->getName(),
+                    'action'   => $action->getActionType(),
                     'template' => $template,
-                    'render' => $this->$renderFunction($action, $data)
+                    'render'   => $this->$renderFunction(
+                        $action,
+                        $data
+                    )
                 ];
-                $row[$action->getName()] = $columnAction;
+                $row[ $action->getName() ] = $columnAction;
             }
             $array[] = $row;
         }
+
         return $array;
     }
 
@@ -333,11 +377,15 @@ abstract class AbstractTable
     protected function actionRenderModal(TableAction $action, $data)
     {
         $actionRender = $action->getActionRender();
+
         return [
-            'data' => $action->getData(),
-            'action' => $this->$actionRender($action, $data),
+            'data'     => $action->getData(),
+            'action'   => $this->$actionRender(
+                $action,
+                $data
+            ),
             'template' => $action->getTemplate(),
-            'title' => $this->translator->trans("wizard.admin.table.action." . $action->getName())
+            'title'    => $this->translator->trans("wizard.admin.table.action." . $action->getName())
         ];
     }
 

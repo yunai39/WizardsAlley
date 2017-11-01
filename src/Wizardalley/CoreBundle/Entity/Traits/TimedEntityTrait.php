@@ -4,7 +4,13 @@ namespace Wizardalley\CoreBundle\Entity\Traits;
 
 use Doctrine\ORM\Mapping as ORM;
 
-trait TimedEntityTrait {
+/**
+ * Class TimedEntityTrait
+ *
+ * @package Wizardalley\CoreBundle\Entity\Traits
+ */
+trait TimedEntityTrait
+{
     /**
      * @var \DateTime $createdAt
      *
@@ -18,7 +24,6 @@ trait TimedEntityTrait {
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updatedAt;
-
 
     /**
      * Get createdAt
@@ -34,6 +39,8 @@ trait TimedEntityTrait {
      * Set createdAt
      *
      * @param \DateTime $createdAt
+     *
+     * @return $this
      */
     public function setCreatedAt($createdAt)
     {
@@ -56,6 +63,8 @@ trait TimedEntityTrait {
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
+     *
+     * @return $this
      */
     public function setUpdatedAt($updatedAt)
     {

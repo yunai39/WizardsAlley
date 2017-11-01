@@ -8,6 +8,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class BlameType
+ *
+ * @package Wizardalley\DefaultBundle\Form
+ */
 class BlameType extends AbstractType
 {
     /**
@@ -30,7 +35,11 @@ class BlameType extends AbstractType
                 TextareaType::class,
                 ['label' => 'wizard.blame.label.comment']
             )
-            ->add('sumbit', 'submit', ['label' => 'wizard.utility.blame'])
+            ->add(
+                'sumbit',
+                'submit',
+                ['label' => 'wizard.utility.blame']
+            )
         ;
     }
 

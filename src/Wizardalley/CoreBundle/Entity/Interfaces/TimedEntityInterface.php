@@ -2,10 +2,16 @@
 
 namespace Wizardalley\CoreBundle\Entity\Interfaces;
 
+/**
+ * Interface TimedEntityInterface
+ *
+ * @package Wizardalley\CoreBundle\Entity\Interfaces
+ */
 interface TimedEntityInterface
 {
     /**
      * @param \DateTime $updatedAt
+     *
      * @return mixed
      */
     public function setUpdatedAt($updatedAt);
@@ -15,9 +21,9 @@ interface TimedEntityInterface
      */
     public function getUpdatedAt();
 
-
     /**
      * @param \DateTime $createdAt
+     *
      * @return mixed
      */
     public function setCreatedAt($createdAt);

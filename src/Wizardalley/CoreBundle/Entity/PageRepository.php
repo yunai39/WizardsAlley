@@ -13,11 +13,10 @@ use Wizardalley\DefaultBundle\Controller\BaseController;
  */
 class PageRepository extends EntityRepository
 {
-
     /**
      *
-     * @param int    $page
-     * @param int    $limit
+     * @param int $page
+     * @param int $limit
      *
      * @return array
      */
@@ -25,9 +24,19 @@ class PageRepository extends EntityRepository
     {
         $firstResult = ($page - 1) * $limit;
 
-        $qb    = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
+        $qb    =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
         $query = $qb
-            ->orderBy('p.createdAt', 'DESC')
+            ->orderBy(
+                'p.createdAt',
+                'DESC'
+            )
             ->setFirstResult($firstResult)
             ->setMaxResults($limit)
             ->getQuery()
@@ -46,14 +55,28 @@ class PageRepository extends EntityRepository
     {
         $qb     = $this->_em->createQueryBuilder()
                             ->select('u')
-                            ->from('WizardalleyCoreBundle:WizardUser', 'u');
+                            ->from(
+                                'WizardalleyCoreBundle:WizardUser',
+                                'u'
+                            )
+        ;
         $query  = $qb
-            ->join('u.pagesFollowed', 'p')
+            ->join(
+                'u.pagesFollowed',
+                'p'
+            )
             ->where('p.page = :id')
-            ->orderBy('p.dateInscription', 'desc')
+            ->orderBy(
+                'p.dateInscription',
+                'desc'
+            )
             ->setMaxResults($limit)
-            ->setParameter(':id', $id_page)
-            ->getQuery();
+            ->setParameter(
+                ':id',
+                $id_page
+            )
+            ->getQuery()
+        ;
         $result = $query->getArrayResult();
 
         return $result;
@@ -68,11 +91,19 @@ class PageRepository extends EntityRepository
     {
         $qb     = $this->_em->createQueryBuilder()
                             ->select('p')
-                            ->from('WizardalleyCoreBundle:Page', 'p');
+                            ->from(
+                                'WizardalleyCoreBundle:Page',
+                                'p'
+                            )
+        ;
         $query  = $qb
             ->where('p.id = :id')
-            ->setParameter(':id', $id_page)
-            ->getQuery();
+            ->setParameter(
+                ':id',
+                $id_page
+            )
+            ->getQuery()
+        ;
         $result = $query->getArrayResult();
 
         return $result;
@@ -88,10 +119,17 @@ class PageRepository extends EntityRepository
     public function findPageFollowedUser($id_user, $page = 1, $limit = BaseController::BASE_LIMIT)
     {
         $offset = $limit * ($page - 1);
-        $query  = $this->_em->createQuery("SELECT p FROM Wizardalley\CoreBundle\Entity\Page p join p.followers puf join puf.user u WHERE u.id = ?1 ORDER BY puf.dateInscription ");
+        $query  =
+            $this->_em->createQuery(
+                "SELECT p FROM Wizardalley\CoreBundle\Entity\Page p join p.followers puf join puf.user u WHERE u.id = ?1 ORDER BY puf.dateInscription "
+            );
         $query->setMaxResults($limit)
               ->setFirstResult($offset)
-              ->setParameter(1, $id_user);
+              ->setParameter(
+                  1,
+                  $id_user
+              )
+        ;
 
         return $query->getScalarResult();
     }
@@ -106,10 +144,17 @@ class PageRepository extends EntityRepository
     public function findPageCreatedUser($id_user, $page = 1, $limit = BaseController::BASE_LIMIT)
     {
         $offset = $limit * ($page - 1);
-        $query  = $this->_em->createQuery("SELECT p FROM Wizardalley\CoreBundle\Entity\Page p join p.creator u  WHERE u.id = ?1 ORDER BY p.id ");
+        $query  =
+            $this->_em->createQuery(
+                "SELECT p FROM Wizardalley\CoreBundle\Entity\Page p join p.creator u  WHERE u.id = ?1 ORDER BY p.id "
+            );
         $query->setMaxResults($limit)
               ->setFirstResult($offset)
-              ->setParameter(1, $id_user);
+              ->setParameter(
+                  1,
+                  $id_user
+              )
+        ;
 
         return $query->getScalarResult();
     }
@@ -124,10 +169,17 @@ class PageRepository extends EntityRepository
     public function findPageEditorUser($id_user, $page = 1, $limit = BaseController::BASE_LIMIT)
     {
         $offset = $limit * ($page - 1);
-        $query  = $this->_em->createQuery("SELECT p FROM Wizardalley\CoreBundle\Entity\Page p join p.editors u  WHERE u.id = ?1 ORDER BY p.id ");
+        $query  =
+            $this->_em->createQuery(
+                "SELECT p FROM Wizardalley\CoreBundle\Entity\Page p join p.editors u  WHERE u.id = ?1 ORDER BY p.id "
+            );
         $query->setMaxResults($limit)
               ->setFirstResult($offset)
-              ->setParameter(1, $id_user);
+              ->setParameter(
+                  1,
+                  $id_user
+              )
+        ;
 
         return $query->getScalarResult();
     }
@@ -145,29 +197,49 @@ class PageRepository extends EntityRepository
 
         $qb    = $this->_em->createQueryBuilder()
                            ->select('p')
-                           ->from($this->_entityName, 'p');
+                           ->from(
+                               $this->_entityName,
+                               'p'
+                           )
+        ;
         $query = $qb
             ->where('p.name LIKE :like')
-            ->orderBy('p.name', 'DESC')
+            ->orderBy(
+                'p.name',
+                'DESC'
+            )
             ->setFirstResult($firstResult)
             ->setMaxResults($limit)
-            ->setParameter(':like', '%' . $like . '%')
-            ->getQuery();
+            ->setParameter(
+                ':like',
+                '%' . $like . '%'
+            )
+            ->getQuery()
+        ;
 
         $result = $query->getResult();
 
         return $result;
     }
 
-
     /**
      * @return array
      */
     public function findPageThisMonth()
     {
-        $qb     = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
+        $qb     =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
         $query  = $qb->where('p.createdAt > :date')
-                     ->setParameter(':date', (new \DateTime())->format('Y-m'))
+                     ->setParameter(
+                         ':date',
+                         (new \DateTime())->format('Y-m')
+                     )
                      ->getQuery()
         ;
         $result = $query->getArrayResult();

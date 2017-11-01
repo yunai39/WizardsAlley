@@ -6,6 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class SearchType
+ *
+ * @package Wizardalley\DefaultBundle\Form
+ */
 class SearchType extends AbstractType
 {
     /**

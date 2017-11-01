@@ -8,9 +8,13 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Wizardalley\CoreBundle\Entity\FollowedNotification;
 use Wizardalley\CoreBundle\Entity\WizardUser;
 
+/**
+ * Class FosMessageListener
+ *
+ * @package Wizardalley\DefaultBundle\Listener
+ */
 class FosMessageListener
 {
-
     /**
      * @var TokenStorage
      */

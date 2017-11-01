@@ -4,11 +4,8 @@ namespace Wizardalley\AdminBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration;
 use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\PageUserFollow;
 use Wizardalley\CoreBundle\Entity\WizardUser;
@@ -16,7 +13,7 @@ use Wizardalley\CoreBundle\Entity\WizardUser;
 /**
  * USer controller.
  *
- * @Route("/admin/user")
+ * @Configuration\Route("/admin/user")
  */
 class UserController extends Controller
 {
@@ -26,10 +23,13 @@ class UserController extends Controller
     /**
      * Edit a current user
      *
-     * @Route("/{id}/edit", name="admin_user_edit")
-     * @Template()
+     * @Configuration\Route("/{id}/edit", name="admin_user_edit")
+     * @Configuration\Template()
+     * @param int $id
+     *
+     * @return array
      */
-    public function editAction(request $request, $id)
+    public function editAction($id)
     {
         /** @var WizardUser $entity */
         $entity = $this->getWizardUser($id);
@@ -38,8 +38,11 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/getListPageFollowed/{userId}", name="admin_user_list_page_followed")
-     * @Method("GET")
+     * @Configuration\Route("/getListPageFollowed/{userId}", name="admin_user_list_page_followed")
+     * @Configuration\Method("GET")
+     * @param int $userId
+     *
+     * @return JsonResponse
      */
     public function listPageFollowedAction($userId)
     {
@@ -48,7 +51,7 @@ class UserController extends Controller
         $data = [];
         /** @var PageUserFollow $pageUser */
         foreach ($user->getPagesFollowed() as $pageUser) {
-            $page = $pageUser->getPage();
+            $page   = $pageUser->getPage();
             $data[] = [
                 'id'   => $page->getId(),
                 'name' => $page->getName()
@@ -59,8 +62,11 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/getListPageCreated/{userId}", name="admin_user_list_page_created")
-     * @Method("GET")
+     * @Configuration\Route("/getListPageCreated/{userId}", name="admin_user_list_page_created")
+     * @Configuration\Method("GET")
+     * @param int $userId
+     *
+     * @return JsonResponse
      */
     public function listPageCreatedAction($userId)
     {
@@ -79,8 +85,11 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/getListPageEditor/{userId}", name="admin_user_list_page_editor")
-     * @Method("GET")
+     * @Configuration\Route("/getListPageEditor/{userId}", name="admin_user_list_page_editor")
+     * @Configuration\Method("GET")
+     * @param int $userId
+     *
+     * @return JsonResponse
      */
     public function listPageEditorAction($userId)
     {
@@ -99,8 +108,11 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/getListFriend/{userId}", name="admin_user_list_friends")
-     * @Method("GET")
+     * @Configuration\Route("/getListFriend/{userId}", name="admin_user_list_friends")
+     * @Configuration\Method("GET")
+     * @param int $userId
+     *
+     * @return JsonResponse
      */
     public function listFriendsAction($userId)
     {
@@ -110,23 +122,26 @@ class UserController extends Controller
         /** @var WizardUser $friendWithMe */
         foreach ($user->getFriendsWithMe() as $friendWithMe) {
             $data[] = [
-                'id'   => $friendWithMe->getId(),
+                'id'        => $friendWithMe->getId(),
                 'firstname' => $friendWithMe->getFirstname(),
-                'lastname' => $friendWithMe->getLastname(),
-                'email' => $friendWithMe->getEmail()
+                'lastname'  => $friendWithMe->getLastname(),
+                'email'     => $friendWithMe->getEmail()
             ];
         }
 
         return new JsonResponse(['data' => $data]);
     }
 
-
     /**
      * @return EntityManager|object
      */
-    protected function getEntityManager(){
+    protected function getEntityManager()
+    {
         if (!$this->em instanceof EntityManager) {
-            $this->em = $this->getDoctrine()->getManager();
+            $this->em =
+                $this->getDoctrine()
+                     ->getManager()
+            ;
         }
 
         return $this->em;
@@ -139,6 +154,9 @@ class UserController extends Controller
      */
     protected function getWizardUser($userId)
     {
-        return $this->getEntityManager()->getRepository('WizardalleyCoreBundle:WizardUser')->find($userId);
+        return $this->getEntityManager()
+                    ->getRepository('WizardalleyCoreBundle:WizardUser')
+                    ->find($userId)
+            ;
     }
 }

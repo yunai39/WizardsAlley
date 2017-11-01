@@ -13,7 +13,6 @@ use Wizardalley\DefaultBundle\Controller\BaseController;
  */
 class FollowedNotificationRepository extends EntityRepository
 {
-
     /**
      * @param int $id_user
      * @param int $page
@@ -25,23 +24,40 @@ class FollowedNotificationRepository extends EntityRepository
         $id_user,
         $page = 1,
         $limit = BaseController::BASE_LIMIT
-    ) {
+    )
+    {
         $firstResult = ($page - 1) * $limit;
 
-        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query = $qb
-            ->join('p.user', 'u')
+        $qb     =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
+        $query  = $qb
+            ->join(
+                'p.user',
+                'u'
+            )
             ->where('u.id = :id')
-            ->orderBy('p.dataNotification', 'DESC')
+            ->orderBy(
+                'p.dataNotification',
+                'DESC'
+            )
             ->setFirstResult($firstResult)
             ->setMaxResults($limit)
-            ->setParameter(':id', $id_user)
-            ->getQuery();
+            ->setParameter(
+                ':id',
+                $id_user
+            )
+            ->getQuery()
+        ;
         $result = $query->getResult();
 
         return $result;
     }
-
 
     /**
      * @param int $id_user
@@ -56,20 +72,41 @@ class FollowedNotificationRepository extends EntityRepository
         $page = 1,
         $status,
         $limit = BaseController::BASE_LIMIT
-    ) {
+    )
+    {
         $firstResult = ($page - 1) * $limit;
 
-        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query = $qb
-            ->join('p.user', 'u')
+        $qb     =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
+        $query  = $qb
+            ->join(
+                'p.user',
+                'u'
+            )
             ->where('u.id = :id')
             ->andWhere('p.checked = :checked')
-            ->orderBy('p.dataNotification', 'DESC')
+            ->orderBy(
+                'p.dataNotification',
+                'DESC'
+            )
             ->setFirstResult($firstResult)
             ->setMaxResults($limit)
-            ->setParameter(':id', $id_user)
-            ->setParameter(':checked', $status)
-            ->getQuery();
+            ->setParameter(
+                ':id',
+                $id_user
+            )
+            ->setParameter(
+                ':checked',
+                $status
+            )
+            ->getQuery()
+        ;
         $result = $query->getResult();
 
         return $result;

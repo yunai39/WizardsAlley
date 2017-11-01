@@ -13,21 +13,33 @@ class InformationBilletRepository extends AdminRepository
     /**
      * @param int $page
      * @param int $number
+     *
      * @return array
      */
     public function findInformationLimit($page, $number = 1)
     {
         $firstResult = ($page - 1) * $number;
-        $qb = $this->_em->createQueryBuilder()
-            ->select('i')
-            ->from($this->_entityName, 'i');
-        $query = $qb
-            ->where('i.datePublicationBillet <= :dateNow' )
-            ->setParameter('dateNow', (new \DateTime('now'))->format('Y-m-d'))
-            ->orderBy('i.datePublicationBillet','DESC')
+        $qb          = $this->_em->createQueryBuilder()
+                                 ->select('i')
+                                 ->from(
+                                     $this->_entityName,
+                                     'i'
+                                 )
+        ;
+        $query       = $qb
+            ->where('i.datePublicationBillet <= :dateNow')
+            ->setParameter(
+                'dateNow',
+                (new \DateTime('now'))->format('Y-m-d')
+            )
+            ->orderBy(
+                'i.datePublicationBillet',
+                'DESC'
+            )
             ->setFirstResult($firstResult)
             ->setMaxResults($number)
-            ->getQuery();
+            ->getQuery()
+        ;
 
         return $query->getResult();
     }

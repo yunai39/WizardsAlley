@@ -46,9 +46,9 @@ class Thread extends BaseThread
     /**
      * Remove messages
      *
-     * @param \Wizardalley\CoreBundle\Entity\Message $messages
+     * @param Message $messages
      */
-    public function removeMessage(\Wizardalley\CoreBundle\Entity\Message $messages)
+    public function removeMessage(Message $messages)
     {
         $this->messages->removeElement($messages);
     }
@@ -56,10 +56,11 @@ class Thread extends BaseThread
     /**
      * Add metadata
      *
-     * @param \Wizardalley\CoreBundle\Entity\ThreadMetadata $metadata
+     * @param ThreadMetadata $metadata
+     *
      * @return Thread
      */
-    public function addMetadatum(\Wizardalley\CoreBundle\Entity\ThreadMetadata $metadata)
+    public function addMetadatum(ThreadMetadata $metadata)
     {
         $this->metadata[] = $metadata;
 
@@ -69,9 +70,9 @@ class Thread extends BaseThread
     /**
      * Remove metadata
      *
-     * @param \Wizardalley\CoreBundle\Entity\ThreadMetadata $metadata
+     * @param ThreadMetadata $metadata
      */
-    public function removeMetadatum(\Wizardalley\CoreBundle\Entity\ThreadMetadata $metadata)
+    public function removeMetadatum(ThreadMetadata $metadata)
     {
         $this->metadata->removeElement($metadata);
     }
@@ -79,7 +80,7 @@ class Thread extends BaseThread
     /**
      * Get metadata
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMetadata()
     {

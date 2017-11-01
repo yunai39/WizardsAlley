@@ -14,6 +14,7 @@ use Wizardalley\CoreBundle\Entity\Traits\ArrayAccessTrait;
 class MapLink implements \ArrayAccess
 {
     use ArrayAccessTrait;
+
     /**
      * @var integer
      *
@@ -42,11 +43,10 @@ class MapLink implements \ArrayAccess
      */
     private $map;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -57,6 +57,7 @@ class MapLink implements \ArrayAccess
      * Set display
      *
      * @param string $display
+     *
      * @return MapLink
      */
     public function setDisplay($display)
@@ -69,7 +70,7 @@ class MapLink implements \ArrayAccess
     /**
      * Get display
      *
-     * @return string 
+     * @return string
      */
     public function getDisplay()
     {
@@ -80,6 +81,7 @@ class MapLink implements \ArrayAccess
      * Set link
      *
      * @param string $link
+     *
      * @return MapLink
      */
     public function setLink($link)
@@ -92,7 +94,7 @@ class MapLink implements \ArrayAccess
     /**
      * Get link
      *
-     * @return string 
+     * @return string
      */
     public function getLink()
     {
@@ -103,6 +105,7 @@ class MapLink implements \ArrayAccess
      * Set map
      *
      * @param \Wizardalley\CoreBundle\Entity\MapObject $map
+     *
      * @return MapLink
      */
     public function setMap(\Wizardalley\CoreBundle\Entity\MapObject $map = null)
@@ -115,13 +118,16 @@ class MapLink implements \ArrayAccess
     /**
      * Get map
      *
-     * @return \Wizardalley\CoreBundle\Entity\MapObject 
+     * @return \Wizardalley\CoreBundle\Entity\MapObject
      */
     public function getMap()
     {
         return $this->map;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->display;

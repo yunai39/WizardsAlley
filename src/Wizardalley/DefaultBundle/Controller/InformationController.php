@@ -2,10 +2,9 @@
 
 namespace Wizardalley\DefaultBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\InformationBilletRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
 /**
  * Class InformationController
@@ -14,13 +13,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class InformationController extends BaseController
 {
-
     /**
      * getInformationsAction
      *
      * This action will return the list of information
      *
-     * @Route("/user/information/{page}", name="wizardalley_information_page", options = {"expose" = true})
+     * @Configuration\Route("/user/information/{page}", name="wizardalley_information_page", options = {"expose" =
+     *                                                  true})
      *
      * @param $page
      *
@@ -28,7 +27,10 @@ class InformationController extends BaseController
      */
     public function getInformationsAction($page)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
         /** @var InformationBilletRepository $repo */
         $repo         = $em->getRepository('WizardalleyCoreBundle:InformationBillet');
         $informations = $repo->findInformationLimit(

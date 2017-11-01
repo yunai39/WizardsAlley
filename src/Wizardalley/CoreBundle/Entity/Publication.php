@@ -2,6 +2,7 @@
 
 namespace Wizardalley\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,7 +20,9 @@ class Publication extends AbstractPublication
     private $favorite;
 
     /**
-     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PublicationUserLike", mappedBy="publication", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PublicationUserLike", mappedBy="publication",
+     *                                                                                  cascade={"remove", "persist"})
+     * @var ArrayCollection
      */
     private $usersLiking;
 
@@ -32,8 +35,10 @@ class Publication extends AbstractPublication
 
     /**
      * @ORM\OneToMany(targetEntity="ImagePublication", mappedBy="publication", cascade={"remove", "persist"})
+     * @var ArrayCollection
      */
     private $images;
+
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\Page", inversedBy="publications" )
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
@@ -46,6 +51,16 @@ class Publication extends AbstractPublication
      * @ORM\Column(name="small_content", type="text")
      */
     private $smallContent;
+
+    /**
+     * Publication constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->images      = new ArrayCollection();
+        $this->usersLiking = new ArrayCollection();
+    }
 
     /**
      * Set title
@@ -77,6 +92,7 @@ class Publication extends AbstractPublication
     public function setFavorite($favorite)
     {
         $this->favorite = $favorite;
+
         return $this;
     }
 
@@ -93,11 +109,11 @@ class Publication extends AbstractPublication
     /**
      * Add images
      *
-     * @param \Wizardalley\CoreBundle\Entity\ImagePublication $images
+     * @param ImagePublication $images
      *
      * @return Publication
      */
-    public function addImage(\Wizardalley\CoreBundle\Entity\ImagePublication $images)
+    public function addImage(ImagePublication $images)
     {
         $this->images[] = $images;
 
@@ -107,9 +123,9 @@ class Publication extends AbstractPublication
     /**
      * Remove images
      *
-     * @param \Wizardalley\CoreBundle\Entity\ImagePublication $images
+     * @param ImagePublication $images
      */
-    public function removeImage(\Wizardalley\CoreBundle\Entity\ImagePublication $images)
+    public function removeImage(ImagePublication $images)
     {
         $this->images->removeElement($images);
     }
@@ -127,11 +143,11 @@ class Publication extends AbstractPublication
     /**
      * Set page
      *
-     * @param \Wizardalley\CoreBundle\Entity\Page $page
+     * @param Page $page
      *
      * @return Publication
      */
-    public function setPage(\Wizardalley\CoreBundle\Entity\Page $page = null)
+    public function setPage(Page $page = null)
     {
         $this->page = $page;
 
@@ -141,7 +157,7 @@ class Publication extends AbstractPublication
     /**
      * Get page
      *
-     * @return \Wizardalley\CoreBundle\Entity\Page
+     * @return Page
      */
     public function getPage()
     {
@@ -157,7 +173,11 @@ class Publication extends AbstractPublication
      */
     public function setSmallContent($smallContent)
     {
-        $this->smallContent = $this->strip($smallContent, 200);
+        $this->smallContent =
+            $this->strip(
+                $smallContent,
+                200
+            );
 
         return $this;
     }
@@ -172,7 +192,6 @@ class Publication extends AbstractPublication
         return $this->smallContent;
     }
 
-
     /**
      * Get id
      *
@@ -186,11 +205,11 @@ class Publication extends AbstractPublication
     /**
      * Add usersLiking
      *
-     * @param \Wizardalley\CoreBundle\Entity\PublicationUserLike $usersLiking
+     * @param PublicationUserLike $usersLiking
      *
      * @return Publication
      */
-    public function addUsersLiking(\Wizardalley\CoreBundle\Entity\PublicationUserLike $usersLiking)
+    public function addUsersLiking(PublicationUserLike $usersLiking)
     {
         $this->usersLiking[] = $usersLiking;
 
@@ -200,9 +219,9 @@ class Publication extends AbstractPublication
     /**
      * Remove usersLiking
      *
-     * @param \Wizardalley\CoreBundle\Entity\PublicationUserLike $usersLiking
+     * @param PublicationUserLike $usersLiking
      */
-    public function removeUsersLiking(\Wizardalley\CoreBundle\Entity\PublicationUserLike $usersLiking)
+    public function removeUsersLiking(PublicationUserLike $usersLiking)
     {
         $this->usersLiking->removeElement($usersLiking);
     }
@@ -226,8 +245,6 @@ class Publication extends AbstractPublication
     {
         return count($this->usersLiking);
     }
-
-
 
     public function __toString()
     {

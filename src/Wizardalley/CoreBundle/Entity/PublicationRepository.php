@@ -24,18 +24,36 @@ class PublicationRepository extends EntityRepository
         $id_user,
         $page = 1,
         $limit = BaseController::BASE_LIMIT
-    ) {
+    )
+    {
         $firstResult = ($page - 1) * $limit;
 
-        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query = $qb
-                    ->join('p.user', 'u')
-                    ->where('u.id = :id and p.online = 1')
-                    ->orderBy('p.created_at', 'DESC')
-                    ->setFirstResult($firstResult)
-                    ->setMaxResults($limit)
-                    ->setParameter(':id', $id_user)
-                    ->getQuery();
+        $qb     =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
+        $query  = $qb
+            ->join(
+                'p.user',
+                'u'
+            )
+            ->where('u.id = :id and p.online = 1')
+            ->orderBy(
+                'p.created_at',
+                'DESC'
+            )
+            ->setFirstResult($firstResult)
+            ->setMaxResults($limit)
+            ->setParameter(
+                ':id',
+                $id_user
+            )
+            ->getQuery()
+        ;
         $result = $query->getArrayResult();
 
         return $result;
@@ -50,20 +68,41 @@ class PublicationRepository extends EntityRepository
     public function findMostCommentedPublications(
         $page = 1,
         $limit = BaseController::BASE_LIMIT
-    ) {
+    )
+    {
         $firstResult = ($page - 1) * $limit;
 
-        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query = $qb
-                    ->join('p.user', 'u')
-                    ->leftJoin('p.comments', 'c')
-                    ->orderBy('count(c.id)', 'DESC')
-                    ->orderBy('c.dateComment', 'DESC')
-                    ->where('p.online = 1')
-                    ->groupBy('p.id')
-                    ->setFirstResult($firstResult)
-                    ->setMaxResults($limit)
-                    ->getQuery();
+        $qb     =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
+        $query  = $qb
+            ->join(
+                'p.user',
+                'u'
+            )
+            ->leftJoin(
+                'p.comments',
+                'c'
+            )
+            ->orderBy(
+                'count(c.id)',
+                'DESC'
+            )
+            ->orderBy(
+                'c.dateComment',
+                'DESC'
+            )
+            ->where('p.online = 1')
+            ->groupBy('p.id')
+            ->setFirstResult($firstResult)
+            ->setMaxResults($limit)
+            ->getQuery()
+        ;
         $result = $query->getResult();
 
         return $result;
@@ -80,22 +119,37 @@ class PublicationRepository extends EntityRepository
         $like,
         $page = 1,
         $limit = BaseController::BASE_LIMIT
-    ) {
-        $firstResult = ($page - 1)*$limit;
-        
-        $qb = $this->_em->createQueryBuilder()
-            ->select('p')
-            ->from($this->_entityName, 'p');
+    )
+    {
+        $firstResult = ($page - 1) * $limit;
+
+        $qb    = $this->_em->createQueryBuilder()
+                           ->select('p')
+                           ->from(
+                               $this->_entityName,
+                               'p'
+                           )
+        ;
         $query = $qb
-                    ->addSelect('i')
-                    ->join('p.images', 'i')
-                    ->where('p.title LIKE :like and p.online=1')
-                    ->orderBy('p.title', 'DESC')
-                    ->setFirstResult($firstResult)
-                    ->setMaxResults($limit)
-                    ->setParameter(':like', '%'.$like.'%')
-                    ->getQuery();
-        
+            ->addSelect('i')
+            ->join(
+                'p.images',
+                'i'
+            )
+            ->where('p.title LIKE :like and p.online=1')
+            ->orderBy(
+                'p.title',
+                'DESC'
+            )
+            ->setFirstResult($firstResult)
+            ->setMaxResults($limit)
+            ->setParameter(
+                ':like',
+                '%' . $like . '%'
+            )
+            ->getQuery()
+        ;
+
         $result = $query->getArrayResult();
 
         return $result;
@@ -113,9 +167,10 @@ class PublicationRepository extends EntityRepository
         $id_page,
         $page = 1,
         $limit = BaseController::BASE_LIMIT
-    ) {
-        $firstResult = ($page - 1)*$limit;
-        $sql = "
+    )
+    {
+        $firstResult = ($page - 1) * $limit;
+        $sql         = "
         select
             distinct w.username,
             w.path_profile as 'path_profile',
@@ -147,9 +202,12 @@ class PublicationRepository extends EntityRepository
                 order by pa.created_at desc
                 limit {$firstResult},{$limit}
                 ";
-        $conn = $this->getEntityManager()->getConnection();
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(array($id_page));
+        $conn        =
+            $this->getEntityManager()
+                 ->getConnection()
+        ;
+        $stmt        = $conn->prepare($sql);
+        $stmt->execute([$id_page]);
 
         return $stmt->fetchAll();
     }
@@ -159,9 +217,19 @@ class PublicationRepository extends EntityRepository
      */
     public function findPublicationThisMonth()
     {
-        $qb     = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
+        $qb     =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
         $query  = $qb->where('p.createdAt > :date and p.online = 1')
-                     ->setParameter(':date', (new \DateTime())->format('Y-m'))
+                     ->setParameter(
+                         ':date',
+                         (new \DateTime())->format('Y-m')
+                     )
                      ->getQuery()
         ;
         $result = $query->getArrayResult();
@@ -177,34 +245,57 @@ class PublicationRepository extends EntityRepository
      */
     public function findPublicationFavorite($page, $limit = BaseController::BASE_LIMIT)
     {
-        $firstResult = ($page - 1)*$limit;
-        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
-        $query = $qb
-                    ->join('p.favorite', 'f')
-                    ->where('p.online = 1')
-                    ->orderBy('f.dateFavorite', 'DESC')
-                    ->setFirstResult($firstResult)
-                    ->setMaxResults($limit)
-                    ->getQuery();
+        $firstResult = ($page - 1) * $limit;
+        $qb          =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
+        $query       = $qb
+            ->join(
+                'p.favorite',
+                'f'
+            )
+            ->where('p.online = 1')
+            ->orderBy(
+                'f.dateFavorite',
+                'DESC'
+            )
+            ->setFirstResult($firstResult)
+            ->setMaxResults($limit)
+            ->getQuery()
+        ;
 
         $result = $query->getResult();
 
         return $result;
     }
 
-
-
     /**
      * @return array
      */
     public function findLatestPublication()
     {
-        $qb = $this->_em->createQueryBuilder()->select('p')->from($this->_entityName, 'p');
+        $qb    =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
         $query = $qb
-            ->orderBy('p.createdAt', 'DESC')
+            ->orderBy(
+                'p.createdAt',
+                'DESC'
+            )
             ->where('p.online = 1')
             ->setMaxResults(2)
-            ->getQuery();
+            ->getQuery()
+        ;
 
         $result = $query->getResult();
 

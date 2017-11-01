@@ -4,11 +4,9 @@ namespace Wizardalley\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\PageFavorite;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration;
 use Wizardalley\CoreBundle\Entity\PageRepository;
 use Wizardalley\CoreBundle\Entity\Publication;
 use Wizardalley\CoreBundle\Entity\PublicationFavorite;
@@ -16,14 +14,17 @@ use Wizardalley\CoreBundle\Entity\PublicationFavorite;
 /**
  * EasyAdminController controller.
  *
- * @Route("/easyadmin")
+ * @Configuration\Route("/easyadmin")
  */
 class EasyAdminController extends Controller
 {
 
     /**
-     * @Route(path="/blame/redirect", name="redirect_blame")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Configuration\Route(path="/blame/redirect", name="redirect_blame")
+     * @Configuration\Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function redirectBlameAction(Request $request)
     {
@@ -93,8 +94,8 @@ class EasyAdminController extends Controller
     }
 
     /**
-     * @Route(path="/page/fav", name="page_fav")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Configuration\Route(path="/page/fav", name="page_fav")
+     * @Configuration\Security("has_role('ROLE_ADMIN')")
      */
     public function favPageAction(Request $request)
     {
@@ -108,7 +109,8 @@ class EasyAdminController extends Controller
                  ->getRepository('WizardalleyCoreBundle:Page')
         ;
 
-        $id   = $request->query->get('id');
+        $id = $request->query->get('id');
+        /** @var Page $page */
         $page = $repository->find($id);
 
         $favPage = new PageFavorite();
@@ -130,8 +132,11 @@ class EasyAdminController extends Controller
     }
 
     /**
-     * @Route(path="/pageBlame/view", name="page_view_blame")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Configuration\Route(path="/pageBlame/view", name="page_view_blame")
+     * @Configuration\Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewPageBlameAction(Request $request)
     {
@@ -165,8 +170,11 @@ class EasyAdminController extends Controller
     }
 
     /**
-     * @Route(path="/publicationBlame/view", name="publication_view_blame")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Configuration\Route(path="/publicationBlame/view", name="publication_view_blame")
+     * @Configuration\Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewPublicationBlameAction(Request $request)
     {
@@ -200,8 +208,11 @@ class EasyAdminController extends Controller
     }
 
     /**
-     * @Route(path="/smallPublicationBlame/view", name="small_publication_view_blame")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Configuration\Route(path="/smallPublicationBlame/view", name="small_publication_view_blame")
+     * @Configuration\Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewSmallPublicationBlameAction(Request $request)
     {
@@ -235,8 +246,11 @@ class EasyAdminController extends Controller
     }
 
     /**
-     * @Route(path="/userBlame/view", name="user_view_blame")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Configuration\Route(path="/userBlame/view", name="user_view_blame")
+     * @Configuration\Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewUserBlameAction(Request $request)
     {
@@ -270,8 +284,11 @@ class EasyAdminController extends Controller
     }
 
     /**
-     * @Route(path="/page/unfav", name="page_unfav")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Configuration\Route(path="/page/unfav", name="page_unfav")
+     * @Configuration\Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function unfavPageAction(Request $request)
     {
@@ -302,8 +319,11 @@ class EasyAdminController extends Controller
     }
 
     /**
-     * @Route(path="/publication/fav", name="publication_fav")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Configuration\Route(path="/publication/fav", name="publication_fav")
+     * @Configuration\Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function favPublicationAction(Request $request)
     {
@@ -317,7 +337,8 @@ class EasyAdminController extends Controller
                  ->getRepository('WizardalleyCoreBundle:Publication')
         ;
 
-        $id          = $request->query->get('id');
+        $id = $request->query->get('id');
+        /** @var Publication $publication */
         $publication = $repository->find($id);
 
         $favPublication = new PublicationFavorite();
@@ -339,8 +360,11 @@ class EasyAdminController extends Controller
     }
 
     /**
-     * @Route(path="/publication/unfav", name="publication_unfav")
-     * @Security("has_role('ROLE_ADMIN')")
+     * @Configuration\Route(path="/publication/unfav", name="publication_unfav")
+     * @Configuration\Security("has_role('ROLE_ADMIN')")
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function unfavPublicationAction(Request $request)
     {

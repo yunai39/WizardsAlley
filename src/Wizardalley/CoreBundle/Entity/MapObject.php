@@ -3,6 +3,7 @@
 namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
@@ -47,7 +48,8 @@ class MapObject
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\MapLink", mappedBy="map", cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\MapLink", mappedBy="map", cascade={"remove",
+     *                                                                      "persist"})
      */
     private $links;
 
@@ -71,6 +73,7 @@ class MapObject
      * Set title
      *
      * @param string $title
+     *
      * @return MapObject
      */
     public function setTitle($title)
@@ -94,6 +97,7 @@ class MapObject
      * Set logo
      *
      * @param string $logo
+     *
      * @return MapObject
      */
     public function setLogo($logo)
@@ -117,6 +121,7 @@ class MapObject
      * Set description
      *
      * @param string $description
+     *
      * @return MapObject
      */
     public function setDescription($description)
@@ -136,13 +141,18 @@ class MapObject
         return $this->description;
     }
 
-
+    /**
+     * @return string
+     */
     protected function getUploadRootDir()
     {
         // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
+    /**
+     * @return string
+     */
     public function getUploadDir()
     {
         // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
@@ -158,18 +168,29 @@ class MapObject
         return $this->title;
     }
 
+    /**
+     *
+     */
     public function uploadLogo()
     {
         // la propriété « file » peut être vide si le champ n'est pas requis
         if (null === $this->fileLogo) {
             return;
         }
-        $ext  = pathinfo($this->fileLogo->getClientOriginalName(), PATHINFO_EXTENSION);
+        $ext  =
+            pathinfo(
+                $this->fileLogo->getClientOriginalName(),
+                PATHINFO_EXTENSION
+            );
         $name = $this->fileLogo->getClientOriginalName();
-        $this->fileLogo->move($this->getUploadRootDir(), $name);
-        $this->logo = $name;
+        $this->fileLogo->move(
+            $this->getUploadRootDir(),
+            $name
+        );
+        $this->logo     = $name;
         $this->fileLogo = null;
     }
+
     /**
      * Constructor
      */
@@ -182,6 +203,7 @@ class MapObject
      * Add links
      *
      * @param \Wizardalley\CoreBundle\Entity\MapLink $links
+     *
      * @return MapObject
      */
     public function addLink(\Wizardalley\CoreBundle\Entity\MapLink $links)
@@ -213,10 +235,10 @@ class MapObject
         return $this->links;
     }
 
-
     /**
      * @Vich\UploadableField(mapping="map_images", fileNameProperty="logo")
      * @Assert\File(maxSize="6000000")
+     * @var UploadedFile
      */
     public $fileLogo;
 
@@ -230,6 +252,9 @@ class MapObject
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function getFileLogo()
     {
         return $this->fileLogo;
@@ -239,6 +264,7 @@ class MapObject
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
+     *
      * @return MapObject
      */
     public function setUpdatedAt($updatedAt)
@@ -251,7 +277,7 @@ class MapObject
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {

@@ -19,3 +19,10 @@ services:
         arguments: ['@security.token_storage', '@doctrine.orm.default_entity_manager']
         tags:
             - { name: twig.extension }
+
+    fos_user.registration.form.handler.default:
+        class: Wizardalley\UserBundle\Form\Handler\RegistrationFormHandler
+        scope: request
+        public: false
+        arguments: ['@fos_user.registration.form', '@request', '@fos_user.user_manager', '@fos_user.mailer', '@fos_user.util.token_generator', '%kernel.root_dir%']
+

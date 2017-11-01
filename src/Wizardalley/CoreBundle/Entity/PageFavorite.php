@@ -36,7 +36,7 @@ class PageFavorite
     }
 
     /**
-     * @param int $page
+     * @param Page $page
      *
      * @return PageFavorite
      */

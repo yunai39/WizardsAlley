@@ -13,16 +13,38 @@ use Doctrine\ORM\EntityRepository;
 class AdminRepository extends EntityRepository
 {
     const LIMIT_ELEMENT = 1;
-    public function findMore($lastId = null){
+
+    /**
+     * @param null $lastId
+     *
+     * @return array
+     */
+    public function findMore($lastId = null)
+    {
         $qb = $this->_em->createQueryBuilder()
-            ->select('item')
-            ->from($this->_entityName, 'item');
-        if($lastId){
+                        ->select('item')
+                        ->from(
+                            $this->_entityName,
+                            'item'
+                        )
+        ;
+        if ($lastId) {
             $qb->where('item.id < :last_id')
-                ->setParameter('last_id', $lastId);
+               ->setParameter(
+                   'last_id',
+                   $lastId
+               )
+            ;
         }
-        $qb->orderBy('item.id', 'DESC')
-            ->setMaxResults( self::LIMIT_ELEMENT );
-        return $qb->getQuery()->getScalarResult();
+        $qb->orderBy(
+            'item.id',
+            'DESC'
+        )
+           ->setMaxResults(self::LIMIT_ELEMENT)
+        ;
+
+        return $qb->getQuery()
+                  ->getScalarResult()
+            ;
     }
 }

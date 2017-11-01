@@ -4,7 +4,7 @@ namespace Wizardalley\DefaultBundle\Controller;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Annotation;
 use Wizardalley\CoreBundle\Entity\PageFavoriteRepository;
 use Wizardalley\CoreBundle\Entity\PublicationRepository;
 
@@ -16,30 +16,37 @@ use Wizardalley\CoreBundle\Entity\PublicationRepository;
 class DiscoverController extends BaseController
 {
     /**
-     * @Route("/discover", name="wizardalley_discover_index")
-     * @Route("/", name="wizardalley_index")
+     * @Annotation\Route("/discover", name="wizardalley_discover_index")
+     * @Annotation\Route("/", name="wizardalley_index")
      * @return Response
      */
     public function indexDiscoverAction()
     {
         /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getManager();
+        $em =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
 
         return $this->render(
             '::default/discover.html.twig',
             [
-                'categories' => $em->getRepository('WizardalleyCoreBundle:PageCategory')->findAll()
+                'categories' => $em->getRepository('WizardalleyCoreBundle:PageCategory')
+                                   ->findAll()
             ]
         );
     }
 
     /**
-     * @Route("/discover/favPage/{page}", name="wizardalley_discover_fav_page", options={"expose"=true})
+     * @Annotation\Route("/discover/favPage/{page}", name="wizardalley_discover_fav_page", options={"expose"=true})
      * @return Response
      */
     public function loadPageFavoriteAction($page)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
         /** @var PageFavoriteRepository $repo */
         $repo  = $em->getRepository('WizardalleyCoreBundle:PageFavorite');
         $pages = $repo->findPageLimit($page);
@@ -60,12 +67,16 @@ class DiscoverController extends BaseController
     }
 
     /**
-     * @Route("/discover/favPublication/{page}", name="wizardalley_discover_fav_publication", options={"expose"=true})
+     * @Annotation\Route("/discover/favPublication/{page}", name="wizardalley_discover_fav_publication",
+     *                                                      options={"expose"=true})
      * @return Response
      */
     public function loadPublicationFavoriteAction($page)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
         /** @var PublicationRepository $repo */
         $repo         = $em->getRepository('WizardalleyCoreBundle:Publication');
         $publications = $repo->findPublicationFavorite($page);
@@ -86,13 +97,19 @@ class DiscoverController extends BaseController
     }
 
     /**
-     * @Route("/discover/map", name="wizardalley_discover_map", options={"expose"=true})
+     * @Annotation\Route("/discover/map", name="wizardalley_discover_map", options={"expose"=true})
      * @return Response
      */
     public function mapWizardWorldAction()
     {
-        $em   = $this->getDoctrine()->getManager();
-        $maps = $em->getRepository('WizardalleyCoreBundle:MapObject')->findAll();
+        $em   =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
+        $maps =
+            $em->getRepository('WizardalleyCoreBundle:MapObject')
+               ->findAll()
+        ;
 
         return $this->render(
             '::discover/map.html.twig',

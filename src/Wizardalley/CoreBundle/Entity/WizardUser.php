@@ -1,20 +1,13 @@
 <?php
 
-// src/OC/UserBundle/Entity/User.php
-
 namespace Wizardalley\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\MessageBundle\Model\ParticipantInterface;
 use FOS\UserBundle\Entity\User as BaseUser;
-use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
-use Wizardalley\CoreBundle\Entity\Page;
-use Wizardalley\CoreBundle\Entity\PageUserFollow;
-use Wizardalley\CoreBundle\Entity\Publication;
-use Wizardalley\CoreBundle\Entity\SmallPublication;
-use Wizardalley\CoreBundle\Entity\InformationBillet;
 
 /**
  * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\WizardUserRepository")
@@ -81,6 +74,20 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="accept_cgv", type="boolean")
+     */
+    private $acceptCGV;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="sexe", type="boolean")
      */
     private $sexe;
@@ -91,13 +98,14 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public $pathProfile;
 
     /**
-         * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     public $pathCouverture;
 
     /**
      * @ORM\ManyToMany(targetEntity="WizardUser", mappedBy="myFriends")
-     **/
+     * @var ArrayCollection
+     */
     private $friendsWithMe;
 
     /**
@@ -106,57 +114,60 @@ class WizardUser extends BaseUser implements ParticipantInterface
      *      inverseJoinColumns={@ORM\JoinColumn(name="friend_user_id", referencedColumnName="id")},
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
      *      )
-     **/
+     * @var ArrayCollection
+     */
     private $myFriends;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Page", mappedBy="creator", cascade={"remove",
-     *                                                                    "persist"})
+     * @ORM\OneToMany(targetEntity="Page", mappedBy="creator", cascade={"remove", "persist"})
+     * @var ArrayCollection
      */
     private $pagesCreated;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Page", mappedBy="editors", cascade={"remove",
-     *                                                                    "persist"})
+     * @ORM\ManyToMany(targetEntity="Page", mappedBy="editors", cascade={"remove", "persist"})
+     * @var ArrayCollection
      */
     private $pagesEditor;
 
     /**
-     * @ORM\ManyToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Page", mappedBy="checkers", cascade={"remove",
-     *                                                                    "persist"})
+     * @ORM\ManyToMany(targetEntity="Page", mappedBy="checkers", cascade={"remove", "persist"})
+     * @var ArrayCollection
      */
     private $pagesChecker;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\PageUserFollow", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="PageUserFollow", mappedBy="user")
+     * @var ArrayCollection
      */
     private $pagesFollowed;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\PublicationUserLike", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="PublicationUserLike", mappedBy="user")
+     * @var ArrayCollection
      */
     private $publicationsLiked;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\SmallPublication", mappedBy="user",
-     *                                                                                cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="SmallPublication", mappedBy="user", cascade={"remove", "persist"})
+     * @var ArrayCollection
      */
     private $smallPublication;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\Publication", mappedBy="user", cascade={"remove",
-     *                                                                           "persist"})
+     * @ORM\OneToMany(targetEntity="Publication", mappedBy="user", cascade={"remove", "persist"})
+     * @var ArrayCollection
      */
     private $publications;
 
     /**
-     * @ORM\OneToMany(targetEntity="\Wizardalley\CoreBundle\Entity\InformationBillet", mappedBy="user",
-     *                                                                                 cascade={"remove", "persist"})
+     * @ORM\OneToMany(targetEntity="InformationBillet", mappedBy="user",cascade={"remove", "persist"})
+     * @var ArrayCollection
      */
     private $informationBillets;
 
     /**
-     * @param $id
+     * @param int $id
      *
      * @return $this
      */
@@ -395,9 +406,16 @@ class WizardUser extends BaseUser implements ParticipantInterface
         if (null === $this->fileProfile) {
             return;
         }
-        $ext  = pathinfo($this->fileProfile->getClientOriginalName(), PATHINFO_EXTENSION);
+        $ext  =
+            pathinfo(
+                $this->fileProfile->getClientOriginalName(),
+                PATHINFO_EXTENSION
+            );
         $name = 'profile.' . $ext;
-        $this->fileProfile->move($this->getUploadRootDir(), $name);
+        $this->fileProfile->move(
+            $this->getUploadRootDir(),
+            $name
+        );
         $this->pathProfile = $name;
         $this->fileProfile = null;
     }
@@ -408,9 +426,16 @@ class WizardUser extends BaseUser implements ParticipantInterface
         if (null === $this->fileCouverture) {
             return;
         }
-        $ext  = pathinfo($this->fileCouverture->getClientOriginalName(), PATHINFO_EXTENSION);
+        $ext  =
+            pathinfo(
+                $this->fileCouverture->getClientOriginalName(),
+                PATHINFO_EXTENSION
+            );
         $name = 'couverture.' . $ext;
-        $this->fileCouverture->move($this->getUploadRootDir(), $name);
+        $this->fileCouverture->move(
+            $this->getUploadRootDir(),
+            $name
+        );
         $this->pathCouverture = $name;
     }
 
@@ -484,11 +509,11 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Add friendsWithMe
      *
-     * @param \Wizardalley\CoreBundle\Entity\WizardUser $friendsWithMe
+     * @param WizardUser $friendsWithMe
      *
      * @return WizardUser
      */
-    public function addFriendsWithMe(\Wizardalley\CoreBundle\Entity\WizardUser $friendsWithMe)
+    public function addFriendsWithMe(WizardUser $friendsWithMe)
     {
         $this->friendsWithMe[] = $friendsWithMe;
 
@@ -498,9 +523,9 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Remove friendsWithMe
      *
-     * @param \Wizardalley\CoreBundle\Entity\WizardUser $friendsWithMe
+     * @param WizardUser $friendsWithMe
      */
-    public function removeFriendsWithMe(\Wizardalley\CoreBundle\Entity\WizardUser $friendsWithMe)
+    public function removeFriendsWithMe(WizardUser $friendsWithMe)
     {
         $this->friendsWithMe->removeElement($friendsWithMe);
     }
@@ -518,11 +543,11 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Add myFriends
      *
-     * @param \Wizardalley\CoreBundle\Entity\WizardUser $myFriends
+     * @param WizardUser $myFriends
      *
      * @return WizardUser
      */
-    public function addMyFriend(\Wizardalley\CoreBundle\Entity\WizardUser $myFriends)
+    public function addMyFriend(WizardUser $myFriends)
     {
         $this->myFriends[] = $myFriends;
 
@@ -532,9 +557,9 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Remove myFriends
      *
-     * @param \Wizardalley\CoreBundle\Entity\WizardUser $myFriends
+     * @param WizardUser $myFriends
      */
-    public function removeMyFriend(\Wizardalley\CoreBundle\Entity\WizardUser $myFriends)
+    public function removeMyFriend(WizardUser $myFriends)
     {
         $this->myFriends->removeElement($myFriends);
     }
@@ -771,11 +796,11 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Add publicationsLiked
      *
-     * @param \Wizardalley\CoreBundle\Entity\PublicationUserLike $publicationsLiked
+     * @param PublicationUserLike $publicationsLiked
      *
      * @return WizardUser
      */
-    public function addPublicationsLiked(\Wizardalley\CoreBundle\Entity\PublicationUserLike $publicationsLiked)
+    public function addPublicationsLiked(PublicationUserLike $publicationsLiked)
     {
         $this->publicationsLiked[] = $publicationsLiked;
 
@@ -785,9 +810,9 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Remove publicationsLiked
      *
-     * @param \Wizardalley\CoreBundle\Entity\PublicationUserLike $publicationsLiked
+     * @param PublicationUserLike $publicationsLiked
      */
-    public function removePublicationsLiked(\Wizardalley\CoreBundle\Entity\PublicationUserLike $publicationsLiked)
+    public function removePublicationsLiked(PublicationUserLike $publicationsLiked)
     {
         $this->publicationsLiked->removeElement($publicationsLiked);
     }
@@ -853,11 +878,11 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Add pagesChecker
      *
-     * @param \Wizardalley\CoreBundle\Entity\Page $pagesChecker
+     * @param Page $pagesChecker
      *
      * @return WizardUser
      */
-    public function addPagesChecker(\Wizardalley\CoreBundle\Entity\Page $pagesChecker)
+    public function addPagesChecker(Page $pagesChecker)
     {
         $this->pagesChecker[] = $pagesChecker;
 
@@ -867,9 +892,9 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Remove pagesChecker
      *
-     * @param \Wizardalley\CoreBundle\Entity\Page $pagesChecker
+     * @param Page $pagesChecker
      */
-    public function removePagesChecker(\Wizardalley\CoreBundle\Entity\Page $pagesChecker)
+    public function removePagesChecker(Page $pagesChecker)
     {
         $this->pagesChecker->removeElement($pagesChecker);
     }
@@ -888,6 +913,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * Set smallDescription
      *
      * @param string $smallDescription
+     *
      * @return WizardUser
      */
     public function setSmallDescription($smallDescription)
@@ -900,7 +926,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Get smallDescription
      *
-     * @return string 
+     * @return string
      */
     public function getSmallDescription()
     {
@@ -911,6 +937,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * Set description
      *
      * @param string $description
+     *
      * @return WizardUser
      */
     public function setDescription($description)
@@ -923,10 +950,58 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return WizardUser
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set acceptCGV
+     *
+     * @param boolean $acceptCGV
+     *
+     * @return WizardUser
+     */
+    public function setAcceptCGV($acceptCGV)
+    {
+        $this->acceptCGV = $acceptCGV;
+
+        return $this;
+    }
+
+    /**
+     * Get acceptCGV
+     *
+     * @return boolean
+     */
+    public function getAcceptCGV()
+    {
+        return $this->acceptCGV;
     }
 }

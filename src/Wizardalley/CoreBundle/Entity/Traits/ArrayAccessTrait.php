@@ -2,11 +2,16 @@
 
 namespace Wizardalley\CoreBundle\Entity\Traits;
 
-trait ArrayAccessTrait {
-
-
+/**
+ * Class ArrayAccessTrait
+ *
+ * @package Wizardalley\CoreBundle\Entity\Traits
+ */
+trait ArrayAccessTrait
+{
     /**
      * Whether a offset exists
+     *
      * @link  http://php.net/manual/en/arrayaccess.offsetexists.php
      *
      * @param mixed $offset <p>
@@ -21,11 +26,15 @@ trait ArrayAccessTrait {
      */
     public function offsetExists($offset)
     {
-        return property_exists($this, $offset);
+        return property_exists(
+            $this,
+            $offset
+        );
     }
 
     /**
      * Offset to retrieve
+     *
      * @link  http://php.net/manual/en/arrayaccess.offsetget.php
      *
      * @param mixed $offset <p>
@@ -42,6 +51,7 @@ trait ArrayAccessTrait {
 
     /**
      * Offset to set
+     *
      * @link  http://php.net/manual/en/arrayaccess.offsetset.php
      *
      * @param mixed $offset <p>
@@ -57,12 +67,14 @@ trait ArrayAccessTrait {
     public function offsetSet(
         $offset,
         $value
-    ) {
+    )
+    {
         $this->$offset = $value;
     }
 
     /**
      * Offset to unset
+     *
      * @link  http://php.net/manual/en/arrayaccess.offsetunset.php
      *
      * @param mixed $offset <p>

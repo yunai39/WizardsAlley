@@ -2,7 +2,9 @@
 
 namespace Wizardalley\CoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
@@ -19,6 +21,7 @@ use Wizardalley\CoreBundle\Entity\Traits\TimedEntityTrait;
 class Page implements TimedEntityInterface
 {
     use TimedEntityTrait;
+
     /**
      * @var integer
      *
@@ -84,45 +87,49 @@ class Page implements TimedEntityInterface
     private $redactorPage = false;
 
     /**
-    * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\Publication", mappedBy="page", cascade={"remove", "persist"})
-    */
+     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\Publication", mappedBy="page", cascade={"remove",
+     *                                                                          "persist"})
+     * @var ArrayCollection
+     */
     private $publications;
-    
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesCreated")
      * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
-    */
+     */
     private $creator;
-
 
     /**
      * @ORM\ManyToMany(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesEditor")
      * @ORM\JoinTable(name="page_user_editor")
+     * @var ArrayCollection
      */
     private $editors;
 
     /**
      * @ORM\ManyToMany(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesChecker")
      * @ORM\JoinTable(name="page_user_checker")
+     * @var ArrayCollection
      */
     private $checkers;
 
     /**
      * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PageUserFollow", mappedBy="page")
+     * @var ArrayCollection
      */
     private $followers;
-
 
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\PageCategory", inversedBy="pages")
      */
     private $category;
 
-
     public function __construct()
     {
         $this->publications = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->editors      = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->followers    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->checkers     = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -151,6 +158,7 @@ class Page implements TimedEntityInterface
     public function setFavorite($favorite)
     {
         $this->favorite = $favorite;
+
         return $this;
     }
 
@@ -158,6 +166,7 @@ class Page implements TimedEntityInterface
      * Set name
      *
      * @param string $name
+     *
      * @return Page
      */
     public function setName($name)
@@ -181,6 +190,7 @@ class Page implements TimedEntityInterface
      * Set description
      *
      * @param string $description
+     *
      * @return Page
      */
     public function setDescription($description)
@@ -204,6 +214,7 @@ class Page implements TimedEntityInterface
      * Set urlFacebook
      *
      * @param string $urlFacebook
+     *
      * @return Page
      */
     public function setUrlFacebook($urlFacebook)
@@ -223,11 +234,11 @@ class Page implements TimedEntityInterface
         return $this->urlFacebook;
     }
 
-
     /**
      * Add publications
      *
      * @param \Wizardalley\CoreBundle\Entity\Publication $publications
+     *
      * @return Page
      */
     public function addPublication(\Wizardalley\CoreBundle\Entity\Publication $publications)
@@ -261,6 +272,7 @@ class Page implements TimedEntityInterface
      * Set creator
      *
      * @param \Wizardalley\CoreBundle\Entity\WizardUser $creator
+     *
      * @return Page
      */
     public function setCreator(\Wizardalley\CoreBundle\Entity\WizardUser $creator = null)
@@ -284,6 +296,7 @@ class Page implements TimedEntityInterface
      * Add editors
      *
      * @param \Wizardalley\CoreBundle\Entity\WizardUser $editors
+     *
      * @return Page
      */
     public function addEditor(\Wizardalley\CoreBundle\Entity\WizardUser $editors)
@@ -320,13 +333,15 @@ class Page implements TimedEntityInterface
     public function removeAllEditor()
     {
         $this->editors->clear();
+
         return $this;
     }
-    
+
     /**
      * Add followers
      *
      * @param \Wizardalley\CoreBundle\Entity\WizardUser $followers
+     *
      * @return Page
      */
     public function addFollower(\Wizardalley\CoreBundle\Entity\WizardUser $followers)
@@ -360,6 +375,7 @@ class Page implements TimedEntityInterface
      * Set pathCouverture
      *
      * @param string $pathCouverture
+     *
      * @return WizardUser
      */
     public function setPathCouverture($pathCouverture)
@@ -383,6 +399,7 @@ class Page implements TimedEntityInterface
      * Set pathProfile
      *
      * @param string $pathProfile
+     *
      * @return Page
      */
     public function setPathProfile($pathProfile)
@@ -406,6 +423,7 @@ class Page implements TimedEntityInterface
      * Set category
      *
      * @param \Wizardalley\CoreBundle\Entity\PageCategory $category
+     *
      * @return Page
      */
     public function setCategory(\Wizardalley\CoreBundle\Entity\PageCategory $category = null)
@@ -425,49 +443,75 @@ class Page implements TimedEntityInterface
         return $this->category;
     }
 
+    /**
+     * @return null|string
+     */
     public function getAbsolutePathProfile()
     {
         return null === $this->pathProfile ? null : $this->getUploadRootDir() . '/profile/' . $this->pathProfile;
     }
 
-
+    /**
+     * @return null|string
+     */
     public function getAbsolutePathCouverture()
     {
         return null === $this->pathCouverture ? null : $this->getUploadRootDir() . '/cover/' . $this->pathCouverture;
     }
 
+    /**
+     * @return string
+     */
     public function getPictureProfile()
     {
         return null === $this->pathProfile ?
             $this->getDefaultProfile() : $this->getUploadDir() . '/profile/' . $this->pathProfile;
     }
 
+    /**
+     * @return string
+     */
     public function getPictureCouverture()
     {
         return null === $this->pathCouverture ?
             $this->getDefaultCouverture() : $this->getUploadDir() . '/cover/' . $this->pathCouverture;
     }
 
+    /**
+     * @return string
+     */
     protected function getDefaultProfile()
     {
         return 'uploads/page/default.png';
     }
 
+    /**
+     * @return string
+     */
     protected function getDefaultCouverture()
     {
         return 'uploads/page/dCouverture.png';
     }
 
+    /**
+     * @return string
+     */
     protected function getUploadRootDir()
     {
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
+    /**
+     * @return string
+     */
     public function getUploadDir()
     {
         return 'uploads/page/';
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
         return $this->name;
@@ -476,9 +520,9 @@ class Page implements TimedEntityInterface
     /**
      * @Vich\UploadableField(mapping="page_profile_images", fileNameProperty="path_profile")
      * @Assert\File(maxSize="6000000")
+     * @var UploadedFile
      */
     public $fileProfile;
-
 
     /**
      * @Vich\UploadableField(mapping="page_cover_images", fileNameProperty="path_couverture")
@@ -496,7 +540,10 @@ class Page implements TimedEntityInterface
             return;
         }
         $name = $this->fileProfile->getClientOriginalName();
-        $this->fileProfile->move($this->getUploadRootDir(). '/profile/', $name);
+        $this->fileProfile->move(
+            $this->getUploadRootDir() . '/profile/',
+            $name
+        );
         $this->pathProfile = $name;
         $this->fileProfile = null;
     }
@@ -510,12 +557,17 @@ class Page implements TimedEntityInterface
             return;
         }
         $name = $this->fileCouverture->getClientOriginalName();
-        $this->fileCouverture->move($this->getUploadRootDir() . '/cover/', $name);
+        $this->fileCouverture->move(
+            $this->getUploadRootDir() . '/cover/',
+            $name
+        );
         $this->pathCouverture = $name;
         $this->fileCouverture = null;
     }
 
-
+    /**
+     * @param File|null $image
+     */
     public function setFileProfile(File $image = null)
     {
         $this->fileProfile = $image;
@@ -525,11 +577,17 @@ class Page implements TimedEntityInterface
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function getFileProfile()
     {
         return $this->fileProfile;
     }
 
+    /**
+     * @param File|null $image
+     */
     public function setFileCouverture(File $image = null)
     {
         $this->fileCouverture = $image;
@@ -539,6 +597,9 @@ class Page implements TimedEntityInterface
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function getFileCouverture()
     {
         return $this->fileCouverture;
@@ -548,6 +609,7 @@ class Page implements TimedEntityInterface
      * Set officialPage
      *
      * @param boolean $officialPage
+     *
      * @return Page
      */
     public function setOfficialPage($officialPage)
@@ -560,7 +622,7 @@ class Page implements TimedEntityInterface
     /**
      * Get officialPage
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getOfficialPage()
     {
@@ -571,6 +633,7 @@ class Page implements TimedEntityInterface
      * Set redactorPage
      *
      * @param boolean $redactorPage
+     *
      * @return Page
      */
     public function setRedactorPage($redactorPage)
@@ -583,7 +646,7 @@ class Page implements TimedEntityInterface
     /**
      * Get redactorPage
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getRedactorPage()
     {
@@ -594,6 +657,7 @@ class Page implements TimedEntityInterface
      * Add checkers
      *
      * @param \Wizardalley\CoreBundle\Entity\WizardUser $checkers
+     *
      * @return Page
      */
     public function addChecker(\Wizardalley\CoreBundle\Entity\WizardUser $checkers)
@@ -620,18 +684,19 @@ class Page implements TimedEntityInterface
     public function removeAllChecker()
     {
         $this->checkers->clear();
+
         return $this;
     }
+
     /**
      * Get checkers
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCheckers()
     {
         return $this->checkers;
     }
-
 
     /**
      * @return string

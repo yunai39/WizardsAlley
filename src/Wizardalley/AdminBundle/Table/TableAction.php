@@ -4,32 +4,42 @@ namespace Wizardalley\AdminBundle\Table;
 
 /**
  * Class TableAction
+ *
  * @package Wizardalley\AdminBundle\Table
  */
 class TableAction
 {
-    const ACTION_MODAL_CONFIRM = 'table.action.modal_confirm';
-    const ACTION_LINK = 'table.action.link';
-    const ACTION_TEMPLATE = 'template-render-action';
+    const ACTION_MODAL_CONFIRM  = 'table.action.modal_confirm';
+
+    const ACTION_LINK           = 'table.action.link';
+
+    const ACTION_TEMPLATE       = 'template-render-action';
+
     const ACTION_MODAL_TEMPLATE = 'template-render-button-modal';
-    protected $actionType = self::ACTION_LINK;
+
+    protected $actionType   = self::ACTION_LINK;
+
     protected $actionRender = null;
+
     protected $name;
+
     protected $data;
+
     protected $template;
 
     /**
      * TableAction constructor.
+     *
      * @param $actionType
      * @param $actionRender
      * @param $template
      */
     public function __construct($name, $actionType, $actionRender, $template = self::ACTION_TEMPLATE)
     {
-        $this->name = $name;
-        $this->actionType = $actionType;
+        $this->name         = $name;
+        $this->actionType   = $actionType;
         $this->actionRender = $actionRender;
-        $this->template = $template;
+        $this->template     = $template;
     }
 
     /**
@@ -66,11 +76,13 @@ class TableAction
 
     /**
      * @param mixed $data
+     *
      * @return TableAction
      */
     public function setData($data)
     {
         $this->data = $data;
+
         return $this;
     }
 
@@ -84,11 +96,13 @@ class TableAction
 
     /**
      * @param mixed $template
+     *
      * @return TableAction
      */
     public function setTemplate($template)
     {
         $this->template = $template;
+
         return $this;
     }
 }

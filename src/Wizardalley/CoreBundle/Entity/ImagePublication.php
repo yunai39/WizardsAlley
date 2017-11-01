@@ -7,7 +7,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 
-
 /**
  * ImagePublication
  *
@@ -66,6 +65,7 @@ class ImagePublication
      * Set path
      *
      * @param string $path
+     *
      * @return ImagePublication
      */
     public function setPath($path)
@@ -89,6 +89,7 @@ class ImagePublication
      * Set description
      *
      * @param string $description
+     *
      * @return ImagePublication
      */
     public function setDescription($description)
@@ -112,6 +113,7 @@ class ImagePublication
      * Set publication
      *
      * @param \Wizardalley\CoreBundle\Entity\Publication $publication
+     *
      * @return ImagePublication
      */
     public function setPublication(\Wizardalley\CoreBundle\Entity\Publication $publication = null)
@@ -131,17 +133,26 @@ class ImagePublication
         return $this->publication;
     }
 
+    /**
+     * @return null|string
+     */
     public function getWebPath()
     {
-        return null === $this->path ? null : $this->getUploadDir()  . $this->path;
+        return null === $this->path ? null : $this->getUploadDir() . $this->path;
     }
-    
+
+    /**
+     * @return string
+     */
     protected function getUploadRootDir()
     {
         // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
         return __DIR__ . '/../../../../web/' . $this->getUploadDir();
     }
 
+    /**
+     * @return string
+     */
     protected function getUploadDir()
     {
         // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
@@ -155,7 +166,11 @@ class ImagePublication
      */
     public $file;
 
-    public function setFile(File $image) {
+    /**
+     * @param File $image
+     */
+    public function setFile(File $image)
+    {
 
         $this->file = $image;
 
@@ -164,7 +179,11 @@ class ImagePublication
         }
     }
 
-    public function getFile(){
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
         return $this->file;
     }
 
@@ -172,6 +191,7 @@ class ImagePublication
      * Set updatedAt
      *
      * @param \DateTime $updatedAt
+     *
      * @return ImagePublication
      */
     public function setUpdatedAt($updatedAt)
@@ -184,7 +204,7 @@ class ImagePublication
     /**
      * Get updatedAt
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {

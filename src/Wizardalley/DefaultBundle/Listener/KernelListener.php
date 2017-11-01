@@ -7,7 +7,6 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Wizardalley\CoreBundle\Entity\WizardUser;
 
-
 /**
  * Class KernelListener
  * @package Wizardalley\DefaultBundle\Listener

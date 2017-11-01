@@ -3,7 +3,6 @@
 namespace Wizardalley\DefaultBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Wizardalley\CoreBundle\Entity\AbstractPublication;
 use Wizardalley\CoreBundle\Entity\Blame;
 use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\Publication;
@@ -14,9 +13,7 @@ use Wizardalley\PublicationBundle\Form\SmallPublicationType;
 use Wizardalley\CoreBundle\Entity\SmallPublication;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
 /**
  * Class DefaultController
@@ -25,13 +22,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class DefaultController extends Controller
 {
-
     /**
      * indexAction
      *
      * This action will present the presentation page of the web site
      *
-     * @Route("/user/addBlame/{type}/{id}", name="wizardalley_add_blame", options = {"expose" = true})
+     * @Configuration\Route("/user/addBlame/{type}/{id}", name="wizardalley_add_blame", options = {"expose" = true})
      *
      * @return Response
      */
@@ -39,7 +35,7 @@ class DefaultController extends Controller
     {
         $blame = new Blame();
         $blame->setType($type)
-            ->setDateBlame(new \DateTime())
+              ->setDateBlame(new \DateTime())
               ->setContentId($id)
         ;
 
@@ -128,7 +124,7 @@ class DefaultController extends Controller
      *
      * This action will present the presentation page of the web site
      *
-     * @Route("/user/home", name="wizardalley_default_homepage")
+     * @Configuration\Route("/user/home", name="wizardalley_default_homepage")
      *
      * @return Response
      */
@@ -150,7 +146,7 @@ class DefaultController extends Controller
      *
      * This action will present the legal mention page
      *
-     * @Route("/mention", name="wizardalley_default_mention")
+     * @Configuration\Route("/mention", name="wizardalley_default_mention")
      *
      * @return Response
      */
@@ -164,7 +160,7 @@ class DefaultController extends Controller
      *
      * This action will present the copyright page
      *
-     * @Route("/copyright", name="wizardalley_default_copyright")
+     * @Configuration\Route("/copyright", name="wizardalley_default_copyright")
      *
      * @return Response
      */
@@ -178,7 +174,7 @@ class DefaultController extends Controller
      *
      * This action will present the confidentiality page
      *
-     * @Route("/confidentiality", name="wizardalley_default_confidentiality")
+     * @Configuration\Route("/confidentiality", name="wizardalley_default_confidentiality")
      *
      * @return Response
      */
@@ -192,7 +188,7 @@ class DefaultController extends Controller
      *
      * This action will present a contact form and treat it
      *
-     * @Route("/contact", name="wizardalley_default_contact")
+     * @Configuration\Route("/contact", name="wizardalley_default_contact")
      *
      * @param Request $request http request
      *

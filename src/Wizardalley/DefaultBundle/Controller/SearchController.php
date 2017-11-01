@@ -6,9 +6,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\DefaultBundle\Form\SearchType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration;
 
 /**
  * Class SearchController
@@ -18,8 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class SearchController extends BaseController
 {
     /**
-     *
-     * @Route("/search", name="wizardalley_search_display")
+     * @Configuration\Route("/search", name="wizardalley_search_display")
      * @return Response
      */
     public function searchDisplayAction()
@@ -49,7 +46,7 @@ class SearchController extends BaseController
 
     /**
      * @param int $page
-     * @Route(
+     * @Configuration\Route(
      *     "/searchAllUser/{page}",
      *      name="wizardalley_search_all_user",
      *      defaults={"page" = 1},
@@ -86,7 +83,7 @@ class SearchController extends BaseController
 
     /**
      * @param int $page
-     * @Route(
+     * @Configuration\Route(
      *     "/searchAllCommunity/{page}",
      *      name="wizardalley_search_all_community",
      *      defaults={"page" = 1},
@@ -123,7 +120,7 @@ class SearchController extends BaseController
     /**
      * @param     $field
      * @param int $page
-     * @Route(
+     * @Configuration\Route(
      *     "/searchUser/{field}/{page}",
      *      name="wizardalley_search_user",
      *      defaults={"page" = 1},
@@ -161,7 +158,7 @@ class SearchController extends BaseController
     /**
      * @param     $field
      * @param int $page
-     * @Route(
+     * @Configuration\Route(
      *     "/searchPage/{field}/{page}",
      *      name="wizardalley_search_page",
      *      defaults={"page" = 1},
@@ -198,7 +195,7 @@ class SearchController extends BaseController
 
     /**
      * @param int $page
-     * @Route(
+     * @Configuration\Route(
      *     "/searchOnline/{page}",
      *      name="wizardalley_search_online_page",
      *      defaults={"page" = 1},
@@ -233,7 +230,7 @@ class SearchController extends BaseController
     }
 
     /**
-     * @Route(
+     * @Configuration\Route(
      *     "/searchPublication/{field}/{page}",
      *      name="wizardalley_search_publication",
      *      defaults={"page" = 1},
