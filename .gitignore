@@ -1,9 +1,7 @@
 **/Entity/*~
 app/config/parameters.yml
-*parameters.yml
 vendor/
 nbproject/
-web/uploads/
 web/bundle/
 web/bundles/
 web/uploads/*
@@ -11,6 +9,4 @@ app/cache/
 app/logs/
 bin/
 .vagrant/
-/web/uploads/
 /web/assets/.sass-cache/
-/app/config/parameters.yml
