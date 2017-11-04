@@ -70,7 +70,6 @@ class MessageExtension extends \Twig_Extension
                                 ->orderBy('tm.lastMessageDate', 'DESC')
         ;
 
-        var_dump($query->getDQL());
         return $query->getQuery()->execute();
     }
 

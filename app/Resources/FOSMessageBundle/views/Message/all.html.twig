@@ -1,10 +1,6 @@
 {% extends 'FOSMessageBundle::layout.html.twig' %}
 
 {% block fos_message_content %}
-
-
-    <a href="{{ url('fos_message_thread_new' ) }}" class="btn btn-info">{% trans from 'FOSMessageBundle' %}
-        send_new{% endtrans %}</a>
     <h2>{% trans from 'FOSMessageBundle' %}inbox{% endtrans %}</h2>
     {% include 'FOSMessageBundle:Message:threads_list.html.twig' with {'threads': inboxThread} %}
 

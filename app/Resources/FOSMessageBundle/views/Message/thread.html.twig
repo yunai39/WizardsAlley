@@ -1,27 +1,46 @@
 {% extends 'FOSMessageBundle::layout.html.twig' %}
 
 {% block fos_message_content %}
+    <div class="row">
+        <div class="col-xs-12">
 
-<h2>{{ thread.subject }}</h2>
+            <h2>{{ thread.subject }}</h2>
 
-{% for message in thread.messages %}
-    <div class="messenger_thread_message">
-        <div class="messenger_thread_message_info">
-            {% trans with {'%sender%': message.sender|e, '%date%': message.createdAt|date} from 'FOSMessageBundle' %}message_info{% endtrans %}
+            <h3>{% trans from 'FOSMessageBundle' %}reply{% endtrans %}</h3>
+
+            <form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
+                {{ form_widget(form) }}
+
+                <input type="submit" class="btn btn-success"/>
+            </form>
         </div>
-
-        <div class="messenger_thread_message_body" id="message_{{ message.id }}">
-            {{ message.body }}
+        <div class="col-xs-12">
+            {% for message in thread.messages %}
+                <div class="row">
+                    <div class="col-xs-12 messenger_thread_message">
+                        <div class="row messenger_thread_message_info">
+                            <div class="col-xs-3 col-sm-2">
+                                <div class="imgSquare circle">
+                                    <div class="imgSquareContainer circle">
+                                        <img src="{{ asset(message.sender.getPictureProfile()) | imagine_filter('small_thumb')}}" class="circle"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-9 col-sm-10">
+                                <p class="message-user-name">{{ message.sender }}</p>
+                                <p class="message-date">{{ message.createdAt|date }}</p>
+                            </div>
+                        </div>
+                        <div class="row messenger_thread_message_body" id="message_{{ message.id }}">
+                            <div class="col-xs-12">
+                                {{ message.body }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
-{% endfor %}
 
-<h3>{% trans from 'FOSMessageBundle' %}reply{% endtrans %}</h3>
-
-<form action="{{ url('fos_message_thread_view', {'threadId': thread.id}) }}" method="post">
-    {{ form_widget(form) }}
-
-    <input type="submit" class="btn btn-success"/>
-</form>
 
 {% endblock %}
