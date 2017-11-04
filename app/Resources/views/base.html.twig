@@ -7,20 +7,20 @@
     {% block stylesheets %}
         <meta name="viewport" content="width=device-width">
         {% stylesheets
-                'assets/css/bootstrap.min.css'
-                'assets/css/bootstrap.icon-large.min.css'
-                'assets/css/bootstrap-theme.min.css'
-                'assets/css/toastr.min.css'
-                'assets/css/typeahead.css'
-                'assets/css/main.css'
-                'assets/css/main2.css'
-                'assets/jquery-ui/jquery-ui.min.css'
-                'assets/jquery-ui/jquery-ui.theme.min.css'
-                'assets/css/main2.css'
-               'assets/jquery-ui/jquery-ui.structure.min.css'
-                filter='?uglifycss,cssrewrite' %}
-            <link rel="stylesheet" type="text/css" href="{{ asset_url }}" />
-            <link href="https://fonts.googleapis.com/css?family=Alegreya" rel="stylesheet"> 
+        'assets/css/bootstrap.min.css'
+        'assets/css/bootstrap.icon-large.min.css'
+        'assets/css/bootstrap-theme.min.css'
+        'assets/css/toastr.min.css'
+        'assets/css/typeahead.css'
+        'assets/css/main.css'
+        'assets/css/main2.css'
+        'assets/jquery-ui/jquery-ui.min.css'
+        'assets/jquery-ui/jquery-ui.theme.min.css'
+        'assets/css/main2.css'
+        'assets/jquery-ui/jquery-ui.structure.min.css'
+        filter='?uglifycss,cssrewrite' %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+        <link href="https://fonts.googleapis.com/css?family=Alegreya" rel="stylesheet">
         {% endstylesheets %}
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/favicon-site.ico') }}"/>
@@ -51,7 +51,7 @@
                                    aria-haspopup="true" aria-expanded="false">
                                     <div class="imgSquare circle">
                                         <div class="imgSquareContainer">
-                                            <img src="{{ asset(app.user.getPictureProfile())  | imagine_filter('small_thumb')}}" />
+                                            <img src="{{ asset(app.user.getPictureProfile())  | imagine_filter('small_thumb') }}"/>
                                         </div>
                                     </div>
                                     <ul class="dropdown-menu">
@@ -64,6 +64,13 @@
                                                 {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                                             </a>
                                         </li>
+                                        {% if is_granted("ROLE_ADMIN") == true %}
+                                            <li>
+                                                <a href="{{ path('easyadmin') }}">
+                                                    {% trans %}wizard.menu.link.administration{% endtrans %}
+                                                </a>
+                                            </li>
+                                        {% endif %}
                                     </ul>
                             </li>
                         {% endif %}
@@ -144,20 +151,13 @@
                                 {% trans %}wizard.menu.link.search{% endtrans %}
                             </a>
                         </li>
-                        {% if is_granted("ROLE_ADMIN") == false %}
-                            <a href="{{ path('easyadmin') }}">
-
-                                <i class="wizard-administration"></i>
-                                {% trans %}wizard.menu.link.administration{% endtrans %}
-                            </a>
-                            </li>
-                        {% endif %}
                         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") == false %}
-                        <li>
-                            <a href="https://blog.thewizardsalley.com">
-                                <i class="wizard-iconnotifications"></i>{% trans %}wizard.menu.link.blog{% endtrans %}
-                            </a>
-                        </li>
+                            <li>
+                                <a href="https://blog.thewizardsalley.com">
+                                    <i class="wizard-iconnotifications"></i>{% trans %}
+                                    wizard.menu.link.blog{% endtrans %}
+                                </a>
+                            </li>
                         {% endif %}
                     </ul>
                 </div><!-- /.navbar-collapse -->
@@ -236,27 +236,27 @@
 
 {% block javascripts %}
     {% javascripts
-        'bundles/fosjsrouting/js/router.js'
-        'assets/js/jquery.min.js'
-        'assets/jquery-ui/jquery-ui.min.js'
-        'assets/js/js.cookie.js'
-        'assets/js/bootstrap.min.js'
-        'assets/js/toastr.min.js'
-        'assets/js/underscore.min.js'
-        'assets/js/main.js'
-        filter='?uglifyjs2'
-    %}
+    'bundles/fosjsrouting/js/router.js'
+    'assets/js/jquery.min.js'
+    'assets/jquery-ui/jquery-ui.min.js'
+    'assets/js/js.cookie.js'
+    'assets/js/bootstrap.min.js'
+    'assets/js/toastr.min.js'
+    'assets/js/underscore.min.js'
+    'assets/js/main.js'
+    filter='?uglifyjs2' %}
     <script type="text/javascript" language="Javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
-    <script type="text/javascript" language="Javascript" src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+    <script type="text/javascript" language="Javascript"
+            src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     <script type="text/javascript" language="Javascript">
         $(document).ready(
-            $('body .down-button a').click(function () {
-                var $main = $('#main'),
-                        $navbar = $('header nav .container-fluid');
-                $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
-                return false;
-            })
+                $('body .down-button a').click(function () {
+                    var $main = $('#main'),
+                            $navbar = $('header nav .container-fluid');
+                    $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
+                    return false;
+                })
         );
     </script>
 {% endblock %}

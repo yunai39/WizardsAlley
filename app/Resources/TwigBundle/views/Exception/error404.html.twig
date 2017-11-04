@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}
+    {% trans %}wizard.title.base{% endtrans %} 404 Page not found
+{% endblock %}
+
+{% block title_banner %}
+    <h1>
+        {% trans %}wizard.error.page404.banner{% endtrans %}
+    </h1>
+{% endblock %}
+
+{% block body %}
+    <h3>
+        {% trans %}wizard.error.page404.title{% endtrans %}
+    </h3>
+{% endblock %}
