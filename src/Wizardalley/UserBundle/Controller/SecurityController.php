@@ -2,6 +2,7 @@
 namespace Wizardalley\UserBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -19,7 +20,9 @@ class SecurityController extends Controller
     public function loginAction(Request $request)
     {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if ($this->get('security.context')
+                 ->isGranted('IS_AUTHENTICATED_REMEMBERED')
+        ) {
             return $this->redirectToRoute('wizardalley_default_homepage');
         }
 
@@ -35,5 +38,24 @@ class SecurityController extends Controller
                 'error'         => $authenticationUtils->getLastAuthenticationError(),
             ]
         );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return RedirectResponse
+     */
+    public function loginRedirectAction(Request $request)
+    {
+        $translator = $this->get('translator');
+        $request->getSession()
+                ->getFlashBag()
+                ->add(
+                    'login-message',
+                    $translator->trans('wizard.error.login')
+                )
+        ;
+
+        return new RedirectResponse($this->generateUrl('wizardalley_user_login'));
     }
 }

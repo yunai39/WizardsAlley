@@ -6,6 +6,7 @@ publication:
     unlike: Ne plus aimer
 wizard:
     error:
+      login: Vous devez être connecté pour accèder à cette page
       page404:
         banner: Qu'est ce que il vous a pris d'aller faire un tour ici ? C'est un endroit très mal famé !!
         title: Vous avez du vous tromper dans la prononciation de votre destination. Reprenez un peu de poudre de cheminette et prononcez bien Wizard's Alley

@@ -1,4 +1,8 @@
 services:
+
+    my_entry_point:
+        class: Wizardalley\UserBundle\Redirection\EntryPointRedirection
+        arguments: [@router] #needed for URL redirection
     wizard_alley.registration.form.type:
         class: Wizardalley\UserBundle\Form\Type\RegistrationFormType
         arguments: [%fos_user.model.user.class%]

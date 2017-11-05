@@ -11,6 +11,10 @@ wizardalley_user_couverture_edit_picture:
     path:   /user/editPictureCouverture
     defaults: { _controller: WizardalleyUserBundle:ProfilePicture:editCouverturePicture }
 
+wizardalley_user_login_redirect:
+    path:   /_login_redirect
+    defaults: { _controller: WizardalleyUserBundle:Security:loginRedirect }
+
 
 login_check:
     pattern:   /login_check

@@ -22,6 +22,11 @@
                     {% if error %}
                         <div class="alert alert-danger">{{ error.message }}</div>
                     {% endif %}
+                    <div>
+                        {% for message in app.session.getFlashBag().get('login-message') %}
+                            <p class="login-message">{{ message }}</p>
+                        {% endfor %}
+                    </div>
                     {# Le formulaire, avec URL de soumission vers la route « login_check » comme on l'a vu #}
                     <form action="{{ path('login_check') }}" method="post" class="wizardsalley-login-form">
                         <div class="form-group">
