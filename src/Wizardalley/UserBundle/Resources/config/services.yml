@@ -5,7 +5,7 @@ services:
         arguments: [@router] #needed for URL redirection
     wizard_alley.registration.form.type:
         class: Wizardalley\UserBundle\Form\Type\RegistrationFormType
-        arguments: [%fos_user.model.user.class%]
+        arguments: [%fos_user.model.user.class%, %token_check_alpha%]
         tags:
             - { name: form.type, alias: wizard_user_registation }
     wizard_alley.profile.form.type:

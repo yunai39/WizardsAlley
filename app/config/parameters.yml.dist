@@ -29,3 +29,4 @@ parameters:
     app.path.page_cover_images: /uploads/page/cover
     app.path.page_profile_images: /uploads/page/profile
     app.path.page_category_images: /uploads/page/category
+    token_check_alpha: tokenPourAlpha

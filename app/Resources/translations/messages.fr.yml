@@ -148,6 +148,7 @@ wizard:
             sexe: Genre
             facebook: Pseudo Facebook
             twitter: Pseudo twitter
+            token_alpha: Code de vérification pour l'alpha
         field:
             cgv:
                 accept: J'accepte les conditions du site
