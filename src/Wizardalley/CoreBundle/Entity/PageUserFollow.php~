@@ -21,17 +21,17 @@ class PageUserFollow
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\Page", inversedBy="followers")
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
-    */
+     */
     private $page;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesFollowed")
      * @ORM\JoinColumn(name="wizard_user_id", referencedColumnName="id")
-    */
+     */
     private $user;
 
     /**
@@ -54,6 +54,7 @@ class PageUserFollow
      * Set page
      *
      * @param \Wizardalley\CoreBundle\Entity\Page $page
+     *
      * @return PageUserFollow
      */
     public function setPage(\Wizardalley\CoreBundle\Entity\Page $page = null)
@@ -77,6 +78,7 @@ class PageUserFollow
      * Set user
      *
      * @param \Wizardalley\CoreBundle\Entity\WizardUser $user
+     *
      * @return PageUserFollow
      */
     public function setUser(\Wizardalley\CoreBundle\Entity\WizardUser $user = null)
@@ -100,6 +102,7 @@ class PageUserFollow
      * Set dateInscription
      *
      * @param \DateTime $dateInscription
+     *
      * @return PageUserFollow
      */
     public function setDateInscription($dateInscription)
@@ -119,8 +122,13 @@ class PageUserFollow
         return $this->dateInscription;
     }
 
+    /**
+     * @return string
+     */
     public function __toString()
     {
-        return $this->getUser()->getUsername();
+        return $this->getUser()
+                    ->getUsername()
+            ;
     }
 }

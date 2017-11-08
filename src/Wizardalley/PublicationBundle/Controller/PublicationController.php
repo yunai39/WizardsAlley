@@ -84,10 +84,6 @@ class PublicationController extends BaseController
             }
             $em->flush();
 
-            // Generation des notifications
-            $this->get('wizard.helper.publication.notification')
-                 ->generateNotificationForPublicationCreated($entity)
-            ;
             $this->get('session')
                  ->getFlashBag()
                  ->add(
@@ -357,6 +353,19 @@ class PublicationController extends BaseController
                  'wizard.publication.toogle_online.' . ($entity->getOnline() ? 'on' : 'off')
              )
         ;
+
+        // Si l'entite est en ligne et quel n'a jamais encore ete mis en ligne
+        if($entity->getOnline() && $entity->getHasBeenPublished() == false) {
+            // Generation des notifications
+            $this->get('wizard.helper.publication.notification')
+                 ->generateNotificationForPublicationCreated($entity)
+            ;
+
+            $entity->setHasBeenPublished(true);
+            $em->persist($entity);
+            $em->flush();
+        }
+
 
         /** @var Request $request */
         $request = $this->get('request');

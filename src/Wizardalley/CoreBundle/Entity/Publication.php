@@ -53,6 +53,13 @@ class Publication extends AbstractPublication
     private $smallContent;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="hasBennPublished", type="boolean", options={"default": false})
+     */
+    private $hasBeenPublished = false;
+
+    /**
      * Publication constructor.
      */
     public function __construct()
@@ -249,5 +256,28 @@ class Publication extends AbstractPublication
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    /**
+     * Set hasBeenPublished
+     *
+     * @param bool $hasBeenPublished
+     * @return Publication
+     */
+    public function setHasBeenPublished($hasBeenPublished)
+    {
+        $this->hasBeenPublished = $hasBeenPublished;
+
+        return $this;
+    }
+
+    /**
+     * Get hasBeenPublished
+     *
+     * @return bool
+     */
+    public function getHasBeenPublished()
+    {
+        return $this->hasBeenPublished;
     }
 }
