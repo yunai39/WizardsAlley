@@ -454,6 +454,21 @@ h1 {
 	margin: 2vh 0vw 0vh;
 }
 
+.dropdown-menu .dropdown-toggle {
+	display: none;
+}
+
+.navbar-nav > li > .dropdown-menu {
+    position: fixed;
+    top: auto;
+    right: 5.5vw;
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+	background-color: transparent;
+	border-color: transparent;
+}
+
 /* FOOTER */
 
 footer ul {
