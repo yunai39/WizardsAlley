@@ -66,7 +66,7 @@ header nav .nav-full li:hover, .navbar-nav .active  {
 
 .head {
     padding: 0px!important;
-    margin: 10vh 5vw 15vh!important;
+    margin: 15vh 5vw 10vh!important;
     height: auto!important;
 }
 
@@ -424,12 +424,12 @@ h1 {
 	padding: 0px;
 	margin: 5px 0px;
 }
-
+/*
 .col-md-4 .panel-body .col-md-12 a, .col-md-3 .panel-body .col-md-12 a {
 	display: flex;
 	align-items: center;
 	align-content: center;
-}
+}*/
 
 .col-md-4 .icon-large, .col-md-3 .icon-large {
 	margin-right: 10px;
@@ -459,6 +459,10 @@ h1 {
 footer ul {
     padding: 0px;
     margin: 1px 0vw 10px 0vw;
+}
+
+footer li a:hover {
+    background-color: none;
 }
 
 /*# sourceMappingURL=main.css.map */
