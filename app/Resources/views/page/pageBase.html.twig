@@ -100,7 +100,7 @@
                                     <h3>{% trans %} wizard.page.followers {% endtrans %}</h3>
                                     <hr>
                                     {% for user in followers %}
-                                        <div class="col-xs-6 col-md-4 col-lg-3">
+                                        <div class="col-xs-6">
                                             <div class="squareUser">
                                                 <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
                                                     <div class="imgSquare circle">
@@ -126,7 +126,7 @@
                                 <div class="panel-body">
                                     <h3>{% trans %} wizard.page.editor {% endtrans %}</h3>
                                     <hr>
-                                    <div class="col-xs-6 col-md-4 col-lg-3">
+                                    <div class="col-xs-6">
                                         <div class="squareUser">
                                             <a href="{{ path('wizardalley_user_wall',{'id': page.creator.id}) }}">
                                                 <div class="imgSquare circle">
@@ -144,7 +144,7 @@
                                         </div>
                                     </div>
                                     {% for user in editors %}
-                                        <div class="col-xs-6 col-md-4 col-lg-3">
+                                        <div class="col-xs-6">
                                             <div class="squareUser">
                                                 <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
                                                     <div class="imgSquare circle">
