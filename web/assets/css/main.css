@@ -75,8 +75,8 @@ main {
   border-radius: 50%; }
 
 .squareUser div.imgSquare {
-  width: 30%;
-  float: left; }
+  float: left;
+}
 
 .search-publication-container {
   padding: 10px;
