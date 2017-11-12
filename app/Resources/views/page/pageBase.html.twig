@@ -10,7 +10,7 @@
 {% block title_banner %}
     <div class="imgSquare circle">
         <div class="imgSquareContainer">
-            <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb')}}"/>
+            <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb') }}"/>
         </div>
     </div>
     <h1>
@@ -43,54 +43,55 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="panel panel-default profil-infos-panel">
-                            <div class="panel-body">
-                                <p>{{ page.description | raw }}</p>
-                                {% if app.user %}
-                                    <div class="margin-bottom-middle">
-                                        {% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}
+                        <div class="panel-body">
+                            <p>{{ page.description | raw }}</p>
+                            {% if app.user %}
+                                <div class="margin-bottom-middle">
+                                    {% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}
+                                </div>
+
+                                {% if  app.user in editors or app.user.id == creator_id or app.user in checkers %}
+                                    <div class="col-md-12">
+                                        <a href="{{ path('page_gestion_show',{'id_page': page.id } ) }}"> <span
+                                                    class="icon-large icon icon-book"></span>{% trans %}
+                                            wizard.page.gestion.edit {% endtrans %}</a>
                                     </div>
 
-                                    {% if  app.user in editors or app.user.id == creator_id or app.user in checkers %}
+                                    {% if  app.user in editors or app.user.id == creator_id %}
                                         <div class="col-md-12">
-                                            <a href="{{ path('page_gestion_show',{'id_page': page.id } ) }}"> <span
-                                                        class="icon-large icon icon-book"></span>{% trans %}
-                                                wizard.page.gestion.edit {% endtrans %}</a>
+                                            <a href="{{ path('page_gestion_publication',{'id_page': page.id } ) }}"> <span
+                                                        class="icon-large icon icon-book"></span>
+                                                {% trans %}wizard.page.gestion.publication.edit {% endtrans %}
+                                            </a>
                                         </div>
-
-                                        {% if  app.user in editors or app.user.id == creator_id %}
-                                            <div class="col-md-12">
-                                                <a href="{{ path('page_gestion_publication',{'id_page': page.id } ) }}"> <span
-                                                            class="icon-large icon icon-book"></span>
-                                                    {% trans %}wizard.page.gestion.publication.edit {% endtrans %}
-                                                </a>
-                                            </div>
-                                        {% endif %}
                                     {% endif %}
                                 {% endif %}
-                                <div class="col-md-12">
-                                    {% if page.urlFacebook != null %}
-                                        <a href="https://www.facebook.com/{{ page.urlFacebook }}"/><span class="icon-large icon-facebook"
-                                                                                aria-hidden="true"></span> https://www.facebook.com/{{ page.urlFacebook }}</a>
-                                    {% endif %}
-                                </div>
-                                <div class="col-md-12">
-                                    <span class="icon-large icon  icon-heart"></span> {% trans %}
-                                    wizard.page.followers {% endtrans %} {{ page.followers | length }}
-                                </div>
-                                {% if app.user %}
-                                    <div class="col-md-12">
-                                        {% if page in app.user.getPageFollowedEntity %}
-                                            <a href=""><span class="icon-large icon icon-user"></span> {% trans %}
-                                                page.invite_friend {% endtrans %}</a>
-                                        {% else %}
-                                            <a href="javascript:util.likePage({{ page.id }})"><span
-                                                        class="icon-large icon icon-user"></span> {% trans %}
-                                                page.like {% endtrans %}
-                                            </a>
-                                        {% endif %}
-                                    </div>
+                            {% endif %}
+                            <div class="col-md-12">
+                                {% if page.urlFacebook != null %}
+                                    <a href="https://www.facebook.com/{{ page.urlFacebook }}"/><span
+                                        class="icon-large icon-facebook"
+                                        aria-hidden="true"></span> https://www.facebook.com/{{ page.urlFacebook }}</a>
                                 {% endif %}
                             </div>
+                            <div class="col-md-12">
+                                <span class="icon-large icon  icon-heart"></span> {% trans %}
+                                wizard.page.followers {% endtrans %} {{ page.followers | length }}
+                            </div>
+                            {% if app.user %}
+                                <div class="col-md-12">
+                                    {% if page in app.user.getPageFollowedEntity %}
+                                        <a href=""><span class="icon-large icon icon-user"></span> {% trans %}
+                                            page.invite_friend {% endtrans %}</a>
+                                    {% else %}
+                                        <a href="javascript:util.likePage({{ page.id }})"><span
+                                                    class="icon-large icon icon-user"></span> {% trans %}
+                                            page.like {% endtrans %}
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -99,20 +100,22 @@
                                     <h3>{% trans %} wizard.page.followers {% endtrans %}</h3>
                                     <hr>
                                     {% for user in followers %}
-                                        <div class="squareUser">
-                                            <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
-                                                <div class="imgSquare circle">
-                                                    <div class="imgSquareContainer">
-                                                        <img  src="
+                                        <div class="col-xs-6 col-md-4 col-lg-3">
+                                            <div class="squareUser">
+                                                <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
+                                                    <div class="imgSquare circle">
+                                                        <div class="imgSquareContainer">
+                                                            <img src="
                                                 {% if user.pathProfile %}
-                                                     {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) | imagine_filter('small_thumb')  }}
+                                                     {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) | imagine_filter('small_thumb') }}
                                                 {% else %}
-                                                    {{ asset('uploads/profile/default.png') | imagine_filter('small_thumb')  }}
+                                                    {{ asset('uploads/profile/default.png') | imagine_filter('small_thumb') }}
                                                 {% endif %}"/>
+                                                        </div>
+                                                        <p class=" text-center">{{ user.username }}</p>
                                                     </div>
-                                                    <p class=" text-center">{{ user.username }}</p>
-                                                </div>
-                                            </a>
+                                                </a>
+                                            </div>
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -123,36 +126,40 @@
                                 <div class="panel-body">
                                     <h3>{% trans %} wizard.page.editor {% endtrans %}</h3>
                                     <hr>
-                                    <div class="squareUser">
-                                        <a href="{{ path('wizardalley_user_wall',{'id': page.creator.id}) }}">
-                                            <div class="imgSquare circle">
-                                                <div class="imgSquareContainer ">
-                                                    <img src="
+                                    <div class="col-xs-6 col-md-4 col-lg-3">
+                                        <div class="squareUser">
+                                            <a href="{{ path('wizardalley_user_wall',{'id': page.creator.id}) }}">
+                                                <div class="imgSquare circle">
+                                                    <div class="imgSquareContainer ">
+                                                        <img src="
                                                 {% if page.creator.pathProfile %}
                                                      {{ asset('uploads/profile/' ~ page.creator.id ~ '/' ~ page.creator.pathProfile) }}
                                                 {% else %}
                                                     {{ asset('uploads/profile/default.png') }}
                                                 {% endif %}"/>
+                                                    </div>
+                                                    <p class=" text-center">{{ page.creator.username }}</p>
                                                 </div>
-                                                <p class=" text-center">{{ page.creator.username }}</p>
-                                            </div>
-                                        </a>
+                                            </a>
+                                        </div>
                                     </div>
                                     {% for user in editors %}
-                                        <div class="squareUser">
-                                            <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
-                                                <div class="imgSquare circle">
-                                                    <div class="imgSquareContainer ">
-                                                        <img src="
+                                        <div class="col-xs-6 col-md-4 col-lg-3">
+                                            <div class="squareUser">
+                                                <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
+                                                    <div class="imgSquare circle">
+                                                        <div class="imgSquareContainer ">
+                                                            <img src="
                                                 {% if user.pathProfile %}
                                                      {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) }}
                                                 {% else %}
                                                     {{ asset('uploads/profile/default.png') }}
                                                 {% endif %}"/>
+                                                        </div>
+                                                        <p class=" text-center">{{ user.username }}</p>
                                                     </div>
-                                                    <p class=" text-center">{{ user.username }}</p>
-                                                </div>
-                                            </a>
+                                                </a>
+                                            </div>
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -162,7 +169,7 @@
 
                 </div>
                 <div class="col-md-9">
-                    {%  block page_body %}
+                    {% block page_body %}
                     {% endblock %}
                 </div>
             </div>
