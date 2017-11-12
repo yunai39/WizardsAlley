@@ -547,9 +547,10 @@ class PublicationController extends BaseController
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
             $comment->setUser($this->getUser())
                     ->setDateComment(new \DateTime('now'))
-                    ->setContent("test")
+                    ->setContent($form->get('content')->getData())
                     ->setPublication($entity)
             ;
             $em->persist($comment);
