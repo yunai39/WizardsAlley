@@ -1,7 +1,7 @@
-{% extends ':page:pageBase.html.twig' %}
+{% extends '::base.html.twig' %}
 
 {% block head_extra_class %}head-page{% endblock %}
-{% block page_body %}
+{% block body %}
     {% set isAdmin = (page.creator.id == app.user.id ) %}
     <div class="panel panel-default">
         <div class="panel-body">

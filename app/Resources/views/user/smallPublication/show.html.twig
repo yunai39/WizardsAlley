@@ -7,47 +7,71 @@
 {% block profile_body -%}
     <div class="panel panel-default">
         <div class="panel-body">
-            <div class="publication">
-                <div class="row">
-                    <div class="col-xs-4">
 
-                        <div class="imgSquare circle">
-                            <div class="imgSquareContaine ">
-                                <img src="{{ asset(entity.user.getPictureProfile )| imagine_filter('small_thumb')  }}"/>
+            <div class="row publication-top">
+
+                <div class="col-xs-10">
+                    <div class="row ">
+                        <div class="col-xs-3 img-container">
+                            <div class="imgSquare circle">
+                                <div class="imgSquareContainer">
+                                    <img src="{{ asset(entity.user.getPictureProfile )| imagine_filter('small_thumb') }}"/>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6">
-                        <h3>
-                            <a class="publication-author"
-                               href="{{ path('wizardalley_user_wall', {'id': entity.user.id}) }}">{{ entity.user.username }}</a>
-                            <br>
-                            <span class="publication-date">{{ entity.createdAt | date('Y-m-d') }} à {{ entity.createdAt | date('H:i:s') }}</span>
-                        </h3>
-                    </div>
-                    <div class="col-xs-2">
-
-                        {% if app.user and app.user.id == entity.user.id %}
-                            <div class="margin-top-middle">
-                                {% include '::includes/disablePublicationButton.html.twig' with {'id': entity.id} %}
+                        <div class="col-xs-9 title-container">
+                            <div class="page-name">
+                                <a class="publication-author"
+                                   href="{{ path('wizardalley_user_wall', {'id': entity.user.id}) }}">{{ entity.user.username }}</a>
                             </div>
-                        {% elseif app.user %}
-                            <div class="margin-top-middle">
-                                {% include '::includes/addBlameButton.html.twig' with {'id': entity.id, 'type': 'publication'} %}
+                            <div class="publication-name">
+                                <span class="publication-date">{{ entity.createdAt | date('Y-m-d') }}
+                                    à {{ entity.createdAt | date('H:i:s') }}</span>
                             </div>
-                        {% endif %}
-                    </div>
-                    <div class="col-xs-8">
-                        <div class="row">
-                            <div class="col-md-1 "></div>
-                            <div class="col-md-10">
-                                <p>{{ entity.content | raw }}</p>
-                            </div>
-                            <div class="col-md-1 "></div>
                         </div>
                     </div>
                 </div>
+                <div class="col-xs-2">
+                    <h3>
+                        <i class="icon-large icon-heart"></i>&nbsp;0
+                    </h3>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-10 col-md-offset-1 ">
+                    <p>{{ entity.content | raw }}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-2 col-xs-offset-10 text-align-right">
+
+                    {% if app.user and app.user.id == entity.user.id %}
+                        <div class="margin-top-middle">
+                            {% include '::includes/disablePublicationButton.html.twig' with {'id': entity.id} %}
+                        </div>
+                    {% elseif app.user %}
+                        <div class="margin-top-middle">
+                            {% include '::includes/addBlameButton.html.twig' with {'id': entity.id, 'type': 'publication'} %}
+                        </div>
+
+                        <button class="label defaut-label like-unlike-button btn"
+                                data-id="{{ entity.id }}"
+                                onclick="util.likeOrUnlikePublication({{ entity.id }})"
+                                {% if is_like(entity.id) %}
+                                value="unlike"
+                        >
+                            {% trans %}publication.unlike{% endtrans %}
+                            {% else %}
+                                value="like"
+                                >
+                                {% trans %}publication.like{% endtrans %}
+                            {% endif %}
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="row">
