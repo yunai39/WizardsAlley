@@ -72,6 +72,20 @@
                         {% trans %}publication.like{% endtrans %}
                     {% endif %}
                 </button>
+            {% else %}
+                <button class="label defaut-label like-unlike-small-button btn"
+                        data-id="{{ publication_id }}"
+                        onclick="util.likeOrUnlikeSmallPublication({{ publication_id }})"
+                        {% if is_like_small(publication_id) %}
+                        value="unlike"
+                >
+                    {% trans %}publication.unlike{% endtrans %}
+                    {% else %}
+                        value="like"
+                        >
+                        {% trans %}publication.like{% endtrans %}
+                    {% endif %}
+                </button>
             {% endif %}
             {% if app.user %}
                 {% if app.user.id == publication_user_id %}

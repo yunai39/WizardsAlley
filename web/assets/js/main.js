@@ -117,6 +117,28 @@ var util = (function () {
                 util.ajaxHandle('POST', null, Routing.generate('publication_user_unlike', {'id': id}), _handler);
             }
         },
+
+        /**
+         * Liker ou unlique une small publication
+         */
+        "likeOrUnlikeSmallPublication": function (id) {
+            var $button = $('.like-unlike-small-button[data-id="' + id + '"]');
+            if ($button.attr('value') == 'like') {
+                var _handler = function (data) {
+                    $button.attr('value', 'unlike');
+                    $button.html('Unlike');
+                };
+                // Envoyer la requete js
+                util.ajaxHandle('POST', null, Routing.generate('small_publication_user_like', {'id': id}), _handler);
+            } else {
+                var _handler = function (data) {
+                    $button.attr('value', 'like');
+                    $button.html('Like');
+                };
+                // Envoyer la requete js
+                util.ajaxHandle('POST', null, Routing.generate('small_publication_user_unlike', {'id': id}), _handler);
+            }
+        },
         /**
          *
          * @param _method

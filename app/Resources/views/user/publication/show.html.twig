@@ -136,7 +136,7 @@
                 });
             };
             $result = util.loadMore(
-                    Routing.generate('comment_get', {'id': {{ entity_id }}, 'page': _$page}),
+                    Routing.generate('comment_get', {'id': {{ entity.id }}, 'page': _$page}),
                     'GET',
                     _handler
             );
@@ -160,9 +160,5 @@
                 time: comment[0].dateComment.date.substr(0, 19)
             }));
         }
-
-        $('.carousel').carousel({
-            interval: 3000
-        });
     </script>
 {% endblock %}

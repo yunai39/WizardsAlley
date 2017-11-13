@@ -33,12 +33,12 @@
                 </div>
                 <div class="col-xs-2">
                     <h3>
-                        <i class="icon-large icon-heart"></i>&nbsp;0
+                        <i class="icon-large icon-heart"></i>&nbsp;{{ entity.countLike }}
                     </h3>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-md-10 col-md-offset-1 ">
+                <div class="col-xs-12 ">
                     <p>{{ entity.content | raw }}</p>
                 </div>
             </div>
@@ -47,18 +47,15 @@
                 <div class="col-xs-2 col-xs-offset-10 text-align-right">
 
                     {% if app.user and app.user.id == entity.user.id %}
-                        <div class="margin-top-middle">
-                            {% include '::includes/disablePublicationButton.html.twig' with {'id': entity.id} %}
-                        </div>
+                        {% include '::includes/disablePublicationButton.html.twig' with {'id': entity.id} %}
                     {% elseif app.user %}
-                        <div class="margin-top-middle">
-                            {% include '::includes/addBlameButton.html.twig' with {'id': entity.id, 'type': 'publication'} %}
-                        </div>
-
-                        <button class="label defaut-label like-unlike-button btn"
+                        {% include '::includes/addBlameButton.html.twig' with {'id': entity.id, 'type': 'publication'} %}
+                    {% endif %}
+                    {% if app.user %}
+                        <button class="label defaut-label like-unlike-small-button btn"
                                 data-id="{{ entity.id }}"
-                                onclick="util.likeOrUnlikePublication({{ entity.id }})"
-                                {% if is_like(entity.id) %}
+                                onclick="util.likeOrUnlikeSmallPublication({{ entity.id }})"
+                                {% if is_like_small(entity.id) %}
                                 value="unlike"
                         >
                             {% trans %}publication.unlike{% endtrans %}
@@ -72,42 +69,95 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-10 col-md-offset-1">
-                    <div class="row">
-                        <div class="col-md-12 ">
-                            <hr/>
-                            <h4>{% trans %}publication.comments{% endtrans %}</h4>
-                            <hr/>
-                        </div>
-                        {% for comment in entity.comments %}
-                            <div class="col-md-12 comment_content">
-                                <div class="col-md-2">
-
-                                    <div class="imgSquare circle">
-                                        <div class="imgSquareContainer">
-                                            <img src="{{ asset(entity.user.getPictureProfile ) | imagine_filter('small_thumb') }}"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-10">
-                                    <div class="col-md-12">
-                                        <h5>Par
-                                            <a href="{{ path('wizardalley_user_wall', {'id': comment.user.id}) }}">{{ comment.user.username }}</a>
-                                            , le {{ comment.dateComment | date('Y-m-d') }}
-                                            à {{ comment.dateComment | date('H:i:s') }}
-                                        </h5>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <p>{{ comment.content }}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <h3>{% trans %}publication.comments{% endtrans %}</h3>
+                    <div class="comment_block">
+                        <div id="comment_content">
+                        </div>
+                    </div>
+                    {% if app.user %}
+                        <div>
+                            {{ form(comment_form) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer text-center">
+            <span class="glyphicon glyphicon-chevron-down clickable wizard-load-comments" aria-hidden="true"></span>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script id="comment-template" type="text/template">
+        <div class="col-xs-12 col-sm-6">
+            <div class="row">
+                <div class="col-xs-2">
+                    <img src="<%= srcImg %>" class="img-responsive">
+                </div>
+                <div class="col-xs-10">
+                    <p class="message">
+                        <%= message %>
+                    </p>
+                    <p class="time">
+                        <%= username %>, le <%= time %>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script>
+        var _$page = 1;
+
+        function loadComment(data) {
+            console.log(data);
+            $.each(data['extra']['data'], function (index, value) {
+                addComment(value);
+            });
+        }
+
+        function loadMore() {
+            _handler = function (data) {
+                console.log(data);
+                $.each(data['extra']['data'], function (index, value) {
+                    addComment(value);
+                });
+            };
+            $result = util.loadMore(
+                    Routing.generate('comment_get', {'id': {{ entity.id }}, 'page': _$page}),
+                    'GET',
+                    _handler
+            );
+            _$page = _$page + 1;
+        }
+
+        loadMore();
+
+        $('.wizard-load-comments').on('click', function () {
+            loadMore();
+        });
+
+
+        function addComment(comment) {
+            var $tpl = _.template($('#comment-template').html()),
+                    $div = $('#comment_content');
+            $div.append($tpl({
+                srcImg: '{{ asset('uploads/profile/') }}' + comment.id + '/' + comment.pathProfile,
+                message: comment[0].content,
+                username: comment.username,
+                time: comment[0].dateComment.date.substr(0, 19)
+            }));
+        }
+    </script>
 {% endblock %}

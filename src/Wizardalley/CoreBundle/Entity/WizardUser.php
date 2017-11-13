@@ -147,6 +147,11 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var ArrayCollection
      */
     private $publicationsLiked;
+    /**
+     * @ORM\OneToMany(targetEntity="SmallPublicationUserLike", mappedBy="user")
+     * @var ArrayCollection
+     */
+    private $smallPublicationsLiked;
 
     /**
      * @ORM\OneToMany(targetEntity="SmallPublication", mappedBy="user", cascade={"remove", "persist"})
@@ -1003,5 +1008,38 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public function getAcceptCGV()
     {
         return $this->acceptCGV;
+    }
+
+    /**
+     * Add smallPublicationsLiked
+     *
+     * @param \Wizardalley\CoreBundle\Entity\SmallPublicationUserLike $smallPublicationsLiked
+     * @return WizardUser
+     */
+    public function addSmallPublicationsLiked(\Wizardalley\CoreBundle\Entity\SmallPublicationUserLike $smallPublicationsLiked)
+    {
+        $this->smallPublicationsLiked[] = $smallPublicationsLiked;
+
+        return $this;
+    }
+
+    /**
+     * Remove smallPublicationsLiked
+     *
+     * @param \Wizardalley\CoreBundle\Entity\SmallPublicationUserLike $smallPublicationsLiked
+     */
+    public function removeSmallPublicationsLiked(\Wizardalley\CoreBundle\Entity\SmallPublicationUserLike $smallPublicationsLiked)
+    {
+        $this->smallPublicationsLiked->removeElement($smallPublicationsLiked);
+    }
+
+    /**
+     * Get smallPublicationsLiked
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSmallPublicationsLiked()
+    {
+        return $this->smallPublicationsLiked;
     }
 }

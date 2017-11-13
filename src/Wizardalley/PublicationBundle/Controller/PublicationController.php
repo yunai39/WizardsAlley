@@ -556,7 +556,6 @@ class PublicationController extends BaseController
             $em->persist($comment);
             $em->flush();
         }
-
         return $this->redirect(
             $this->generateUrl(
                 'publication_show',

@@ -2,11 +2,17 @@
 
 namespace Wizardalley\PublicationBundle\Controller;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
+use Wizardalley\CoreBundle\Entity\CommentPublication;
 use Wizardalley\CoreBundle\Entity\SmallPublication;
+use Wizardalley\CoreBundle\Entity\SmallPublicationUserLike;
+use Wizardalley\CoreBundle\Entity\WizardUser;
+use Wizardalley\PublicationBundle\Form\CommentType;
 use Wizardalley\PublicationBundle\Form\SmallPublicationType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -29,6 +35,89 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             '::publication/smallPublicationForm.html.twig',
             ['formSmallPublication' => $form->createView()]
         );
+    }
+
+    /**
+     * addCommentAction
+     *
+     * Add a coment for a specific publication
+     *
+     * @Route("/user/commentSmall/add/{id}", name="comment_small_add")
+     * @param Request $request
+     * @param         $id integer The entity publication id
+     *
+     * @return Response
+     */
+    public function addCommentSmallAction(Request $request, $id)
+    {
+        $em =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
+
+        /** @var SmallPublication $entity */
+        $entity =
+            $em->getRepository('WizardalleyCoreBundle:SmallPublication')
+               ->find($id)
+        ;
+
+        if (!$entity ) {
+            throw $this->createNotFoundException('Unable to find SmallPublication entity.');
+        }
+        $comment = new CommentPublication();
+        $form    = $this->createFormComment(
+            $comment,
+            $id
+        );
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+
+            $comment->setUser($this->getUser())
+                    ->setDateComment(new \DateTime('now'))
+                    ->setContent($form->get('content')->getData())
+                    ->setPublication($entity)
+            ;
+            $em->persist($comment);
+            $em->flush();
+        }
+        return $this->redirect(
+            $this->generateUrl(
+                'user_small_publication_show',
+                ['id' => $id]
+            )
+        );
+    }
+
+    /**
+     * Creates a form to add a comment.
+     *
+     * @param CommentPublication $comment       The entity comment
+     * @param int                $publicationId The id of the entity publication
+     *
+     * @return \Symfony\Component\Form\Form The form
+     */
+    private function createFormComment(CommentPublication $comment, $publicationId)
+    {
+        $form = $this->createForm(
+            new CommentType(),
+            $comment,
+            [
+                'action' => $this->generateUrl(
+                    'comment_small_add',
+                    ['id' => $publicationId]
+                ),
+                'method' => 'PUT',
+            ]
+        );
+
+        $form->add(
+            'submit',
+            'submit',
+            ['label' => 'Add comment']
+        );
+
+        return $form;
     }
 
     /**
@@ -102,6 +191,99 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
         return $form;
     }
 
+
+    /**
+     * @Route("/user/smallpublication/{id}/like", name="small_publication_user_like", options={"expose"=true})
+     * @Method({"POST"})
+     * @param SmallPublication $publication
+     * @ParamConverter("publication", class="WizardalleyCoreBundle:SmallPublication")
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function likeSmallPublicationUser(SmallPublication $publication)
+    {
+        /** @var WizardUser $user */
+        $user = $this->getUser();
+        /** @var EntityRepository $repo */
+        $repo            =
+            $this->getDoctrine()
+                 ->getRepository("WizardalleyCoreBundle:SmallPublicationUserLike")
+        ;
+        $publicationLike = $repo->findOneBy(
+            [
+                'user'        => $user->getId(),
+                'smallPublication' => $publication->getId()
+            ]
+        );
+
+        if (!$publicationLike instanceof SmallPublicationUserLike) {
+            $publicationLike = new SmallPublicationUserLike();
+            $publicationLike->setUser($user)
+                            ->setSmallPublication($publication)
+                            ->setDateLike(new \DateTime())
+            ;
+            $em =
+                $this->getDoctrine()
+                     ->getManager()
+            ;
+            $em->persist($publicationLike);
+            $em->flush();
+
+            return $this->sendJsonResponse(
+                'success',
+                []
+            );
+        }
+
+        return $this->sendJsonResponse(
+            'error',
+            []
+        );
+    }
+
+    /**
+     * @Route("/user/smallpublication/{id}/unlike", name="small_publication_user_unlike", options={"expose"=true})
+     * @Method({"POST"})
+     * @param SmallPublication $publication
+     * @ParamConverter("publication", class="WizardalleyCoreBundle:SmallPublication")
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function unlikeSmallPublicationUser(SmallPublication $publication)
+    {
+        /** @var WizardUser $user */
+        $user = $this->getUser();
+        /** @var EntityRepository $repo */
+        $repo            =
+            $this->getDoctrine()
+                 ->getRepository("WizardalleyCoreBundle:SmallPublicationUserLike");
+        $publicationLike = $repo->findOneBy(
+            [
+                'user'        => $user->getId(),
+                'smallPublication' => $publication->getId()
+            ]
+        );
+
+        if ($publicationLike instanceof SmallPublicationUserLike) {
+            $em =
+                $this->getDoctrine()
+                     ->getManager()
+            ;
+            $em->remove($publicationLike);
+            $em->flush();
+
+            return $this->sendJsonResponse(
+                'success',
+                []
+            );
+        }
+
+        return $this->sendJsonResponse(
+            'error',
+            []
+        );
+    }
+
     /**
      * Finds and displays a SmallPublication entity.
      * @Route("/{id}/show", name="user_small_publication_show", requirements={"id" = "\d+"})
@@ -122,11 +304,18 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             throw $this->createNotFoundException('Unable to find SmallPublication entity.');
         }
 
+        $comment     = new CommentPublication();
+        $commentForm = $this->createFormComment(
+            $comment,
+            $id
+        );
+
         return $this->render(
             '::user/smallPublication/show.html.twig',
             [
                 'entity' => $entity,
-                'user'   => $entity->getUser()
+                'user'   => $entity->getUser(),
+                'comment_form' => $commentForm->createView()
             ]
         );
     }

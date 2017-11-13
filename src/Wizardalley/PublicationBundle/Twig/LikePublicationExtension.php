@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 use Wizardalley\CoreBundle\Entity\Publication;
 use Wizardalley\CoreBundle\Entity\PublicationUserLike;
+use Wizardalley\CoreBundle\Entity\SmallPublicationUserLike;
 
 /**
  * Class LikePublicationExtension
@@ -57,7 +58,8 @@ class LikePublicationExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'is_like' => new \Twig_Function_Method($this, 'isLike')
+            'is_like' => new \Twig_Function_Method($this, 'isLike'),
+            'is_like_small' => new \Twig_Function_Method($this, 'isLikeSmall'),
         );
     }
 
@@ -77,6 +79,27 @@ class LikePublicationExtension extends \Twig_Extension
             'user'        => $this->getUser()->getId()
         ]);
         if ($publicationLike instanceof PublicationUserLike) {
+            return true;
+        }
+
+        return false;
+    }
+    /**
+     * @param int $publication
+     *
+     * @return int
+     */
+    public function isLikeSmall($publication)
+    {
+        if (empty($this->getUser())) {
+            return false;
+        }
+        $repo            = $this->em->getRepository('WizardalleyCoreBundle:SmallPublicationUserLike');
+        $publicationLike = $repo->findOneBy([
+            'smallPublication' => $publication,
+            'user'        => $this->getUser()->getId()
+        ]);
+        if ($publicationLike instanceof SmallPublicationUserLike) {
             return true;
         }
 
