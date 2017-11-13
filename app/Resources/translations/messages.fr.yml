@@ -71,6 +71,9 @@ wizard:
     comment:
         placeholder: Contenu du commentaire
     publication:
+        toogle_online:
+            on: Activation de la publication
+            off: Désactivation de la publication
         placeholder: Contenu de la publication
         add_blame:
             notification: Êtes vous sur de vouloir signaler ce contenu ?
