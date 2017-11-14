@@ -45,8 +45,45 @@ a:hover {
 
 /* HEADER */
 
-header nav {
-    overflow-x: hidden;
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    z-index: 900;
+	background-image: url(../../assets/images/bg-dark.jpeg);
+	background-color: #454A72;
+	background-attachment: fixed;
+	background-size: cover;
+	background-repeat: no-repeat;
+    overflow: hidden;
+    transition: 0.4s linear;
+}
+
+.container-fluid {
+	position: relative;
+    transition: 0.4s linear;
+}
+
+.navbar {
+	position: relative;
+	min-height: auto;
+    height: auto;
+	margin-bottom: 0;
+	border: none;
+    overflow: hidden;
+    transition: 0.4s linear;
+}
+
+.nav-up #bs-example-navbar-collapse-1, .nav-down #bs-example-navbar-collapse-1 {
+	transition: 0.4s linear;
+	position: relative;
+}
+
+.nav-up #bs-example-navbar-collapse-1 {
+    top: 50vh;
+    transition: 0.4s linear;
 }
 
 header nav .nav-full li, header nav .nav-full li:hover, header nav .nav-full li.active {
@@ -55,10 +92,14 @@ header nav .nav-full li, header nav .nav-full li:hover, header nav .nav-full li.
 	transition: 0.2s linear;
 }
 
+.nav-up {
+	max-height: 12vh;
+	transition: 0.2s linear;
+}
+
 header nav .nav-full li:hover, .navbar-nav .active  {
 	border-bottom: 4px solid #fff!important;
 }
-
 
 .head .title-wrapper {
     padding: 23vh 0vw 10vh!important;
@@ -500,13 +541,23 @@ h1 {
     background-color: #27293d;
 }
 
-/* VERSIONS WEB */
+/* VERSIONS MOBILE */
 
 @media (max-width: 767px) {
     .imgSquare.circle .imgSquareContainer {
         border-radius: 50%;
         width: 50px;
         height: 50px;
+    }
+    
+    .nav-up #bs-example-navbar-collapse-1 {
+        top: auto;
+        transition: 0.4s linear;
+    }
+    
+    .nav-up {
+        max-height: none;
+        transition: 0.2s linear;
     }
     
     footer {

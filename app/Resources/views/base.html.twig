@@ -27,8 +27,8 @@
 </head>
 <body style="background: {% block body_style %}url('{{ asset('images/bg.jpg')}}'){% endblock %} no-repeat top;background-size: cover;background-attachment: fixed;">
 {% block before_body %}
-    <header>
-        <nav class="navbar navbar-custom navbar-fixed-top">
+    <header class="nav-down">
+        <nav class="navbar navbar-custom">
             <div class="container-fluid">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -259,6 +259,57 @@
                 })
         );
     </script>
+    <script type="text/javascript" language="Javascript">
+        $(document).ready(
+                $('body .down-button a').click(function () {
+                    var $main = $('#main'),
+                            $navbar = $('header nav .container-fluid');
+                    $("body").animate({scrollTop: $main.position().top - $navbar.height()}, 300);
+                    return false;
+                })
+        );
+    </script>
+    <script type="text/javascript" language="Javascript">
+        // Hide Header on on scroll down
+var didScroll;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('header').outerHeight();
+
+$(window).scroll(function(event){
+    didScroll = true;
+});
+
+setInterval(function() {
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 250);
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+    
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta)
+        return;
+    
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar.
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('header').removeClass('nav-down').addClass('nav-up');
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('header').removeClass('nav-up').addClass('nav-down');
+        }
+    }
+    
+    lastScrollTop = st;
+}
+    </script>
+    
 {% endblock %}
 </body>
 </html>

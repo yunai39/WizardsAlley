@@ -25,10 +25,10 @@ wizard:
         discover: Découvertes en tous genre
         messagerie: La volière électronique
         notification: Notifications du monde magique
-        search: Registre des sorciers et communautés de l'Allée des Sorciers
+        search: Registre des sorciers et communautés de Wizard's Alley
         not-connected:
             discover1: Bienvenue amis sorciers sur le portail magique de
-            discover2: l'Allée des Sorciers.
+            discover2: Wizard's Alley
             discover3: Version Alpha
         wall: Mur de %username%
     banner: Dépêches favorites et publications de vos amis du monde magique
@@ -60,7 +60,7 @@ wizard:
         answer_ask_friend: Vous êtes maintenant ami(e) avec <br><a href="%user_link%">%user_name%</a> !!
     discover:
         team_choice: Le choix de notre équipe
-        title: Dépêches magiques, expressions et autres curiosités<br>à découvrir au coeur de l'Allée des sorciers
+        title: Dépêches magiques, expressions et autres curiosités<br>à découvrir au coeur de Wizard's Alley
         title_not_connected: Les dernières dépêches magiques
         last_publication: Dernières publications du monde entier
         favorite:
@@ -94,8 +94,7 @@ wizard:
         login: Pseudonyme
         password: Mot de passe
         title: Se connecter
-        message: >
-            Bienvenue sorcier, sorcière en tout genre. Prends un peu de poudre de cheminette et prononce clairement
+        message: Bienvenue sorcier, sorcière en tout genre. Prends un peu de poudre de cheminette et prononce clairement
     category:
         name: Catégories
     menu:
@@ -137,7 +136,7 @@ wizard:
             last_login: Dernière connexion
         wall:
             no_publication: Aucune publication
-            disabled: Utilisateur(s) désactivé(s)
+            disabled: Utilisateur désactivé
             publication: Publications
             informations: Informations
             username: Pseudonyme
@@ -151,7 +150,7 @@ wizard:
             sexe: Genre
             facebook: Pseudo Facebook
             twitter: Pseudo twitter
-            token_alpha: Code de vérification pour l'alpha
+            token_alpha: Code d'autorisation d'inscription
         field:
             cgv:
                 accept: J'accepte les conditions du site
@@ -196,7 +195,7 @@ wizard:
             official: Page officielle
             redactor: Page rédacteur
         publications: Publications
-        followers: Followers
+        followers: Abonnés à la page
         editor: Éditeur
         gestion:
             editor: Gestion des éditeurs
