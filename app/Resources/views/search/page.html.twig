@@ -1,18 +1,10 @@
 {% for page in pages|reverse %}
     <div class="col-md-3 col-xs-4 col-lg-2 search-pages-container">
-        <diw class="row">
-            <div class="col-xs-10 col-xs-offset-1" >
-                <div class="imgSquare circle">
-                    <div class="imgSquareContainer circle" >
-                        <img src="{{ asset( page.getPictureProfile() | imagine_filter('small_thumb') ) }}" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12" >
-                <h4>
-                    <a href="{{ path('page_show' , {'id_page': page.id})}}">{{ page.name }}</a>
-                </h4>
-            </div>
-        </diw>
+        {% include 'includes/viewSmall.html.twig' with
+        {
+            'path': page.getPictureProfile(),
+            'link': path('page_show' , {'id_page': page.id}),
+            "title":   page.name
+        } %}
     </div>
 {% endfor %}

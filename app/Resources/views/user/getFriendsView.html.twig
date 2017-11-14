@@ -1,18 +1,17 @@
 <div class="row">
     {% for friend in friends %}
         {% if friend.path_profile %}
-            {% set path =  friend.id ~ '/' ~ friend.path_profile%}
+            {% set path =  friend.id ~ '/' ~ friend.path_profile %}
         {% else %}
-            {% set path = 'default.png'%}
+            {% set path = 'default.png' %}
         {% endif %}
-        <div class="col-md-3">
-            <div class="imgSquare circle">
-                <div class="imgSquareContainer">
-                    <img src="{{asset('/uploads/profile/' ~ path ) | imagine_filter('small_thumb') }}" />
-                </div>
-            </div>
-            <a href="{{path('wizardalley_user_wall', {id: friend.id})}}">{{friend.username}}</a>
-        </div>
+
+        {% include 'includes/viewSmall.html.twig' with
+        {
+        'path': '/uploads/profile/' ~ path ,
+        'link':  path('wizardalley_user_wall' , {'id': friend.id}),
+        "title": friend.username
+        } %}
     {% endfor %}
 </div>
 

@@ -416,10 +416,6 @@ h1 {
     text-align: justify;
 }
 
-.col-md-4 .panel-body .col-md-12, .col-md-3 .panel-body .col-md-12 {
-	padding: 0px;
-	margin: 5px 0px;
-}
 /*
 .col-md-4 .panel-body .col-md-12 a, .col-md-3 .panel-body .col-md-12 a {
 	display: flex;

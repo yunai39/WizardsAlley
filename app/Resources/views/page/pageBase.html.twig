@@ -102,19 +102,17 @@
                                     {% for user in followers %}
                                         <div class="col-xs-6">
                                             <div class="squareUser">
-                                                <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
-                                                    <div class="imgSquare circle">
-                                                        <div class="imgSquareContainer">
-                                                            <img src="
-                                                {% if user.pathProfile %}
-                                                     {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) | imagine_filter('small_thumb') }}
+                                                {% if page.creator.pathProfile %}
+                                                    {% set path ='uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile %}
                                                 {% else %}
-                                                    {{ asset('uploads/profile/default.png') | imagine_filter('small_thumb') }}
-                                                {% endif %}"/>
-                                                        </div>
-                                                        <p class=" text-center">{{ user.username }}</p>
-                                                    </div>
-                                                </a>
+                                                    {% set path ='uploads/profile/default.png' %}
+                                                {% endif %}
+                                                {% include 'includes/viewSmall.html.twig' with
+                                                {
+                                                'path': path,
+                                                'link': path('wizardalley_user_wall',{'id':  user.id}),
+                                                'title':user.username
+                                                } %}
                                             </div>
                                         </div>
                                     {% endfor %}
@@ -128,37 +126,33 @@
                                     <hr>
                                     <div class="col-xs-6">
                                         <div class="squareUser">
-                                            <a href="{{ path('wizardalley_user_wall',{'id': page.creator.id}) }}">
-                                                <div class="imgSquare circle">
-                                                    <div class="imgSquareContainer ">
-                                                        <img src="
-                                                {% if page.creator.pathProfile %}
-                                                     {{ asset('uploads/profile/' ~ page.creator.id ~ '/' ~ page.creator.pathProfile) }}
-                                                {% else %}
-                                                    {{ asset('uploads/profile/default.png') }}
-                                                {% endif %}"/>
-                                                    </div>
-                                                    <p class=" text-center">{{ page.creator.username }}</p>
-                                                </div>
-                                            </a>
+                                            {% if page.creator.pathProfile %}
+                                                {% set path ='uploads/profile/' ~ page.creator.id ~ '/' ~page.creator.pathProfile %}
+                                            {% else %}
+                                                {% set path ='uploads/profile/default.png' %}
+                                            {% endif %}
+                                            {% include 'includes/viewSmall.html.twig' with
+                                            {
+                                            'path': path,
+                                            'link': path('wizardalley_user_wall',{'id': page.creator.id}),
+                                            'title':page.creator.username
+                                            } %}
                                         </div>
                                     </div>
                                     {% for user in editors %}
                                         <div class="col-xs-6">
                                             <div class="squareUser">
-                                                <a href="{{ path('wizardalley_user_wall',{'id': user.id}) }}">
-                                                    <div class="imgSquare circle">
-                                                        <div class="imgSquareContainer ">
-                                                            <img src="
                                                 {% if user.pathProfile %}
-                                                     {{ asset('uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile) }}
+                                                    {% set path ='uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile %}
                                                 {% else %}
-                                                    {{ asset('uploads/profile/default.png') }}
-                                                {% endif %}"/>
-                                                        </div>
-                                                        <p class=" text-center">{{ user.username }}</p>
-                                                    </div>
-                                                </a>
+                                                    {% set path ='uploads/profile/default.png' %}
+                                                {% endif %}
+                                                {% include 'includes/viewSmall.html.twig' with
+                                                {
+                                                'path': path,
+                                                'link': path('wizardalley_user_wall',{'id': user.id}),
+                                                'title': user.username
+                                                } %}
                                             </div>
                                         </div>
                                     {% endfor %}
