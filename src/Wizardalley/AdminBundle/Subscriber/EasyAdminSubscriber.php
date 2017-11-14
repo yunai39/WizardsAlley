@@ -75,6 +75,7 @@ class EasyAdminSubscriber implements EventSubscriberInterface
         if ($entity instanceof WizardUser) {
             $entity
                 ->addRole('ROLE_ADMIN')
+                ->setAcceptCGV(true)
                 ->setPlainPassword($entity->getPassword())
             ;
         }
