@@ -91,6 +91,20 @@ h1 {
     font-size: 3rem;
 }
 
+.text-center {
+	text-align: center !important;
+}
+
+.profil-infos-panel a {
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.profil-infos-panel a:hover {
+    background-color: #454a72;
+    color: #fff;
+}
+
 /* BOUTONS */
 
 .wizardsalley-login-form-submit, .wizardsalley-register-form-submit, .btn-default, .btn, .btn.btn-danger.btn-add-blame, .label.defaut-label.btn, .btn-default.active.focus, .btn-default.active, .btn-default.active, .btn-default.focus, .btn-default, .btn-default, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default, .open > .dropdown-toggle.btn-default, .fos_user_registration_register .register {
@@ -308,6 +322,11 @@ h1 {
         height: 100vh;
         max-height: none;
     }
+    
+    header nav .nav-full li:hover, .navbar-nav .active {
+	    border-bottom: none!important;
+    }
+    
 }
 
 @media screen and (max-width: 1000px) {
@@ -329,7 +348,7 @@ h1 {
     margin-bottom: 5vh;
 }
 
-.publication p, .publication h5, .panel-body p {
+.publication p, .publication h5, .panel-body p, .publication-date {
     font-size: 20px!important;
     margin: 0px;
     padding: 0px;
@@ -459,6 +478,38 @@ h1 {
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
 	background-color: transparent;
 	border-color: transparent;
+}
+
+.head h3 a {
+	background-color: #454a72;
+	color: #fff;
+	text-shadow: none;
+	padding: 10px;
+	border-radius: 15px;
+	font-size: 1.6rem;
+	text-transform: capitalize;
+    text-decoration: none;
+}
+
+.head h3 a:hover {
+    text-decoration: none;
+    background-color: #27293d;
+}
+
+/* VERSIONS WEB */
+
+@media (max-width: 767px) {
+    .imgSquare.circle .imgSquareContainer {
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+    }
+    
+    footer {
+        position: relative;
+        height: auto;
+    }
+
 }
 
 /* FOOTER */
