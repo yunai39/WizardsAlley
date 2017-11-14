@@ -50,7 +50,8 @@
                                                 {% elseif app.user.askedAsAFriend(user) %}
                                                     <div>{% trans %}wizard.wall.ask_ongoing{% endtrans %}</div>
                                                 {% elseif app.user.askingForFriendship(user) %}
-                                                    <div><a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">Demande
+                                                    <div>
+                                                        <a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">Demande
                                                             d'amitié,
                                                             confirmer la demande</a></div>
                                                 {% else %}
@@ -70,7 +71,7 @@
                                                 <div class="col-md-6 col-xs-12">
                                                     <a href="https://www.facebook.com/{{ user.facebook }}">
                                         <span class="icon-large icon-facebook"
-                                              aria-hidden="true"></span>&nbsp;https://www.facebook.com/{{ user.facebook }}
+                                              aria-hidden="true"></span>
                                                     </a>
                                                 </div>
                                             {% endif %}
@@ -78,13 +79,14 @@
                                                 <div class="col-md-6 col-xs-12">
                                                     <a href="https://twitter.com/{{ user.twitter }}">
                                         <span class="icon-large icon-twitter"
-                                              aria-hidden="true"></span>&nbsp;https://twitter.com/{{ user.twitter }}
+                                              aria-hidden="true"></span>
                                                     </a>
                                                 </div>
                                             {% endif %}
                                         </div>
                                         <div class="fos_user_user_show">
-                                            <p>{% trans %}wizard.user.profile.last_login{% endtrans %}
+                                            <p class="wizard-last-login">{% trans %}
+                                                wizard.user.profile.last_login{% endtrans %}
                                                 :&nbsp;{{ user.lastLogin|localizeddate('full', 'none') }} {{ user.lastLogin|date("H:i") }}</p>
                                         </div>
                                         {% if app.user %}
@@ -217,11 +219,13 @@
                     _handler
             );
             _$page = _$page + 1;
-        };
+        }
+        ;
 
         function addPublication($data) {
             $('#my_publication').append($data['extra']['html']);
-        };
+        }
+        ;
 
         function loadMorePageFollowed() {
             var _handler = function (data) {
@@ -243,7 +247,8 @@
                 'page': $pagePageFollowed
             }), 'GET', _handler);
             $pagePageFollowed = $pagePageFollowed + 1;
-        };
+        }
+        ;
 
         function loadMoreFriends() {
             var _handler = function (data) {
@@ -265,7 +270,8 @@
                 'page': $pageFriends
             }), 'GET', _handler);
             $pageFriends = $pageFriends + 1;
-        };
+        }
+        ;
 
 
         function loadMorePageCreated() {
@@ -283,9 +289,13 @@
                     $divPageCreated.append($div);
                 });
             };
-            $result = util.loadMore(Routing.generate('page_user_created_get', {'user': {{ user.id }}, 'page': $pageCreated}), 'GET', _handler);
+            $result = util.loadMore(Routing.generate('page_user_created_get', {
+                'user': {{ user.id }},
+                'page': $pageCreated
+            }), 'GET', _handler);
             $pageCreated = $pageCreated + 1;
-        };
+        }
+        ;
 
 
     </script>

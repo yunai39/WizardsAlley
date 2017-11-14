@@ -25,12 +25,18 @@
                         </a>
                     </p>
                     <p>
+                        <a href="{{ path('page_gestion_new',{'id_page': page.id}) }}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            &nbsp; {% trans %}wizard.page.gestion.new {% endtrans %}
+                        </a>
+                    </p>
+                    <p>
                         <a href="{{ path('page_gestion_publication',{'id_page': page.id}) }}">
                             <span class="glyphicon glyphicon-duplicate"></span>
                             &nbsp; {% trans %}wizard.page.gestion.publication.edit {% endtrans %}
                         </a>
                     </p>
-                    {%  if isAdmin == true %}
+                    {% if isAdmin == true %}
                         <p>
                             <a href="{{ path('page_gestion_user_writer',{'id_page': page.id}) }}">
                                 <span class="glyphicon glyphicon-user"></span>

@@ -67,7 +67,7 @@
                                     <div class="col-md-6 col-xs-12">
                                         <a href="https://www.facebook.com/{{ user.facebook }}">
                                         <span class="icon-large icon-facebook"
-                                              aria-hidden="true"></span>&nbsp;https://www.facebook.com/{{ user.facebook }}
+                                              aria-hidden="true"></span>
                                         </a>
                                     </div>
                                 {% endif %}
@@ -75,15 +75,14 @@
                                     <div class="col-md-6 col-xs-12">
                                         <a href="https://twitter.com/{{ user.twitter }}">
                                         <span class="icon-large icon-twitter"
-                                              aria-hidden="true"></span>&nbsp;https://twitter.com/{{ user.twitter }}
+                                              aria-hidden="true"></span>
                                         </a>
                                     </div>
                                 {% endif %}
                             </div>
                             <div class="fos_user_user_show">
-                                <p>{% trans %}wizard.user.profile.last_login{% endtrans %}
+                                <p class="wizard-last-login">{% trans %}wizard.user.profile.last_login{% endtrans %}
                                     :&nbsp;{{ user.lastLogin|localizeddate('full', 'none') }} {{ user.lastLogin|date("H:i") }}</p>
-                                <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
                             </div>
                         </div>
                     </div>

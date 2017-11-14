@@ -64,6 +64,12 @@
                                                 {% trans %}wizard.page.gestion.publication.edit {% endtrans %}
                                             </a>
                                         </div>
+                                        <div class="col-md-12">
+                                            <a href="{{ path('publication_new',{'id_page': page.id } ) }}"> <span
+                                                        class="icon-large icon icon-book"></span>
+                                                {% trans %}wizard.page.gestion.new {% endtrans %}
+                                            </a>
+                                        </div>
                                     {% endif %}
                                 {% endif %}
                             {% endif %}
@@ -71,7 +77,7 @@
                                 {% if page.urlFacebook != null %}
                                     <a href="https://www.facebook.com/{{ page.urlFacebook }}"/><span
                                         class="icon-large icon-facebook"
-                                        aria-hidden="true"></span> https://www.facebook.com/{{ page.urlFacebook }}</a>
+                                        aria-hidden="true"></span></a>
                                 {% endif %}
                             </div>
                             <div class="col-md-12">
