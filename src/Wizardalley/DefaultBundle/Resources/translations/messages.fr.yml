@@ -22,7 +22,7 @@ wizard:
       title:
         page_followed: 'Page suivies'
         friend_list: 'Amis'
-        page_creator: 'Page créé'
+        page_creator: 'Page(s) créée(s)'
         page_editor: 'Page rédacteur'
       create_page: 'Créer une page'
   page:

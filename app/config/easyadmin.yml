@@ -203,6 +203,8 @@ easy_admin:
                     - description
                     - firstname
                     - twitter
+                    - youtube
+                    - instagram
                     - facebook
                     - { property: 'password', type: 'repeated'}
         User:
@@ -228,4 +230,6 @@ easy_admin:
                     - smallDescription
                     - description
                     - twitter
+                    - youtube
+                    - instagram
                     - facebook

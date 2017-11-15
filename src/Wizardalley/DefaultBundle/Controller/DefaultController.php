@@ -207,7 +207,7 @@ class DefaultController extends Controller
         $form->add(
             'submit',
             'submit',
-            ['label' => 'contact']
+            ['label' => 'wizard.utility.form.contact']
         );
         $form->handleRequest($request);
 
@@ -266,7 +266,7 @@ class DefaultController extends Controller
         $form->add(
             'submit',
             'submit',
-            ['label' => 'Create']
+            ['label' => 'wizard.utility.form.create']
         );
 
         return $form;

@@ -5,6 +5,7 @@ publication:
     like: Aimer
     unlike: Ne plus aimer
 wizard:
+
     error:
       login: Vous devez être connecté pour accèder à cette page
       page404:
@@ -48,6 +49,10 @@ wizard:
         by: Publié(e) par
         delete: Supprimer
         blame: Signaler
+        form:
+            create: Créer
+            update: Mise à jour
+            add_comment: Ajouter un commentaire
     notification:
         latest: Dernières notifications
         old: Notifications archivées
@@ -150,6 +155,8 @@ wizard:
             small_description: Quelques mots sur vous
             sexe: Genre
             facebook: Pseudo Facebook
+            youtube: Pseudo Youtube
+            instagram: Pseudo Instagram
             twitter: Pseudo twitter
             token_alpha: Code de vérification pour l'alpha
         field:

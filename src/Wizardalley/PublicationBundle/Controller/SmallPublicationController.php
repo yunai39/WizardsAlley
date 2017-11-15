@@ -114,7 +114,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
         $form->add(
             'submit',
             'submit',
-            ['label' => 'Add comment']
+            ['label' => 'wizard.utility.form.add_comment']
         );
 
         return $form;
@@ -185,7 +185,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
         $form->add(
             'submit',
             'submit',
-            ['label' => 'Create']
+            ['label' => 'wizard.utility.form.create']
         );
 
         return $form;

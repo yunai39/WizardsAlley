@@ -146,7 +146,7 @@ class DefaultController extends BaseController
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
+        $form->add('submit', 'submit', array('label' => 'wizard.utility.form.create'));
 
         return $form;
     }

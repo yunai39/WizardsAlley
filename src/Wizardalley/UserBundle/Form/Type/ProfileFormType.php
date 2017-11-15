@@ -67,6 +67,22 @@ class ProfileFormType extends BaseForm
                     'required' => false
                 ]
             )
+            ->add(
+                'youtube',
+                'text',
+                [
+                    'label' => 'wizard.register.label.youtube',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'instagram',
+                'text',
+                [
+                    'label' => 'wizard.register.label.instagram',
+                    'required' => false
+                ]
+            )
         ;
     }
 

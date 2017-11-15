@@ -13,7 +13,7 @@
     {% endif %}
     <div class="imgSquare circle">
         <div class="imgSquareContainer circle">
-            <img src="{{ asset(user.getPictureProfile()) | imagine_filter('small_thumb')}}" class="circle"/>
+            <img src="{{ asset(user.getPictureProfile()) | imagine_filter('small_thumb') }}" class="circle"/>
         </div>
     </div>
     <div>
@@ -31,7 +31,7 @@
         <div class="col-md-3">
             <div class="row">
                 <div class="col-sm-12">
-                    {%  if app.user and app.user.id == user.id %}
+                    {% if app.user and app.user.id == user.id %}
                         <div class="panel panel-default profil-infos-panel">
                             <div class="panel-body">
                                 <h3>
@@ -51,7 +51,7 @@
                                 </p>
                             </div>
                         </div>
-                    {%  endif %}
+                    {% endif %}
 
                     <div class="panel panel-default profil-about-panekl">
                         <div class="panel-body">
@@ -64,17 +64,37 @@
                             </p>
                             <div class="row">
                                 {% if user.facebook != null %}
-                                    <div class="col-md-6 col-xs-12">
-                                        <a href="https://www.facebook.com/{{ user.facebook }}">
+                                    <div class="col-md-6 col-xs-12 text-center">
+                                        <a href="https://www.facebook.com/{{ user.facebook }}"
+                                           title="https://www.facebook.com/{{ user.facebook }}">
                                         <span class="icon-large icon-facebook"
                                               aria-hidden="true"></span>
                                         </a>
                                     </div>
                                 {% endif %}
                                 {% if user.twitter != null %}
-                                    <div class="col-md-6 col-xs-12">
-                                        <a href="https://twitter.com/{{ user.twitter }}">
+                                    <div class="col-md-6 col-xs-12 text-center">
+                                        <a href="https://twitter.com/{{ user.twitter }}"
+                                           title="https://twitter.com/{{ user.twitter }}">
                                         <span class="icon-large icon-twitter"
+                                              aria-hidden="true"></span>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {% if user.instagram != null %}
+                                    <div class="col-md-6 col-xs-12 text-center">
+                                        <a href="https://www.instagram.com/{{ user.instagram }}"
+                                           title="https://www.instagram.com/{{ user.instagram }}">
+                                        <span class="icon-large icon-instagram"
+                                              aria-hidden="true"></span>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                                {% if user.youtube != null %}
+                                    <div class="col-md-6 col-xs-12 text-center">
+                                        <a href="https://youtube.com/user/{{ user.youtube }}"
+                                           title="https://youtube.com/user/{{ user.youtube }}">
+                                        <span class="icon-large icon-youtube"
                                               aria-hidden="true"></span>
                                         </a>
                                     </div>
@@ -103,7 +123,8 @@
                             </div>
                         </div>
                         <div class="panel-footer text-center">
-                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"  onClick="loadMoreFriends()" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"
+                                  onClick="loadMoreFriends()" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
@@ -122,7 +143,8 @@
                             </div>
                         </div>
                         <div class="panel-footer text-center">
-                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"  onClick="loadMorePageFollowed()" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"
+                                  onClick="loadMorePageFollowed()" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
@@ -144,7 +166,8 @@
                             </div>
                         </div>
                         <div class="panel-footer text-center">
-                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"  onClick="loadMorePageCreated()" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"
+                                  onClick="loadMorePageCreated()" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
@@ -162,7 +185,8 @@
                             </div>
                         </div>
                         <div class="panel-footer text-center">
-                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"  onClick="loadMorePageEditor()" aria-hidden="true"></span>
+                            <span class="glyphicon glyphicon-chevron-down clickable load-more-publication"
+                                  onClick="loadMorePageEditor()" aria-hidden="true"></span>
                         </div>
                     </div>
                 </div>
@@ -201,7 +225,10 @@
             var _handler = function ($data) {
                 $('#my_publication').append($data['extra']['html']);
             };
-            $result = util.loadMore(Routing.generate('wizardalley_user_profile_publication', {'user': {{ user.id }}, 'page': $pagePublication}), 'GET', _handler);
+            $result = util.loadMore(Routing.generate('wizardalley_user_profile_publication', {
+                'user': {{ user.id }},
+                'page': $pagePublication
+            }), 'GET', _handler);
             $pagePublication = $pagePublication + 1;
         }
         ;
@@ -225,7 +252,10 @@
                     $divPageFollowed.append($div);
                 });
             };
-            $result = util.loadMore(Routing.generate('page_user_followed_get', {'user': {{ user.id }},'page': $pagePageFollowed}), 'GET', _handler);
+            $result = util.loadMore(Routing.generate('page_user_followed_get', {
+                'user': {{ user.id }},
+                'page': $pagePageFollowed
+            }), 'GET', _handler);
             $pagePageFollowed = $pagePageFollowed + 1;
         }
         ;
@@ -245,7 +275,10 @@
                     $divFriend.append($div);
                 });
             }
-            $result = util.loadMore(Routing.generate('wizard_get_friends_json', {'user': {{ user.id }},'page': $pageFriends}), 'GET', _handler);
+            $result = util.loadMore(Routing.generate('wizard_get_friends_json', {
+                'user': {{ user.id }},
+                'page': $pageFriends
+            }), 'GET', _handler);
             $pageFriends = $pageFriends + 1;
         }
         ;
@@ -266,7 +299,10 @@
                     $divPageCreated.append($div);
                 });
             };
-            $result = util.loadMore(Routing.generate('page_user_created_get', {'user': {{ user.id }}, 'page': $pageCreated}), 'GET', _handler);
+            $result = util.loadMore(Routing.generate('page_user_created_get', {
+                'user': {{ user.id }},
+                'page': $pageCreated
+            }), 'GET', _handler);
             $pageCreated = $pageCreated + 1;
         }
         ;
