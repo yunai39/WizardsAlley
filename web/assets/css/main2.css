@@ -500,6 +500,12 @@ input[type="file"]:hover {
 	width: 100%;
 }
 
+.publication-image-img {
+	width: 100%;
+	box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.71);
+	margin: 10vh 0vw;
+}
+
 /* LISTING SORCIERS ET SORCIERES */
 
 @media (min-width:992px) {
