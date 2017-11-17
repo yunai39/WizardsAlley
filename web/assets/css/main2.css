@@ -23,6 +23,10 @@ body, .navbar-head, h1, h2, h3, h4, h5, h6, footer, header nav, p, .table, .publ
 	box-shadow: none;
 }
 
+.img-responsive {
+	border-radius: 50%;
+}
+
 #main {
 	background-color: #fff;
 }
@@ -136,12 +140,21 @@ h1 {
 	text-align: center !important;
 }
 
-.profil-infos-panel a {
-    padding: 10px;
-    border-radius: 5px;
+.profil-infos-panel .col-md-12 {
+	margin: 0;
+	padding: 0;
 }
 
-.profil-infos-panel a:hover {
+.profil-infos-panel a, .margin-bottom-middle a {
+	padding: 10px;
+	border-radius: 5px;
+	margin: 0;
+	align-items: center;
+	display: flex;
+}
+
+.profil-infos-panel a:hover, .margin-bottom-middle a:hover
+{
     background-color: #454a72;
     color: #fff;
 }
@@ -175,6 +188,28 @@ h1 {
     line-height: normal;
     font-weight: normal;
 }
+
+input[type="submit"] {
+    width: 100%;
+    padding: 2vh 0vw;
+}
+
+input[type="file"] {
+	width: 100%;
+	background-color: #454a72;
+	padding: 2vh 2vw;
+	border-radius: 5px;
+	color: #fff;
+}
+
+input[type="file"]:hover {
+    background: #27293d;
+}
+
+#wizardalley_publicationbundle_page button:hover {
+	background-color: transparent;
+}
+
 
 /* CONNEXION */
 
@@ -326,26 +361,28 @@ h1 {
 }
 
 .ui-widget-header {
-	border: 0px;
-	background: #454A72;
-	color: #fff;
+    border: 0px;
+    background: none;
 }
 
-.ui-button.ui-widget.ui-state-default.ui-corner-all.ui-button-icon-only.ui-dialog-titlebar-close {
-	color: #fff;
-	border: none;
-}
-
-.ui-button-icon-primary.ui-icon.ui-icon-closethick {
-	color: #000;
-	background: #454A72;
-}
-
-.ui-dialog.ui-widget.ui-widget-content.ui-corner-all.ui-front.ui-draggable.ui-resizable {
+.ui-dialog {
 	border: 0px;
 	padding: 0px;
 	margin: 0px;
-	border-radius: 0px;
+	box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.71);
+	border-radius: 5px !important;
+    position: fixed !important;
+}
+
+.ui-dialog-titlebar {
+	background-color: #454A72;
+	background-image: none;
+}
+
+.ui-button-icon-primary {
+	color: #fff !important;
+	background-color: #474C76 !important;
+	border: 0px !important;
 }
 
 /* MENU RESPONSIVE */
@@ -418,6 +455,13 @@ h1 {
     text-align: left;
 }
 
+/* COMMENTAIRES */
+
+#comment_content {
+	padding-top: 10vh;
+	height: auto !important;
+}
+
 /* GRANDES PUBLICATIONS */
 
 .publication-top .img-container, .publication-top .imgSquareContainer, .publication-top .imgSquare {
@@ -448,6 +492,12 @@ h1 {
 	-webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
 	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.col-xs-8.col-xs-offset-2 {
+	padding: 0px;
+	margin: 0px;
+	width: 100%;
 }
 
 /* LISTING SORCIERS ET SORCIERES */
@@ -527,6 +577,10 @@ h1 {
 	display: none;
 }
 
+.dropdown-menu li {
+	text-transform: inherit;
+}
+
 .navbar-nav > li > .dropdown-menu {
     position: fixed;
     top: auto;
@@ -553,6 +607,12 @@ h1 {
     text-decoration: none;
     background-color: #27293d;
 }
+
+
+/* MENTIONS LEGALES */
+
+
+
 
 /* FOOTER */
 
