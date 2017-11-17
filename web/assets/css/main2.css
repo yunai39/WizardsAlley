@@ -450,6 +450,20 @@ h1 {
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
+/* LISTING SORCIERS ET SORCIERES */
+
+@media (min-width:992px) {
+    
+    .col-md-3 {
+        width: 30%;
+    }
+    
+    .last-connected-wrapper a:hover, #fav_pages a:hover, #fav_publications a:hover, #div_friend a:hover, #div_page_followed a:hover, .squareUser a:hover {
+        color: #454A72!important;
+        background-color: transparent!important;
+    }
+}
+
 /* MESSAGERIE */
 
 .table {
@@ -475,17 +489,6 @@ h1 {
     font-size: 17px;
     text-align: justify;
 }
-
-.col-md-4 .panel-body .col-md-12, .col-md-3 .panel-body .col-md-12 {
-	padding: 0px;
-	margin: 5px 0px;
-}
-/*
-.col-md-4 .panel-body .col-md-12 a, .col-md-3 .panel-body .col-md-12 a {
-	display: flex;
-	align-items: center;
-	align-content: center;
-}*/
 
 .col-md-4 .icon-large, .col-md-3 .icon-large {
 	margin-right: 10px;
@@ -541,6 +544,18 @@ h1 {
     background-color: #27293d;
 }
 
+/* FOOTER */
+
+footer ul {
+    padding: 0px;
+    margin: 1px 0vw 10px 0vw;
+}
+
+footer li a:hover {
+    background-color: none;
+}
+
+
 /* VERSIONS MOBILE */
 
 @media (max-width: 767px) {
@@ -565,17 +580,6 @@ h1 {
         height: auto;
     }
 
-}
-
-/* FOOTER */
-
-footer ul {
-    padding: 0px;
-    margin: 1px 0vw 10px 0vw;
-}
-
-footer li a:hover {
-    background-color: none;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -1,17 +1,15 @@
 
-    {% for pageFav in pages %}
-        <div class="page col-xs-6 col-sm-4 ">
-            <div class="row search-pages-container">
-                <div class="col-xs-12 img-wrapper circle">
-                    <div class="imgSquare circle">
-                        <div class="imgSquareContainer">
-                            <img src="{{ asset('/uploads/page/profile/' ~ pageFav.page.pathProfile)| imagine_filter('small_thumb') }}"/>
-                        </div>
-                    </div>
-                    <h4>
-                        <a href="{{ path('page_show' , {'id_page': pageFav.page.id}) }}">{{ pageFav.page.name }}</a>
-                    </h4>
-                </div>
+{% for pageFav in pages %}
+    <div class="page col-xs-6 col-sm-4 ">
+        <div class="row search-pages-container">
+            <div class="col-xs-12 img-wrapper circle">
+                {% include 'includes/viewSmall.html.twig' with
+                {
+                'path': '/uploads/page/profile/' ~ pageFav.page.pathProfile,
+                'link': path('page_show' , {'id_page': pageFav.page.id}),
+                "title":   pageFav.page.name
+                } %}
             </div>
         </div>
-    {% endfor %}
+    </div>
+{% endfor %}

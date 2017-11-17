@@ -1,21 +1,10 @@
 {% for user in users|reverse %}
     <div class="col-md-3 col-xs-4 col-lg-2 search-users-container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="imgSquare circle">
-                    <div class="imgSquareContainer circle" >
-                        <img src="{{ asset( user.getPictureProfile() ) | imagine_filter('small_thumb') }}" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12">
-                <h5>
-                    <a href="{{ path('wizardalley_user_wall' , {'id': user.id})}}">{{ user.username }}</a>
-                </h5>
-                <p class="text-center">
-                    {{ user.smallDescription }}
-                </p>
-            </div>
-        </div>
+        {% include 'includes/viewSmall.html.twig' with
+        {
+        'path': user.getPictureProfile(),
+        'link':  path('wizardalley_user_wall' , {'id': user.id}),
+        "title": user.username
+        } %}
     </div>
 {% endfor %}

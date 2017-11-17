@@ -1,14 +1,13 @@
 <div class="row">
     {% for user in users %}
         <div class="col-xs-6 col-md-3">
-            <div class="imgSquare circle">
-                <div class="imgSquareContainer">
-                    <img src="{{asset(user.getWebPathProfile()) | imagine_filter('small_thumb')}}"/>
-                </div>
-            </div>
-            <p class="text-center">
-                <a href="{{path('wizardalley_user_wall', {id: user.id})}}">{{user.username}}</a>
-            </p>
+
+            {% include 'includes/viewSmall.html.twig' with
+            {
+            'path': user.getWebPathProfile(),
+            'link':  path('wizardalley_user_wall' , {'id': user.id}),
+            "title": user.username
+            } %}
         </div>
     {% endfor %}
 </div>

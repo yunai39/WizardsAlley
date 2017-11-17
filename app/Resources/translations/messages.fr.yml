@@ -204,6 +204,7 @@ wizard:
                 edit: Édition des publications
             edit: Édition de la page
             back: Retour à la page
+            new: Créer une publication
             title:
                 edit: Édition de la page
         edit_success: Les editeurs ont bien été modifiés

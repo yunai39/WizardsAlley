@@ -1,9 +1,13 @@
 
+
+{% set path = '/upload/publications/default.png' %}
 {% if publication.images|length > 0 %}
-    <div class="imgSquare circle">
-        <div class="imgSquareContainer circle" >
-            <img src="{{ asset('/uploads/publications/' ~ publication.images.0.path)| imagine_filter('small_thumb') }}"/>
-        </div>
-    </div>
+    {% set path = '/uploads/publications/' ~ publication.images.0.path %}
 {% endif %}
-<h4><a href="{{ path('publication_show',{'id': publication.id }) }}">{{ publication.title }}</a></h4>
+
+{% include 'includes/viewSmall.html.twig' with
+    {
+        'path': path,
+        'link': path('publication_show',{'id': publication.id }),
+        "title":  publication.title
+} %}
