@@ -394,7 +394,7 @@ class GestionPageController extends Controller
             ]
         );
 
-        $form->add('submit', 'submit', ['label' => 'Creer la page']);
+        $form->add('submit', 'submit', ['label' => 'wizard.utility.form.create']);
 
         return $form;
     }
@@ -420,7 +420,7 @@ class GestionPageController extends Controller
             ]
         );
 
-        $form->add('submit', 'submit', ['label' => 'Modifier la page']);
+        $form->add('submit', 'submit', ['label' => 'wizard.utility.form.update']);
 
         return $form;
     }
@@ -445,7 +445,7 @@ class GestionPageController extends Controller
             ]
         );
 
-        $form->add('submit', 'submit', ['label' => 'Modification des editeurs']);
+        $form->add('submit', 'submit', ['label' => 'wizard.utility.form.update']);
 
         return $form;
     }

@@ -287,7 +287,8 @@ class DefaultController extends BaseController
         $publications =
             $repo->findPublication(
                 $user,
-                $page
+                $page,
+                4
             );
 
         return $this->sendJsonResponse(
@@ -352,7 +353,8 @@ class DefaultController extends BaseController
         $publications =
             $repo->findPublicationWall(
                 $repo->find($user),
-                $page
+                $page,
+                4
             );
 
         return $this->sendJsonResponse(

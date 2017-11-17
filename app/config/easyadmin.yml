@@ -203,6 +203,11 @@ easy_admin:
                     - description
                     - firstname
                     - twitter
+<<<<<<< HEAD
+=======
+                    - youtube
+                    - instagram
+>>>>>>> a35a40a38f329a58026a6620f969c66d7ef4fdb9
                     - facebook
                     - { property: 'password', type: 'repeated'}
         User:
@@ -228,4 +233,9 @@ easy_admin:
                     - smallDescription
                     - description
                     - twitter
+<<<<<<< HEAD
+=======
+                    - youtube
+                    - instagram
+>>>>>>> a35a40a38f329a58026a6620f969c66d7ef4fdb9
                     - facebook

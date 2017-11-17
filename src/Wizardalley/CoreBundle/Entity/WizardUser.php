@@ -53,6 +53,20 @@ class WizardUser extends BaseUser implements ParticipantInterface
     /**
      * @var string
      *
+     * @ORM\Column(name="instagram", type="string", length=255, nullable=true)
+     */
+    private $instagram;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="youtube", type="string", length=255, nullable=true)
+     */
+    private $youtube;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="small_description", type="string", length=128, nullable=true)
      */
     private $smallDescription;
@@ -1041,5 +1055,51 @@ class WizardUser extends BaseUser implements ParticipantInterface
     public function getSmallPublicationsLiked()
     {
         return $this->smallPublicationsLiked;
+    }
+
+    /**
+     * Set instagram
+     *
+     * @param string $instagram
+     * @return WizardUser
+     */
+    public function setInstagram($instagram)
+    {
+        $this->instagram = $instagram;
+
+        return $this;
+    }
+
+    /**
+     * Get instagram
+     *
+     * @return string 
+     */
+    public function getInstagram()
+    {
+        return $this->instagram;
+    }
+
+    /**
+     * Set youtube
+     *
+     * @param string $youtube
+     * @return WizardUser
+     */
+    public function setYoutube($youtube)
+    {
+        $this->youtube = $youtube;
+
+        return $this;
+    }
+
+    /**
+     * Get youtube
+     *
+     * @return string 
+     */
+    public function getYoutube()
+    {
+        return $this->youtube;
     }
 }

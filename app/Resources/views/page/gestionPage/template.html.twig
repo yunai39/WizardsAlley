@@ -15,13 +15,19 @@
                     <p>
                         <a href="{{ path('page_show',{'id_page': page.id}) }}">
                             <span class="glyphicon glyphicon-file"></span>
-                            &nbsp; {% trans %} wizard.page.gestion.back {% endtrans %}
+                            &nbsp; {% trans %} wizard.page.gestion.back{% endtrans %}
                         </a>
                     </p>
                     <p>
                         <a href="{{ path('page_gestion_show',{'id_page': page.id}) }}">
                             <span class="glyphicon glyphicon-cog"></span>
-                            &nbsp; {% trans %}wizard.page.gestion.edit {% endtrans %}
+                            &nbsp; {% trans %}wizard.page.gestion.edit{% endtrans %}
+                        </a>
+                    </p>
+                    <p>
+                        <a href="{{ path('publication_new',{'id_page': page.id}) }}">
+                            <span class="glyphicon glyphicon-cog"></span>
+                            &nbsp; {% trans %}wizard.page.gestion.new{% endtrans %}
                         </a>
                     </p>
                     <p>

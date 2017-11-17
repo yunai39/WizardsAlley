@@ -135,7 +135,7 @@ class PublicationController extends BaseController
         $form->add(
             'submit',
             'submit',
-            ['label' => 'Create']
+            ['label' => 'wizard.utility.form.create']
         );
 
         return $form;
@@ -397,7 +397,7 @@ class PublicationController extends BaseController
         $form->add(
             'submit',
             'submit',
-            ['label' => 'Update']
+            ['label' => 'wizard.utility.form.update']
         );
 
         return $form;
@@ -506,7 +506,7 @@ class PublicationController extends BaseController
         $form->add(
             'submit',
             'submit',
-            ['label' => 'Add comment']
+            ['label' => 'wizard.utility.form.add_comment']
         );
 
         return $form;
