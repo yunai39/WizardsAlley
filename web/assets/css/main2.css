@@ -618,8 +618,6 @@ input[type="file"]:hover {
 /* MENTIONS LEGALES */
 
 
-
-
 /* FOOTER */
 
 footer ul {
@@ -635,10 +633,15 @@ footer li a:hover {
 /* VERSIONS MOBILE */
 
 @media (max-width: 767px) {
-    .imgSquare.circle .imgSquareContainer {
+    .imgSquare.circle .imgSquareContainer img {
         border-radius: 50%;
-        width: 50px;
+        width: 80px;
+        height: 80px;
+    }
+    
+    .publication .imgSquare.circle .imgSquareContainer img {
         height: 50px;
+        width: 50px;
     }
     
     .nav-up #bs-example-navbar-collapse-1 {
