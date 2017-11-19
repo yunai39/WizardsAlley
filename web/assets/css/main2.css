@@ -546,16 +546,7 @@ input[type="file"]:hover {
     text-align: justify;
 }
 
-<<<<<<< HEAD
-=======
-/*
-.col-md-4 .panel-body .col-md-12 a, .col-md-3 .panel-body .col-md-12 a {
-	display: flex;
-	align-items: center;
-	align-content: center;
-}*/
 
->>>>>>> a35a40a38f329a58026a6620f969c66d7ef4fdb9
 .col-md-4 .icon-large, .col-md-3 .icon-large {
 	margin-right: 10px;
 }
