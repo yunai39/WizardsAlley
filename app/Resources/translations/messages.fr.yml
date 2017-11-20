@@ -120,7 +120,7 @@ wizard:
             notification: Notifications
     user:
         profile:
-            size_limit: L'image doit être compris entre 200x200 et 400x400
+            size_limit: La largeur et la hauteur de l'image doit être compris entre 100px et 500px
         change_password: Changer le mot de passe
         notification:
             title: Notifications

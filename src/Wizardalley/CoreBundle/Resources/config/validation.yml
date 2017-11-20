@@ -2,7 +2,7 @@ Wizardalley\CoreBundle\Entity\WizardUser:
     properties:
         fileProfile:
             - Image:
-                minWidth: 200
-                maxWidth: 400
-                minHeight: 200
-                maxHeight: 400
+                minWidth: 100
+                maxWidth: 500
+                minHeight: 100
+                maxHeight: 500
