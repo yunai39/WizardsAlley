@@ -66,7 +66,6 @@ header {
 }
 
 .container-fluid {
-	position: relative;
     transition: 0.4s linear;
 }
 
@@ -140,10 +139,6 @@ h1 {
 	text-align: center !important;
 }
 
-.profil-infos-panel .col-md-12 {
-	margin: 0;
-	padding: 0;
-}
 
 .profil-infos-panel a, .margin-bottom-middle a {
 	padding: 10px;
@@ -275,16 +270,8 @@ input[type="file"]:hover {
     border: 0px;
 }
 
-.text-center {
-    margin-top: 2vh;
-}
-
 .publication-block-wrapper {
     margin-top: 5vh;
-}
-
-.container {
-	width: 100%!important;
 }
 
 /* DISCOVER */
@@ -389,14 +376,14 @@ input[type="file"]:hover {
 
 @media (min-width: 767px) {
 
-.dropdown .imgSquare, .dropdown .imgSquare .imgSquareContainer {
-	width: 6vh;
-	height: 6vh;
-}
+    .dropdown .imgSquare, .dropdown .imgSquare .imgSquareContainer {
+        width: 6vh;
+        height: 6vh;
+    }
 
-header .title {
-	margin-top: 2vh;
-}
+    header .title {
+        margin-top: 2vh;
+    }
 
 }
 
@@ -508,11 +495,6 @@ header .title {
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-.col-xs-8.col-xs-offset-2 {
-	padding: 0px;
-	margin: 0px;
-	width: 100%;
-}
 
 .publication-image-img {
 	width: 100%;
@@ -527,12 +509,6 @@ header .title {
     background-color: transparent!important;
 }
 
-@media (min-width:992px) {
-    
-    .col-md-3 {
-        width: 30%;
-    }
-}
 
 /* MESSAGERIE */
 
@@ -560,10 +536,6 @@ header .title {
     text-align: justify;
 }
 
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 .col-md-4 .icon-large, .col-md-3 .icon-large {
 	margin-right: 10px;
 }
@@ -694,7 +666,6 @@ footer li a:hover {
         position: relative;
         height: auto;
     }
-
 }
 
 /*# sourceMappingURL=main.css.map */
