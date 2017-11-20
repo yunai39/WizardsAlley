@@ -23,7 +23,7 @@ body, .navbar-head, h1, h2, h3, h4, h5, h6, footer, header nav, p, .table, .publ
 	box-shadow: none;
 }
 
-.img-responsive {
+#comment_content .img-responsive {
 	border-radius: 50%;
 }
 
@@ -161,7 +161,7 @@ h1 {
 
 /* BOUTONS */
 
-.wizardsalley-login-form-submit, .wizardsalley-register-form-submit, .btn-default, .btn, .btn.btn-danger.btn-add-blame, .label.defaut-label.btn, .btn-default.active.focus, .btn-default.active, .btn-default.active, .btn-default.focus, .btn-default, .btn-default, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default, .open > .dropdown-toggle.btn-default, .fos_user_registration_register .register {
+.wizardsalley-login-form-submit, .wizardsalley-register-form-submit, .btn-default, .btn, .btn.btn-danger.btn-add-blame, .label.defaut-label.btn, .btn-default.active.focus, .btn-default.active, .btn-default.active, .btn-default.focus, .btn-default, .btn-default, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default, .open > .dropdown-toggle.btn-default, .fos_user_registration_register .register, input[type="submit"] {
     border: 0px;
     background: #454a72;
     -webkit-border-radius: 5;
@@ -181,7 +181,7 @@ h1 {
     
 }
 
-.wizardsalley-login-form-submit:hover, .wizardsalley-register-form-submit:hover, .btn-default:hover, .btn:hover, .btn.btn-danger.btn-add-blame:hover, .label.defaut-label.btn:hover, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default.focus:active, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover, .btn-default.active, .btn-default:active {
+.wizardsalley-login-form-submit:hover, .wizardsalley-register-form-submit:hover, .btn-default:hover, .btn:hover, .btn.btn-danger.btn-add-blame:hover, .label.defaut-label.btn:hover, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default.focus:active, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover, .btn-default.active, .btn-default:active, input[type="submit"]:hover {
     background: #27293d;
     text-decoration: none;
     color: #fff;
@@ -386,6 +386,20 @@ input[type="file"]:hover {
 }
 
 /* MENU RESPONSIVE */
+
+@media (min-width: 767px) {
+
+.dropdown .imgSquare, .dropdown .imgSquare .imgSquareContainer {
+	width: 6vh;
+	height: 6vh;
+}
+
+header .title {
+	margin-top: 2vh;
+}
+
+}
+
 @media (max-width: 767px) {
     
     header nav .nav-full li:hover, header nav .nav-full li.active {
@@ -508,15 +522,15 @@ input[type="file"]:hover {
 
 /* LISTING SORCIERS ET SORCIERES */
 
+.last-connected-wrapper a:hover, #fav_pages a:hover, #fav_publications a:hover, #div_friend a:hover, #div_page_followed a:hover, .squareUser a:hover, h2:hover {
+    color: #454A72!important;
+    background-color: transparent!important;
+}
+
 @media (min-width:992px) {
     
     .col-md-3 {
         width: 30%;
-    }
-    
-    .last-connected-wrapper a:hover, #fav_pages a:hover, #fav_publications a:hover, #div_friend a:hover, #div_page_followed a:hover, .squareUser a:hover {
-        color: #454A72!important;
-        background-color: transparent!important;
     }
 }
 
@@ -546,7 +560,10 @@ input[type="file"]:hover {
     text-align: justify;
 }
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 .col-md-4 .icon-large, .col-md-3 .icon-large {
 	margin-right: 10px;
 }
@@ -605,6 +622,34 @@ input[type="file"]:hover {
     background-color: #27293d;
 }
 
+/* RECHERCHE */
+
+@media (min-width: 767px) {
+    
+    #wizard_search_all_result .imgSquare.circle, #wizard_search_online_result .imgSquare.circle, #wizard_search_all_community_result .imgSquare.circle{
+        border-radius: 50%;
+        height: 50%;
+        width: 50%;
+        text-align: center;
+    }
+
+    #wizard_search_all_result .imgSquare.circle, #wizard_search_online_result .imgSquare.circle, #wizard_search_all_community_result .imgSquare.circle, 
+    #wizard_search_all_result .imgSquare.circle .imgSquareContainer img, #wizard_search_online_result .imgSquare.circle .imgSquareContainer img, #wizard_search_all_community_result .imgSquare.circle .imgSquareContainer img{
+        border-radius: 50%;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+#wizard_search_all_result a:hover, #wizard_search_online_result a:hover, #wizard_search_all_community_result a:hover {
+	background-color: transparent;
+    color: #27293d;
+}
+
+@media (max-width: 320px) {
+    #wizard_search_online_result, .col-xs-4, #wizard_search_all_result .col-xs-4, #wizard_search_all_community_result .col-xs-4 {
+    	width: 50%;
+    }
 
 /* MENTIONS LEGALES */
 
@@ -617,7 +662,7 @@ footer ul {
 }
 
 footer li a:hover {
-    background-color: none;
+    background-color: transparent;
 }
 
 
