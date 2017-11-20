@@ -22,7 +22,7 @@ class PageType extends AbstractType {
                         'data-theme' => 'bbcode' // Skip it if you want to use default theme
                     )
                 ))
-                ->add('urlFacebook', 'url', ['required' => false])
+                ->add('urlFacebook', 'text', ['required' => false])
                 ->add('fileProfile')
                 ->add('fileCouverture')
                 ->add('category', EntityType::class, [
