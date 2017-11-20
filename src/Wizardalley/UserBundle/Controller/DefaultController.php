@@ -63,6 +63,7 @@ class DefaultController extends BaseController
     public function addAsAFriendAction(Request $request,
                                        $id_user)
     {
+
         $em   =
             $this->getDoctrine()
                  ->getManager()
@@ -79,6 +80,16 @@ class DefaultController extends BaseController
         }
         /** @var WizardUser $userAsking */
         $userAsking       = $this->getUser();
+
+        // empecher un utilisateur de sajouter lui meme en tant qu'utilisateur 
+        if ($userAsking->getId() == $id_user) {
+            return $this->redirect(
+                $this->generateUrl(
+                    'wizardalley_user_wall',
+                    ['id' => $id_user]
+                )
+            );
+        }
         $notificationType = FollowedNotification::TYPE_ASK_FRIEND;
         if ($userAsking->askingForFriendship($friend)) {
             $notificationType = FollowedNotification::TYPE_ANSWERS_ASK_FRIEND;
