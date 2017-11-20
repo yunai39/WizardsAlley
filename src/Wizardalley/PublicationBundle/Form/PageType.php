@@ -23,8 +23,8 @@ class PageType extends AbstractType {
                     )
                 ))
                 ->add('urlFacebook', 'url', ['required' => false])
-                ->add('fileProfile')
-                ->add('fileCouverture')
+                ->add('fileProfile', 'file', ['required' => true])
+                ->add('fileCouverture', 'file', ['required' => true])
                 ->add('category', EntityType::class, [
                     'class' => 'Wizardalley\CoreBundle\Entity\PageCategory'
                 ])
