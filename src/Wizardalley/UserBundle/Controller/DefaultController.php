@@ -83,35 +83,43 @@ class DefaultController extends BaseController
         if ($userAsking->askingForFriendship($friend)) {
             $notificationType = FollowedNotification::TYPE_ANSWERS_ASK_FRIEND;
         }
-        $userAsking->addMyFriend($friend);
-        // Creer la notification
-        $followedNotification = new FollowedNotification();
+        // Chercher si on est deja ami
+        if (!$userAsking->isFriend($friend)) {
+            $userAsking->addMyFriend($friend);
+            // Creer la notification
+            $followedNotification = new FollowedNotification();
 
-        $followedNotification
-            ->setType($notificationType)
-            ->setChecked(false)
-            ->setUser($friend)
-            ->setCreatedAt(
-                new \DateTime()
-            )
-            ->setUpdatedAt(new \DateTime())
-            ->setDataNotification(
-                json_encode(
-                    [
-                        'asked_from'          => $userAsking->getId(),
-                        'asked_from_username' => $userAsking->getUsername(),
-                        'asked_to'            => $id_user
-                    ],
-                    true
+            $followedNotification
+                ->setType($notificationType)
+                ->setChecked(false)
+                ->setUser($friend)
+                ->setCreatedAt(
+                    new \DateTime()
                 )
+                ->setUpdatedAt(new \DateTime())
+                ->setDataNotification(
+                    json_encode(
+                        [
+                            'asked_from'          => $userAsking->getId(),
+                            'asked_from_username' => $userAsking->getUsername(),
+                            'asked_to'            => $id_user
+                        ],
+                        true
+                    )
+                )
+            ;
+
+            $em->persist($userAsking);
+            $em->persist($followedNotification);
+            $em->flush();
+        }
+
+        return $this->redirect(
+            $this->generateUrl(
+                'wizardalley_user_wall',
+                ['id' => $id_user]
             )
-        ;
-
-        $em->persist($userAsking);
-        $em->persist($followedNotification);
-        $em->flush();
-
-        return $this->redirect($request->headers->get('referer'));
+        );
     }
 
     /**
@@ -159,16 +167,17 @@ class DefaultController extends BaseController
             return $this->redirect($this->generateUrl('user_notification_index'));
         }
 
-        $this->addAsAFriendAction(
-            $request,
-            $user->getId()
-        );
+        $em =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
+        $notification->setChecked(true);
+        $em->persist($notification);
+        $em->flush();
 
-        return $this->redirect(
-            $this->generateUrl(
-                'wizardalley_user_wall',
-                ['id' => $dataNotification[ 'asked_from' ]]
-            )
+        return $this->addAsAFriendAction(
+            $request,
+            $friend->getId()
         );
     }
 
@@ -187,7 +196,7 @@ class DefaultController extends BaseController
     public function friendListAction($user, $page = 1)
     {
         $numberDisplay = 3;
-        $userRepo          =
+        $userRepo      =
             $this->getDoctrine()
                  ->getRepository('WizardalleyCoreBundle:WizardUser')
         ;
@@ -271,14 +280,15 @@ class DefaultController extends BaseController
 
     /**
      * @param int $page
-     * @Route("/user/profile/publication/{user}/{page}", name="wizardalley_user_profile_publication",  options={"expose"=true})
+     * @Route("/user/profile/publication/{user}/{page}", name="wizardalley_user_profile_publication",
+     *                                                   options={"expose"=true})
      *
      * @return JsonResponse
      */
     public function displayPublicationProfileAction($user, $page = 1)
     {
         /** @var WizardUserRepository $repo */
-        $repo         =
+        $repo =
             $this->getDoctrine()
                  ->getRepository('WizardalleyCoreBundle:WizardUser')
         ;
