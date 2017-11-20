@@ -119,8 +119,6 @@ wizard:
             blog: Blog de l'équipe
             notification: Notifications
     user:
-        profile:
-            size_limit: La largeur et la hauteur de l'image doit être compris entre 100px et 500px
         change_password: Changer le mot de passe
         notification:
             title: Notifications
@@ -128,6 +126,7 @@ wizard:
             load_more: Plus de notifications
 
         profile:
+            size_limit: La largeur et la hauteur de l'image doit être compris entre 100px et 500px
             edit: Modifier mes informations
             display: Afficher mon profil
             lastname: Prénom
