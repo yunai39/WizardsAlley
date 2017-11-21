@@ -8,11 +8,7 @@
 {% endblock %}
 
 {% block title_banner %}
-    <div class="imgSquare circle">
-        <div class="imgSquareContainer">
-            <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb') }}"/>
-        </div>
-    </div>
+            <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb') }}" class="img-profil-page"/>
     <h1>
         {{ page.name }}
     </h1>

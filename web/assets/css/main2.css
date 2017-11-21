@@ -205,6 +205,20 @@ input[type="file"]:hover {
 	background-color: transparent;
 }
 
+/* PROFILS */
+
+.img-profil {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.img-profil-header {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
 
 /* CONNEXION */
 

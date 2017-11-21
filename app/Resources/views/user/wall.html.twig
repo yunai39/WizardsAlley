@@ -11,11 +11,7 @@
 {% endblock %}
 
 {% block title_banner %}
-    <div class="imgSquare circle">
-        <div class="imgSquareContainer">
-            <img src="{{ asset(user.getPictureProfile()) | imagine_filter('small_thumb') }}"/>
-        </div>
-    </div>
+            <img src="{{ asset(user.getPictureProfile()) | imagine_filter('small_thumb') }}" class="img-profil-page"/>
     <h1>
         {{ user.username }}
     </h1>
@@ -153,7 +149,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row" id="div_page_followed"
-                                         prototype='<div class="col-sm-4 col-md-6 col-xs-6"><a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="imgSquare circle"><div class="imgSquareContainer circle"><img src="/uploads/page/profile/__picture__"></div></div><h4 class="imgTitre">__title__</h4></a></div>'>
+                                         prototype='<div class="col-sm-4 col-md-6 col-xs-6"><a href="{{ path("page_show", {id_page: '__id__'}) }}"><img src="/uploads/page/profile/__picture__"  class="img-profil"><h4 class="imgTitre">__title__</h4></a></div>'>
                                     </div>
                                 </div>
                             </div>
@@ -173,7 +169,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="row" id="div_page_created"
-                                         prototype='<div class="col-sm-4 col-md-6 col-xs-6"><a href="{{ path("page_show", {id_page: '__id__'}) }}"><div class="imgSquare circle"><div class="imgSquareContainer circle"><img src="/uploads/page/profile/__picture__"></div></div><h4 class="imgTitre">__title__</h4></a></div>'>
+                                         prototype='<div class="col-sm-4 col-md-6 col-xs-6"><a href="{{ path("page_show", {id_page: '__id__'}) }}"><img src="/uploads/page/profile/__picture__" class="img-profil"><h4 class="imgTitre">__title__</h4></a></div>'>
                                     </div>
                                 </div>
                             </div>
