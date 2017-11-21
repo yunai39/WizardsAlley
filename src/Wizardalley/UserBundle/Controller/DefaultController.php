@@ -81,7 +81,7 @@ class DefaultController extends BaseController
         /** @var WizardUser $userAsking */
         $userAsking       = $this->getUser();
 
-        // empecher un utilisateur de sajouter lui meme en tant qu'utilisateur 
+        // empecher un utilisateur de sajouter lui meme en tant qu'utilisateur
         if ($userAsking->getId() == $id_user) {
             return $this->redirect(
                 $this->generateUrl(

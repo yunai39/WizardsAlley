@@ -48,7 +48,7 @@ easy_admin:
     site_name: Wizard's alley
     entities:
         Page:
-            disabled_actions: ['new', 'delete']
+            disabled_actions: ['new']
             class: Wizardalley\CoreBundle\Entity\Page
             list:
                 actions:

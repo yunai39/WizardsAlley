@@ -33,7 +33,7 @@ class Page implements TimedEntityInterface
 
     /**
      * @var PageFavorite
-     * @ORM\OneToOne(targetEntity="PageFavorite", mappedBy="page")
+     * @ORM\OneToOne(targetEntity="PageFavorite", mappedBy="page", cascade={"remove","persist"})
      */
     private $favorite;
 
