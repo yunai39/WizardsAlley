@@ -49,6 +49,9 @@
                                 <p>
                                     <a href="{{ path('fos_user_profile_edit') }}">{{ 'wizard.user.profile.edit'|trans({}) }}</a>
                                 </p>
+                                <p><a href="{{ path('page_gestion_new') }}"> {% trans %}
+                                    wizard.user.profile.create_page{% endtrans %}</a>
+                                </p>
                             </div>
                         </div>
                     {% endif %}
@@ -146,9 +149,6 @@
                             <div>
                                 <h3>{% trans %}wizard.user.profile.title.page_creator{% endtrans %}</h3>
                                 <hr>
-                            </div>
-                            <div class="col-md-12"><a href="{{ path('page_gestion_new') }}"> {% trans %}
-                                    wizard.user.profile.create_page{% endtrans %}</a>
                             </div>
                             <div class="col-md-12">
                                 <div class="row" id="div_page_created"
