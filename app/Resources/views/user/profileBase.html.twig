@@ -62,44 +62,35 @@
                             <p>
                                 {{ user.description }}
                             </p>
-                            <div class="row">
-                                {% if user.facebook != null %}
-                                    <div class="col-md-6 col-xs-12 text-center">
-                                        <a href="https://www.facebook.com/{{ user.facebook }}"
-                                           title="https://www.facebook.com/{{ user.facebook }}">
-                                        <span class="icon-large icon-facebook"
-                                              aria-hidden="true"></span>
-                                        </a>
-                                    </div>
-                                {% endif %}
-                                {% if user.twitter != null %}
-                                    <div class="col-md-6 col-xs-12 text-center">
-                                        <a href="https://twitter.com/{{ user.twitter }}"
-                                           title="https://twitter.com/{{ user.twitter }}">
-                                        <span class="icon-large icon-twitter"
-                                              aria-hidden="true"></span>
-                                        </a>
-                                    </div>
-                                {% endif %}
-                                {% if user.instagram != null %}
-                                    <div class="col-md-6 col-xs-12 text-center">
-                                        <a href="https://www.instagram.com/{{ user.instagram }}"
-                                           title="https://www.instagram.com/{{ user.instagram }}">
-                                        <span class="icon-large icon-instagram"
-                                              aria-hidden="true"></span>
-                                        </a>
-                                    </div>
-                                {% endif %}
-                                {% if user.youtube != null %}
-                                    <div class="col-md-6 col-xs-12 text-center">
-                                        <a href="https://youtube.com/user/{{ user.youtube }}"
-                                           title="https://youtube.com/user/{{ user.youtube }}">
-                                        <span class="icon-large icon-youtube"
-                                              aria-hidden="true"></span>
-                                        </a>
-                                    </div>
-                                {% endif %}
+                            {% if user.facebook != null %}
+                            <div class="col-md-12">
+                                
+                                    <a href="https://facebook.com/{{ user.facebook }}"/><span
+                                        class="icon-large icon-facebook"
+                                        aria-hidden="true"></span>Facebook</a>
                             </div>
+                            {% endif %}
+                            {% if user.twitter != null %}
+                            <div class="col-md-12">
+                                    <a href="https://twitter.com/{{ user.twitter }}"/><span
+                                        class="icon-large icon-twitter"
+                                        aria-hidden="true"></span>Twitter</a>
+                            </div>
+                            {% endif %}
+                            {% if user.instagram != null %}
+                            <div class="col-md-12">
+                                    <a href="https://instagram.com/{{ user.instagram }}"/><span
+                                        class="icon-large icon-instagram"
+                                        aria-hidden="true"></span>Instagram</a>
+                            </div>
+                            {% endif %}
+                            {% if user.youtube != null %}
+                            <div class="col-md-12">
+                                    <a href="https://instagram.com/{{ user.youtube }}"/><span
+                                        class="icon-large icon-youtube"
+                                        aria-hidden="true"></span>Youtube</a>
+                            </div>
+                            {% endif %}
                             <div class="fos_user_user_show">
                                 <p class="wizard-last-login">{% trans %}wizard.user.profile.last_login{% endtrans %}
                                     :&nbsp;{{ user.lastLogin|localizeddate('full', 'none') }} {{ user.lastLogin|date("H:i") }}</p>

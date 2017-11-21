@@ -44,11 +44,10 @@
                 <div class="col-md-3">
                     <div class="panel panel-default profil-infos-panel">
                         <div class="panel-body">
+                            <h3>A propos</h3>
+                            <hr>
                             <p>{{ page.description | raw }}</p>
                             {% if app.user %}
-                                <div class="margin-bottom-middle">
-                                    {% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}
-                                </div>
 
                                 {% if  app.user in editors or app.user.id == creator_id or app.user in checkers %}
                                     <div class="col-md-12">
@@ -77,7 +76,7 @@
                                 {% if page.urlFacebook != null %}
                                     <a href="{{ page.urlFacebook }}"/><span
                                         class="icon-large icon-facebook"
-                                        aria-hidden="true"></span></a>
+                                        aria-hidden="true"></span>Facebook</a>
                                 {% endif %}
                             </div>
                             <div class="col-md-12">
@@ -95,6 +94,9 @@
                                             page.like {% endtrans %}
                                         </a>
                                     {% endif %}
+                                </div>
+                                <div class="margin-bottom-middle">
+                                    {% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}
                                 </div>
                             {% endif %}
                         </div>

@@ -8,9 +8,14 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <br>
-        <div class="col-md-4">
+   
+<ul class="page-nav">
+   <li id="news" class="active" onclick="letsnews()">Publication</li>
+   <li id="vedette" onclick="letsvedette()">Sorciers en ligne, en vedette...</li>
+</ul>
+   
+    <div class="page-row">
+        <aside id="aside">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h3>{% trans %}wizard.home.user_online{% endtrans %}</h3>
@@ -48,8 +53,8 @@
                 </div>
             </div>
 
-        </div>
-        <div class="col-md-8">
+        </aside>
+        <section id="section">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h2>{% trans %}wizard.home.express_yourself{% endtrans %}</h2>
@@ -68,7 +73,7 @@
                                   aria-hidden="true"></span>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
 {% endblock %}
 
@@ -127,4 +132,20 @@
         });
 
     </script>
+    
+    <script>
+        function letsvedette() {
+            document.getElementById('section').style.display = "none";
+            document.getElementById('aside').style.display = "block";
+            document.getElementById('news').className = "";
+            document.getElementById('vedette').className = "active";
+        }
+        function letsnews() {
+            document.getElementById('section').style.display = "block";
+            document.getElementById('aside').style.display = "none";
+            document.getElementById('news').className = "active";
+            document.getElementById('vedette').className = "";
+        }
+    </script>
+    
 {% endblock %}

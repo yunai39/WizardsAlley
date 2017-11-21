@@ -231,6 +231,89 @@ input[type="file"]:hover {
     padding: 15vh 0 10vh;
 }
 
+.page-nav {
+    position: absolute;
+    display: none;
+    background-image: url('../../assets/images/bg-dark.jpeg');
+    justify-content: center;
+    z-index: 100;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.page-nav li {
+    padding: 4vh 5%;
+    width: 90%;
+    text-align: center;
+    color: #fff;
+    transition: 0.2s linear;
+    cursor: pointer;
+    list-style-type: none; 
+}
+
+.page-nav li:hover, .page-nav .active {
+    border-bottom: 5px solid #fff;
+    margin: 0px;
+}
+
+@media (max-width: 750px) {
+    .page-nav {
+        display: flex;
+    }
+    
+    .page-row #aside {
+        display: none;
+    }
+    
+    .page-row {
+        padding-top: 15vh;
+    }
+}
+
+.page-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.page-row aside {
+    width: 30%;
+}
+
+.page-row section {
+    width: 65%;
+    margin-left: 5%;
+}
+
+@media (max-width: 1500px) {
+
+.page-row aside {
+    width: 20%;
+}
+
+.page-row section {
+    width: 75%;
+}
+    
+}
+
+@media (max-width: 750px) {
+
+.page-row {
+    display: flex;
+    flex-direction: column
+}
+.page-row aside {
+    width: 100%;
+}
+
+.page-row section {
+    width: 100%;
+    margin-left: 0%;
+}
+    
+}
+
 #wizardalle_publicationbundle_add_small_publication_content {
     border-radius: 0px;
 }
@@ -273,6 +356,10 @@ input[type="file"]:hover {
 .publication-block-wrapper {
     margin-top: 5vh;
 }
+
+/* RUELLE */
+
+
 
 /* DISCOVER */
 
@@ -374,13 +461,6 @@ input[type="file"]:hover {
 
 /* MENU RESPONSIVE */
 
-@media (min-width: 767px) {
-
-    .dropdown .imgSquare, .dropdown .imgSquare .imgSquareContainer {
-        width: 6vh;
-        height: 6vh;
-    }
-
     header .title {
         margin-top: 2vh;
     }
@@ -465,9 +545,6 @@ input[type="file"]:hover {
 
 /* GRANDES PUBLICATIONS */
 
-.publication-top .img-container, .publication-top .imgSquareContainer, .publication-top .imgSquare {
-	width: 7vw;
-}
 
 .publication-top .title-container {
 	margin-left: 5vw;
@@ -596,23 +673,6 @@ input[type="file"]:hover {
 
 /* RECHERCHE */
 
-@media (min-width: 767px) {
-    
-    #wizard_search_all_result .imgSquare.circle, #wizard_search_online_result .imgSquare.circle, #wizard_search_all_community_result .imgSquare.circle{
-        border-radius: 50%;
-        height: 50%;
-        width: 50%;
-        text-align: center;
-    }
-
-    #wizard_search_all_result .imgSquare.circle, #wizard_search_online_result .imgSquare.circle, #wizard_search_all_community_result .imgSquare.circle, 
-    #wizard_search_all_result .imgSquare.circle .imgSquareContainer img, #wizard_search_online_result .imgSquare.circle .imgSquareContainer img, #wizard_search_all_community_result .imgSquare.circle .imgSquareContainer img{
-        border-radius: 50%;
-        height: 100%;
-        width: 100%;
-    }
-}
-
 #wizard_search_all_result a:hover, #wizard_search_online_result a:hover, #wizard_search_all_community_result a:hover {
 	background-color: transparent;
     color: #27293d;
@@ -630,27 +690,18 @@ input[type="file"]:hover {
 
 footer ul {
     padding: 0px;
-    margin: 1px 0vw 10px 0vw;
+    margin-bottom: 5px;
 }
 
 footer li a:hover {
-    background-color: transparent;
+    background-color: transparent!important;
 }
 
 
 /* VERSIONS MOBILE */
 
 @media (max-width: 767px) {
-    .imgSquare.circle .imgSquareContainer img {
-        border-radius: 50%;
-        width: 80px;
-        height: 80px;
-    }
     
-    .publication .imgSquare.circle .imgSquareContainer img {
-        height: 50px;
-        width: 50px;
-    }
     
     .nav-up #bs-example-navbar-collapse-1 {
         top: auto;
