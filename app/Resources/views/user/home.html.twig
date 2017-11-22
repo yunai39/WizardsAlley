@@ -10,13 +10,13 @@
 {% block body %}
    
 <ul class="page-nav">
-   <li id="news" class="active" onclick="letsnews()">Publication</li>
+   <li id="news" class="active" onclick="letsnews()">Publications</li>
    <li id="vedette" onclick="letsvedette()">Sorciers en ligne, en vedette...</li>
 </ul>
    
     <div class="page-row">
         <aside id="aside">
-            <div class="panel panel-default">
+            <div class="panel panel-default list-wizards">
                 <div class="panel-body">
                     <h3>{% trans %}wizard.home.user_online{% endtrans %}</h3>
                     <hr>
@@ -28,7 +28,7 @@
                           aria-hidden="true"></span>
                 </div>
             </div>
-            <div class="panel panel-default">
+            <div class="panel panel-default most-comment">
                 <div class="panel-body">
                     <h3>{% trans %}wizard.home.most_commented{% endtrans %}</h3>
                     <hr>
@@ -41,7 +41,7 @@
                               aria-hidden="true"></span>
                 </div>
             </div>
-            <div class="panel panel-default">
+            <div class="panel panel-default news_team">
                 <div class="panel-body">
                     <div class="information-block-wrapper">
 
