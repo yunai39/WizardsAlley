@@ -18,6 +18,23 @@
     <h2>
         {{ user.smallDescription }}
     </h2>
+    <ul class="friend-tools">
+        {% if app.user %}
+        {% if app.user.id != user.id %}
+        {% if app.user.isFriend(user) %}
+        <li>{% trans %}wizard.wall.friend{% endtrans %}</li>
+        {% elseif app.user.askedAsAFriend(user) %}
+        <li>{% trans %}wizard.wall.ask_ongoing{% endtrans %}</li>
+        {% elseif app.user.askingForFriendship(user) %}
+        <li><a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">Accepter sa demande d'amitié</a></li>
+        {% else %}
+        <li><a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">Ajouter en tant qu'ami(e)</a></li>
+        {% endif %}
+        {% endif %}
+        <li>{% include '::includes/addBlameButton.html.twig' with {'id': user.id, 'type': 'user'} %}</li>
+        {% endif %}
+    </ul>                                           
+                                                
 {% endblock %}
 
 {% block body %}
@@ -39,26 +56,7 @@
                                         <h3>
                                             {% trans %}wizard.user.profile.about{% endtrans %}
                                         </h3>
-                                        {% if app.user %}
-                                            {% if app.user.id != user.id %}
-                                                {% if app.user.isFriend(user) %}
-                                                    <div><h4>{% trans %}wizard.wall.friend{% endtrans %}</h4></div>
-                                                {% elseif app.user.askedAsAFriend(user) %}
-                                                    <div>{% trans %}wizard.wall.ask_ongoing{% endtrans %}</div>
-                                                {% elseif app.user.askingForFriendship(user) %}
-                                                    <div>
-                                                        <a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">Demande
-                                                            d'amitié,
-                                                            confirmer la demande</a></div>
-                                                {% else %}
-                                                    <a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">Ajouter
-                                                        en tant
-                                                        qu'amis</a>
-                                                {% endif %}
-                                            {% endif %}
-                                        {% endif %}
                                         <hr>
-                                        <h4>{{ user.smallDescription }}</h4>
                                         <p>
                                             {{ user.description }}
                                         </p>
@@ -104,16 +102,6 @@
                                                 </h6>
                                             {% endif %}
                                         {% endif %}
-                                        <div class="row">
-                                            <div class="col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
-                                                {% if app.user %}
-                                                    <div class="margin-bottom-middle">
-                                                        {% include '::includes/addBlameButton.html.twig' with {'id': user.id, 'type': 'user'} %}
-                                                    </div>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
 

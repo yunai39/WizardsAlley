@@ -41,12 +41,6 @@ a {
 	padding: 2px;
 }
 
-a:hover {
-	color: #fff;
-	background-color: #454a72;
-	text-decoration: none;
-}
-
 /* HEADER */
 
 header {
@@ -219,6 +213,12 @@ input[type="file"]:hover {
     border-radius: 50%;
 }
 
+.img-profil-page {
+	height: 150px;
+	width: 150px;
+	border-radius: 50%;
+}
+
 
 /* CONNEXION */
 
@@ -243,6 +243,7 @@ input[type="file"]:hover {
 
 .head .title-wrapper {
     padding: 15vh 0 10vh;
+    text-align: center;
 }
 
 .page-nav {
@@ -595,10 +596,6 @@ input[type="file"]:hover {
 
 /* LISTING SORCIERS ET SORCIERES */
 
-.last-connected-wrapper a:hover, #fav_pages a:hover, #fav_publications a:hover, #div_friend a:hover, #div_page_followed a:hover, .squareUser a:hover, h2:hover {
-    color: #454A72!important;
-    background-color: transparent!important;
-}
 
 
 /* MESSAGERIE */
@@ -684,6 +681,31 @@ input[type="file"]:hover {
     text-decoration: none;
     background-color: #27293d;
 }
+
+.friend-tools {
+	display: flex;
+	flex-wrap: wrap;
+	padding: 2vh 30vw 5vh;
+	justify-content: space-around;
+}
+
+.friend-tools li {
+	list-style: none;
+	padding: 5px;
+	background-color: #454a72;
+	border-radius: 5px;
+	margin-bottom: 1vh;
+    transition: 0.2s linear;
+}
+
+.friend-tools li:hover {
+    background-color: #27293d;
+}
+
+.friend-tools a, .friend-tools a:hover {
+    text-decoration: none;
+}
+
 
 /* RECHERCHE */
 

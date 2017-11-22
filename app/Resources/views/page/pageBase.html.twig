@@ -13,7 +13,7 @@
         {{ page.name }}
     </h1>
     {% if page.officialPage or page.redactorPage %}
-        <h2>
+    <h2>
             {% if page.officialPage %}
                 {% trans %}wizard.page.label.official{% endtrans %}
             {% endif %}
@@ -23,11 +23,23 @@
             {% if page.redactorPage %}
                 {% trans %}wizard.page.label.redactor{% endtrans %}
             {% endif %}
-        </h2>
-
-        <h3>
-            <a href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{ page.category.name }}</a>
-        </h3>
+    </h2>
+    <ul class="friend-tools">
+        <li><a href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{ page.category.name }}</a></li>
+        {% if app.user %}
+        {% if page in app.user.getPageFollowedEntity %}
+        <li>
+            <a href="">{% trans %}page.invite_friend {% endtrans %}</a>
+            {% else %}
+            <a href="javascript:util.likePage({{ page.id }})">               {% trans %} page.like {% endtrans %}
+            </a>
+        </li>
+        {% endif %}
+        {% endif %}
+        <li>{% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}</li>
+        <li>{% trans %} wizard.page.followers {% endtrans %} {{ length | page.followers }}</li>
+        {% endif %}
+    </ul>        
     {% endif %}
 {% endblock %}
 
@@ -75,26 +87,6 @@
                                         aria-hidden="true"></span>Facebook</a>
                                 {% endif %}
                             </div>
-                            <div class="col-md-12">
-                                <span class="icon-large icon  icon-heart"></span> {% trans %}
-                                wizard.page.followers {% endtrans %} {{ page.followers | length }}
-                            </div>
-                            {% if app.user %}
-                                <div class="col-md-12">
-                                    {% if page in app.user.getPageFollowedEntity %}
-                                        <a href=""><span class="icon-large icon icon-user"></span> {% trans %}
-                                            page.invite_friend {% endtrans %}</a>
-                                    {% else %}
-                                        <a href="javascript:util.likePage({{ page.id }})"><span
-                                                    class="icon-large icon icon-user"></span> {% trans %}
-                                            page.like {% endtrans %}
-                                        </a>
-                                    {% endif %}
-                                </div>
-                                <div class="margin-bottom-middle">
-                                    {% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}
-                                </div>
-                            {% endif %}
                         </div>
                     </div>
                     <div class="row">
