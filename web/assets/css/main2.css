@@ -279,11 +279,11 @@ input[type="file"]:hover {
 }
 
 main {
-    position: absolute;
+    position: relative;
 }
 
 .page-nav {
-    position: relative;
+    position: absolute;
     display: none;
     background-image: url('../../assets/images/bg-dark.jpeg');
     justify-content: center;
@@ -872,8 +872,9 @@ footer li a:hover {
     }
     
     footer {
-        position: relative;
+        position: absolute;
         height: auto;
+        bottom: auto;
     }
 }
 
