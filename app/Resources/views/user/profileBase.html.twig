@@ -12,19 +12,19 @@
         {% set user = app.user %}
     {% endif %}
             <img src="{{ asset(user.getPictureProfile()) | imagine_filter('small_thumb') }}"  class="img-profil-page"/>
-    <div>
+    <div class="user-infos-head">
         <h1>
             {{ user.username }}
         </h1>
-    </div>
     <h2>
         {{ user.smallDescription }}
     </h2>
+    </div>
 {% endblock %}
 
 {% block fos_user_content %}
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 aside">
             <div class="row">
                 <div class="col-sm-12">
                     {% if app.user and app.user.id == user.id %}
