@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block title_banner %}
-            <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb') }}" class="img-profil-page"/>
+    <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb') }}" class="img-profil-page"/>
     <h1>
         {{ page.name }}
     </h1>
@@ -24,23 +24,25 @@
                 {% trans %}wizard.page.label.redactor{% endtrans %}
             {% endif %}
     </h2>
+    {% endif %}
     <ul class="friend-tools">
         <li><a href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{ page.category.name }}</a></li>
         {% if app.user %}
-        {% if page in app.user.getPageFollowedEntity %}
-        <li>
-            <a href="">{% trans %}page.invite_friend {% endtrans %}</a>
+            {% if page in app.user.getPageFollowedEntity %}
+            <li>
+                <a href="">{% trans %}page.invite_friend {% endtrans %}</a>
+            </li>
             {% else %}
-            <a href="javascript:util.likePage({{ page.id }})">               {% trans %} page.like {% endtrans %}
-            </a>
-        </li>
+            <li>
+                <a href="javascript:util.likePage({{ page.id }})">
+                    {% trans %} page.like {% endtrans %}
+                </a>
+            </li>
+            {% endif %}
+            <li>{% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}</li>
+            <li>{% trans %} wizard.page.followers {% endtrans %} {{ page.followers | length }}</li>
         {% endif %}
-        {% endif %}
-        <li>{% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}</li>
-        <li>{% trans %} wizard.page.followers {% endtrans %} {{ length | page.followers }}</li>
-        {% endif %}
-    </ul>        
-    {% endif %}
+    </ul>
 {% endblock %}
 
 {% block body -%}
