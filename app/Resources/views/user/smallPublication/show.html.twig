@@ -1,66 +1,75 @@
 {% extends '::user/profileBase.html.twig' %}
 
-<div class="publication-show">
 
 {% block title %}
     {% trans %}wizard.title.base{% endtrans %} {{ entity.user.username }}
 {% endblock %}
 
 {% block profile_body -%}
-    <div class="publication-vedette">
-        <div class="top-publication">
-            Publié le {{ entity.createdAt | date('Y-m-d') }} à {{ entity.createdAt | date('H:i:s') }}
-        </div>
-        <div class="text-publication">
-            <p>{{ entity.content | raw }}</p>
-        </div>
-        <ul class="social-bar-publication">
-        <li><button class="label defaut-label like-unlike-small-button btn"><i class="icon-large icon-heart"></i>&nbsp;{{ entity.countLike }}</button></li>
-        <ul>
-        {% if app.user and app.user.id == entity.user.id %}
-            {% include '::includes/disablePublicationButton.html.twig' with {'id': entity.id} %}
-        {% elseif app.user %}
-            <li>{% include '::includes/addBlameButton.html.twig' with {'id': entity.id, 'type': 'publication'} %}</li>
-        {% endif %}
-        {% if app.user %}
-             <li><button class="label defaut-label like-unlike-small-button btn" data-id="{{ entity.id }}" onclick="util.likeOrUnlikeSmallPublication({{ entity.id }})" {% if is_like_small(entity.id) %} value="unlike">
-                            {% trans %}publication.unlike{% endtrans %}
-                            {% else %}
-                                value="like"
-                                >
-                                {% trans %}publication.like{% endtrans %}
-                            {% endif %}
-            </button></li>
-            {% endif %}
+    <div class="publication-show">
+        <div class="publication-vedette">
+            <div class="top-publication">
+                Publié le {{ entity.createdAt | date('Y-m-d') }} à {{ entity.createdAt | date('H:i:s') }}
+            </div>
+            <div class="text-publication">
+                <p>{{ entity.content | raw }}</p>
+            </div>
+            <ul class="social-bar-publication">
+                <li>
+                    <button class="label defaut-label like-unlike-small-button btn"><i
+                                class="icon-large icon-heart"></i>&nbsp;{{ entity.countLike }}
+                    </button>
+                </li>
+                <ul>
+                    {% if app.user and app.user.id == entity.user.id %}
+                        {% include '::includes/disablePublicationButton.html.twig' with {'id': entity.id} %}
+                    {% elseif app.user %}
+                        <li>{% include '::includes/addBlameButton.html.twig' with {'id': entity.id, 'type': 'publication'} %}</li>
+                    {% endif %}
+                    {% if app.user %}
+                        <li>
+                            <button class="label defaut-label like-unlike-small-button btn" data-id="{{ entity.id }}"
+                                    onclick="util.likeOrUnlikeSmallPublication({{ entity.id }})"
+                                    {% if is_like_small(entity.id) %} value="unlike">
+                                {% trans %}publication.unlike{% endtrans %}
+                                {% else %}
+                                    value="like"
+                                    >
+                                    {% trans %}publication.like{% endtrans %}
+                                {% endif %}
+                            </button>
+                        </li>
+                    {% endif %}
+                </ul>
             </ul>
-        </ul>
-        <hr>
-        
-        <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-12">
+            <hr>
 
-                    <h3>{% trans %}publication.comments{% endtrans %}</h3>
-                    <div class="comment_block">
-                        <div id="comment_content">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            <h3>{% trans %}publication.comments{% endtrans %}</h3>
+                            <div class="comment_block">
+                                <div id="comment_content">
+                                </div>
+                            </div>
+                            {% if app.user %}
+                                <div>
+                                    {{ form(comment_form) }}
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
-                    {% if app.user %}
-                        <div>
-                            {{ form(comment_form) }}
-                        </div>
-                    {% endif %}
+                </div>
+                <div class="panel-footer text-center">
+                    <span class="glyphicon glyphicon-chevron-down clickable wizard-load-comments"
+                          aria-hidden="true"></span>
                 </div>
             </div>
         </div>
-        <div class="panel-footer text-center">
-            <span class="glyphicon glyphicon-chevron-down clickable wizard-load-comments" aria-hidden="true"></span>
-        </div>
     </div>
 {% endblock %}
-</div>
-</div>
 
 {% block javascripts %}
     {{ parent() }}
