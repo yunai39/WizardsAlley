@@ -114,7 +114,8 @@ class Page implements TimedEntityInterface
     private $checkers;
 
     /**
-     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PageUserFollow", mappedBy="page")
+     * @ORM\OneToMany(targetEntity="Wizardalley\CoreBundle\Entity\PageUserFollow", mappedBy="page", cascade={"remove",
+     *                                                                          "persist"})
      * @var ArrayCollection
      */
     private $followers;
