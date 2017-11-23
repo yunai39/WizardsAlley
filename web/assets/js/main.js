@@ -103,7 +103,7 @@ var util = (function () {
             var $button = $('.like-unlike-button[data-id="' + id + '"]');
             if ($button.attr('value') == 'like') {
                 var _handler = function (data) {
-                    $button.attr('value', 'unlike');
+                    $button.attr('value', 'Ne plus aimer');
                     $button.html('Unlike');
                 };
                 // Envoyer la requete js
@@ -125,7 +125,7 @@ var util = (function () {
             var $button = $('.like-unlike-small-button[data-id="' + id + '"]');
             if ($button.attr('value') == 'like') {
                 var _handler = function (data) {
-                    $button.attr('value', 'unlike');
+                    $button.attr('value', 'Ne plus aimer');
                     $button.html('Unlike');
                 };
                 // Envoyer la requete js
