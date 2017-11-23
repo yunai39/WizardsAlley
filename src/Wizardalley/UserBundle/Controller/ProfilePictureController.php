@@ -25,7 +25,6 @@ class ProfilePictureController extends Controller
                  ->add('fileProfile')
                  ->getForm()
         ;
-
         if ($this->getRequest()
                  ->isMethod('POST')
         ) {
@@ -43,8 +42,7 @@ class ProfilePictureController extends Controller
 
                 /** @var $cacheManager CacheManager */
                 $cacheManager = $this->get('liip_imagine.cache.manager');
-                // $cacheManager->resolve($this->getRequest(),$pngPath,$filter);
-                $cacheManager->remove($user->getAbsolutePathProfile());
+                $cacheManager->remove($user->getWebPathProfile());
             }
         }
 
@@ -84,8 +82,7 @@ class ProfilePictureController extends Controller
                 $em->flush();
                 /** @var $cacheManager CacheManager */
                 $cacheManager = $this->get('liip_imagine.cache.manager');
-                // $cacheManager->resolve($this->getRequest(),$pngPath,$filter);
-                $cacheManager->remove($user->getAbsolutePathCouverture());
+                $cacheManager->remove($user->getWebPathCouverture());
             }
         }
 
