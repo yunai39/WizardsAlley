@@ -1,3 +1,5 @@
+<div class="publication-show">
+
 {% extends '::user/profileBase.html.twig' %}
 
 
@@ -6,7 +8,6 @@
 {% endblock %}
 
 {% block profile_body -%}
-    <div class="publication-show">
         <div class="publication-vedette">
             <div class="top-publication">
                 Publié le {{ entity.createdAt | date('Y-m-d') }} à {{ entity.createdAt | date('H:i:s') }}
@@ -68,8 +69,8 @@
                 </div>
             </div>
         </div>
-    </div>
 {% endblock %}
+</div>
 
 {% block javascripts %}
     {{ parent() }}
