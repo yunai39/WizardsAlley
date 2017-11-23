@@ -2,32 +2,29 @@
 
 {% block fos_message_content %}
 
-<h2>{% trans from 'FOSMessageBundle' %}send_new{% endtrans %}</h2>
+    <h2>{% trans from 'FOSMessageBundle' %}send_new{% endtrans %}</h2>
 
-<form action="{{ url('fos_message_thread_new') }}" method="post">
+    <form action="{{ url('fos_message_thread_new') }}" method="post">
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
 
-    {{ form_row(form.recipient, {'attr': {'class': 'typeahead', 'placeholder': 'Destinataire', 'autocomplete': 'off'}}) }}
-    {{ form_row(form.subject) }}
-    {{ form_row(form.body) }}
-    <input type="submit" class="btn btn-success"/>
-    {{ form_end(form) }}
-</form>
+        {{ form_row(form.recipient, {'attr': {'class': 'typeahead', 'placeholder': 'Destinataire', 'autocomplete': 'off'}}) }}
+        {{ form_row(form.subject) }}
+        {{ form_row(form.body) }}
+        <input type="submit" class="btn btn-success"/>
+        {{ form_end(form) }}
+    </form>
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-    {% javascripts
-    'bundles/wizardalleydefault/js/typeahead.min.js' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    <script src="{{ asset('assets/js/typeahead.min.js') }}"></script>
     <script>
-        $.get(Routing.generate('wizard_friend_list'), function(data){
+        $.get(Routing.generate('wizard_friend_list'), function (data) {
             console.log(data);
-            $('.typeahead').typeahead({ source:data });
+            $('.typeahead').typeahead({source: data});
         });
     </script>
 {% endblock %}

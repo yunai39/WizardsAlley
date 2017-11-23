@@ -103,15 +103,15 @@ var util = (function () {
             var $button = $('.like-unlike-button[data-id="' + id + '"]');
             if ($button.attr('value') == 'like') {
                 var _handler = function (data) {
-                    $button.attr('value', 'Ne plus aimer');
-                    $button.html('Unlike');
+                    $button.attr('value', 'unlike');
+                    $button.html('Ne plus aimer');
                 };
                 // Envoyer la requete js
                 util.ajaxHandle('POST', null, Routing.generate('publication_user_like', {'id': id}), _handler);
             } else {
                 var _handler = function (data) {
                     $button.attr('value', 'like');
-                    $button.html('Like');
+                    $button.html('Aimer');
                 };
                 // Envoyer la requete js
                 util.ajaxHandle('POST', null, Routing.generate('publication_user_unlike', {'id': id}), _handler);
@@ -125,15 +125,15 @@ var util = (function () {
             var $button = $('.like-unlike-small-button[data-id="' + id + '"]');
             if ($button.attr('value') == 'like') {
                 var _handler = function (data) {
-                    $button.attr('value', 'Ne plus aimer');
-                    $button.html('Unlike');
+                    $button.attr('value', 'unlike');
+                    $button.html('Ne plus aimer');
                 };
                 // Envoyer la requete js
                 util.ajaxHandle('POST', null, Routing.generate('small_publication_user_like', {'id': id}), _handler);
             } else {
                 var _handler = function (data) {
                     $button.attr('value', 'like');
-                    $button.html('Like');
+                    $button.html('Aimer');
                 };
                 // Envoyer la requete js
                 util.ajaxHandle('POST', null, Routing.generate('small_publication_user_unlike', {'id': id}), _handler);
