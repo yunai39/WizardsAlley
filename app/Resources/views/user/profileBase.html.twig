@@ -11,20 +11,20 @@
     {% if user is not defined %}
         {% set user = app.user %}
     {% endif %}
-            <img src="{{ asset(user.getPictureProfile()) | imagine_filter('small_thumb') }}"  class="img-profil-page"/>
+    <img src="{{ asset(user.getPictureProfile()) | imagine_filter('small_thumb') }}" class="img-profil-page"/>
     <div class="user-infos-head">
         <h1>
             {{ user.username }}
         </h1>
-    <h2>
-        {{ user.smallDescription }}
-    </h2>
+        <h2>
+            {{ user.smallDescription }}
+        </h2>
     </div>
 {% endblock %}
 
 {% block fos_user_content %}
     <div class="row">
-        <div class="col-md-3 aside">
+        <div class="col-md-4 aside">
             <div class="row">
                 <div class="col-sm-12">
                     {% if app.user and app.user.id == user.id %}
@@ -46,7 +46,7 @@
                                     <a href="{{ path('fos_user_profile_edit') }}">{{ 'wizard.user.profile.edit'|trans({}) }}</a>
                                 </p>
                                 <p><a href="{{ path('page_gestion_new') }}"> {% trans %}
-                                    wizard.user.profile.create_page{% endtrans %}</a>
+                                        wizard.user.profile.create_page{% endtrans %}</a>
                                 </p>
                             </div>
                         </div>
@@ -62,33 +62,33 @@
                                 {{ user.description }}
                             </p>
                             {% if user.facebook != null %}
-                            <div class="col-md-12">
-                                
+                                <div class="col-md-12">
+
                                     <a href="https://facebook.com/{{ user.facebook }}"/><span
-                                        class="icon-large icon-facebook"
-                                        aria-hidden="true"></span>Facebook</a>
-                            </div>
+                                            class="icon-large icon-facebook"
+                                            aria-hidden="true"></span>Facebook</a>
+                                </div>
                             {% endif %}
                             {% if user.twitter != null %}
-                            <div class="col-md-12">
+                                <div class="col-md-12">
                                     <a href="https://twitter.com/{{ user.twitter }}"/><span
-                                        class="icon-large icon-twitter"
-                                        aria-hidden="true"></span>Twitter</a>
-                            </div>
+                                            class="icon-large icon-twitter"
+                                            aria-hidden="true"></span>Twitter</a>
+                                </div>
                             {% endif %}
                             {% if user.instagram != null %}
-                            <div class="col-md-12">
+                                <div class="col-md-12">
                                     <a href="https://instagram.com/{{ user.instagram }}"/><span
-                                        class="icon-large icon-instagram"
-                                        aria-hidden="true"></span>Instagram</a>
-                            </div>
+                                            class="icon-large icon-instagram"
+                                            aria-hidden="true"></span>Instagram</a>
+                                </div>
                             {% endif %}
                             {% if user.youtube != null %}
-                            <div class="col-md-12">
+                                <div class="col-md-12">
                                     <a href="https://instagram.com/{{ user.youtube }}"/><span
-                                        class="icon-large icon-youtube"
-                                        aria-hidden="true"></span>Youtube</a>
-                            </div>
+                                            class="icon-large icon-youtube"
+                                            aria-hidden="true"></span>Youtube</a>
+                                </div>
                             {% endif %}
                             <div class="fos_user_user_show">
                                 <p class="wizard-last-login">{% trans %}wizard.user.profile.last_login{% endtrans %}
@@ -179,7 +179,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
             {% block profile_body %}{% endblock %}
         </div>
     </div>
