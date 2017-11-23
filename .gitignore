@@ -10,3 +10,5 @@ app/logs/
 bin/
 .vagrant/
 /web/assets/.sass-cache/
+/web/uploads/
+/web/media/
