@@ -19,10 +19,12 @@
                             <input type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}"/>
                         </div>
                     </form>
-                    <div>
-                        <img src="{{ asset(app.user.getPictureCouverture()) }}" class="cover-edit"/>
-                    </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="text-right">
+                <img src="{{ asset(app.user.getPictureCouverture()) }}" class="cover-edit img-responsive"/>
             </div>
         </div>
     </div>

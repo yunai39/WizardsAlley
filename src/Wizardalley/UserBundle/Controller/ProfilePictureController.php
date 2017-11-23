@@ -2,6 +2,7 @@
 
 namespace Wizardalley\UserBundle\Controller;
 
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\WizardUser;
@@ -19,22 +20,41 @@ class ProfilePictureController extends Controller
      */
     public function editProfilePictureAction()
     {
-        $form = $this->createFormBuilder($this->getUser())->add('fileProfile')->getForm();
+        $form =
+            $this->createFormBuilder($this->getUser())
+                 ->add('fileProfile')
+                 ->getForm()
+        ;
 
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()
+                 ->isMethod('POST')
+        ) {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-                $this->getUser()->uploadProfile();
+                $em =
+                    $this->getDoctrine()
+                         ->getManager()
+                ;
+                /** @var WizardUser $user */
+                $user = $this->getUser();
+                $user->uploadProfile();
                 $em->persist($this->getUser());
                 $em->flush();
+
+                /** @var $cacheManager CacheManager */
+                $cacheManager = $this->get('liip_imagine.cache.manager');
+                // $cacheManager->resolve($this->getRequest(),$pngPath,$filter);
+                $cacheManager->remove($user->getAbsolutePathProfile());
             }
         }
 
-        return $this->render('WizardalleyUserBundle:Profile:editPicture.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $this->getUser()
-        ));
+        return $this->render(
+            'WizardalleyUserBundle:Profile:editPicture.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $this->getUser()
+            ]
+        );
     }
 
     /**
@@ -42,23 +62,39 @@ class ProfilePictureController extends Controller
      */
     public function editCouverturePictureAction()
     {
-        $form = $this->createFormBuilder($this->getUser())->add('fileCouverture')->getForm();
+        $form =
+            $this->createFormBuilder($this->getUser())
+                 ->add('fileCouverture')
+                 ->getForm()
+        ;
 
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()
+                 ->isMethod('POST')
+        ) {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
+                $em =
+                    $this->getDoctrine()
+                         ->getManager()
+                ;
                 /** @var WizardUser $user */
                 $user = $this->getUser();
                 $user->uploadCouverture();
                 $em->persist($user);
                 $em->flush();
+                /** @var $cacheManager CacheManager */
+                $cacheManager = $this->get('liip_imagine.cache.manager');
+                // $cacheManager->resolve($this->getRequest(),$pngPath,$filter);
+                $cacheManager->remove($user->getAbsolutePathCouverture());
             }
         }
 
-        return $this->render('WizardalleyUserBundle:Profile:editPictureCouverture.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $this->getUser()
-        ));
+        return $this->render(
+            'WizardalleyUserBundle:Profile:editPictureCouverture.html.twig',
+            [
+                'form' => $form->createView(),
+                'user' => $this->getUser()
+            ]
+        );
     }
 }

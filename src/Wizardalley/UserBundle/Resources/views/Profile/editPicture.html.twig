@@ -6,9 +6,9 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h3>{% trans %}wizard.user.profile.edit_picture{% endtrans %}</h3>
-                    <p>{% trans %}wizard.user.profile.size_limit{% endtrans %}</p>
+                    <p class="test-center">{% trans %}wizard.user.profile.size_limit{% endtrans %}</p>
                     <hr>
-                    <button class="btn label">
+                    <button class="btn label text-right">
                         <a href="{{ path('fos_user_profile_show') }}">
                             {% trans %}wizard.utility.back{% endtrans %}
                         </a>
@@ -21,10 +21,12 @@
                             <input type="submit" value="{{ 'profile.edit.submit'|trans({}, 'FOSUserBundle') }}"/>
                         </div>
                     </form>
-                    <div>
-                        <img src="{{ asset(app.user.getPictureProfile()) }}" class="profil-edit"/>
-                    </div>
                 </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="text-center">
+                <img src="{{ asset(app.user.getPictureProfile()) }}" class="profil-edit"/>
             </div>
         </div>
     </div>
