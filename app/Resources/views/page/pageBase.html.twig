@@ -12,8 +12,8 @@
     <h1>
         {{ page.name }}
     </h1>
-    {% if page.officialPage or page.redactorPage %}
     <h2>
+        {% if page.officialPage or page.redactorPage %}
             {% if page.officialPage %}
                 {% trans %}wizard.page.label.official{% endtrans %}
             {% endif %}
@@ -23,10 +23,12 @@
             {% if page.redactorPage %}
                 {% trans %}wizard.page.label.redactor{% endtrans %}
             {% endif %}
+            
+            - 
+        {% endif %}
+        <a href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{ page.category.name }}</a>
     </h2>
-    {% endif %}
     <ul class="friend-tools">
-        <li><a href="{{ path('wizardalley_page_category', {'category_id': page.category.id}) }}">{{ page.category.name }}</a></li>
         {% if app.user %}
             {% if page in app.user.getPageFollowedEntity %}
             <li>
@@ -40,7 +42,6 @@
             </li>
             {% endif %}
             <li>{% include '::includes/addBlameButton.html.twig' with {'id': page.id, 'type': 'page'} %}</li>
-            <li>{% trans %} wizard.page.followers {% endtrans %} {{ page.followers | length }}</li>
         {% endif %}
     </ul>
 {% endblock %}
@@ -95,7 +96,7 @@
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    <h3>{% trans %} wizard.page.followers {% endtrans %}</h3>
+                                    <h3>{% trans %} wizard.page.followers {% endtrans %} {{ page.followers | length }} {% trans %} wizard.page.followers {% endtrans %}</h3>
                                     <hr>
                                     {% for user in followers %}
                                         <div class="col-xs-6">

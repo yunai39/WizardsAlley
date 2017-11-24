@@ -52,7 +52,7 @@
                         </div>
                     {% endif %}
 
-                    <div class="panel panel-default profil-about-panekl">
+                    <div class="panel panel-default profil-about-panel">
                         <div class="panel-body">
                             <h3>
                                 {% trans %}wizard.user.profile.about{% endtrans %}
@@ -61,35 +61,29 @@
                             <p>
                                 {{ user.description }}
                             </p>
+                            <div class="social-user">
                             {% if user.facebook != null %}
-                                <div class="col-md-12">
 
-                                    <a href="https://facebook.com/{{ user.facebook }}"/><span
+                                    <p><a href="https://facebook.com/{{ user.facebook }}"/><span
                                             class="icon-large icon-facebook"
-                                            aria-hidden="true"></span>Facebook</a>
-                                </div>
+                                            aria-hidden="true"></span>Facebook</a></p>
                             {% endif %}
                             {% if user.twitter != null %}
-                                <div class="col-md-12">
-                                    <a href="https://twitter.com/{{ user.twitter }}"/><span
+                                    <p><a href="https://twitter.com/{{ user.twitter }}"/><span
                                             class="icon-large icon-twitter"
-                                            aria-hidden="true"></span>Twitter</a>
-                                </div>
+                                            aria-hidden="true"></span>Twitter</a></p>
                             {% endif %}
                             {% if user.instagram != null %}
-                                <div class="col-md-12">
-                                    <a href="https://instagram.com/{{ user.instagram }}"/><span
+                                    <p><a href="https://instagram.com/{{ user.instagram }}"/><span
                                             class="icon-large icon-instagram"
-                                            aria-hidden="true"></span>Instagram</a>
-                                </div>
+                                            aria-hidden="true"></span>Instagram</a></p>
                             {% endif %}
                             {% if user.youtube != null %}
-                                <div class="col-md-12">
-                                    <a href="https://instagram.com/{{ user.youtube }}"/><span
+                                    <p><a href="https://instagram.com/{{ user.youtube }}"/><span
                                             class="icon-large icon-youtube"
-                                            aria-hidden="true"></span>Youtube</a>
-                                </div>
+                                            aria-hidden="true"></span>Youtube</a></p>
                             {% endif %}
+                            </div>
                             <div class="fos_user_user_show">
                                 <p class="wizard-last-login">{% trans %}wizard.user.profile.last_login{% endtrans %}
                                     :&nbsp;{{ user.lastLogin|localizeddate('full', 'none') }} {{ user.lastLogin|date("H:i") }}</p>

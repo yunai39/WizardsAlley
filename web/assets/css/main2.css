@@ -94,6 +94,11 @@ header nav .nav-full li:hover, .navbar-nav .active  {
     padding: 23vh 0vw 10vh!important;
 }
 
+@media (max-width: 767px) {
+    .head .title-wrapper {
+        padding: 10vh 0vw!important;
+    }
+}
 
 .head-profile, .head-page {
     height: auto;
@@ -136,20 +141,33 @@ header nav .nav-full li:hover, .navbar-nav .active  {
 }
 
 
-.profil-infos-panel a, .margin-bottom-middle a {
+.profil-infos-panel a, .margin-bottom-middle a, .social-users a {
 	padding: 10px;
 	border-radius: 5px;
 	margin: 0;
 	align-items: center;
 	display: flex;
+    text-decoration: none;
+    transition: 0.2s linear;
 }
 
-.profil-infos-panel a:hover, .margin-bottom-middle a:hover
-{
+.profil-infos-panel a:hover, .margin-bottom-middle a:hover, .social-user a:hover {
     background-color: #454a72;
+    text-decoration: none;
     color: #fff;
 }
 
+.social-user {
+	margin: 2vh 0px;
+}
+
+.social-user a {
+	width: 100%;
+	padding: 10px;
+	display: block;
+	margin: 5px 0;
+	border-radius: 5px;
+}
 
 /* MAIN */
 
@@ -338,18 +356,6 @@ main {
     margin-left: 5%;
 }
 
-@media (max-width: 1500px) {
-
-    .page-row aside {
-        width: 20%;
-    }
-
-    .page-row section {
-        width: 75%;
-    }
-
-}
-
 @media (max-width: 750px) {
 
     .page-row {
@@ -366,6 +372,7 @@ main {
     }
 
 }
+
 
 #wizardalle_publicationbundle_add_small_publication_content {
     border-radius: 0px;
@@ -406,9 +413,42 @@ main {
     border: 0px;
 }
 
-.publication-block-wrapper {
-    margin-top: 5vh;
-}
+/* ASIDE */
+
+    /* LISTING SORCIERS ET SORCIERES */
+
+        .col-xs-6.col-md-3 {
+            width: 30%;
+            text-align: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        .col-xs-6.col-md-3 h4 {
+            text-align: center;
+            font-size: 15px;
+        }
+
+        @media (max-width: 767px) {
+            .col-xs-6.col-md-3 {
+                width: 50%;
+            }
+        }
+
+    /* INFORMATION */
+
+    .publication-block-wrapper {
+        margin-top: 5vh;
+        text-align: justify;
+    }
+
+    /* PUBLICATIONS VEDETTES */
+
+    aside .publication {
+        text-align: justify;
+    }
+
+
 
 /* RUELLE */
 
@@ -514,6 +554,7 @@ main {
 
 /* MENU RESPONSIVE */
 
+@media (min-width: 767px) {
     header .title {
         margin-top: 2vh;
     }
@@ -523,7 +564,7 @@ main {
 @media (max-width: 767px) {
     
     header nav .nav-full li:hover, header nav .nav-full li.active {
-        border-bottom-color: transparent;
+        border-bottom-color: transparent!important;
     }
     
     .navbar-nav > li > a {
@@ -631,6 +672,10 @@ main {
     padding: 5vh 10vw;
 }
 
+.publication-show .col-md-8 {
+    width: 100%;    
+}
+
 .publication-show .text-publication p {
     font-size: 2rem;
     line-height: 4rem;
@@ -651,6 +696,19 @@ main {
 
 .social-button-publication {
 	display: flex;
+}
+
+.social-bar-publication button {
+	display: flex;
+	width: 5vw;
+	justify-content: center;
+	height: 40px;
+}
+
+.social-edit {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 @media screen and (max-width: 700px) {
@@ -711,9 +769,6 @@ main {
 	box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.71);
 	margin: 10vh 0vw;
 }
-
-/* LISTING SORCIERS ET SORCIERES */
-
 
 
 /* MESSAGERIE */
@@ -798,12 +853,27 @@ main {
     background-color: #27293d;
 }
 
+.head h2 a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+}
+
+.head h2 a:hover {
+    background-color: transparent;
+    text-decoration: underline;
+    color: #fff;
+}
+
 .friend-tools {
 	display: flex;
 	flex-wrap: wrap;
 	padding: 2vh 30vw 5vh;
-	justify-content: space-around;
+	justify-content: center;
 }
+    
 
 @media (max-width: 767px) {
     .friend-tools {
@@ -814,14 +884,26 @@ main {
 .friend-tools li {
 	list-style: none;
 	padding: 5px;
+    margin: 0 1vw;
 	background-color: #454a72;
 	border-radius: 5px;
 	margin-bottom: 1vh;
     transition: 0.2s linear;
+    display: flex;
+    align-items: center;
 }
 
 .friend-tools li:hover {
     background-color: #27293d;
+}
+
+.friend-tools a {
+	background-color: transparent;
+	color: #fff;
+	padding: 0;
+	margin: 0;
+	border: none !important;
+	border-top: none;
 }
 
 .friend-tools a, .friend-tools a:hover {
@@ -848,6 +930,7 @@ main {
 
 footer ul {
     padding: 0px;
+    margin: 2px;
     margin-bottom: 5px;
 }
 
@@ -860,7 +943,6 @@ footer li a:hover {
 
 @media (max-width: 767px) {
     
-    
     .nav-up #bs-example-navbar-collapse-1 {
         top: auto;
         transition: 0.4s linear;
@@ -872,9 +954,9 @@ footer li a:hover {
     }
     
     footer {
-        position: absolute;
-        height: auto;
-        bottom: auto;
+        position: relative!important;
+        height: auto!important;
+        bottom: auto!important;
     }
 }
 

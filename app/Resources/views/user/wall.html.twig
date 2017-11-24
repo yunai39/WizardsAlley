@@ -60,35 +60,29 @@
                                         <p>
                                             {{ user.description }}
                                         </p>
-                                        {% if user.facebook != null %}
-                                        <div class="col-md-12">
+                                        <div class="social-user">
+                                            {% if user.facebook != null %}
 
-                                                <a href="https://facebook.com/{{ user.facebook }}"/><span
-                                                    class="icon-large icon-facebook"
-                                                    aria-hidden="true"></span>Facebook</a>
-                                        </div>
-                                        {% endif %}
-                                        {% if user.twitter != null %}
-                                        <div class="col-md-12">
-                                                <a href="https://twitter.com/{{ user.twitter }}"/><span
-                                                    class="icon-large icon-twitter"
-                                                    aria-hidden="true"></span>Twitter</a>
-                                        </div>
-                                        {% endif %}
-                                        {% if user.instagram != null %}
-                                        <div class="col-md-12">
-                                                <a href="https://instagram.com/{{ user.instagram }}"/><span
-                                                    class="icon-large icon-instagram"
-                                                    aria-hidden="true"></span>Instagram</a>
-                                        </div>
-                                        {% endif %}
-                                        {% if user.youtube != null %}
-                                        <div class="col-md-12">
-                                                <a href="https://instagram.com/{{ user.youtube }}"/><span
-                                                    class="icon-large icon-youtube"
-                                                    aria-hidden="true"></span>Youtube</a>
-                                        </div>
-                                        {% endif %}
+                                                    <p><a href="https://facebook.com/{{ user.facebook }}"/><span
+                                                            class="icon-large icon-facebook"
+                                                            aria-hidden="true"></span>Facebook</a></p>
+                                            {% endif %}
+                                            {% if user.twitter != null %}
+                                                    <p><a href="https://twitter.com/{{ user.twitter }}"/><span
+                                                            class="icon-large icon-twitter"
+                                                            aria-hidden="true"></span>Twitter</a></p>
+                                            {% endif %}
+                                            {% if user.instagram != null %}
+                                                    <p><a href="https://instagram.com/{{ user.instagram }}"/><span
+                                                            class="icon-large icon-instagram"
+                                                            aria-hidden="true"></span>Instagram</a></p>
+                                            {% endif %}
+                                            {% if user.youtube != null %}
+                                                    <p><a href="https://instagram.com/{{ user.youtube }}"/><span
+                                                            class="icon-large icon-youtube"
+                                                            aria-hidden="true"></span>Youtube</a></p>
+                                            {% endif %}
+                                            </div>
                                         <div class="fos_user_user_show">
                                             <p class="wizard-last-login">{% trans %}
                                                 wizard.user.profile.last_login{% endtrans %}

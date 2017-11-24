@@ -177,7 +177,7 @@ wizard:
             email: Email de contact
             message: Votre message
     wall:
-        friend: Amis
+        friend: Vous êtes ami(e)s !
         ask_ongoing: Demande(s) en cours
     page:
         new_success: La page a bien été créée
