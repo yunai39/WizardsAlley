@@ -473,14 +473,6 @@ main {
     margin: 0px;
 }
 
-.head-discover h2 {
-	font-size: 6rem!important;
-}
-
-.head-discover h3, .login-title-description {
-	font-size: 3rem!important;
-}
-
 .login-title-description {
     padding: 0px 5vw;
 }
