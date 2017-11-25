@@ -6,3 +6,24 @@ Wizardalley\CoreBundle\Entity\WizardUser:
                 maxWidth: 501
                 minHeight: 99
                 maxHeight: 501
+        smallDescription:
+            - Length:
+                  max: 128
+        firstname:
+            - Length:
+                  max: 32
+        lastname:
+            - Length:
+                  max: 32
+        twitter:
+            - Length:
+                  max: 255
+        facebook:
+            - Length:
+                  max: 255
+        instagram:
+            - Length:
+                  max: 255
+        youtube:
+            - Length:
+                  max: 255

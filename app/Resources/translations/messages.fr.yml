@@ -154,7 +154,7 @@ wizard:
             firstname: Prénom 
             lastname: Nom 
             description: Description
-            small_description: Quelques mots sur vous
+            small_description: Quelques mots sur vous (max 128 car.)
             sexe: Genre
             facebook: Pseudo Facebook
             youtube: Pseudo Youtube

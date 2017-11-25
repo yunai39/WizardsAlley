@@ -5,6 +5,7 @@ namespace Wizardalley\UserBundle\Form\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseForm;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * Class ProfileFormType
@@ -28,6 +29,9 @@ class ProfileFormType extends BaseForm
                 'text',
                 [
                     'label' => 'wizard.register.label.lastname',
+                    'attr'  => [
+                        'max' => 255
+                    ]
                 ]
             )
             ->add(
@@ -35,52 +39,70 @@ class ProfileFormType extends BaseForm
                 'text',
                 [
                     'label' => 'wizard.register.label.firstname',
+                    'attr'  => [
+                        'max' => 255
+                    ]
                 ]
             )
             ->add(
                 'small_description',
                 'text',
-                array(
-                    'label' =>'wizard.register.label.small_description',
-                )
+                [
+                    'label' => 'wizard.register.label.small_description',
+                    'attr'  => [
+                        'max' => 128
+                    ]
+                ]
             )
             ->add(
                 'description',
                 null,
-                array(
-                    'label' =>'wizard.register.label.description',
-                )
+                [
+                    'label' => 'wizard.register.label.description',
+                ]
             )
             ->add(
                 'facebook',
                 'text',
                 [
-                    'label' => 'wizard.register.label.facebook',
-                    'required' => false
+                    'label'    => 'wizard.register.label.facebook',
+                    'required' => false,
+                    'attr'     => [
+                        'max' => 255
+                    ]
                 ]
             )
             ->add(
                 'twitter',
                 'text',
                 [
-                    'label' => 'wizard.register.label.twitter',
-                    'required' => false
+                    'label'    => 'wizard.register.label.twitter',
+                    'required' => false,
+                    'attr'     => [
+                        'max' => 255
+                    ]
                 ]
             )
             ->add(
                 'youtube',
                 'text',
                 [
-                    'label' => 'wizard.register.label.youtube',
-                    'required' => false
+                    'label'    => 'wizard.register.label.youtube',
+                    'required' => false,
+                    'attr'     => [
+                        'max' => 255
+                    ]
                 ]
             )
             ->add(
                 'instagram',
                 'text',
                 [
-                    'label' => 'wizard.register.label.instagram',
-                    'required' => false
+                    'label'    => 'wizard.register.label.instagram',
+                    'required' => false,
+                    'attr'     => [
+                        'max' => 255
+                    ]
                 ]
             )
         ;
