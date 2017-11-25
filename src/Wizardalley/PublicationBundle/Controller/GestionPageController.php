@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Wizardalley\CoreBundle\Entity\PublicationRepository;
 use Wizardalley\CoreBundle\Entity\WizardUser;
 use Wizardalley\PublicationBundle\Form\PageCheckerType;
+use Wizardalley\PublicationBundle\Form\PageEditType;
 use Wizardalley\PublicationBundle\Form\PageType;
 use Wizardalley\PublicationBundle\Form\PageEditorType;
 use Wizardalley\CoreBundle\Entity\Page;
