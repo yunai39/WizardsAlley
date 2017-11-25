@@ -1,16 +1,15 @@
-
 <div class="publication">
     <div class="row ">
         <div class="col-xs-2">
             <div class="imgSquare circle">
                 <div class="imgSquareContainer ">
                     {% if publication_type == 'page_publication' %}
-                        <img src="{{ asset('uploads/page/profile/' ~ publication_path) | imagine_filter('small_thumb') }}"/>
+                        <img src="{{ asset( publication_path) | imagine_filter('small_thumb') }}"/>
                     {% else %}
                         {% if publication.path_profile %}
                             <img src="{{ asset('uploads/profile/'~publication_user_id ~ '/' ~ publication_user_path_profile) | imagine_filter('small_thumb') }}"/>
                         {% else %}
-                            <img src="{{ asset('uploads/profile/default.png')| imagine_filter('small_thumb')  }}"/>
+                            <img src="{{ asset('uploads/profile/default.png')| imagine_filter('small_thumb') }}"/>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -26,11 +25,12 @@
                 {% if publication_type == 'page_publication' %}
                     <a href="{{ path('page_show', {'id_page': publication_page_id}) }}">{{ publication_name }}</a>
                 {% else %}
-                    <a class="publication-author" href="{{ path('wizardalley_user_wall', {'id': publication_user_id}) }}">{{ publication_name }}</a>
+                    <a class="publication-author"
+                       href="{{ path('wizardalley_user_wall', {'id': publication_user_id}) }}">{{ publication_name }}</a>
                 {% endif %}
             </p>
             <p class="publication-date">{{ publication_created_at | date('d/m/Y') }}
-                - <span  class="publication-date">{{ publication_created_at | date('H:i:s') }}</span>
+                - <span class="publication-date">{{ publication_created_at | date('H:i:s') }}</span>
             </p>
         </div>
     </div>
@@ -49,10 +49,12 @@
         <div class="col-md-12 text-align-right">
 
             {% if publication_type == 'page_publication' %}
-                <a class="label defaut-label btn" href="{{ path('publication_show',{'id':publication_id}) }}">{% trans %}
+                <a class="label defaut-label btn"
+                   href="{{ path('publication_show',{'id':publication_id}) }}">{% trans %}
                     publication.display.link{% endtrans %}</a>
             {% else %}
-                <a class="label defaut-label btn"  href="{{ path('user_small_publication_show',{'id':publication_id}) }}">{% trans %}
+                <a class="label defaut-label btn"
+                   href="{{ path('user_small_publication_show',{'id':publication_id}) }}">{% trans %}
                     publication.display.link{% endtrans %}</a>
             {% endif %}
             <button class="label defaut-label btn">

@@ -1,6 +1,7 @@
 {% for publication in publications %}
+
     {% include 'includes/publication/bigPublication.html.twig' with {
-        'publication_path': publication.path,
+        'publication_path': 'uploads/page/profile/' ~ publication.page.pathProfile,
         'publication_user_id': publication.user_id,
         'publication_user_path_profile': publication.path_profile,
         'publication_user_username': publication.user_id,
