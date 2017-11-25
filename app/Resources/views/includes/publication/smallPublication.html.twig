@@ -3,6 +3,8 @@
 {% set path = '/upload/publications/default.png' %}
 {% if publication.images|length > 0 %}
     {% set path = '/uploads/publications/' ~ publication.images.0.path %}
+{% else %}
+    {% set path = '/uploads/page/profile/' ~ publication.page.pathProfile %}
 {% endif %}
 
 {% include 'includes/viewSmall.html.twig' with

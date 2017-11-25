@@ -1,12 +1,16 @@
 **/Entity/*~
 app/config/parameters.yml
 vendor/
+.idea/
+web/css/
+web/js/
 nbproject/
 web/bundle/
 web/bundles/
 web/uploads/*
 app/cache/
 app/logs/
+.DS_Store
 bin/
 .vagrant/
 /web/assets/.sass-cache/
