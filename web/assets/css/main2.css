@@ -289,6 +289,12 @@ input[type="file"]:hover {
     padding: 0vh 15vw;
 }
 
+
+.modal-confidentiality .modal-body {
+    height: 50vh;
+    overflow-y: auto;
+}
+
 /* BLOCKS PAGES */
 
 .head .title-wrapper {

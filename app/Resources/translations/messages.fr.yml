@@ -42,6 +42,7 @@ wizard:
         informations: Billet d'information
         user_online: Sorciers en lignes
     utility:
+        close: Fermer
         load_more: Charger plus
         search: Effectuer une recherche précise
         refresh: Rafraîchir
@@ -148,6 +149,7 @@ wizard:
             username: Pseudonyme
     register:
         title: S'inscrire
+        read_cgv: Lire les conditions du site
         label:
             firstname: Prénom 
             lastname: Nom 
