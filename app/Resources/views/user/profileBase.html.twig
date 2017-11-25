@@ -66,22 +66,34 @@
 
                                     <p><a href="https://facebook.com/{{ user.facebook }}"/><span
                                             class="icon-large icon-facebook"
-                                            aria-hidden="true"></span>Facebook</a></p>
+                                            aria-hidden="true"></span>
+                                        {% trans %}wizard.user.profile.facebook{% endtrans %}
+                                        </a>
+                                    </p>
                             {% endif %}
                             {% if user.twitter != null %}
                                     <p><a href="https://twitter.com/{{ user.twitter }}"/><span
                                             class="icon-large icon-twitter"
-                                            aria-hidden="true"></span>Twitter</a></p>
+                                            aria-hidden="true"></span>
+                                        {% trans %}wizard.user.profile.twitter{% endtrans %}
+                                        </a>
+                                    </p>
                             {% endif %}
                             {% if user.instagram != null %}
                                     <p><a href="https://instagram.com/{{ user.instagram }}"/><span
                                             class="icon-large icon-instagram"
-                                            aria-hidden="true"></span>Instagram</a></p>
+                                            aria-hidden="true"></span>
+                                        {% trans %}wizard.user.profile.instagram{% endtrans %}
+                                        </a>
+                                    </p>
                             {% endif %}
                             {% if user.youtube != null %}
                                     <p><a href="https://instagram.com/{{ user.youtube }}"/><span
                                             class="icon-large icon-youtube"
-                                            aria-hidden="true"></span>Youtube</a></p>
+                                            aria-hidden="true"></span>
+                                        {% trans %}wizard.user.profile.youtube{% endtrans %}
+                                        </a>
+                                    </p>
                             {% endif %}
                             </div>
                             <div class="fos_user_user_show">

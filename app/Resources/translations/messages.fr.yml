@@ -141,6 +141,10 @@ wizard:
             change_pwd: Changer de mot de passe
             inscription_date: Date d'inscription
             last_login: Dernière connexion
+            facebook: Page Facebook
+            youtube: Page Youtube
+            instagram: Page Instagram
+            twitter: Page Twitter
         wall:
             no_publication: Aucune publication
             disabled: Utilisateur désactivé
