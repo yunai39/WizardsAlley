@@ -173,7 +173,7 @@ class PublicationRepository extends EntityRepository
         $sql         = "
         select
             distinct w.username,
-            w.path_profile as 'path_profile',
+            p.path_profile as 'path_profile',
             w.id as 'user_id',
             pu.id as id,
             pu.title,
