@@ -103,6 +103,7 @@ wizard:
         message: Bienvenue sorcier, sorcière en tout genre. Prends un peu de poudre de cheminette et prononce clairement
     category:
         name: Catégories
+        page: Pages de la catégorie
     menu:
         link:
             home: Ma Ruelle

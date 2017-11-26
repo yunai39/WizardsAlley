@@ -24,6 +24,9 @@ vich_uploader:
         page_category_images:
             uri_prefix:         %app.path.page_category_images%
             upload_destination: %kernel.root_dir%/../web/uploads/page/category
+        page_category_cover:
+            uri_prefix:         %app.path.page_category_cover%
+            upload_destination: %kernel.root_dir%/../web/uploads/page/category/cover
 
 easy_admin:
     design:
@@ -119,6 +122,7 @@ easy_admin:
                     - name
                     - description
                     - { property: 'fileLogo', type: 'vich_image'}
+                    - { property: 'fileCover', type: 'vich_image'}
         Publication:
             disabled_actions: ['new', 'delete']
             class: Wizardalley\CoreBundle\Entity\Publication

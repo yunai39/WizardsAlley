@@ -216,18 +216,21 @@ class PublicationController extends BaseController
 
         $followers = [];
         /** @var PageUserFollow $follower */
-        foreach($entity->getPage()->getFollowers() as $follower) {
+        foreach ($entity->getPage()
+                        ->getFollowers() as $follower) {
             $followers[] = $follower->getUser();
         }
-
 
         return $this->render(
             '::user/publication/show.html.twig',
             [
                 'entity'       => $entity,
                 'page'         => $entity->getPage(),
-                'creator_id'   => $entity->getPage()->getCreator()->getId(),
-                'editors'      => $entity->getPage()->getEditors(),
+                'creator_id'   => $entity->getPage()
+                                         ->getCreator()
+                                         ->getId(),
+                'editors'      => $entity->getPage()
+                                         ->getEditors(),
                 'followers'    => $followers,
                 'entity_id'    => $id,
                 'comment_form' => $commentForm->createView(),
@@ -355,7 +358,7 @@ class PublicationController extends BaseController
         ;
 
         // Si l'entite est en ligne et quel n'a jamais encore ete mis en ligne
-        if($entity->getOnline() && $entity->getHasBeenPublished() == false) {
+        if ($entity->getOnline() && $entity->getHasBeenPublished() == false) {
             // Generation des notifications
             $this->get('wizard.helper.publication.notification')
                  ->generateNotificationForPublicationCreated($entity)
@@ -365,7 +368,6 @@ class PublicationController extends BaseController
             $em->persist($entity);
             $em->flush();
         }
-
 
         /** @var Request $request */
         $request = $this->get('request');
@@ -550,12 +552,16 @@ class PublicationController extends BaseController
 
             $comment->setUser($this->getUser())
                     ->setDateComment(new \DateTime('now'))
-                    ->setContent($form->get('content')->getData())
+                    ->setContent(
+                        $form->get('content')
+                             ->getData()
+                    )
                     ->setPublication($entity)
             ;
             $em->persist($comment);
             $em->flush();
         }
+
         return $this->redirect(
             $this->generateUrl(
                 'publication_show',
@@ -655,6 +661,43 @@ class PublicationController extends BaseController
                     '::user/publicationMostCommented.html.twig',
                     [
                         'publications' => $repo->findMostCommentedPublications(
+                            $page
+                        ),
+                    ]
+                )
+            ]
+        );
+    }
+
+    /**
+     * getPublicationCategory
+     *
+     *
+     * @Route("/publication/category/{category}/{page}", name="publication_get_category_publication", options={"expose"=true})
+     * @param      $category
+     * @param Page $page integer page number
+     *
+     * @return Response
+     */
+    public function getPublicationCategory($category, $page)
+    {
+        $em =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
+        /** @var PublicationRepository $repo */
+        $repo = $em->getRepository('WizardalleyCoreBundle:Publication');
+
+        return $this->sendJsonResponse(
+            'success',
+            null,
+            200,
+            [
+                'html' => $this->renderView(
+                    '::user/publicationMostCommented.html.twig',
+                    [
+                        'publications' => $repo->findCategoryPublications(
+                            $category,
                             $page
                         ),
                     ]

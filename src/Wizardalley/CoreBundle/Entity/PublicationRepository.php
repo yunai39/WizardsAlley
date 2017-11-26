@@ -60,6 +60,56 @@ class PublicationRepository extends EntityRepository
     }
 
     /**
+     * @param int $category
+     * @param int $page
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function findCategoryPublications(
+        $category,
+        $page = 1,
+        $limit = BaseController::BASE_LIMIT
+    )
+    {
+        $firstResult = ($page - 1) * $limit;
+
+        $qb     =
+            $this->_em->createQueryBuilder()
+                      ->select('p')
+                      ->from(
+                          $this->_entityName,
+                          'p'
+                      )
+        ;
+        $query  = $qb
+            ->join(
+                'p.page',
+                'pa'
+            )
+            ->join(
+                'pa.category',
+                'c'
+            )
+            ->where('c.id = :id and p.online = 1')
+            ->orderBy(
+                'p.createdAt',
+                'DESC'
+            )
+            ->setFirstResult($firstResult)
+            ->setMaxResults($limit)
+            ->setParameter(
+                ':id',
+                $category
+            )
+            ->getQuery()
+        ;
+        $result = $query->getResult();
+
+        return $result;
+    }
+
+    /**
      * @param int $page
      * @param int $limit
      *

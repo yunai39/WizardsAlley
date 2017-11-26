@@ -47,6 +47,13 @@ class PageCategory
     private $logo;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="cover", type="string", length=255, nullable=true)
+     */
+    private $cover;
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      * @var \DateTime
      */
@@ -137,6 +144,26 @@ class PageCategory
     public function getLogo()
     {
         return $this->logo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCover()
+    {
+        return $this->cover;
+    }
+
+    /**
+     * @param mixed $cover
+     *
+     * @return PageCategory
+     */
+    public function setCover($cover)
+    {
+        $this->cover = $cover;
+
+        return $this;
     }
 
     /**
@@ -241,6 +268,47 @@ class PageCategory
         );
         $this->logo     = $name;
         $this->fileLogo = null;
+    }
+
+    /**
+     * @Vich\UploadableField(mapping="page_category_cover", fileNameProperty="cover")
+     * @Assert\File(maxSize="6000000")
+     */
+    public $fileCover;
+
+    public function setFileCover(File $image)
+    {
+
+        $this->fileCover = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getFileCover()
+    {
+        return $this->fileCover;
+    }
+
+    public function uploadCover()
+    {
+        // la propriété « file » peut être vide si le champ n'est pas requis
+        if (null === $this->fileLogo) {
+            return;
+        }
+        $ext  =
+            pathinfo(
+                $this->fileCover->getClientOriginalName(),
+                PATHINFO_EXTENSION
+            );
+        $name = 'cover.' . $ext;
+        $this->fileCover->move(
+            $this->getUploadRootDir(),
+            $name
+        );
+        $this->cover     = $name;
+        $this->fileCover = null;
     }
 
     /**
