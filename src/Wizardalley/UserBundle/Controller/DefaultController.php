@@ -339,7 +339,7 @@ class DefaultController extends BaseController
                  ->getRepository('WizardalleyCoreBundle:WizardUser')
         ;
 
-        $users = $repo->findUserLastAction();
+        $users = $repo->findUserLastAction(12);
 
         return $this->sendJsonResponse(
             'success',
