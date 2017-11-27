@@ -473,6 +473,15 @@ aside .publication {
     width: 100%;
 }
 
+.notifications #aside {
+    display: block;
+}
+
+.notifications #section {
+    display: none;
+}
+
+
 .notifications .col-md-3 a {
     display: flex;
     flex-direction: column;
