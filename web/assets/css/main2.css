@@ -895,6 +895,11 @@ main {
 	justify-content: center;
 }
     
+.firend-tools .btn-danger {
+    box-shadow: none!important;
+    text-shadow: none!important;
+    background-color: transparent!important;
+}
 
 @media (max-width: 767px) {
     .friend-tools {
