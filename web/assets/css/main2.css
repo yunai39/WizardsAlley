@@ -961,5 +961,9 @@ aside .publication {
             height: auto !important;
             bottom: auto !important;
         }
+        
+        footer ul {
+            margin: 0;
+            margin-bottom: 5px;
     }
 
