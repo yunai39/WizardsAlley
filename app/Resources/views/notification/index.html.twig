@@ -9,53 +9,52 @@
         {% trans %}wizard.title.notification{% endtrans %}
     </h1>
 {% endblock %}
- {% block body_style %}url('{{ asset('images/background-notification.jpg')}}'){% endblock %}
+ {% block body_style %}url('{{ asset('images/background-notification.jpg') }}'){% endblock %}
 
 {% block body -%}
-   
-   <ul class="page-nav messagerie">
-       <li id="news" class="active" onclick="letsnews()">Dernières</li>
-       <li id="vedette" onclick="letsvedette()">Archivées</li>
-   </ul>
-   
+
+    <ul class="page-nav messagerie">
+        <li id="news" class="active" onclick="letsnews()">Dernières</li>
+        <li id="vedette" onclick="letsvedette()">Archivées</li>
+    </ul>
+
     <div class="page-row">
-                <div id="section" class="col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="row">
-                                <div class="col-xs-10">
-                                    <h3 class="text-left">{% trans %}wizard.notification.latest{% endtrans %}</h3>
-                                </div>
-                                <div class="col-xs-2">
-                                    <a href="{{ path('user_notification_mark_all_read') }}">{% trans %}wizard.user.notification.mark_all_as_read{% endtrans %}</a>
-                                </div>
-                            </div>
-                            <hr>
-                        </div>
+        <div id="section">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-10">
+                        <h3 class="text-left">{% trans %}wizard.notification.latest{% endtrans %}</h3>
                     </div>
-                    <div class="row ">
-                        <div class="col-xs-12">
-                            <div class="row div-new-notifications"></div>
-                        </div>
-                        <div class="col-xs-12 margin-top text-right">
-                            <button class="wizard-new-load-notification">{% trans %}wizard.user.notification.load_more{% endtrans %}</button>
-                        </div>
+                    <div class="col-xs-2">
+                        <a href="{{ path('user_notification_mark_all_read') }}">{% trans %}
+                            wizard.user.notification.mark_all_as_read{% endtrans %}</a>
                     </div>
                 </div>
-                <div id="aside" class="col-xs-12 margin-top">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h3 class="text-left">{% trans %}wizard.notification.old{% endtrans %}</h3>
-                            <hr>
-                        </div>
-                        <div class="col-xs-12">
-                            <div class="row div-old-notifications"></div>
-                        </div>
-                        <div class="col-xs-12 margin-top text-right">
-                            <button class="wizard-old-load-notification">{% trans %}wizard.user.notification.load_more{% endtrans %}</button>
-                        </div>
-                    </div>
-                </div>
+                <hr>
+            </div>
+            <div class="col-xs-12">
+                <div class="row div-new-notifications"></div>
+            </div>
+            <div class="col-xs-12 margin-top text-right">
+                <button class="wizard-new-load-notification">{% trans %}
+                    wizard.user.notification.load_more{% endtrans %}</button>
+            </div>
+        </div>
+        <aside id="aside">
+
+            <div class="col-xs-12">
+                <h3 class="text-left">{% trans %}wizard.notification.old{% endtrans %}</h3>
+                <hr>
+            </div>
+            <div class="col-xs-12">
+                <div class="row div-old-notifications"></div>
+            </div>
+            <div class="col-xs-12 margin-top text-right">
+                <button class="wizard-old-load-notification">{% trans %}
+                    wizard.user.notification.load_more{% endtrans %}</button>
+            </div>
+
+        </aside>
     </div>
 
 {% endblock %}
@@ -79,9 +78,9 @@
                 loadNewNotification(data);
             };
             $result = util.loadMore(
-                Routing.generate('user_notification_status_list', {'status': 0,'page': _$pageNew}),
-                'GET',
-                _handler
+                    Routing.generate('user_notification_status_list', {'status': 0, 'page': _$pageNew}),
+                    'GET',
+                    _handler
             );
             _$pageNew = _$pageNew + 1;
         }
@@ -90,9 +89,9 @@
                 loadOldNotification(data);
             };
             $result = util.loadMore(
-                Routing.generate('user_notification_status_list', {'status': 1,'page': _$pageOld}),
-                'GET',
-                _handler
+                    Routing.generate('user_notification_status_list', {'status': 1, 'page': _$pageOld}),
+                    'GET',
+                    _handler
             );
             _$pageOld = _$pageOld + 1;
         }

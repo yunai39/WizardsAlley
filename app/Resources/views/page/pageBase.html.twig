@@ -99,10 +99,10 @@
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    <h3>{% trans %} wizard.page.followers {% endtrans %} {{ page.followers | length }} {% trans %} wizard.page.followers {% endtrans %}</h3>
+                                    <h3>{% trans %} wizard.page.followers {% endtrans %} {{ page.followers | length }}</h3>
                                     <hr>
                                     {% for user in followers %}
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-6 small-icon-h4">
                                             <div class="squareUser">
                                                 {% if page.creator.pathProfile %}
                                                     {% set path ='uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile %}
@@ -126,7 +126,7 @@
                                 <div class="panel-body">
                                     <h3>{% trans %} wizard.page.editor {% endtrans %}</h3>
                                     <hr>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-6 small-icon-h4">
                                         <div class="squareUser">
                                             {% if page.creator.pathProfile %}
                                                 {% set path ='uploads/profile/' ~ page.creator.id ~ '/' ~page.creator.pathProfile %}
@@ -142,7 +142,7 @@
                                         </div>
                                     </div>
                                     {% for user in editors %}
-                                        <div class="col-xs-6">
+                                        <div class="col-xs-6 small-icon-h4">
                                             <div class="squareUser">
                                                 {% if user.pathProfile %}
                                                     {% set path ='uploads/profile/' ~ user.id ~ '/' ~ user.pathProfile %}

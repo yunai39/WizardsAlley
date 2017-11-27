@@ -11,59 +11,63 @@
     </h1>
 {% endblock %}
 {% block body %}
-   <ul class="page-nav">
-       <li id="news" class="active" onclick="letsnews()">En cours</li>
-       <li id="vedette" onclick="letsvedette()">Liste des discussions</li>
-   </ul>
-   
+    <ul class="page-nav">
+        <li id="news" class="active" onclick="letsnews()">En cours</li>
+        <li id="vedette" onclick="letsvedette()">Liste des discussions</li>
+    </ul>
+
     <div class="page-row">
-                            <aside id="aside">
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <a href="{{ path('fos_message_thread_new') }}">
-                                            <h2>{% trans %}wizard.messagerie.start_new.title{% endtrans %}</h2>
-                                        </a>
-                                        <hr>
-                                        <p>{% trans %}wizard.messagerie.start_new.description{% endtrans %}</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12 latest-thread-wrapper">
-                                        <h2>{% trans %}wizard.messagerie.latest_discussion.title{% endtrans %}</h2>
-                                        <hr>
-                                        {% for thread in all_thread() %}
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    {% for participant in thread.participants %}
-                                                        {% if participant.id != app.user.id %}
-                                                            <div class="row">
-                                                                <div class="col-xs-3 latest-thread-image-wrapper">
-                                                                                              <img src="{{ asset(participant.getPictureProfile()) | imagine_filter('small_thumb') }}"
-                                                                                  class="img-profil"/>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-xs-9 latest-thread-username">
-                                                                    <p>
-                                                                        {{ participant.username }}
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-xs-12 latest-thread-subject">
-                                                                    <a href="{{ path('fos_message_thread_view', {'threadId': thread.id}) }}">
-                                                                        {{ thread.subject }}
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                        {% endif %}
-                                                    {% endfor %}
+        <aside id="aside">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="{{ path('fos_message_thread_new') }}">
+                        <h2>{% trans %}wizard.messagerie.start_new.title{% endtrans %}</h2>
+                    </a>
+                    <hr>
+                    <p>{% trans %}wizard.messagerie.start_new.description{% endtrans %}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 latest-thread-wrapper">
+                    <h2>{% trans %}wizard.messagerie.latest_discussion.title{% endtrans %}</h2>
+                    <hr>
+                    {% for thread in all_thread() %}
+                        <div class="row">
+                            <div class="col-xs-12">
+                                {% for participant in thread.participants %}
+                                    {% if participant.id != app.user.id %}
+                                        <div class="row">
+                                            <div class="col-xs-3 latest-thread-image-wrapper">
+                                                <div class="imgSquare circle">
+                                                    <div class="imgSquareContainer circle">
+                                                        <img src="{{ asset(participant.getPictureProfile()) | imagine_filter('small_thumb') }}"
+                                                             class="circle"/>
+                                                    </div>
                                                 </div>
-                                                <div class="col-xs-12"></div>
                                             </div>
-                                        {% endfor %}
-                                    </aside>
-                            <div class="col-xs-8">
-                                {% block fos_message_content %}{% endblock %}
+                                            <div class="col-xs-9 latest-thread-username">
+                                                <p>
+                                                    {{ participant.username }}
+                                                </p>
+                                            </div>
+                                            <div class="col-xs-12 latest-thread-subject">
+                                                <a href="{{ path('fos_message_thread_view', {'threadId': thread.id}) }}">
+                                                    {{ thread.subject }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
-</div>
+                            <div class="col-xs-12"></div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </aside>
+        <div class="col-xs-8" id="section">
+            {% block fos_message_content %}{% endblock %}
+        </div>
+    </div>
 {% endblock %}
