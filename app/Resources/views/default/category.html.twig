@@ -13,8 +13,14 @@
 {% endblock %}
 
 {% block title_banner %}
+<<<<<<< Updated upstream
     <img src="{{ asset('/uploads/page/category/' ~ category.logo) | imagine_filter('small_thumb') }}"
          class="img-profil-page"/>
+=======
+            <img src="{{ asset('/uploads/page/category/' ~ category.logo) | imagine_filter('small_thumb')}}" class="img-profil-header"/>
+        </div>
+    </div>
+>>>>>>> Stashed changes
     <h1>
         {{ category.name }}
     </h1>

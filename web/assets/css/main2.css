@@ -424,7 +424,7 @@ main {
     /* LISTING SORCIERS ET SORCIERES */
 
         .col-xs-6.col-md-3 {
-            width: 30%;
+            width: 33%;
             text-align: center;
             justify-content: center;
             display: flex;
@@ -485,6 +485,19 @@ main {
 
 
 /* Notifications */
+
+.notifications {
+    width: 100%;
+}
+
+.notifications .col-md-3 a {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+/* ALERT */
 
 .alert-info, .notification-viewed {
 	background-color: #fff;
@@ -555,6 +568,12 @@ main {
 @media (min-width: 767px) {
     header .title {
         margin-top: 2vh;
+    }
+    
+    .nav.navbar-nav.nav-full {
+        width: 95%;
+        display: flex;
+        justify-content: space-around;
     }
 
 }
@@ -786,6 +805,10 @@ main {
 
 .messenger_thread_message_body {
     font-size: 20px;
+}
+
+.messagerie .col-lg-2 {
+	margin-bottom: 5vh;
 }
 
 /* PROFILS & PAGES */

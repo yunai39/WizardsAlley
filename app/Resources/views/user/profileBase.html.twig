@@ -23,8 +23,13 @@
 {% endblock %}
 
 {% block fos_user_content %}
-    <div class="row">
-        <div class="col-md-4 aside">
+    <ul class="page-nav messagerie">
+        <li id="news" class="active" onclick="letsnews()">Publications</li>
+        <li id="vedette" onclick="letsvedette()">A propos, amis...</li>
+    </ul>
+       
+    <div class="page-row">
+        <aside id="aside">
             <div class="row">
                 <div class="col-sm-12">
                     {% if app.user and app.user.id == user.id %}
@@ -184,10 +189,10 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-8">
+</aside>
+        <section id="section">
             {% block profile_body %}{% endblock %}
-        </div>
+        </section>
     </div>
 
 {% endblock fos_user_content %}
