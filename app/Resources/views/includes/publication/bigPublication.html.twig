@@ -1,19 +1,15 @@
 <div class="publication">
     <div class="row ">
         <div class="col-xs-2">
-            <div class="imgSquare circle">
-                <div class="imgSquareContainer ">
                     {% if publication_type == 'page_publication' %}
                         <img src="{{ asset( publication_path) | imagine_filter('small_thumb') }}"/>
                     {% else %}
                         {% if publication.path_profile %}
-                            <img src="{{ asset('uploads/profile/'~publication_user_id ~ '/' ~ publication_user_path_profile) | imagine_filter('small_thumb') }}"/>
+                            <img src="{{ asset('uploads/profile/'~publication_user_id ~ '/' ~ publication_user_path_profile) | imagine_filter('small_thumb') }}" class="img-profil"/>
                         {% else %}
-                            <img src="{{ asset('uploads/profile/default.png')| imagine_filter('small_thumb') }}"/>
+                            <img src="{{ asset('uploads/profile/default.png')| imagine_filter('small_thumb') }}" class="img-profil"/>
                         {% endif %}
                     {% endif %}
-                </div>
-            </div>
         </div>
         <div class="col-xs-10">
             {% if publication_type == 'page_publication' %}
