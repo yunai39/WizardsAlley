@@ -3,8 +3,8 @@
 {% block body_style %} url('{{ asset(page.getPictureCouverture) }}'){% endblock %}
 
 {% block title_banner %}
-    <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+    <div class="row head-show">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 head-publication-show">
             <div class="col-xs-12 col-md-4">
                 <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb') }}"
                      class="img-profil-page"/>
@@ -13,15 +13,9 @@
                 <h1 class="publication-header-title">
                     {{ entity.title }}
                 </h1>
-                <h2 class="publication-header-page-title">
-                    <a class="publication-page-link"
-                       href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a>
-
-                </h2>
                 <p class="publication-header-whom">
-                    Par
-                    <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a>,
-                    le {{ entity.createdAt|date('Y-m-d') }}
+                    Publié sur la page <a class="publication-page-link"
+                       href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a> par <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a> le {{ entity.createdAt|date('Y-m-d') }}
                 </p>
             </div>
 
@@ -31,15 +25,13 @@
 
 {% block body %}
     <div class="row">
-        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 publication-contain-show">
             <div class="panel panel-default full-publication">
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-xs-12 ">
                             <p>{{ entity.content | raw }}</p>
                             {% if entity.getImages()|length > 0 %}
-                                <div class="row">
-                                    <div class="col-xs-8 col-xs-offset-2">
                                         {% for image in entity.getImages() %}
                                             <div class="publication-image-container">
                                                 <img class="publication-image-img img-responsive"
@@ -49,8 +41,6 @@
                                                 </div>
                                             </div>
                                         {% endfor %}
-                                    </div>
-                                </div>
                             {% endif %}
                         </div>
                     </div>

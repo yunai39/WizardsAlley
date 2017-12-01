@@ -645,94 +645,46 @@ aside .publication {
 
 /* AFFICHAGES DES PUBLICATIONS */
 
-.publication-show .head {
-    margin: 0;
-    padding: 20vh 15vw 5vh !important;
+.head-publication-show {
+	margin: 0px;
+	width: 100%;
 }
 
-.publication-show .head .title-wrapper {
-    display: flex;
-    padding: 0;
-    margin: 0;
+.publication-header-title, .publication-header-whom {
+	text-align: left !important;
+	text-shadow: 1px 1px 12px rgba(0, 0, 0, 0.6);
 }
 
-.publication-show .user-infos-head {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+.publication-header-whom {
+	font-size: 2rem;
+	margin: 0;
 }
 
-.publication-show .user-infos-head h1 {
-    margin-top: 0 !important;
-    font-size: 3rem;
+.publication-header-whom a {
+	color: #fff;
 }
 
-.publication-show .user-infos-head h2 {
-    font-size: 2.5rem;
+.publication-contain-show {
+	margin: 2vh 11%;
+	width: 78%;
 }
 
-.publication-show .img-profil-page {
-    margin-right: 5vw;
-}
+@media (max-width: 767px) {
 
-.publication-show .aside {
-    display: none;
-}
-
-.publication-show .publication-vedette {
-    padding: 5vh 10vw;
-}
-
-.publication-show .text-publication p {
-    font-size: 2rem;
-    line-height: 4rem;
-}
-
-.social-bar-publication {
-    margin-left: 0px;
-    padding-left: 0px;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5vh;
-}
-
-.publication-vedette li {
-    list-style-type: none;
-    margin: 0px 2px;
-}
-
-.social-button-publication {
-    display: flex;
-}
-
-.social-bar-publication button {
-    display: flex;
-    width: 5vw;
-    justify-content: center;
-    height: 40px;
-}
-
-.social-edit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-@media screen and (max-width: 700px) {
-    .publication-show .head {
-        padding-top: 10vh !important;
+    .publication-header-title {
+        font-size: 3rem !important;
+        text-align: center !important;
     }
-
-    .publication-show .title-wrapper {
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+    
+    .publication-header-whom {
+        text-align: center !important;
     }
-
-    .publication-show h2 {
-        display: none;
+    
+    .publication-contain-show {
+        margin: 2vh 1%;
+        width: 98%;
     }
+    
 }
 
 /* COMMENTAIRES */
