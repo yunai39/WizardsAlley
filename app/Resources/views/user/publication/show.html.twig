@@ -1,84 +1,106 @@
-{% extends '::page/pageBase.html.twig' %}
-{% block page_body %}
-    <div class="panel panel-default full-publication">
-        <div class="panel-body">
-            <div class="row publication-top">
+{% extends '::base.html.twig' %}
 
-                <div class="col-xs-10">
-                    <div class="row ">
-                        <div class="col-xs-3 img-container">
-                                    <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb')}}" class="img-profil"/>
-                        </div>
-                        <div class="col-xs-9 title-container">
-                            <div class="page-name"><a href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a></div>
-                            <div class="publication-name">{{ entity.title }}</div>
+{% block body_style %} url('{{ asset(page.getPictureCouverture) }}'){% endblock %}
+
+{% block title_banner %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div class="col-xs-12 col-md-4">
+                <img src="{{ asset(page.getPictureProfile()) | imagine_filter('small_thumb') }}"
+                     class="img-profil-page"/>
+            </div>
+            <div class="col-xs-12 col-md-8">
+                <h1 class="publication-header-title">
+                    {{ entity.title }}
+                </h1>
+                <h2 class="publication-header-page-title">
+                    <a class="publication-page-link"
+                       href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a>
+
+                </h2>
+                <p class="publication-header-whom">
+                    Par
+                    <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a>,
+                    le {{ entity.createdAt|date('Y-m-d') }}
+                </p>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+            <div class="panel panel-default full-publication">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 ">
+                            <p>{{ entity.content | raw }}</p>
+                            {% if entity.getImages()|length > 0 %}
+                                <div class="row">
+                                    <div class="col-xs-8 col-xs-offset-2">
+                                        {% for image in entity.getImages() %}
+                                            <div class="publication-image-container">
+                                                <img class="publication-image-img img-responsive"
+                                                     src="{{ asset(image.getWebPath()) }}"">
+                                                <div class="publication-image-caption">
+                                                    {{ image.description }}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                <div class="col-xs-2">
-                    <h3>
-                        <i class="icon-large icon-heart"></i>&nbsp;{{ entity.countLike }}
-                    </h3>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12">
-                    <p>Par
-                        <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a>,
-                        le {{ entity.createdAt|date('Y-m-d') }}
-                    <p>{{ entity.content | raw }}</p>
-                    {% if entity.getImages()|length > 0 %}
-                        <div class="row">
-                            <div class="col-xs-8 col-xs-offset-2">
-                                {% for image in entity.getImages() %}
-                                    <div class="publication-image-container">
-                                        <img class="publication-image-img img-responsive" src="{{ asset(image.getWebPath()) }}"">
-                                        <div class="publication-image-caption">
-                                            {{ image.description }}
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-xs-2 text-align-left">
+                            <p class="label">
+                                <i class="icon-large icon-heart"></i>&nbsp;{{ entity.countLike }}
+                            </p>
                         </div>
-                    {% endif %}
+                        <div class="col-xs-2 col-xs-offset-8 text-align-right">
+                            {% if app.user and app.user.id == entity.user.id %}
+                                {% include '::includes/disablePublicationButton.html.twig' with {'id': entity.id} %}
+                            {% elseif app.user %}
+                                {% include '::includes/addBlameButton.html.twig' with {'id': entity.id, 'type': 'publication'} %}
+                            {% endif %}
+                            {% if app.user %}
+
+                                <button class="label defaut-label like-unlike-button btn"
+                                        data-id="{{ entity.id }}"
+                                        onclick="util.likeOrUnlikePublication({{ entity.id }})"
+                                        {% if is_like(entity.id) %}
+                                        value="unlike"
+                                >
+                                    {% trans %}publication.unlike{% endtrans %}
+                                    {% else %}
+                                        value="like"
+                                        >
+                                        {% trans %}publication.like{% endtrans %}
+                                    {% endif %}
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-2 col-xs-offset-10 text-align-right">
-                    {% if app.user and app.user.id == entity.user.id %}
-                        {% include '::includes/disablePublicationButton.html.twig' with {'id': entity.id} %}
-                    {% elseif app.user %}
-                        {% include '::includes/addBlameButton.html.twig' with {'id': entity.id, 'type': 'publication'} %}
-                    {% endif %}
-                    {%  if app.user %}
 
-                    <button class="label defaut-label like-unlike-button btn"
-                            data-id="{{ entity.id }}"
-                            onclick="util.likeOrUnlikePublication({{ entity.id }})"
-                            {% if is_like(entity.id) %}
-                            value="unlike"
-                    >
-                        {% trans %}publication.unlike{% endtrans %}
-                        {% else %}
-                            value="like"
-                            >
-                            {% trans %}publication.like{% endtrans %}
-                        {% endif %}
-                    </button>
-                    {% endif %}
+            <div class="panel panel-default">
+                <div class="panel-header">
+                    <div class="panel-heading">
+                        <hr>
+                        <h3>{% trans %}publication.comments{% endtrans %}</h3>
+                        <hr>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-xs-12">
-
-                    <h3>{% trans %}publication.comments{% endtrans %}</h3>
-                    <div class="comment_block">
-                        <div id="comment_content">
+                <div class="panel-body">
+                    <div class="comment_block margin-bottom">
+                        <div id="comment_content" class="row">
                         </div>
                     </div>
                     {% if app.user %}
@@ -87,10 +109,11 @@
                         </div>
                     {% endif %}
                 </div>
+                <div class="panel-footer text-center">
+                    <span class="glyphicon glyphicon-chevron-down clickable wizard-load-comments"
+                          aria-hidden="true"></span>
+                </div>
             </div>
-        </div>
-        <div class="panel-footer text-center">
-            <span class="glyphicon glyphicon-chevron-down clickable wizard-load-comments" aria-hidden="true"></span>
         </div>
     </div>
 {% endblock %}
