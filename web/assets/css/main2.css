@@ -473,20 +473,24 @@ aside .publication {
     width: 100%;
 }
 
-.notifications #aside {
-    display: block;
-}
+@media (min-width: 767px) {
+    
+    .notifications {
+        flex-direction: column;
+    }
 
-.notifications #section {
-    display: none;
-}
+    .notifications #aside, .notifications #section {
+        width: 100%;
+    }
 
+    .notifications #aside {
+        display: block;
+    }
 
-.notifications .col-md-3 a {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    .notifications #section {
+        display: block;
+    }
+
 }
 
 /* ALERT */
