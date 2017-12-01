@@ -2,7 +2,7 @@
     <div class="row ">
         <div class="col-xs-2">
                     {% if publication_type == 'page_publication' %}
-                        <img src="{{ asset( publication_path) | imagine_filter('small_thumb') }}"/>
+                        <img src="{{ asset( publication_path) | imagine_filter('small_thumb') }}" class="img-profil"/>
                     {% else %}
                         {% if publication.path_profile %}
                             <img src="{{ asset('uploads/profile/'~publication_user_id ~ '/' ~ publication_user_path_profile) | imagine_filter('small_thumb') }}" class="img-profil"/>
