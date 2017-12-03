@@ -327,9 +327,10 @@ class PublicationRepository extends EntityRepository
     /**
      * @return array
      */
-    public function findLatestPublication()
+    public function findLatestPublication($page, $limit = BaseController::BASE_LIMIT)
     {
-        $qb    =
+        $firstResult = ($page - 1) * $limit;
+        $qb          =
             $this->_em->createQueryBuilder()
                       ->select('p')
                       ->from(
@@ -337,13 +338,14 @@ class PublicationRepository extends EntityRepository
                           'p'
                       )
         ;
-        $query = $qb
+        $query       = $qb
             ->orderBy(
                 'p.createdAt',
                 'DESC'
             )
             ->where('p.online = 1')
-            ->setMaxResults(2)
+            ->setFirstResult($firstResult)
+            ->setMaxResults($limit)
             ->getQuery()
         ;
 

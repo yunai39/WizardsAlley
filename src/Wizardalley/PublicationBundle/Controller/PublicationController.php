@@ -673,7 +673,8 @@ class PublicationController extends BaseController
      * getPublicationCategory
      *
      *
-     * @Route("/publication/category/{category}/{page}", name="publication_get_category_publication", options={"expose"=true})
+     * @Route("/publication/category/{category}/{page}", name="publication_get_category_publication",
+     *                                                   options={"expose"=true})
      * @param      $category
      * @param Page $page integer page number
      *
@@ -709,11 +710,13 @@ class PublicationController extends BaseController
     /**
      * getLatestPublicationAction
      *
-     * @Route("/publication/latestPublication", name="publication_get_latest")
+     * @Route("/publication/latestPublication/{page}", name="publication_get_latest", options={"expose"=true})
+     *
+     * @param Page $page integer page number
      *
      * @return Response
      */
-    public function getLatestPublicationAction()
+    public function getLatestPublicationAction($page = 1)
     {
         $em =
             $this->getDoctrine()
@@ -721,12 +724,19 @@ class PublicationController extends BaseController
         ;
         /** @var PublicationRepository $repo */
         $repo         = $em->getRepository('WizardalleyCoreBundle:Publication');
-        $publications = $repo->findLatestPublication();
+        $publications = $repo->findLatestPublication($page);
 
-        return $this->render(
-            '::discover/latestPublication.html.twig',
+        return $this->sendJsonResponse(
+            'success',
+            null,
+            200,
             [
-                'publications' => $publications
+                'html' => $this->renderView(
+                    '::discover/latestPublication.html.twig',
+                    [
+                        'publications' => $publications
+                    ]
+                )
             ]
         );
     }

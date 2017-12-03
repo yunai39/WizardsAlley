@@ -12,7 +12,6 @@
  {% block body_style %}url('{{ asset('images/background-notification.jpg') }}'){% endblock %}
 
 {% block body -%}
-
     <ul class="page-nav">
         <li id="news" class="active" onclick="letsnews()">Dernières</li>
         <li id="vedette" onclick="letsvedette()">Archivées</li>
@@ -20,38 +19,42 @@
 
     <div class="page-row notifications">
         <aside id="aside">
-            <div class="col-xs-12">
-                <div class="row">
-                    <div class="col-xs-10">
-                        <h3 class="text-left">{% trans %}wizard.notification.latest{% endtrans %}</h3>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-10">
+                            <h3 class="text-left">{% trans %}wizard.notification.latest{% endtrans %}</h3>
+                        </div>
+                        <div class="col-xs-2">
+                            <a href="{{ path('user_notification_mark_all_read') }}">{% trans %}
+                                wizard.user.notification.mark_all_as_read{% endtrans %}</a>
+                        </div>
                     </div>
-                    <div class="col-xs-2">
-                        <a href="{{ path('user_notification_mark_all_read') }}">{% trans %}
-                            wizard.user.notification.mark_all_as_read{% endtrans %}</a>
-                    </div>
+                    <hr>
                 </div>
-                <hr>
-            </div>
-            <div class="col-xs-12">
-                <div class="row div-new-notifications"></div>
-            </div>
-            <div class="col-xs-12 margin-top text-right">
-                <button class="wizard-new-load-notification">{% trans %}
-                    wizard.user.notification.load_more{% endtrans %}</button>
+                <div class="col-xs-12">
+                    <div class="row div-new-notifications"></div>
+                </div>
+                <div class="col-xs-12 margin-top text-right">
+                    <button class="wizard-new-load-notification">{% trans %}
+                        wizard.user.notification.load_more{% endtrans %}</button>
+                </div>
             </div>
         </aside>
         <section id="section">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="text-left">{% trans %}wizard.notification.old{% endtrans %}</h3>
+                    <hr>
+                </div>
+                <div class="col-xs-12">
+                    <div class="row div-old-notifications"></div>
+                </div>
+                <div class="col-xs-12 margin-top text-right">
+                    <button class="wizard-old-load-notification">{% trans %}
+                        wizard.user.notification.load_more{% endtrans %}</button>
+                </div>
 
-            <div class="col-xs-12">
-                <h3 class="text-left">{% trans %}wizard.notification.old{% endtrans %}</h3>
-                <hr>
-            </div>
-            <div class="col-xs-12">
-                <div class="row div-old-notifications"></div>
-            </div>
-            <div class="col-xs-12 margin-top text-right">
-                <button class="wizard-old-load-notification">{% trans %}
-                    wizard.user.notification.load_more{% endtrans %}</button>
             </div>
 
         </section>
