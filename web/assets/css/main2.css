@@ -444,6 +444,33 @@ aside .publication {
 
 /* RUELLE */
 
+/* COMMENT */
+.comment-wrapper {
+    margin-bottom: 5vh;
+}
+
+.comment-wrapper .img-profil {
+    width: 80px;
+    height: 80px;
+}
+
+.comment-wrapper .img-profil {
+    float: left;
+    margin-right: 2vw;
+}
+
+.comment-wrapper .comment-username {
+    font-size: 2em;
+}
+
+.comment-wrapper .comment-time {
+    font-size: 0.9em;
+}
+
+.comment-wrapper .comment-message-wrapper {
+    margin-top: 2vh;
+}
+
 /* DISCOVER */
 
 .head-discover, .head-discover .title-wrapper {
@@ -474,7 +501,7 @@ aside .publication {
 }
 
 @media (min-width: 767px) {
-    
+
     .notifications {
         flex-direction: column;
     }
@@ -646,27 +673,27 @@ aside .publication {
 /* AFFICHAGES DES PUBLICATIONS */
 
 .head-publication-show {
-	margin: 0px;
-	width: 100%;
+    margin: 0px;
+    width: 100%;
 }
 
 .publication-header-title, .publication-header-whom {
-	text-align: left !important;
-	text-shadow: 1px 1px 12px rgba(0, 0, 0, 0.6);
+    text-align: left !important;
+    text-shadow: 1px 1px 12px rgba(0, 0, 0, 0.6);
 }
 
 .publication-header-whom {
-	font-size: 2rem;
-	margin: 0;
+    font-size: 2rem;
+    margin: 0;
 }
 
 .publication-header-whom a {
-	color: #fff;
+    color: #fff;
 }
 
 .publication-contain-show {
-	margin: 2vh 11%;
-	width: 78%;
+    margin: 2vh 11%;
+    width: 78%;
 }
 
 @media (max-width: 767px) {
@@ -675,16 +702,16 @@ aside .publication {
         font-size: 3rem !important;
         text-align: center !important;
     }
-    
+
     .publication-header-whom {
         text-align: center !important;
     }
-    
+
     .publication-contain-show {
         margin: 2vh 1%;
         width: 98%;
     }
-    
+
 }
 
 /* COMMENTAIRES */
@@ -917,9 +944,9 @@ aside .publication {
             height: auto !important;
             bottom: auto !important;
         }
-        
+
         footer ul {
             margin: 0;
             margin-bottom: 5px;
-    }
+        }
 

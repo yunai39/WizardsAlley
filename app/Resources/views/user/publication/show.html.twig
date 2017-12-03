@@ -15,7 +15,10 @@
                 </h1>
                 <p class="publication-header-whom">
                     Publié sur la page <a class="publication-page-link"
-                       href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a> par <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a> le {{ entity.createdAt|date('Y-m-d') }}
+                                          href="{{ path('page_show',{'id_page': entity.page.id}) }}">{{ entity.page.name }}</a>
+                    par
+                    <a href="{{ path('wizardalley_user_wall', {'id': entity.user.id }) }}">{{ entity.user.username }}</a>
+                    le {{ entity.createdAt|date('Y-m-d') }}
                 </p>
             </div>
 
@@ -32,15 +35,15 @@
                         <div class="col-xs-12 ">
                             <p>{{ entity.content | raw }}</p>
                             {% if entity.getImages()|length > 0 %}
-                                        {% for image in entity.getImages() %}
-                                            <div class="publication-image-container">
-                                                <img class="publication-image-img img-responsive"
-                                                     src="{{ asset(image.getWebPath()) }}"">
-                                                <div class="publication-image-caption">
-                                                    {{ image.description }}
-                                                </div>
-                                            </div>
-                                        {% endfor %}
+                                {% for image in entity.getImages() %}
+                                    <div class="publication-image-container">
+                                        <img class="publication-image-img img-responsive"
+                                             src="{{ asset(image.getWebPath()) }}"">
+                                        <div class="publication-image-caption">
+                                            {{ image.description }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
                             {% endif %}
                         </div>
                     </div>
@@ -111,17 +114,23 @@
 {% block javascripts %}
     {{ parent() }}
     <script id="comment-template" type="text/template">
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-xs-12 comment-wrapper">
             <div class="row">
-                <div class="col-xs-2">
+                <div class="col-xs-12">
                     <img src="<%= srcImg %>" class="img-profil">
+                    <div class="comment-info-block">
+                        <span class="comment-username">
+                            <%= username %>
+                        </span>
+                        <br>
+                        <span class="comment-time">
+                            <%= time %>
+                        </span>
+                    </div>
                 </div>
-                <div class="col-xs-10">
+                <div class="col-xs-12 comment-message-wrapper">
                     <p class="message">
                         <%= message %>
-                    </p>
-                    <p class="time">
-                        <%= username %>, le <%= time %>
                     </p>
                 </div>
             </div>
