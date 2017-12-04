@@ -19,10 +19,8 @@
     <div class="page-row">
         <aside id="aside">
             <div class="row">
-                <div class="col-xs-12">
-                    <a href="{{ path('fos_message_thread_new') }}">
-                        <h2>{% trans %}wizard.messagerie.start_new.title{% endtrans %}</h2>
-                    </a>
+                <div class="col-xs-12 new-private-message">
+                    <a href="{{ path('fos_message_thread_new') }}">{% trans %}wizard.messagerie.start_new.title{% endtrans %}</a>
                     <hr>
                     <p>{% trans %}wizard.messagerie.start_new.description{% endtrans %}</p>
                 </div>

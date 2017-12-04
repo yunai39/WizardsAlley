@@ -42,6 +42,7 @@ header {
     background-repeat: no-repeat;
     overflow: hidden;
     transition: 0.4s linear;
+    box-shadow: 1px 1px 12px rgba(0, 0, 0, 0.71);
 }
 
 .container-fluid {
@@ -197,7 +198,7 @@ main h2, main h3, main h4 {
 
 /* BOUTONS */
 
-.wizardsalley-login-form-submit, .wizardsalley-register-form-submit, .btn-default, .btn, .btn.btn-danger.btn-add-blame, .label.defaut-label.btn, .btn-default.active.focus, .btn-default.active, .btn-default.active, .btn-default.focus, .btn-default, .btn-default, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default, .open > .dropdown-toggle.btn-default, .fos_user_registration_register .register, input[type="submit"] {
+.wizardsalley-login-form-submit, .wizardsalley-register-form-submit, .btn-default, .btn, .btn.btn-danger.btn-add-blame, .label.defaut-label.btn, .btn-default.active.focus, .btn-default.active, .btn-default.active, .btn-default.focus, .btn-default, .btn-default, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default, .open > .dropdown-toggle.btn-default, .fos_user_registration_register .register, input[type="submit"], .more {
     border: 0px;
     background: #454a72;
     -webkit-border-radius: 5;
@@ -217,7 +218,7 @@ main h2, main h3, main h4 {
 
 }
 
-.wizardsalley-login-form-submit:hover, .wizardsalley-register-form-submit:hover, .btn-default:hover, .btn:hover, .btn.btn-danger.btn-add-blame:hover, .label.defaut-label.btn:hover, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default.focus:active, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover, .btn-default.active, .btn-default:active, input[type="submit"]:hover {
+.wizardsalley-login-form-submit:hover, .wizardsalley-register-form-submit:hover, .btn-default:hover, .btn:hover, .btn.btn-danger.btn-add-blame:hover, .label.defaut-label.btn:hover, .btn-default.active.focus, .btn-default.active:focus, .btn-default.active:hover, .btn-default.focus:active, .btn-default:active:focus, .btn-default:active:hover, .open > .dropdown-toggle.btn-default.focus, .open > .dropdown-toggle.btn-default:focus, .open > .dropdown-toggle.btn-default:hover, .btn-default.active, .btn-default:active, input[type="submit"]:hover, .more:hover {
     background: #27293d;
     text-decoration: none;
     color: #fff;
@@ -444,6 +445,7 @@ aside .publication {
 
 /* RUELLE */
 
+<<<<<<< Updated upstream
 /* COMMENT */
 .comment-wrapper {
     margin-bottom: 5vh;
@@ -470,6 +472,12 @@ aside .publication {
 .comment-wrapper .comment-message-wrapper {
     margin-top: 2vh;
 }
+=======
+.last-publications-title {
+    margin-top: 10vh;
+}
+
+>>>>>>> Stashed changes
 
 /* DISCOVER */
 
@@ -498,6 +506,10 @@ aside .publication {
 
 .notifications {
     width: 100%;
+}
+
+.notifications section {
+    margin: 0px;
 }
 
 @media (min-width: 767px) {
@@ -670,6 +682,10 @@ aside .publication {
     text-align: left;
 }
 
+.col-md-12 p {
+	text-align: justify;
+}
+
 /* AFFICHAGES DES PUBLICATIONS */
 
 .head-publication-show {
@@ -756,6 +772,10 @@ aside .publication {
 }
 
 /* MESSAGERIE */
+
+.new-private-message a {
+    font-size: 3rem;
+}
 
 .table {
     font-size: 20px;
@@ -909,6 +929,13 @@ aside .publication {
     color: #27293d;
 }
 
+/* FOOTER */
+
+footer ul {
+    margin: 2px;
+    margin-bottom: 5px;
+}
+
 @media (max-width: 320px) {
     #wizard_search_online_result {
         width: 50%;
@@ -918,8 +945,6 @@ aside .publication {
     /* FOOTER */
     footer ul {
         padding: 0px;
-        margin: 2px;
-        margin-bottom: 5px;
     }
 
     footer li a:hover {
@@ -949,4 +974,4 @@ aside .publication {
             margin: 0;
             margin-bottom: 5px;
         }
-
+    }
