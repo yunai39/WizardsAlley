@@ -691,6 +691,10 @@ aside .publication {
 .head-publication-show {
     margin: 0px;
     width: 100%;
+	display: flex;
+	justify-items: center;
+	align-items: center;
+}
 }
 
 .publication-header-title, .publication-header-whom {
@@ -712,7 +716,21 @@ aside .publication {
     width: 78%;
 }
 
+.panel-footer {
+	border: 0;
+	background-color: transparent;
+}
+
+.social-publication {
+	margin-right: 0;
+	padding-right: 0;
+}
+
 @media (max-width: 767px) {
+    
+    .head-publication-show {
+        flex-direction: column;
+    }
 
     .publication-header-title {
         font-size: 3rem !important;
@@ -727,7 +745,15 @@ aside .publication {
         margin: 2vh 1%;
         width: 98%;
     }
+    
+    .publication-header-title, .publication-header-whom {
+        text-align: center!important;
+    }
 
+    .head-publication-show .img-profil-page {
+        margin-bottom: 2vh;
+    }
+    
 }
 
 /* COMMENTAIRES */
