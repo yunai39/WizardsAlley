@@ -65,7 +65,7 @@ header {
 }
 
 .nav-up #bs-example-navbar-collapse-1 {
-    top: 50vh;
+    display: none!important;
     transition: 0.4s linear;
 }
 
@@ -76,7 +76,6 @@ header nav .nav-full li, header nav .nav-full li:hover, header nav .nav-full li.
 }
 
 .nav-up {
-    max-height: 12vh;
     transition: 0.2s linear;
 }
 
@@ -97,6 +96,10 @@ header nav .nav-full li:hover, .navbar-nav .active {
 @media (max-width: 767px) {
     .head .title-wrapper {
         padding: 10vh 0vw !important;
+    }
+    
+    .nav-up #bs-example-navbar-collapse-1 {
+        display: block!important;
     }
 }
 
@@ -178,7 +181,7 @@ header nav .nav-full li:hover, .navbar-nav .active {
 }
 
 #main {
-    background-color: #fff;
+    background-color: #E8E8E4;
 }
 
 .navbar.navbar-custom.navbar-fixed-top, footer {
@@ -292,6 +295,39 @@ input[type="file"]:hover {
 }
 
 /* BLOCKS PAGES */
+
+@media (min-width: 1395px) {
+    
+    header {
+        padding: 0vh 10vw !important;
+    }
+
+    .head, main, footer {
+        padding: 0vh 15vw !important;
+    }
+    
+    main {
+        padding: 2vh 15vw !important;
+    }
+    
+}
+
+@media (min-width: 1150px) and (max-width: 1395px) {
+    
+    header {
+        padding: 0vh 5vw !important;
+    }
+
+    .head, main, footer {
+        padding: 0vh 10vw !important;
+    }
+    
+        
+    main {
+        padding: 2vh 10vw !important;
+    }
+    
+}
 
 .head .title-wrapper {
     padding: 15vh 0 10vh;
@@ -412,6 +448,7 @@ main {
 }
 
 .panel {
+    padding: 20px;
     border: 0px;
 }
 
@@ -445,7 +482,6 @@ aside .publication {
 
 /* RUELLE */
 
-<<<<<<< Updated upstream
 /* COMMENT */
 .comment-wrapper {
     margin-bottom: 5vh;
@@ -482,7 +518,7 @@ aside .publication {
 /* DISCOVER */
 
 .head-discover, .head-discover .title-wrapper {
-    padding: 15vh 5vw 15vh;
+    padding: 10vh 5vw 5vh;
     height: 70vh !important;
     display: flex;
     flex-direction: column;
@@ -754,6 +790,12 @@ aside .publication {
         margin-bottom: 2vh;
     }
     
+}
+
+/* COUPS DE COEURS */
+
+.most-comment .text-align-right {
+	display: none;
 }
 
 /* COMMENTAIRES */
