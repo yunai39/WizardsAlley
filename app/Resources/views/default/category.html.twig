@@ -15,8 +15,6 @@
 {% block title_banner %}
     <img src="{{ asset('/uploads/page/category/' ~ category.logo) | imagine_filter('small_thumb') }}"
          class="img-profil-page"/>
-    <img src="{{ asset('/uploads/page/category/' ~ category.logo) | imagine_filter('small_thumb') }}"
-         class="img-profil-header"/>
     <h1>
         {{ category.name }}
     </h1>
