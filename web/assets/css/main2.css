@@ -272,6 +272,10 @@ input[type="file"]:hover {
 
 /* CONNEXION */
 
+.head-login-title {
+    font-size: 1.4em;
+}
+
 .wizardsalley-login-form-submit, .wizardsalley-register-form-submit {
     width: 100%;
 }
@@ -279,6 +283,10 @@ input[type="file"]:hover {
 .fos_user_registration_register {
     -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
     box-shadow: 0 1px 2px rgba(0, 0, 0, .05);
+}
+
+.wizardsalley-login-form-wrapper {
+    color: #000;
 }
 
 .wizardsalley-login-form .form-group, #fos_user_registration_form .form-group {
@@ -299,15 +307,15 @@ input[type="file"]:hover {
 @media (min-width: 1395px) {
     
     header {
-        padding: 0vh 10vw !important;
+        padding: 0vh 10vw;
     }
 
     .head, main, footer {
-        padding: 0vh 15vw !important;
+        padding: 0vh 15vw;
     }
     
     main {
-        padding: 2vh 15vw !important;
+        padding: 2vh 15vw;
     }
     
 }
@@ -315,16 +323,16 @@ input[type="file"]:hover {
 @media (min-width: 1150px) and (max-width: 1395px) {
     
     header {
-        padding: 0vh 5vw !important;
+        padding: 0vh 5vw;
     }
 
     .head, main, footer {
-        padding: 0vh 10vw !important;
+        padding: 0vh 10vw;
     }
     
         
     main {
-        padding: 2vh 10vw !important;
+        padding: 2vh 10vw;
     }
     
 }
@@ -534,8 +542,12 @@ aside .publication {
     margin: 0px;
 }
 
+.head.login-title {
+    padding: 0vh 1vw;
+}
+
 .login-title-description {
-    padding: 0px 5vw;
+    padding: 0px 1vw;
 }
 
 /* Notifications */

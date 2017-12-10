@@ -100,7 +100,7 @@ wizard:
         login: Pseudonyme
         password: Mot de passe
         title: Se connecter
-        message: Bienvenue sorcier, sorcière en tout genre. Prends un peu de poudre de cheminette et prononce clairement
+        message: Vous êtes déjà un sorcier reconnu ? Le ministère de la magie veut vérifier votre droit magique avant d'entrer dans Wizard's Alley.
     category:
         name: Catégories
         page: Pages de la catégorie
