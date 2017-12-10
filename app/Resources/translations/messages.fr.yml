@@ -186,6 +186,9 @@ wizard:
     wall:
         friend: Vous êtes ami(e)s !
         ask_ongoing: Demande(s) en cours
+        accept_friendship: Accepter sa demande d'amitié
+        add_as_friend: Ajouter en tant qu'ami(e)
+        remove_friendship: Retirer de la liste des amis
     page:
         new_success: La page a bien été créée
         publication_list: Liste des publications

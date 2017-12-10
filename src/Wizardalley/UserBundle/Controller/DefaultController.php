@@ -79,7 +79,7 @@ class DefaultController extends BaseController
             return new NotFoundResourceException();
         }
         /** @var WizardUser $userAsking */
-        $userAsking       = $this->getUser();
+        $userAsking = $this->getUser();
 
         // empecher un utilisateur de sajouter lui meme en tant qu'utilisateur
         if ($userAsking->getId() == $id_user) {
@@ -124,6 +124,60 @@ class DefaultController extends BaseController
             $em->persist($followedNotification);
             $em->flush();
         }
+
+        return $this->redirect(
+            $this->generateUrl(
+                'wizardalley_user_wall',
+                ['id' => $id_user]
+            )
+        );
+    }
+
+    /**
+     * removeFriendAction
+     *
+     * @Route("/user/removeFriend/{id_user}", name="wizard_remove_friend")
+     * @param integer $id_user id for the user
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function removeFriendAction(Request $request,
+                                       $id_user)
+    {
+        $em   =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
+        $repo =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:WizardUser')
+        ;
+
+        /** @var WizardUser $friend */
+        $friend = $repo->find($id_user);
+        if (!$friend) {
+            return new NotFoundResourceException();
+        }
+        /** @var WizardUser $userAsking */
+        $userAsking = $this->getUser();
+
+        // empecher un utilisateur de sajouter lui meme en tant qu'utilisateur
+        if ($userAsking->getId() == $id_user) {
+            return $this->redirect(
+                $this->generateUrl(
+                    'wizardalley_user_wall',
+                    ['id' => $id_user]
+                )
+            );
+        }
+
+        $userAsking->removeMyFriend($friend);
+        $friend->removeMyFriend($userAsking);
+
+        $em->persist($userAsking);
+        $em->persist($friend);
+        $em->flush();
 
         return $this->redirect(
             $this->generateUrl(

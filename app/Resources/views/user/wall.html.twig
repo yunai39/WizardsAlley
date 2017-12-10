@@ -23,12 +23,13 @@
         {% if app.user.id != user.id %}
         {% if app.user.isFriend(user) %}
         <li>{% trans %}wizard.wall.friend{% endtrans %}</li>
+            <li><a href="{{ path('wizard_remove_friend', {id_user: user.id}) }}">{% trans %}wizard.wall.remove_friendship{% endtrans %}</a></li>
         {% elseif app.user.askedAsAFriend(user) %}
         <li>{% trans %}wizard.wall.ask_ongoing{% endtrans %}</li>
         {% elseif app.user.askingForFriendship(user) %}
-        <li><a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">Accepter sa demande d'amitié</a></li>
+        <li><a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">{% trans %}wizard.wall.accept_friendship{% endtrans %}</a></li>
         {% else %}
-        <li><a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">Ajouter en tant qu'ami(e)</a></li>
+        <li><a href="{{ path('wizard_add_as_a_friend', {id_user: user.id}) }}">{% trans %}wizard.wall.add_as_friend{% endtrans %}</a></li>
         {% endif %}
         {% endif %}
         <li>{% include '::includes/addBlameButton.html.twig' with {'id': user.id, 'type': 'user'} %}</li>
