@@ -94,7 +94,7 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
                 'creator_id' => $page->getCreator()
                                      ->getId(),
                 'editors'    => $page->getEditors(),
-                'checkers'    => $page->getCheckers(),
+                'checkers'   => $page->getCheckers(),
             ]
         );
     }
@@ -242,6 +242,63 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
         return $this->sendJsonResponse(
             'success',
             $pages
+        );
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     *
+     * @Route(
+     *     "/user/page/unlike",
+     *      name="page_unlike",
+     *     options = {"expose" = true}
+     *     )
+     * @return Response
+     */
+    public function unlikePageAction(Request $request)
+    {
+        $pageId = $request->request->get('page_id');
+        $em     =
+            $this->getDoctrine()
+                 ->getManager()
+        ;
+        $repo   =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:Page')
+        ;
+        $page   = $repo->find($pageId);
+
+        if (!$page instanceof Page) {
+            return $this->sendJsonResponse(
+                'error',
+                [
+                    'message' => 'wizard.page.unlike.error.unknown_page'
+                ]
+            );
+        }
+
+        $repo     =
+            $this->getDoctrine()
+                 ->getRepository('WizardalleyCoreBundle:PageUserFollow')
+        ;
+        $pageLike = $repo->findOneBy(
+            [
+                'user' => $this->getUser()
+                               ->getId(),
+                'page' => $page->getId()
+            ]
+        );
+
+        if ($pageLike instanceof PageUserFollow) {
+            $em->remove($pageLike);
+            $em->flush();
+        }
+
+        return $this->sendJsonResponse(
+            'success',
+            [
+                'message' => 'wizard.page.unlike.success'
+            ]
         );
     }
 

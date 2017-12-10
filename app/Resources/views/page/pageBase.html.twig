@@ -34,6 +34,11 @@
             <li>
                 <a href="">{% trans %}page.invite_friend {% endtrans %}</a>
             </li>
+                <li>
+                    <a href="javascript:util.unlikePage({{ page.id }})">
+                        {% trans %} page.unlike {% endtrans %}
+                    </a>
+                </li>
             {% else %}
             <li>
                 <a href="javascript:util.likePage({{ page.id }})">

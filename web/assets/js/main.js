@@ -52,6 +52,13 @@ var util = (function () {
         },
         /**
          *
+         * @param page_id
+         */
+        "unlikePage": function (page_id) {
+            this.ajaxHandle('POST', "page_id=" + page_id + "", Routing.generate('page_unlike'));
+        },
+        /**
+         *
          * @param _id
          */
         "loadMorePublication": function (_id) {

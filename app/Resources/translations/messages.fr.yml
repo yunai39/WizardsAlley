@@ -1,6 +1,7 @@
 page:
     invite_friend: Inviter un(e) ami(e)
     like: Aimer la page
+    unlike: Ne plus aimer
 publication:
     like: Aimer
     unlike: Ne plus aimer
