@@ -17,7 +17,7 @@
     </ul>
 
     <div class="page-row">
-        <aside id="aside">
+        <aside id="aside" class="panel">
             <div class="row">
                 <div class="col-xs-12 new-private-message">
                     <a href="{{ path('fos_message_thread_new') }}">{% trans %}wizard.messagerie.start_new.title{% endtrans %}</a>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </aside>
-        <div class="col-xs-8" id="section">
+        <div class="col-xs-8 panel" id="section">
             {% block fos_message_content %}{% endblock %}
         </div>
     </div>
