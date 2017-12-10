@@ -1,21 +1,39 @@
 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST"
       class="fos_user_registration_register">
     <div id="fos_user_registration_form padding-bottom">
-
         {{ form_start(form) }}
         {{ form_errors(form) }}
-        {{ form_row(form.username) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.plainPassword) }}
-        {{ form_row(form.lastname) }}
-        {{ form_row(form.firstname) }}
-        {{ form_row(form.sexe) }}
-        {{ form_row(form.alpha_code) }}
-        {{ form_row(form.accept_cgv) }}
-        <div class="text-center">
-            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#confidentialityModal">
-                {% trans %}wizard.register.read_cgv{% endtrans %}
-            </button>
+        <div class="row">
+            <div class="col-xs-12 col-sm-6">
+                {{ form_row(form.username) }}
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                {{ form_row(form.plainPassword) }}
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                {{ form_row(form.lastname) }}
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                {{ form_row(form.firstname) }}
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                {{ form_row(form.sexe) }}
+            </div>
+            <div class="col-xs-12 col-sm-6">
+                {{ form_row(form.alpha_code) }}
+            </div>
+            <div class="col-xs-12">
+                {{ form_row(form.accept_cgv) }}
+                <div class="text-center">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal"
+                            data-target="#confidentialityModal">
+                        {% trans %}wizard.register.read_cgv{% endtrans %}
+                    </button>
+                </div>
+            </div>
         </div>
         {{ form_end(form) }}
         <div class="margin-top">
