@@ -13,32 +13,21 @@
 {% endblock %}
 
 {% block title_banner %}
-    <img src="{{ asset('/uploads/page/category/' ~ category.logo) | imagine_filter('small_thumb') }}"
-         class="img-profil-page"/>
     <h1>
         {{ category.name }}
     </h1>
+    <p class="head-category-description">{{ category.description }}</p>
 {% endblock %}
 
 {% block body %}
     <div class="row">
-        <div class="col-xs-12">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>{{ category.name }}</h2>
-                            <p>{{ category.description }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
         <div class="col-xs-3">
             <div class="panel panel-default">
                 <div class="panel-body">
+                    <div class="text-center">
+                        <img src="{{ asset('/uploads/page/category/' ~ category.logo) | imagine_filter('small_thumb') }}"
+                             class="img-profil-page"/>
+                    </div>
                     <div class="row">
                         <h3 class="text-center">{% trans %}wizard.category.page{% endtrans %}</h3>
                         <hr>

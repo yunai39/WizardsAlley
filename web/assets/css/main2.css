@@ -516,12 +516,10 @@ aside .publication {
 .comment-wrapper .comment-message-wrapper {
     margin-top: 2vh;
 }
-=======
 .last-publications-title {
     margin-top: 10vh;
 }
 
->>>>>>> Stashed changes
 
 /* DISCOVER */
 
@@ -578,6 +576,12 @@ aside .publication {
         display: block;
     }
 
+}
+
+/* Categorie */
+
+.head-category-description {
+    font-size: 1.5em;
 }
 
 /* ALERT */
