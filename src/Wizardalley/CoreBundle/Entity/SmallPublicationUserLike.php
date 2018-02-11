@@ -56,7 +56,7 @@ class SmallPublicationUserLike
      *
      * @param WizardUser $user
      *
-     * @return PublicationUserLike
+     * @return $this
      */
     public function setUser(WizardUser $user = null)
     {
@@ -80,7 +80,7 @@ class SmallPublicationUserLike
      *
      * @param \DateTime $dateLike
      *
-     * @return PublicationUserLike
+     * @return $this
      */
     public function setDateLike($dateLike)
     {

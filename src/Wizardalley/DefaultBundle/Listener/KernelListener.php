@@ -9,6 +9,7 @@ use Wizardalley\CoreBundle\Entity\WizardUser;
 
 /**
  * Class KernelListener
+ *
  * @package Wizardalley\DefaultBundle\Listener
  */
 class KernelListener
@@ -17,6 +18,7 @@ class KernelListener
      * @var TokenStorage
      */
     protected $tokenStorage;
+
     /**
      * @var EntityManager
      */
@@ -30,7 +32,7 @@ class KernelListener
     public function __construct(TokenStorage $tokenStorage, EntityManager $em)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->em = $em;
+        $this->em           = $em;
     }
 
     /**
@@ -40,7 +42,7 @@ class KernelListener
     {
         $token = $this->tokenStorage->getToken();
         /** @var WizardUser $user */
-        $user  = $token ? $token->getUser() : null;
+        $user = $token ? $token->getUser() : null;
         if ($user instanceof WizardUser) {
             $user->setLastConnect(new \DateTime());
             $this->em->persist($user);

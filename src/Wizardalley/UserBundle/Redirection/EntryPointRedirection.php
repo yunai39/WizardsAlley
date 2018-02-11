@@ -27,6 +27,12 @@ class EntryPointRedirection implements AuthenticationEntryPointInterface
         $this->router = $router;
     }
 
+    /**
+     * @param Request                      $request
+     * @param AuthenticationException|null $authException
+     *
+     * @return RedirectResponse
+     */
     public function start(Request $request, AuthenticationException $authException = null)
     {
         return new RedirectResponse($this->router->generate('wizardalley_user_login_redirect'));

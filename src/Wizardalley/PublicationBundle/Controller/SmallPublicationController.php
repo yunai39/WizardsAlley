@@ -50,25 +50,16 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
      */
     public function addCommentSmallAction(Request $request, $id)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
 
         /** @var SmallPublication $entity */
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:SmallPublication')
-               ->find($id)
-        ;
+        $entity = $em->getRepository('WizardalleyCoreBundle:SmallPublication')->find($id);
 
-        if (!$entity ) {
+        if (!$entity) {
             throw $this->createNotFoundException('Unable to find SmallPublication entity.');
         }
         $comment = new CommentPublication();
-        $form    = $this->createFormComment(
-            $comment,
-            $id
-        );
+        $form    = $this->createFormComment($comment, $id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -81,6 +72,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             $em->persist($comment);
             $em->flush();
         }
+
         return $this->redirect(
             $this->generateUrl(
                 'user_small_publication_show',
@@ -137,10 +129,7 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
             $entity->setOnline(true);
             $entity->setCreatedAt(new \DateTime('now'));
             $entity->setUpdatedAt(new \DateTime('now'));
-            $em =
-                $this->getDoctrine()
-                     ->getManager()
-            ;
+            $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
@@ -191,7 +180,6 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
         return $form;
     }
 
-
     /**
      * @Route("/user/smallpublication/{id}/like", name="small_publication_user_like", options={"expose"=true})
      * @Method({"POST"})
@@ -205,27 +193,18 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
         /** @var WizardUser $user */
         $user = $this->getUser();
         /** @var EntityRepository $repo */
-        $repo            =
-            $this->getDoctrine()
-                 ->getRepository("WizardalleyCoreBundle:SmallPublicationUserLike")
-        ;
+        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:SmallPublicationUserLike");
         $publicationLike = $repo->findOneBy(
             [
-                'user'        => $user->getId(),
+                'user'             => $user->getId(),
                 'smallPublication' => $publication->getId()
             ]
         );
 
         if (!$publicationLike instanceof SmallPublicationUserLike) {
             $publicationLike = new SmallPublicationUserLike();
-            $publicationLike->setUser($user)
-                            ->setSmallPublication($publication)
-                            ->setDateLike(new \DateTime())
-            ;
-            $em =
-                $this->getDoctrine()
-                     ->getManager()
-            ;
+            $publicationLike->setUser($user)->setSmallPublication($publication)->setDateLike(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
             $em->persist($publicationLike);
             $em->flush();
 
@@ -254,21 +233,16 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
         /** @var WizardUser $user */
         $user = $this->getUser();
         /** @var EntityRepository $repo */
-        $repo            =
-            $this->getDoctrine()
-                 ->getRepository("WizardalleyCoreBundle:SmallPublicationUserLike");
+        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:SmallPublicationUserLike");
         $publicationLike = $repo->findOneBy(
             [
-                'user'        => $user->getId(),
+                'user'             => $user->getId(),
                 'smallPublication' => $publication->getId()
             ]
         );
 
         if ($publicationLike instanceof SmallPublicationUserLike) {
-            $em =
-                $this->getDoctrine()
-                     ->getManager()
-            ;
+            $em = $this->getDoctrine()->getManager();
             $em->remove($publicationLike);
             $em->flush();
 
@@ -290,31 +264,22 @@ class SmallPublicationController extends \Wizardalley\DefaultBundle\Controller\B
      */
     public function showAction($id)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
 
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:SmallPublication')
-               ->find($id)
-        ;
+        $entity = $em->getRepository('WizardalleyCoreBundle:SmallPublication')->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find SmallPublication entity.');
         }
 
         $comment     = new CommentPublication();
-        $commentForm = $this->createFormComment(
-            $comment,
-            $id
-        );
+        $commentForm = $this->createFormComment($comment, $id);
 
         return $this->render(
             '::user/smallPublication/show.html.twig',
             [
-                'entity' => $entity,
-                'user'   => $entity->getUser(),
+                'entity'       => $entity,
+                'user'         => $entity->getUser(),
                 'comment_form' => $commentForm->createView()
             ]
         );

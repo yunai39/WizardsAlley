@@ -11,32 +11,34 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  *
  * @package Wizardalley\PublicationBundle\Form
  */
-class DeletePublicationType extends AbstractType {
+class DeletePublicationType extends AbstractType
+{
 
     /**
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
-    public function buildForm(FormBuilderInterface $builder, array $options) {
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
         $builder
-                ->add('id', 'hidden')
-                ->add('sumbit', 'submit', ['label' => 'wizard.utility.delete'])
+            ->add('id', 'hidden')
+            ->add('sumbit', 'submit', ['label' => 'wizard.utility.delete'])
         ;
     }
 
     /**
      * @param OptionsResolverInterface $resolver
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
-        $resolver->setDefaults(array(
-            'mapped' => false
-        ));
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(['mapped' => false]);
     }
 
     /**
      * @return string
      */
-    public function getName() {
+    public function getName()
+    {
         return 'wizardalley_publicationdelete';
     }
 }

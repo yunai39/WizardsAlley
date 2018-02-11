@@ -34,10 +34,7 @@ class DefaultController extends Controller
     public function addBlameAction(Request $request, $type, $id)
     {
         $blame = new Blame();
-        $blame->setType($type)
-              ->setDateBlame(new \DateTime())
-              ->setContentId($id)
-        ;
+        $blame->setType($type)->setDateBlame(new \DateTime())->setContentId($id);
 
         $form = $this->createForm(
             new BlameType(),
@@ -59,35 +56,21 @@ class DefaultController extends Controller
         ];
 
         if ($form->isValid()) {
-            $em =
-                $this->getDoctrine()
-                     ->getManager()
-            ;
-            $blame
-                ->setUser($this->getUser())
-                ->setType($typeArray[ $type ])
-            ;
+            $em = $this->getDoctrine()->getManager();
+            $blame->setUser($this->getUser())->setType($typeArray[ $type ]);
             if ($type == 'page') {
                 /** @var Page $entity */
-                $entity =
-                    $em->getRepository('WizardalleyCoreBundle:Page')
-                       ->find($blame->getContentId())
-                ;
+                $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($blame->getContentId());
                 $blame->setTitle($entity->getName());
             } elseif ($type == 'publication') {
                 /** @var Publication $entity */
-                $entity =
-                    $em->getRepository('WizardalleyCoreBundle:Publication')
-                       ->find($blame->getContentId())
-                ;
+                $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($blame->getContentId());
                 if ($entity instanceof Publication) {
                     $blame->setTitle($entity->getTitle());
                 } else {
                     /** @var SmallPublication $entity */
                     $entity =
-                        $em->getRepository('WizardalleyCoreBundle:SmallPublication')
-                           ->find($blame->getContentId())
-                    ;
+                        $em->getRepository('WizardalleyCoreBundle:SmallPublication')->find($blame->getContentId());
                     $blame->setTitle(
                         $entity->getUser()
                                ->getUsername() .
@@ -101,12 +84,9 @@ class DefaultController extends Controller
                 }
             } elseif ($type == 'user') {
                 /** @var WizardUser $entity */
-                $entity =
-                    $em->getRepository('WizardalleyCoreBundle:WizardUser')
-                       ->find($blame->getContentId())
-                ;
+                $entity = $em->getRepository('WizardalleyCoreBundle:WizardUser')->find($blame->getContentId());
                 $blame->setTitle($entity->getUsername());
-            };
+            }
             $em->persist($blame);
             $em->flush();
 
@@ -227,15 +207,11 @@ class DefaultController extends Controller
                                          )
                                      )
             ;
-            $this->get('mailer')
-                 ->send($message)
-            ;
-            $request->getSession()
-                    ->getFlashBag()
-                    ->add(
-                        'message_send',
-                        'wizard.contact.message'
-                    )
+            $this->get('mailer')->send($message);
+            $request->getSession()->getFlashBag()->add(
+                'message_send',
+                'wizard.contact.message'
+            )
             ;
         }
 

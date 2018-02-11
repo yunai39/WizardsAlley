@@ -20,7 +20,7 @@ use Wizardalley\CoreBundle\Entity\WizardUser;
  */
 class RegistrationFormHandler extends BaseHandler
 {
-    /** @var   */
+    /** @var */
     protected $appFolder;
 
     /**
@@ -34,13 +34,12 @@ class RegistrationFormHandler extends BaseHandler
      * @param                         $appFolder
      */
     public function __construct(FormInterface $form,
-                                Request $request,
-                                UserManagerInterface $userManager,
-                                MailerInterface $mailer,
-                                TokenGeneratorInterface $tokenGenerator,
-    $appFolder
-)
-    {
+        Request $request,
+        UserManagerInterface $userManager,
+        MailerInterface $mailer,
+        TokenGeneratorInterface $tokenGenerator,
+        $appFolder
+    ) {
         parent::__construct(
             $form,
             $request,
@@ -73,6 +72,5 @@ class RegistrationFormHandler extends BaseHandler
             $this->appFolder . '/../web/uploads/profile/dCouverture.png',
             $this->appFolder . '/../web/uploads/profile/' . $user->getId() . '/dCouverture.png'
         );
-
     }
 }

@@ -9,6 +9,7 @@ use Wizardalley\CoreBundle\Entity\Publication;
 
 /**
  * Class PublicationNotificationHelper
+ *
  * @package Wizardalley\PublicationBundle\Helper
  */
 class PublicationNotificationHelper
@@ -21,6 +22,9 @@ class PublicationNotificationHelper
         $this->em = $em;
     }
 
+    /**
+     * @param Publication $publication
+     */
     public function generateNotificationForPublicationCreated(Publication $publication)
     {
         $page = $publication->getPage();
@@ -34,12 +38,17 @@ class PublicationNotificationHelper
                 ->setChecked(false)
                 ->setUser($user->getUser())
                 ->setType(FollowedNotification::TYPE_PUBLICATION)
-                ->setDataNotification(json_encode([
-                    'page_id'           => $page->getId(),
-                    'page_name'         => $page->getName(),
-                    'publication_id'    => $publication->getId(),
-                    'publication_title' => $publication->getTitle()
-                ]));
+                ->setDataNotification(
+                    json_encode(
+                        [
+                            'page_id'           => $page->getId(),
+                            'page_name'         => $page->getName(),
+                            'publication_id'    => $publication->getId(),
+                            'publication_title' => $publication->getTitle()
+                        ]
+                    )
+                )
+            ;
             $this->em->persist($notification);
         }
         $this->em->flush();

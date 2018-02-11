@@ -4,14 +4,18 @@ namespace Wizardalley\UserBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * Class WizardalleyUserBundle
+ *
+ * @package Wizardalley\UserBundle
+ */
 class WizardalleyUserBundle extends Bundle
 {
-
-  public function getParent()
-
-  {
-
-    return 'FOSUserBundle';
-
-  }
+    /**
+     * @return string
+     */
+    public function getParent()
+    {
+        return 'FOSUserBundle';
+    }
 }

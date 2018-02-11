@@ -10,6 +10,7 @@ use Wizardalley\CoreBundle\Entity\SmallPublicationUserLike;
 
 /**
  * Class LikePublicationExtension
+ *
  * @package Wizardalley\PublicationBundle\Twig
  */
 class LikePublicationExtension extends \Twig_Extension
@@ -57,10 +58,10 @@ class LikePublicationExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            'is_like' => new \Twig_Function_Method($this, 'isLike'),
+        return [
+            'is_like'       => new \Twig_Function_Method($this, 'isLike'),
             'is_like_small' => new \Twig_Function_Method($this, 'isLikeSmall'),
-        );
+        ];
     }
 
     /**
@@ -74,16 +75,19 @@ class LikePublicationExtension extends \Twig_Extension
             return false;
         }
         $repo            = $this->em->getRepository('WizardalleyCoreBundle:PublicationUserLike');
-        $publicationLike = $repo->findOneBy([
-            'publication' => $publication,
-            'user'        => $this->getUser()->getId()
-        ]);
+        $publicationLike = $repo->findOneBy(
+            [
+                'publication' => $publication,
+                'user'        => $this->getUser()->getId()
+            ]
+        );
         if ($publicationLike instanceof PublicationUserLike) {
             return true;
         }
 
         return false;
     }
+
     /**
      * @param int $publication
      *
@@ -95,10 +99,12 @@ class LikePublicationExtension extends \Twig_Extension
             return false;
         }
         $repo            = $this->em->getRepository('WizardalleyCoreBundle:SmallPublicationUserLike');
-        $publicationLike = $repo->findOneBy([
-            'smallPublication' => $publication,
-            'user'        => $this->getUser()->getId()
-        ]);
+        $publicationLike = $repo->findOneBy(
+            [
+                'smallPublication' => $publication,
+                'user'             => $this->getUser()->getId()
+            ]
+        );
         if ($publicationLike instanceof SmallPublicationUserLike) {
             return true;
         }

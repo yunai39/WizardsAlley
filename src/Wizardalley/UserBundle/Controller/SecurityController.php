@@ -20,9 +20,7 @@ class SecurityController extends Controller
     public function loginAction(Request $request)
     {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-        if ($this->get('security.context')
-                 ->isGranted('IS_AUTHENTICATED_REMEMBERED')
-        ) {
+        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('wizardalley_default_homepage');
         }
 
@@ -48,13 +46,10 @@ class SecurityController extends Controller
     public function loginRedirectAction(Request $request)
     {
         $translator = $this->get('translator');
-        $request->getSession()
-                ->getFlashBag()
-                ->add(
-                    'login-message',
-                    $translator->trans('wizard.error.login')
-                )
-        ;
+        $request->getSession()->getFlashBag()->add(
+            'login-message',
+            $translator->trans('wizard.error.login')
+        );
 
         return new RedirectResponse($this->generateUrl('wizardalley_user_login'));
     }

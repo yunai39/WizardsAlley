@@ -25,12 +25,12 @@ class PublicationType extends AbstractType
                     'content',
                     'textarea',
                     [
-                        'label' => false,
+                        'label'    => false,
                         'required' => true,
-                        'attr' => [
+                        'attr'     => [
                             'placeholder' => 'wizard.publication.placeholder',
-                            'class'      => 'tinymce',
-                            'data-theme' => 'bbcode' // Skip it if you want to use default theme
+                            'class'       => 'tinymce',
+                            'data-theme'  => 'bbcode' // Skip it if you want to use default theme
                         ]
                     ]
                 )
@@ -63,5 +63,4 @@ class PublicationType extends AbstractType
     {
         return 'wizardalley_publicationbundle_publication';
     }
-
 }

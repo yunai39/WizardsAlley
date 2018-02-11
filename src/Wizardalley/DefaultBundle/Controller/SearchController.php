@@ -23,10 +23,8 @@ class SearchController extends BaseController
     {
         /* @var $form Form */
         $form = $this->createForm(
-            new SearchType(),
-            null,
-            [
-                'method' => 'POST',
+            new SearchType(), null, [
+                'method'   => 'POST',
                 'isOnline' => ($this->getUser() instanceof WizardUser)
             ]
         );
@@ -41,8 +39,6 @@ class SearchController extends BaseController
             ['form' => $form->createView()]
         );
     }
-
-
 
     /**
      * @param int $page
@@ -59,11 +55,7 @@ class SearchController extends BaseController
     public function searchAllUserAction($page = 1)
     {
         $em    = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('WizardalleyCoreBundle:WizardUser')->findUsersOrderCreated(
-            $page,
-            2
-        )
-        ;
+        $users = $em->getRepository('WizardalleyCoreBundle:WizardUser')->findUsersOrderCreated($page, 2);
 
         return $this->sendJsonResponse(
             'success',
@@ -80,7 +72,6 @@ class SearchController extends BaseController
         );
     }
 
-
     /**
      * @param int $page
      * @Configuration\Route(
@@ -96,11 +87,7 @@ class SearchController extends BaseController
     public function searchAllCommunityAction($page = 1)
     {
         $em    = $this->getDoctrine()->getManager();
-        $pages = $em->getRepository('WizardalleyCoreBundle:Page')->findPagesOrderCreated(
-            $page,
-            2
-        )
-        ;
+        $pages = $em->getRepository('WizardalleyCoreBundle:Page')->findPagesOrderCreated($page, 2);
 
         return $this->sendJsonResponse(
             'success',
@@ -133,12 +120,7 @@ class SearchController extends BaseController
     public function searchUserAction($field, $page = 1)
     {
         $em    = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('WizardalleyCoreBundle:WizardUser')->findUsersLike(
-            $field,
-            $page,
-            2
-        )
-        ;
+        $users = $em->getRepository('WizardalleyCoreBundle:WizardUser')->findUsersLike($field, $page, 2);
 
         return $this->sendJsonResponse(
             'success',
@@ -171,12 +153,7 @@ class SearchController extends BaseController
     public function searchPageAction($field, $page = 1)
     {
         $em    = $this->getDoctrine()->getManager();
-        $pages = $em->getRepository('WizardalleyCoreBundle:Page')->findPagesLike(
-            $field,
-            $page,
-            2
-        )
-        ;
+        $pages = $em->getRepository('WizardalleyCoreBundle:Page')->findPagesLike($field, $page, 2);
 
         return $this->sendJsonResponse(
             'success',
@@ -208,11 +185,7 @@ class SearchController extends BaseController
     public function searchOnlineUserAction($page = 1)
     {
         $em    = $this->getDoctrine()->getManager();
-        $users = $em->getRepository('WizardalleyCoreBundle:WizardUser')->findUsersOrderLastAction(
-            $page,
-            2
-        )
-        ;
+        $users = $em->getRepository('WizardalleyCoreBundle:WizardUser')->findUsersOrderLastAction($page, 2);
 
         return $this->sendJsonResponse(
             'success',
@@ -245,12 +218,7 @@ class SearchController extends BaseController
     public function searchPublicationAction($field, $page = 1)
     {
         $em           = $this->getDoctrine()->getManager();
-        $publications = $em->getRepository('WizardalleyCoreBundle:Publication')->findPublicationLike(
-            $field,
-            $page,
-            2
-        )
-        ;
+        $publications = $em->getRepository('WizardalleyCoreBundle:Publication')->findPublicationLike($field, $page, 2);
 
         return $this->sendJsonResponse(
             'success',

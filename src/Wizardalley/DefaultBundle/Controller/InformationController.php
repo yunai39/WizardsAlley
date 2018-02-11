@@ -27,16 +27,10 @@ class InformationController extends BaseController
      */
     public function getInformationsAction($page)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var InformationBilletRepository $repo */
         $repo         = $em->getRepository('WizardalleyCoreBundle:InformationBillet');
-        $informations = $repo->findInformationLimit(
-            $page,
-            1
-        );
+        $informations = $repo->findInformationLimit($page, 1);
 
         return $this->sendJsonResponse(
             200,

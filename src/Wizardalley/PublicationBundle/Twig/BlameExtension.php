@@ -6,6 +6,11 @@ use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 
+/**
+ * Class BlameExtension
+ *
+ * @package Wizardalley\PublicationBundle\Twig
+ */
 class BlameExtension extends \Twig_Extension
 {
     /** @var EntityManager */
@@ -26,12 +31,7 @@ class BlameExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return [
-            'blame_count' => new \Twig_Function_Method(
-                $this,
-                'blameCount'
-            )
-        ];
+        return ['blame_count' => new \Twig_Function_Method($this, 'blameCount')];
     }
 
     /**
@@ -43,21 +43,17 @@ class BlameExtension extends \Twig_Extension
     public function blameCount($type, $id)
     {
         /** @var Collection $blames */
-        $blames = $this->em->getRepository('WizardalleyCoreBundle:Blame')
-           ->findBy(
-               [
-                   'type'      => $type,
-                   'contentId' => $id
-               ]
-           )
-        ;
+        $blames =
+            $this->em->getRepository('WizardalleyCoreBundle:Blame')->findBy(['type' => $type, 'contentId' => $id]);
 
         return count($blames);
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return 'blame_extension';
     }
-
 }

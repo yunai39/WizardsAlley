@@ -19,6 +19,7 @@ class FosMessageListener
      * @var TokenStorage
      */
     protected $tokenStorage;
+
     /**
      * @var EntityManager
      */
@@ -32,7 +33,8 @@ class FosMessageListener
     public function __construct(
         TokenStorage $tokenStorage,
         EntityManager $em
-    ) {
+    )
+    {
         $this->tokenStorage = $tokenStorage;
         $this->em           = $em;
     }
@@ -40,7 +42,7 @@ class FosMessageListener
     public function onMessageCreated(MessageEvent $event)
     {
         // Creer la notification pour le destinatire
-        $message              = $event->getMessage();
+        $message = $event->getMessage();
         /** @var WizardUser $sender */
         $sender               = $message->getSender();
         $followedNotification = new FollowedNotification();
@@ -49,21 +51,21 @@ class FosMessageListener
             if ($user->getId() != $sender->getId()) {
                 $followedNotification
                     ->setChecked(false)
-                     ->setCreatedAt(new \DateTime())
-                     ->setUpdatedAt(new \DateTime())
-                     ->setType(FollowedNotification::TYPE_MESSAGE)
-                     ->setDataNotification(
-                         json_encode(
-                             [
-                                 'sender_id'    => $sender->getId(),
-                                 'sender_name'  => $sender->getUsername(),
-                                 'thread_id'    => $message->getThread()->getId(),
-                                 'thread_name'  => $message->getThread()->getSubject(),
-                                 'message_id'   => $message->getId()
-                             ]
-                         )
-                     )
-                     ->setUser($user)
+                    ->setCreatedAt(new \DateTime())
+                    ->setUpdatedAt(new \DateTime())
+                    ->setType(FollowedNotification::TYPE_MESSAGE)
+                    ->setDataNotification(
+                        json_encode(
+                            [
+                                'sender_id'   => $sender->getId(),
+                                'sender_name' => $sender->getUsername(),
+                                'thread_id'   => $message->getThread()->getId(),
+                                'thread_name' => $message->getThread()->getSubject(),
+                                'message_id'  => $message->getId()
+                            ]
+                        )
+                    )
+                    ->setUser($user)
                 ;
                 $this->em->persist($followedNotification);
             }

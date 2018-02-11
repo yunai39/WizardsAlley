@@ -46,34 +46,24 @@ class PublicationController extends BaseController
     {
         $entity = new Publication();
 
-        $em   =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
-        $page =
-            $em->getRepository('WizardalleyCoreBundle:Page')
-               ->find($id_page)
-        ;
+        $em   = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
 
         $entity->setPage($page);
-        $form = $this->createCreateForm(
-            $entity,
-            $page
-        );
+        $form = $this->createCreateForm($entity, $page);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em =
-                $this->getDoctrine()
-                     ->getManager()
+            $em = $this->getDoctrine()->getManager();
+            $entity
+                ->setUser($this->getUser())
+                ->setCreatedAt(new \DateTime('now'))
+                ->setUpdatedAt(new \DateTime('now'))
+                ->setPage($page)
+                ->setSmallContent($entity->getContent())
             ;
-            $entity->setUser($this->getUser());
-            $entity->setCreatedAt(new \DateTime('now'));
-            $entity->setUpdatedAt(new \DateTime('now'));
-            $entity->setPage($page);
-            $entity->setSmallContent($entity->getContent());
             $em->persist($entity);
             /** @var ImagePublication $image */
             if (!empty($entity->getImages())) {
@@ -84,12 +74,10 @@ class PublicationController extends BaseController
             }
             $em->flush();
 
-            $this->get('session')
-                 ->getFlashBag()
-                 ->add(
-                     'success',
-                     'wizard.publication.new_success'
-                 )
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'wizard.publication.new_success'
+            )
             ;
 
             return $this->redirect(
@@ -132,11 +120,7 @@ class PublicationController extends BaseController
             ]
         );
 
-        $form->add(
-            'submit',
-            'submit',
-            ['label' => 'wizard.utility.form.create']
-        );
+        $form->add('submit', 'submit', ['label' => 'wizard.utility.form.create']);
 
         return $form;
     }
@@ -154,23 +138,14 @@ class PublicationController extends BaseController
     {
         $entity = new Publication();
 
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
 
-        $page =
-            $em->getRepository('WizardalleyCoreBundle:Page')
-               ->find($id_page)
-        ;
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
         $this->notFoundEntity($page);
         $this->creatorEditorOnly($page);
 
         $entity->setPage($page);
-        $form = $this->createCreateForm(
-            $entity,
-            $page
-        );
+        $form = $this->createCreateForm($entity, $page);
 
         return $this->render(
             '::user/publication/new.html.twig',
@@ -192,16 +167,10 @@ class PublicationController extends BaseController
      */
     public function showAction($id)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
 
         /** @var Publication $entity */
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:Publication')
-               ->find($id)
-        ;
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
         $this->notFoundEntity($entity);
 
         if ($entity->getOnline() == 0) {
@@ -209,15 +178,11 @@ class PublicationController extends BaseController
         }
 
         $comment     = new CommentPublication();
-        $commentForm = $this->createFormComment(
-            $comment,
-            $id
-        );
+        $commentForm = $this->createFormComment($comment, $id);
 
         $followers = [];
         /** @var PageUserFollow $follower */
-        foreach ($entity->getPage()
-                        ->getFollowers() as $follower) {
+        foreach ($entity->getPage()->getFollowers() as $follower) {
             $followers[] = $follower->getUser();
         }
 
@@ -226,11 +191,8 @@ class PublicationController extends BaseController
             [
                 'entity'       => $entity,
                 'page'         => $entity->getPage(),
-                'creator_id'   => $entity->getPage()
-                                         ->getCreator()
-                                         ->getId(),
-                'editors'      => $entity->getPage()
-                                         ->getEditors(),
+                'creator_id'   => $entity->getPage()->getCreator()->getId(),
+                'editors'      => $entity->getPage()->getEditors(),
                 'followers'    => $followers,
                 'entity_id'    => $id,
                 'comment_form' => $commentForm->createView(),
@@ -253,10 +215,7 @@ class PublicationController extends BaseController
                  ->getManager()
         ;
         /** @var Publication $entity */
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:Publication')
-               ->find($id)
-        ;
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
         $this->notFoundEntity($entity);
 
         $page = $entity->getPage();
@@ -264,10 +223,8 @@ class PublicationController extends BaseController
         // Verifier les droits
         $user = $this->getUser();
 
-        if (!($page->getCheckers()
-                   ->contains($user) ||
-              $page->getEditors()
-                   ->contains($user) ||
+        if (!($page->getCheckers()->contains($user) ||
+              $page->getEditors()->contains($user) ||
               $page->getCreator() == $user)
         ) {
             throw new Exception('Access Forbidden');
@@ -292,15 +249,9 @@ class PublicationController extends BaseController
      */
     public function editAction($id)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
 
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:Publication')
-               ->find($id)
-        ;
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
         $this->notFoundEntity($entity);
         $this->creatorPublicationAndCreatorOnly($entity);
 
@@ -324,24 +275,15 @@ class PublicationController extends BaseController
      */
     public function togglePublicationOnlineAction($id)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
 
         /** @var Publication $entity */
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:Publication')
-               ->find($id)
-        ;
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
         $this->notFoundEntity($entity);
 
         $user = $this->getUser();
-        if ((!$entity->getPage()
-                     ->getCheckers()
-                     ->contains($user)) and
-            ($entity->getPage()
-                    ->getCreator() !== $user)
+        if ((!$entity->getPage()->getCheckers()->contains($user)) &&
+            ($entity->getPage()->getCreator() !== $user)
         ) {
             throw new AccessDeniedException;
         }
@@ -349,20 +291,16 @@ class PublicationController extends BaseController
         $entity->setOnline(!$entity->getOnline());
         $em->persist($entity);
         $em->flush();
-        $this->get('session')
-             ->getFlashBag()
-             ->add(
-                 'success',
-                 'wizard.publication.toogle_online.' . ($entity->getOnline() ? 'on' : 'off')
-             )
+        $this->get('session')->getFlashBag()->add(
+            'success',
+            'wizard.publication.toogle_online.' . ($entity->getOnline() ? 'on' : 'off')
+        )
         ;
 
         // Si l'entite est en ligne et quel n'a jamais encore ete mis en ligne
         if ($entity->getOnline() && $entity->getHasBeenPublished() == false) {
             // Generation des notifications
-            $this->get('wizard.helper.publication.notification')
-                 ->generateNotificationForPublicationCreated($entity)
-            ;
+            $this->get('wizard.helper.publication.notification')->generateNotificationForPublicationCreated($entity);
 
             $entity->setHasBeenPublished(true);
             $em->persist($entity);
@@ -396,11 +334,7 @@ class PublicationController extends BaseController
             ]
         );
 
-        $form->add(
-            'submit',
-            'submit',
-            ['label' => 'wizard.utility.form.update']
-        );
+        $form->add('submit', 'submit', ['label' => 'wizard.utility.form.update']);
 
         return $form;
     }
@@ -417,16 +351,10 @@ class PublicationController extends BaseController
      */
     public function updateAction(Request $request, $id)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
 
         /** @var Publication $entity */
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:Publication')
-               ->find($id)
-        ;
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
 
         $this->notFoundEntity($entity);
         $this->creatorPublicationAndCreatorOnly($entity);
@@ -448,8 +376,7 @@ class PublicationController extends BaseController
                     $em->persist($image);
                 }
                 foreach ($currentImages as $image) {
-                    if (!$entity->getImages()
-                                ->contains($image)
+                    if (!$entity->getImages()->contains($image)
                     ) {//employee was removed, update entity/entities
                         $em->remove($image);
                     }
@@ -457,12 +384,10 @@ class PublicationController extends BaseController
             }
             $em->flush();
 
-            $this->get('session')
-                 ->getFlashBag()
-                 ->add(
-                     'success',
-                     'wizard.publication.edit_success'
-                 )
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'wizard.publication.edit_success'
+            )
             ;
 
             return $this->redirect(
@@ -527,25 +452,16 @@ class PublicationController extends BaseController
      */
     public function addCommentAction(Request $request, $id)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
 
         /** @var Publication $entity */
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:Publication')
-               ->find($id)
-        ;
+        $entity = $em->getRepository('WizardalleyCoreBundle:Publication')->find($id);
 
         if (!$entity || $entity->getOnline() == 0) {
             throw $this->createNotFoundException('Unable to find Publication entity.');
         }
         $comment = new CommentPublication();
-        $form    = $this->createFormComment(
-            $comment,
-            $id
-        );
+        $form    = $this->createFormComment($comment, $id);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -583,21 +499,16 @@ class PublicationController extends BaseController
      */
     public function getCommentAction($id, $page)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
 
         return $this->sendJsonResponse(
             'success',
             null,
             200,
             [
-                'data' => $em->getRepository('WizardalleyCoreBundle:CommentPublication')
-                             ->findCommentsPublication(
-                                 $id,
-                                 $page
-                             )
+                'data' => $em->getRepository('WizardalleyCoreBundle:CommentPublication')->findCommentsPublication(
+                    $id, $page
+                )
             ]
         );
     }
@@ -615,10 +526,7 @@ class PublicationController extends BaseController
      */
     public function getPublicationAction($id, $page)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var PublicationRepository $repo */
         $repo = $em->getRepository('WizardalleyCoreBundle:Publication');
 
@@ -645,10 +553,7 @@ class PublicationController extends BaseController
      */
     public function getMostCommentPublicationAction($page)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var PublicationRepository $repo */
         $repo = $em->getRepository('WizardalleyCoreBundle:Publication');
 
@@ -682,10 +587,7 @@ class PublicationController extends BaseController
      */
     public function getPublicationCategory($category, $page)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var PublicationRepository $repo */
         $repo = $em->getRepository('WizardalleyCoreBundle:Publication');
 
@@ -718,10 +620,7 @@ class PublicationController extends BaseController
      */
     public function getLatestPublicationAction($page = 1)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var PublicationRepository $repo */
         $repo         = $em->getRepository('WizardalleyCoreBundle:Publication');
         $publications = $repo->findLatestPublication($page);
@@ -754,10 +653,7 @@ class PublicationController extends BaseController
         /** @var WizardUser $user */
         $user = $this->getUser();
         /** @var EntityRepository $repo */
-        $repo            =
-            $this->getDoctrine()
-                 ->getRepository("WizardalleyCoreBundle:PublicationUserLike")
-        ;
+        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:PublicationUserLike");
         $publicationLike = $repo->findOneBy(
             [
                 'user'        => $user->getId(),
@@ -767,14 +663,8 @@ class PublicationController extends BaseController
 
         if (!$publicationLike instanceof PublicationUserLike) {
             $publicationLike = new PublicationUserLike();
-            $publicationLike->setUser($user)
-                            ->setPublication($publication)
-                            ->setDateLike(new \DateTime())
-            ;
-            $em =
-                $this->getDoctrine()
-                     ->getManager()
-            ;
+            $publicationLike->setUser($user)->setPublication($publication)->setDateLike(new \DateTime());
+            $em = $this->getDoctrine()->getManager();
             $em->persist($publicationLike);
             $em->flush();
 
@@ -803,10 +693,7 @@ class PublicationController extends BaseController
         /** @var WizardUser $user */
         $user = $this->getUser();
         /** @var RepositoryInterface $repo */
-        $repo            =
-            $this->getDoctrine()
-                 ->getRepository("WizardalleyCoreBundle:PublicationUserLike")
-        ;
+        $repo            = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:PublicationUserLike");
         $publicationLike = $repo->findOneBy(
             [
                 'user'        => $user->getId(),
@@ -815,10 +702,7 @@ class PublicationController extends BaseController
         );
 
         if ($publicationLike instanceof PublicationUserLike) {
-            $em =
-                $this->getDoctrine()
-                     ->getManager()
-            ;
+            $em = $this->getDoctrine()->getManager();
             $em->remove($publicationLike);
             $em->flush();
 
@@ -885,17 +769,11 @@ class PublicationController extends BaseController
         $form = $this->createForm(new DeletePublicationType());
 
         $form->handleRequest($this->get('request'));
-        $repo        =
-            $this->getDoctrine()
-                 ->getRepository("WizardalleyCoreBundle:Publication")
-        ;
+        $repo        = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:Publication");
         $publication = $repo->find($id);
 
         if (!$publication instanceof Publication) {
-            $repo        =
-                $this->getDoctrine()
-                     ->getRepository("WizardalleyCoreBundle:SmallPublication")
-            ;
+            $repo        = $this->getDoctrine()->getRepository("WizardalleyCoreBundle:SmallPublication");
             $publication = $repo->find($id);
         }
 
@@ -906,16 +784,12 @@ class PublicationController extends BaseController
             if (!$publication instanceof AbstractPublication) {
                 throw $this->createNotFoundException('Unable to find Publication.');
             }
-            if ($publication->getUser()
-                            ->getId() != $user->getId()
+            if ($publication->getUser()->getId() != $user->getId()
             ) {
                 throw $this->createAccessDeniedException('This is not your publication');
             }
 
-            $em =
-                $this->getDoctrine()
-                     ->getManager()
-            ;
+            $em = $this->getDoctrine()->getManager();
             $em->remove($publication);
             $em->flush();
 

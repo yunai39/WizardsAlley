@@ -54,13 +54,7 @@ class ProfileFormType extends BaseForm
                     ]
                 ]
             )
-            ->add(
-                'description',
-                null,
-                [
-                    'label' => 'wizard.register.label.description',
-                ]
-            )
+            ->add('description', null, ['label' => 'wizard.register.label.description'])
             ->add(
                 'facebook',
                 'text',
@@ -108,6 +102,9 @@ class ProfileFormType extends BaseForm
         ;
     }
 
+    /**
+     * @return string
+     */
     public function getParent()
     {
         return 'FOS\UserBundle\Form\Type\ProfileFormType';

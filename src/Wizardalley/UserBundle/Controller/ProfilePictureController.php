@@ -14,26 +14,16 @@ use Wizardalley\CoreBundle\Entity\WizardUser;
  */
 class ProfilePictureController extends Controller
 {
-
     /**
      * @return Response
      */
     public function editProfilePictureAction()
     {
-        $form =
-            $this->createFormBuilder($this->getUser())
-                 ->add('fileProfile')
-                 ->getForm()
-        ;
-        if ($this->getRequest()
-                 ->isMethod('POST')
-        ) {
+        $form = $this->createFormBuilder($this->getUser())->add('fileProfile')->getForm();
+        if ($this->getRequest()->isMethod('POST')) {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
-                $em =
-                    $this->getDoctrine()
-                         ->getManager()
-                ;
+                $em = $this->getDoctrine()->getManager();
                 /** @var WizardUser $user */
                 $user = $this->getUser();
                 $user->uploadProfile();
@@ -60,21 +50,12 @@ class ProfilePictureController extends Controller
      */
     public function editCouverturePictureAction()
     {
-        $form =
-            $this->createFormBuilder($this->getUser())
-                 ->add('fileCouverture')
-                 ->getForm()
-        ;
+        $form = $this->createFormBuilder($this->getUser())->add('fileCouverture')->getForm();
 
-        if ($this->getRequest()
-                 ->isMethod('POST')
-        ) {
+        if ($this->getRequest()->isMethod('POST')) {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
-                $em =
-                    $this->getDoctrine()
-                         ->getManager()
-                ;
+                $em = $this->getDoctrine()->getManager();
                 /** @var WizardUser $user */
                 $user = $this->getUser();
                 $user->uploadCouverture();

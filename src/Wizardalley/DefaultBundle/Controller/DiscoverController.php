@@ -23,10 +23,7 @@ class DiscoverController extends BaseController
     public function indexDiscoverAction()
     {
         /** @var EntityManager $em */
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
 
         return $this->render(
             '::default/discover.html.twig',
@@ -43,10 +40,7 @@ class DiscoverController extends BaseController
      */
     public function loadPageFavoriteAction($page)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var PageFavoriteRepository $repo */
         $repo  = $em->getRepository('WizardalleyCoreBundle:PageFavorite');
         $pages = $repo->findPageLimit($page);
@@ -73,10 +67,7 @@ class DiscoverController extends BaseController
      */
     public function loadPublicationFavoriteAction($page)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var PublicationRepository $repo */
         $repo         = $em->getRepository('WizardalleyCoreBundle:Publication');
         $publications = $repo->findPublicationFavorite($page);
@@ -102,14 +93,8 @@ class DiscoverController extends BaseController
      */
     public function mapWizardWorldAction()
     {
-        $em   =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
-        $maps =
-            $em->getRepository('WizardalleyCoreBundle:MapObject')
-               ->findAll()
-        ;
+        $em   = $this->getDoctrine()->getManager();
+        $maps = $em->getRepository('WizardalleyCoreBundle:MapObject')->findAll();
 
         return $this->render(
             '::discover/map.html.twig',

@@ -10,6 +10,7 @@ use Wizardalley\CoreBundle\Entity\WizardUser;
 
 /**
  * Class NotificationExtension
+ *
  * @package Wizardalley\UserBundle\Twig
  */
 class NotificationExtension extends \Twig_Extension
@@ -57,7 +58,8 @@ class NotificationExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function getImageProfileUser($id) {
+    public function getImageProfileUser($id)
+    {
         $user = $this->em->getRepository('WizardalleyCoreBundle:WizardUser')->find($id);
         if (!$user instanceof WizardUser) {
             return '';
@@ -71,7 +73,8 @@ class NotificationExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function getImageProfilePage($id) {
+    public function getImageProfilePage($id)
+    {
         /** @var Page $page */
         $page = $this->em->getRepository('WizardalleyCoreBundle:Page')->find($id);
         if (!$page instanceof Page) {
@@ -86,11 +89,11 @@ class NotificationExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            'nb_notification' => new \Twig_Function_Method($this, 'nbNotification'),
+        return [
+            'nb_notification'       => new \Twig_Function_Method($this, 'nbNotification'),
             'image_profile_user_id' => new \Twig_Function_Method($this, 'getImageProfileUser'),
             'image_profile_page_id' => new \Twig_Function_Method($this, 'getImageProfilePage'),
-        );
+        ];
     }
 
     /**
@@ -103,11 +106,13 @@ class NotificationExtension extends \Twig_Extension
             return 0;
         }
         /** @var FollowedNotificationRepository $repo */
-        $repo            = $this->em->getRepository('WizardalleyCoreBundle:FollowedNotification');
-        $notifications = $repo->findBy([
-            'user'    => $user,
-            'checked' => false
-        ]);
+        $repo          = $this->em->getRepository('WizardalleyCoreBundle:FollowedNotification');
+        $notifications = $repo->findBy(
+            [
+                'user'    => $user,
+                'checked' => false
+            ]
+        );
 
         return count($notifications);
     }

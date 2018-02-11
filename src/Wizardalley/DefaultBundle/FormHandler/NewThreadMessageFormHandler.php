@@ -33,7 +33,8 @@ class NewThreadMessageFormHandler extends BaseMessageFormHandler
         ParticipantProviderInterface $participantProvider,
         EntityManager $em,
         TokenStorage $tokenStorage
-    ) {
+    )
+    {
         parent::__construct($request, $composer, $sender, $participantProvider);
         $this->em           = $em;
         $this->tokenStorage = $tokenStorage;
@@ -64,10 +65,11 @@ class NewThreadMessageFormHandler extends BaseMessageFormHandler
 
         // Verifier aue l'utilisateur est bien un amis
         return $this->composer->newThread()
-            ->setSubject($message->getSubject())
-            ->addRecipient($message->getRecipient())
-            ->setSender($this->getAuthenticatedParticipant())
-            ->setBody($message->getBody())
-            ->getMessage();
+                              ->setSubject($message->getSubject())
+                              ->addRecipient($message->getRecipient())
+                              ->setSender($this->getAuthenticatedParticipant())
+                              ->setBody($message->getBody())
+                              ->getMessage()
+            ;
     }
 }

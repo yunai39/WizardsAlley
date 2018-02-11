@@ -28,7 +28,7 @@ class MessageExtension extends \Twig_Extension
     /**
      * LikePublicationExtension constructor.
      *
-     * @param TokenStorage $tokenStorage
+     * @param TokenStorage  $tokenStorage
      * @param EntityManager $em
      */
     public function __construct(TokenStorage $tokenStorage, EntityManager $em)
@@ -50,24 +50,20 @@ class MessageExtension extends \Twig_Extension
             return [];
         }
 
-        $query =  $this->em->getRepository('WizardalleyCoreBundle:Thread')->createQueryBuilder('t')
-                                ->innerJoin('t.metadata', 'tm')
-                                ->innerJoin('tm.participant', 'p')
-
+        $query = $this->em->getRepository('WizardalleyCoreBundle:Thread')->createQueryBuilder('t')
+                          ->innerJoin('t.metadata', 'tm')
+                          ->innerJoin('tm.participant', 'p')
             // the participant is in the thread participants
-                                ->andWhere('p.id = :user_id')
-                                ->setParameter('user_id', $user->getId())
-
+                          ->andWhere('p.id = :user_id')
+                          ->setParameter('user_id', $user->getId())
             // the thread does not contain spam or flood
-                                ->andWhere('t.isSpam = :isSpam')
-                                ->setParameter('isSpam', false, \PDO::PARAM_BOOL)
-
+                          ->andWhere('t.isSpam = :isSpam')
+                          ->setParameter('isSpam', false, \PDO::PARAM_BOOL)
             // the thread is not deleted by this participant
-                                ->andWhere('tm.isDeleted = :isDeleted')
-                                ->setParameter('isDeleted', false, \PDO::PARAM_BOOL)
-
+                          ->andWhere('tm.isDeleted = :isDeleted')
+                          ->setParameter('isDeleted', false, \PDO::PARAM_BOOL)
             // sort by date of last message written by an other participant
-                                ->orderBy('tm.lastMessageDate', 'DESC')
+                          ->orderBy('tm.lastMessageDate', 'DESC')
         ;
 
         return $query->getQuery()->execute();

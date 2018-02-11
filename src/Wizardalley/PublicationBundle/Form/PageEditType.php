@@ -14,7 +14,6 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class PageEditType extends AbstractType
 {
-
     /**
      * @param FormBuilderInterface $builder
      * @param array                $options
@@ -28,7 +27,7 @@ class PageEditType extends AbstractType
                 'textarea',
                 [
                     'attr' => [
-                        'class' => 'tinymce',
+                        'class'      => 'tinymce',
                         'data-theme' => 'bbcode' // Skip it if you want to use default theme
                     ]
                 ]
@@ -77,5 +76,4 @@ class PageEditType extends AbstractType
     {
         return 'wizardalley_publicationbundle_page_edit';
     }
-
 }

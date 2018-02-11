@@ -6,6 +6,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class ImageType
+ *
+ * @package Wizardalley\PublicationBundle\Form
+ */
 class ImageType extends AbstractType
 {
 
@@ -40,11 +45,7 @@ class ImageType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(
-            [
-                'data_class' => 'Wizardalley\CoreBundle\Entity\ImagePublication'
-            ]
-        );
+        $resolver->setDefaults(['data_class' => 'Wizardalley\CoreBundle\Entity\ImagePublication']);
     }
 
     /**
@@ -54,5 +55,4 @@ class ImageType extends AbstractType
     {
         return 'wizardalley_publicationbundle_image';
     }
-
 }

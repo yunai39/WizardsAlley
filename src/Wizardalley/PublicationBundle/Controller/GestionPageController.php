@@ -27,12 +27,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class GestionPageController extends Controller
 {
-
     /**
      * indexAction
      *
      * This action will present the page for the gestion of the page
-     *
      * @Route("/page/gestion/show/{id_page}", name="page_gestion_show", requirements={"id_page" = "\d+"})
      *
      * @param int $id_page
@@ -41,17 +39,13 @@ class GestionPageController extends Controller
      */
     public function indexAction($id_page)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var Page $page */
-        $page =
-            $em->getRepository('WizardalleyCoreBundle:Page')
-               ->find($id_page)
-        ;
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
+        // Check if the entity existe
         $this->notFoundEntity($page);
+        // Check if the user is an editor
         $this->creatorEditorOnly($page);
 
         $form = $this->editFormPage($page);
@@ -77,17 +71,13 @@ class GestionPageController extends Controller
      */
     public function editUserWriterFormAction($id_page)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var Page $page */
-        $page =
-            $em->getRepository('WizardalleyCoreBundle:Page')
-               ->find($id_page)
-        ;
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
+        // Check if the entity existe
         $this->notFoundEntity($page);
+        // Check if the user is the creator
         $this->creatorOnly($page);
 
         $form =
@@ -110,8 +100,8 @@ class GestionPageController extends Controller
      * editUserWriterAction
      *
      * This action will record the edition for the user management of the page
-     * @Route("/page/gestion/user/edit/writer/{id_page}", name="page_gestion_user_writer_edit", requirements={"id_page"
-     *                                                    = "\d+"})
+     * @Route("/page/gestion/user/edit/writer/{id_page}", name="page_gestion_user_writer_edit",
+     *                                                    requirements={"id_page"= "\d+"})
      *
      * @param Request $request
      * @param int     $id_page
@@ -121,34 +111,32 @@ class GestionPageController extends Controller
      */
     public function editUserWriterAction(Request $request, $id_page)
     {
-        $em     =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:Page')
-               ->find($id_page)
-        ;
+        $em   = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
-        if (!$entity instanceof Page) {
+        if (!$page instanceof Page) {
             throw new EntityNotFoundException();
         }
-        $this->notFoundEntity($entity);
-        $this->creatorOnly($entity);
+        // Check if the entity existe
+        $this->notFoundEntity($page);
+        // Check if the user is the creator
+        $this->creatorOnly($page);
 
         $editForm =
             $this->createFormUserPage(
-                $entity,
+                $page,
                 'page_gestion_user_writer_edit',
                 new PageEditorType()
             );
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $entity->removeAllEditor();
+            // Reset all editor
+            $page->removeAllEditor();
+            // Recreate all editor
             $editors = $request->get('wizardalley_publicationbundle_page_editor');
             foreach ($editors[ 'editors' ] as $editor) {
-                $entity->addEditor(
+                $page->addEditor(
                     $em->getReference(
                         'WizardalleyCoreBundle:WizardUser',
                         $editor[ 'id' ]
@@ -156,14 +144,12 @@ class GestionPageController extends Controller
                 );
             }
 
-            $em->persist($entity);
+            $em->persist($page);
             $em->flush();
-            $this->get('session')
-                 ->getFlashBag()
-                 ->add(
-                     'success',
-                     'wizard.page.edit_success'
-                 )
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'wizard.page.edit_success'
+            )
             ;
 
             return $this->redirect(
@@ -177,7 +163,7 @@ class GestionPageController extends Controller
         return $this->render(
             '::page/gestionPage/editUser.html.twig',
             [
-                'page' => $entity,
+                'page' => $page,
                 'form' => $editForm->createView(),
             ]
         );
@@ -196,17 +182,13 @@ class GestionPageController extends Controller
      */
     public function editUserCheckedFormAction($id_page)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var Page $page */
-        $page =
-            $em->getRepository('WizardalleyCoreBundle:Page')
-               ->find($id_page)
-        ;
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
+        // Check if the entity existe
         $this->notFoundEntity($page);
+        // Check if the user is the creator
         $this->creatorOnly($page);
 
         $form =
@@ -240,20 +222,16 @@ class GestionPageController extends Controller
      */
     public function editUserCheckerAction(Request $request, $id_page)
     {
-        $em     =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:Page')
-               ->find($id_page)
-        ;
+        $em     = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
         if (!$entity instanceof Page) {
             throw new EntityNotFoundException();
         }
-        $this->notFoundEntity($entity);
-        $this->creatorOnly($entity);
+        // Check if the entity existe
+        $this->notFoundEntity($page);
+        // Check if the user is the creator
+        $this->creatorOnly($page);
 
         $editForm =
             $this->createFormUserPage(
@@ -317,34 +295,28 @@ class GestionPageController extends Controller
      */
     public function editPageAction(Request $request, $id_page)
     {
-        $em     =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
-        $entity =
-            $em->getRepository('WizardalleyCoreBundle:Page')
-               ->find($id_page)
-        ;
+        $em   = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
-        if (!$entity instanceof Page) {
+        if (!$page instanceof Page) {
             throw new EntityNotFoundException();
         }
 
-        $this->notFoundEntity($entity);
-        $this->creatorEditorOnly($entity);
-        $editForm = $this->editFormPage($entity);
+        // Check if the entity existe
+        $this->notFoundEntity($page);
+        // Check if the user is the creator
+        $this->creatorEditorOnly($page);
+        $editForm = $this->editFormPage($page);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $entity->uploadProfile();
-            $entity->uploadCouverture();
+            $page->uploadProfile();
+            $page->uploadCouverture();
             $em->flush();
-            $this->get('session')
-                 ->getFlashBag()
-                 ->add(
-                     'success',
-                     'wizard.page.user.edit_success'
-                 )
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'wizard.page.user.edit_success'
+            )
             ;
 
             return $this->redirect(
@@ -358,7 +330,7 @@ class GestionPageController extends Controller
         return $this->render(
             '::page/gestionPage/index.html.twig',
             [
-                'page' => $entity,
+                'page' => $page,
                 'form' => $editForm->createView(),
             ]
         );
@@ -372,14 +344,14 @@ class GestionPageController extends Controller
      */
     public function newAction()
     {
-        $entity = new Page();
+        $page = new Page();
 
-        $form = $this->createFormPage($entity);
+        $form = $this->createFormPage($page);
 
         return $this->render(
             '::user/page/new.html.twig',
             [
-                'entity' => $entity,
+                'entity' => $page,
                 'form'   => $form->createView(),
             ]
         );
@@ -396,35 +368,31 @@ class GestionPageController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity = new Page();
+        $page = new Page();
 
-        $form = $this->createFormPage($entity);
+        $form = $this->createFormPage($page);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em =
-                $this->getDoctrine()
-                     ->getManager()
-            ;
-            $entity->setCreator($this->getUser());
-            $entity->setCreatedAt(new \DateTime());
-            $entity->setOfficialPage(false);
-            $entity->uploadCouverture();
-            $entity->uploadProfile();
-            $em->persist($entity);
+            // creation of the page
+            $em = $this->getDoctrine()->getManager();
+            $page->setCreator($this->getUser());
+            $page->setCreatedAt(new \DateTime());
+            $page->setOfficialPage(false);
+            $page->uploadCouverture();
+            $page->uploadProfile();
+            $em->persist($page);
             $em->flush();
-            $this->get('session')
-                 ->getFlashBag()
-                 ->add(
-                     'success',
-                     'wizard.page.new_success'
-                 )
+            $this->get('session')->getFlashBag()->add(
+                'success',
+                'wizard.page.new_success'
+            )
             ;
 
             return $this->redirect(
                 $this->generateUrl(
                     'page_show',
-                    ['id_page' => $entity->getId()]
+                    ['id_page' => $page->getId()]
                 )
             );
         }
@@ -432,7 +400,7 @@ class GestionPageController extends Controller
         return $this->render(
             '::user/page/new.html.twig',
             [
-                'entity' => $entity,
+                'entity' => $page,
                 'form'   => $form->createView(),
             ]
         );
@@ -452,30 +420,18 @@ class GestionPageController extends Controller
      */
     public function displayPublicationAction($id_page, $page = 1)
     {
-        $em =
-            $this->getDoctrine()
-                 ->getManager()
-        ;
+        $em = $this->getDoctrine()->getManager();
         /** @var PublicationRepository $repository */
         $repository = $em->getRepository('WizardalleyCoreBundle:Publication');
         /** @var Page $pageEntity */
-        $pageEntity =
-            $em->getRepository('WizardalleyCoreBundle:Page')
-               ->find($id_page)
-        ;
+        $pageEntity = $em->getRepository('WizardalleyCoreBundle:Page')->find($id_page);
 
         $qb    = $repository->createQueryBuilder('p');
-        $query =
-            $qb->join(
-                'p.page',
-                'pa'
-            )
-               ->where(' pa.id = ' . $id_page)
-               ->orderBy(
-                   'p.createdAt',
-                   'DESC'
-               )
-               ->getQuery()
+        $query = $qb
+            ->join('p.page', 'pa')
+            ->where(' pa.id = ' . $id_page)
+            ->orderBy('p.createdAt', 'DESC')
+            ->getQuery()
         ;
 
         $this->notFoundEntity($pageEntity);
@@ -643,5 +599,4 @@ class GestionPageController extends Controller
             throw new AccessDeniedException;
         }
     }
-
 }
