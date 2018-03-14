@@ -139,6 +139,11 @@
                                     wizard.menu.link.notification{% endtrans %}
                                 </a>
                             </li>
+                            <li {% if app.request.get('_route') == 'wizardalley_user_mypage' %} class="active" {% endif %}>
+                                <a href="{{ path('wizardalley_user_mypage') }}">
+                                    {% trans %}wizard.title.mypages.title{% endtrans %}
+                                </a>
+                            </li>
                         {% endif %}
                         <li {% if app.request.get('_route') == 'wizardalley_search_display' %} class="active" {% endif %}>
                             <a href="{{ path('wizardalley_search_display') }}">

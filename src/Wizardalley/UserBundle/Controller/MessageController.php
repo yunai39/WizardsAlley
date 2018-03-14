@@ -13,7 +13,7 @@ use FOS\MessageBundle\Controller\MessageController as BaseController;
 class MessageController extends BaseController
 {
     /**
-     * @Route("/user/message/all", name="user_message_all")
+     * @Route("/user/messages", name="user_message_all")
      * @return mixed
      */
     public function listAllAction()

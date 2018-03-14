@@ -104,7 +104,7 @@ class DefaultController extends Controller
      *
      * This action will present the presentation page of the web site
      *
-     * @Configuration\Route("/user/home", name="wizardalley_default_homepage")
+     * @Configuration\Route("/user/newsfeed", name="wizardalley_default_homepage")
      *
      * @return Response
      */
@@ -126,13 +126,13 @@ class DefaultController extends Controller
      *
      * This action will present the legal mention page
      *
-     * @Configuration\Route("/mention", name="wizardalley_default_mention")
+     * @Configuration\Route("/legals", name="wizardalley_default_mention")
      *
      * @return Response
      */
     public function mentionAction()
     {
-        return $this->render('::default/mention.html.twig');
+        return $this->render('::default/legals.html.twig');
     }
 
     /**

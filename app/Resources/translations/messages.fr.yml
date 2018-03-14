@@ -20,6 +20,11 @@ wizard:
         latest_discussion:
             title: Vos dernières discussions
     title:
+        mypages:
+            created: Mes pages créées
+            editor: Mes pages d'éditeur
+            followed: Mes pages suivies
+            title: Mes pages
         base: Wizard's Alley -
         ruelle: Ma ruelle
         edit: Modifications
@@ -191,6 +196,7 @@ wizard:
         add_as_friend: Ajouter en tant qu'ami(e)
         remove_friendship: Retirer de la liste des amis
     page:
+        displayPage: Afficher la page
         new_success: La page a bien été créée
         publication_list: Liste des publications
         list:

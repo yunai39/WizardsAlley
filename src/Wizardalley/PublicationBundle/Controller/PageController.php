@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Wizardalley\CoreBundle\Entity\PublicationRepository;
+use Wizardalley\CoreBundle\Entity\WizardUser;
 
 /**
  * Class PageController
@@ -46,6 +47,25 @@ class PageController extends \Wizardalley\DefaultBundle\Controller\BaseControlle
             [
                 'category' => $category,
                 'pages'    => $pageRepository->findBy(['category' => $category])
+            ]
+        );
+    }
+
+    /**
+     * @Route("/user/mypages", name="wizardalley_user_mypage")
+     * @return Response
+     */
+    public function myPagesAction()
+    {
+        /** @var WizardUser $user */
+        $user = $this->getUser();
+
+        return $this->render(
+            '::default/mypages.html.twig',
+            [
+                'created_pages'  => $user->getPagesCreated(),
+                'editor_pages'   => $user->getPagesEditor(),
+                'followed_pages' => $user->getPagesFollowed(),
             ]
         );
     }

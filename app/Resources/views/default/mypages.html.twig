@@ -1,0 +1,92 @@
+{% extends "::base.html.twig" %}
+
+{% block head_extra_class %}head-category{% endblock %}
+
+{% block title %}
+    {% trans %}wizard.title.base{% endtrans %} {% trans %}wizard.title.mypages.title{% endtrans %}
+{% endblock %}
+
+
+{% block title_banner %}
+    <h1>
+        {% trans %}wizard.title.mypages.title{% endtrans %}
+    </h1>
+{% endblock %}
+
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>{% trans %}wizard.title.mypages.created{% endtrans %}
+                        <a href="{{ path('page_gestion_new') }}" class="pull-right label defaut-label btn btn-lg">Créer</a>
+                    </h1>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        {% for page in created_pages %}
+                            <div class="col-xs-3 col-md-4">
+                                {% include 'includes/pagesSmall.html.twig' with
+                                {
+                                'image_path': '/uploads/page/profile/' ~ page.pathProfile,
+                                'link_page': path('page_show', {id_page: page.id}),
+                                'title_page': page.name
+                                } %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if editor_pages|length != 0 %}
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>{% trans %}wizard.title.mypages.editor{% endtrans %}</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        {% for page in editor_pages %}
+                            <div class="col-xs-3 col-md-4">
+                                {% include 'includes/pagesSmall.html.twig' with
+                                {
+                                'image_path': '/uploads/page/profile/' ~ page.pathProfile,
+                                'link_page': path('page_show', {id_page: page.id}),
+                                'title_page': page.name
+                                } %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if followed_pages|length != 0 %}
+        <div class="col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>{% trans %}wizard.title.mypages.followed{% endtrans %}</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        {% for page_followed in followed_pages %}
+                            <div class="col-xs-3 col-md-4">
+                                {% include 'includes/pagesSmall.html.twig' with
+                                {
+                                'image_path': '/uploads/page/profile/' ~ page_followed.page.pathProfile,
+                                'link_page': path('page_show', {id_page:  page_followed.page.id}),
+                                'title_page':  page_followed.page.name
+                                } %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}
+

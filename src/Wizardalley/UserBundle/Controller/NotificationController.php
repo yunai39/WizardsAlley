@@ -17,7 +17,7 @@ use Wizardalley\DefaultBundle\Controller\BaseController;
 class NotificationController extends BaseController
 {
     /**
-     * @Route("/user/notification", name="user_notification_index")
+     * @Route("/user/notifications", name="user_notification_index")
      * @return Response
      */
     public function indexNotificationAction()
