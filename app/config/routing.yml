@@ -15,6 +15,18 @@ wizardalley_user:
     resource: "@WizardalleyUserBundle/Resources/config/routing.yml"
     prefix:   /
 
+wizardalley_api:
+    resource: "@WizardalleyWebServiceBundle/Resources/config/routing.yml"
+    prefix:   /api
+
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
 
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"

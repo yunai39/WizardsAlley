@@ -1,0 +1,26 @@
+fos_rest:
+    routing_loader:
+        default_format: json                            # All responses should be JSON formated
+        include_format: false
+    body_converter:
+        enabled: true
+    view:
+        formats: { json: true, xml: false, rss: false }
+        view_response_listener: true
+    serializer:
+        serialize_null: true
+    format_listener:
+        rules:
+            - { path: ^/api/, priorities: [ json ], fallback_format: ~, prefer_extension: true }
+            - { path: '^/', priorities: [ 'html', '*/*'], fallback_format: html, prefer_extension: true }
+
+
+
+fos_oauth_server:
+    db_driver:           orm
+    client_class:        Wizardalley\WebServiceBundle\Entity\OAuthClient
+    access_token_class:  Wizardalley\WebServiceBundle\Entity\OAuthAccessToken
+    refresh_token_class: Wizardalley\WebServiceBundle\Entity\OAuthRefreshToken
+    auth_code_class:     Wizardalley\WebServiceBundle\Entity\OAuthAuthCode
+    service:
+        user_provider: fos_user.user_manager             # This property will be used when valid credentials are given to load the user upon access token creation

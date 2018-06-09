@@ -30,11 +30,15 @@ class AppKernel extends Kernel {
             new Wizardalley\PublicationBundle\WizardalleyPublicationBundle(),
             new Wizardalley\AdminBundle\WizardalleyAdminBundle(),
             new Wizardalley\CoreBundle\WizardalleyCoreBundle(),
+            new Wizardalley\WebServiceBundle\WizardalleyWebServiceBundle(),
             new FOS\MessageBundle\FOSMessageBundle(),
             new JavierEguiluz\Bundle\EasyAdminBundle\EasyAdminBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Ivory\CKEditorBundle\IvoryCKEditorBundle(),
+            new FOS\RestBundle\FOSRestBundle(),
+            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
+            new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

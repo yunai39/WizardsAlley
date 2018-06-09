@@ -25,7 +25,7 @@ wizard:
             editor: Mes pages d'éditeur
             followed: Mes pages suivies
             title: Mes pages
-        base: Wizard's Alley -
+        base: Wizard's Alley
         ruelle: Ma ruelle
         edit: Modifications
         map: Carte
@@ -116,6 +116,8 @@ wizard:
             administration: Administration
             discover: Dépêches magiques
             discover_map: Carte
+            helps: Pages d'aide
+            register: Inscription à Wizard's Alley
             mention_legal: Mentions Légales
             blog: Blog
             contact: Contact
@@ -126,6 +128,7 @@ wizard:
             mail: Messages privés
             blog: Blog de l'équipe
             notification: Notifications
+            login: Connexion
     user:
         change_password: Changer le mot de passe
         notification:
