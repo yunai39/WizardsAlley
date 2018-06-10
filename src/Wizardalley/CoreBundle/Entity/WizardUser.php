@@ -8,6 +8,7 @@ use FOS\MessageBundle\Model\ParticipantInterface;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass="Wizardalley\CoreBundle\Entity\WizardUserRepository")
@@ -16,9 +17,16 @@ class WizardUser extends BaseUser implements ParticipantInterface
 {
 
     /**
+     * @var string
+     * @Serializer\Groups({"publication_detail", "publication_list"})
+     */
+    protected $username;
+
+    /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     protected $id;
 
@@ -26,6 +34,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=32)
+     * @Serializer\Groups({"publication_detail"})
      */
     private $lastname;
 
@@ -33,6 +42,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=32)
+     * @Serializer\Groups({"publication_detail"})
      */
     private $firstname;
 
@@ -103,11 +113,13 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="sexe", type="boolean")
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $sexe;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Serializer\Groups({"publication_detail"})
      */
     public $pathProfile;
 

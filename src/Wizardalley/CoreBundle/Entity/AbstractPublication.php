@@ -5,6 +5,7 @@ namespace Wizardalley\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Wizardalley\CoreBundle\Entity\Interfaces\TimedEntityInterface;
 use Wizardalley\CoreBundle\Entity\Traits\TimedEntityTrait;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Publication
@@ -24,12 +25,14 @@ class AbstractPublication implements TimedEntityInterface
      * @ORM\Id
      * @ORM\Column(name="id", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Groups({"publication_list"})
      */
     protected $id;
 
     /**
      * @var string
      *
+     * @Serializer\Groups({"publication_detail"})
      * @ORM\Column(name="content", type="text")
      */
     private $content;
@@ -42,6 +45,7 @@ class AbstractPublication implements TimedEntityInterface
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="publications" )
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $user;
 
@@ -50,6 +54,7 @@ class AbstractPublication implements TimedEntityInterface
      * @var \boolean
      *
      * @ORM\Column(name="online", type="boolean", options={"default" = 0}, nullable=true)
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $online;
 

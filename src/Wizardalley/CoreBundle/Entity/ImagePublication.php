@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * ImagePublication
@@ -22,11 +23,13 @@ class ImagePublication
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Serializer\Groups({"publication_detail"})
      * @var \DateTime
      */
     private $updatedAt;
@@ -35,6 +38,7 @@ class ImagePublication
      * @var string
      *
      * @ORM\Column(name="path", type="string", length=255)
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $path;
 
@@ -42,6 +46,7 @@ class ImagePublication
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255)
+     * @Serializer\Groups({"publication_detail"})
      */
     private $description;
 

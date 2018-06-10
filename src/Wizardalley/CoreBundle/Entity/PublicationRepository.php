@@ -325,6 +325,42 @@ class PublicationRepository extends EntityRepository
     }
 
     /**
+     * @param Page $page
+     * @param int  $limit
+     * @param null $latestId
+     *
+     * @return mixed
+     */
+    public function findPublicationList(Page $page, $limit, $latestId = null)
+    {
+        $qb = $this->_em->createQueryBuilder()
+            ->select('p')
+            ->from($this->_entityName, 'p')
+        ;
+
+        $qb
+            ->orderBy('p.createdAt', 'DESC')
+            ->where('p.online = 1')
+            ->andWhere('p.page = :page')
+            ->setParameter('page', $page)
+        ;
+        if ($latestId !== null) {
+            $qb
+                ->andWhere('p.id < :latestId')
+                ->setParameter('latestId', $latestId);
+        }
+
+        $query = $qb
+            ->setMaxResults($limit)
+            ->getQuery()
+        ;
+
+        $result = $query->getResult();
+
+        return $result;
+    }
+
+    /**
      * @return array
      */
     public function findLatestPublication($page, $limit = BaseController::BASE_LIMIT)

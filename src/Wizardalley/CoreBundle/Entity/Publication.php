@@ -4,6 +4,7 @@ namespace Wizardalley\CoreBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Publication
@@ -30,11 +31,13 @@ class Publication extends AbstractPublication
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $title;
 
     /**
      * @ORM\OneToMany(targetEntity="ImagePublication", mappedBy="publication", cascade={"remove", "persist"})
+     * @Serializer\Groups({"publication_detail"})
      * @var ArrayCollection
      */
     private $images;
@@ -42,6 +45,7 @@ class Publication extends AbstractPublication
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\Page", inversedBy="publications" )
      * @ORM\JoinColumn(name="page_id", referencedColumnName="id")
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $page;
 
@@ -49,6 +53,7 @@ class Publication extends AbstractPublication
      * @var string
      *
      * @ORM\Column(name="small_content", type="text")
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $smallContent;
 
@@ -56,6 +61,7 @@ class Publication extends AbstractPublication
      * @var boolean
      *
      * @ORM\Column(name="hasBennPublished", type="boolean", options={"default": false})
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $hasBeenPublished = false;
 

@@ -10,6 +10,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Wizardalley\CoreBundle\Entity\Interfaces\TimedEntityInterface;
 use Wizardalley\CoreBundle\Entity\Traits\TimedEntityTrait;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Page
@@ -28,6 +29,7 @@ class Page implements TimedEntityInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $id;
 
@@ -41,6 +43,7 @@ class Page implements TimedEntityInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $name;
 
@@ -48,6 +51,7 @@ class Page implements TimedEntityInterface
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Serializer\Groups({"publication_detail", "publication_list"})
      */
     private $description;
 
