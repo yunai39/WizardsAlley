@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * PageCategory
@@ -22,6 +23,7 @@ class PageCategory
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Groups({"category_detail", "category_list"})
      */
     private $id;
 
@@ -29,6 +31,7 @@ class PageCategory
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Serializer\Groups({"category_detail", "category_list"})
      */
     private $name;
 
@@ -36,6 +39,7 @@ class PageCategory
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Serializer\Groups({"category_detail"})
      */
     private $description;
 
@@ -43,6 +47,7 @@ class PageCategory
      * @var string
      *
      * @ORM\Column(name="logo", type="string", length=255, nullable=true)
+     * @Serializer\Groups({"category_detail", "category_list"})
      */
     private $logo;
 
@@ -50,11 +55,13 @@ class PageCategory
      * @var string
      *
      * @ORM\Column(name="cover", type="string", length=255, nullable=true)
+     * @Serializer\Groups({"category_detail"})
      */
     private $cover;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Serializer\Groups({"category_detail"})
      * @var \DateTime
      */
     private $updatedAt;

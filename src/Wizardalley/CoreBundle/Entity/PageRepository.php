@@ -246,4 +246,40 @@ class PageRepository extends EntityRepository
 
         return $result;
     }
+
+    /**
+     * @param PageCategory $category
+     * @param int          $limit
+     * @param null         $latestId
+     *
+     * @return array
+     */
+    public function findPageList(PageCategory $category, $limit, $latestId = null)
+    {
+        $qb = $this->_em->createQueryBuilder()
+                        ->select('p')
+                        ->from($this->_entityName, 'p')
+        ;
+
+        $qb
+            ->orderBy('p.createdAt', 'DESC')
+            ->andWhere('p.category = :category')
+            ->setParameter('category', $category)
+        ;
+        if ($latestId !== null) {
+            $qb
+                ->andWhere('p.id < :latestId')
+                ->setParameter('latestId', $latestId)
+            ;
+        }
+
+        $query = $qb
+            ->setMaxResults($limit)
+            ->getQuery()
+        ;
+
+        $result = $query->getResult();
+
+        return $result;
+    }
 }

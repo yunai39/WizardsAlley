@@ -29,7 +29,7 @@ class Page implements TimedEntityInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Serializer\Groups({"publication_detail", "publication_list"})
+     * @Serializer\Groups({"publication_detail", "publication_list", "page_detail", "page_list"})
      */
     private $id;
 
@@ -43,7 +43,7 @@ class Page implements TimedEntityInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Serializer\Groups({"publication_detail", "publication_list"})
+     * @Serializer\Groups({"publication_detail", "publication_list",  "page_detail", "page_list"})
      */
     private $name;
 
@@ -51,13 +51,14 @@ class Page implements TimedEntityInterface
      * @var string
      *
      * @ORM\Column(name="description", type="text")
-     * @Serializer\Groups({"publication_detail", "publication_list"})
+     * @Serializer\Groups({"publication_detail", "publication_list",  "page_detail", "page_list"})
      */
     private $description;
 
     /**
      * @var string
      *
+     * @Serializer\Groups({"page_detail"})
      * @ORM\Column(name="urlFacebook", type="string", length=255, nullable=true)
      */
     private $urlFacebook;
@@ -65,6 +66,7 @@ class Page implements TimedEntityInterface
     /**
      * @var string
      *
+     * @Serializer\Groups({"page_detail"})
      * @ORM\Column(name="path_couverture",type="string", length=255, nullable=true)
      */
     public $pathCouverture;
@@ -72,6 +74,7 @@ class Page implements TimedEntityInterface
     /**
      * @var string
      *
+     * @Serializer\Groups({"page_detail", "page_list"})
      * @ORM\Column(name="path_profile", type="string", length=255)
      */
     private $pathProfile;
@@ -99,6 +102,7 @@ class Page implements TimedEntityInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\WizardUser", inversedBy="pagesCreated")
+     * @Serializer\Groups({"page_detail"})
      * @ORM\JoinColumn(name="creator_id", referencedColumnName="id")
      */
     private $creator;
@@ -126,6 +130,7 @@ class Page implements TimedEntityInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Wizardalley\CoreBundle\Entity\PageCategory", inversedBy="pages")
+     * @Serializer\Groups({"page_detail"})
      */
     private $category;
 

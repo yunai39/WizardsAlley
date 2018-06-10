@@ -26,7 +26,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @Serializer\Groups({"publication_detail", "publication_list"})
+     * @Serializer\Groups({"user_list", "user_detail"})
      */
     protected $id;
 
@@ -34,7 +34,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="lastname", type="string", length=32)
-     * @Serializer\Groups({"publication_detail"})
+     * @Serializer\Groups({"user_list", "user_detail"})
      */
     private $lastname;
 
@@ -42,7 +42,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="firstname", type="string", length=32)
-     * @Serializer\Groups({"publication_detail"})
+     * @Serializer\Groups({"user_list", "user_detail"})
      */
     private $firstname;
 
@@ -50,6 +50,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="twitter", type="string", length=255, nullable=true)
+     * @Serializer\Groups({"user_detail"})
      */
     private $twitter;
 
@@ -57,6 +58,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="facebook", type="string", length=255, nullable=true)
+     * @Serializer\Groups({"user_detail"})
      */
     private $facebook;
 
@@ -64,6 +66,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="instagram", type="string", length=255, nullable=true)
+     * @Serializer\Groups({"user_detail"})
      */
     private $instagram;
 
@@ -71,6 +74,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="youtube", type="string", length=255, nullable=true)
+     * @Serializer\Groups({"user_detail"})
      */
     private $youtube;
 
@@ -78,6 +82,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="small_description", type="string", length=128, nullable=true)
+     * @Serializer\Groups({"user_detail"})
      */
     private $smallDescription;
 
@@ -85,6 +90,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="description", type="text",  nullable=true)
+     * @Serializer\Groups({"user_detail"})
      */
     private $description;
 
@@ -92,6 +98,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="last_connect", type="datetime", nullable=true)
+     * @Serializer\Groups({"user_detail"})
      */
     private $lastConnect;
 
@@ -99,6 +106,7 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="created_at", type="datetime", nullable=true)
+     * @Serializer\Groups({"user_detail"})
      */
     private $createdAt;
 
@@ -113,18 +121,19 @@ class WizardUser extends BaseUser implements ParticipantInterface
      * @var string
      *
      * @ORM\Column(name="sexe", type="boolean")
-     * @Serializer\Groups({"publication_detail", "publication_list"})
+     * @Serializer\Groups({"user_detail", "user_list"})
      */
     private $sexe;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Serializer\Groups({"publication_detail"})
+     * @Serializer\Groups({"user_detail", "user_list"})
      */
     public $pathProfile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Serializer\Groups({"user_detail"})
      */
     public $pathCouverture;
 

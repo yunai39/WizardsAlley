@@ -4,10 +4,7 @@ namespace Wizardalley\WebServiceBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
-use FOS\RestBundle\Controller\FOSRestController;
 use JMS\Serializer\SerializationContext;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\Publication;
 
@@ -16,7 +13,7 @@ use Wizardalley\CoreBundle\Entity\Publication;
  *
  * @package WebServiceBundle\Controller
  */
-class PublicationController extends FOSRestController
+class PublicationController extends ApiBaseController
 {
     /**
      * @Get(
@@ -28,17 +25,21 @@ class PublicationController extends FOSRestController
      */
     public function showAction(Publication $publication)
     {
-        $data = [];
-
         // Afficher seulement si la publication a ete publier
         if ($publication->getHasBeenPublished()) {
             $data = $this
                 ->get('jms_serializer')
-                ->serialize($publication, 'json', SerializationContext::create()->setGroups(['publication_detail']))
+                ->serialize(
+                    $publication,
+                    'json',
+                    SerializationContext::create()->setGroups(['publication_detail', 'user_list'])
+                )
             ;
-        }
 
-        return $this->successResponse($data);
+            return $this->successResponse($data);
+        } else {
+            return $this->errorResponse('');
+        }
     }
 
     /**
@@ -63,49 +64,23 @@ class PublicationController extends FOSRestController
             return $this->errorResponse('');
         }
 
-        $publicationRepository =  $this
+        $publicationRepository = $this
             ->getDoctrine()
             ->getManager()
-            ->getRepository('WizardalleyCoreBundle:Publication');
+            ->getRepository('WizardalleyCoreBundle:Publication')
+        ;
 
         $publications = $publicationRepository->findPublicationList($page, 5, $latestId);
 
         $data = $this
             ->get('jms_serializer')
-            ->serialize($publications, 'json', SerializationContext::create()->setGroups(['publication_list']))
+            ->serialize(
+                $publications,
+                'json',
+                SerializationContext::create()->setGroups(['publication_list', 'user_list'])
+            )
         ;
 
         return $this->successResponse($data);
     }
-
-    /**
-     * @param $data
-     *
-     * @return Response
-     */
-    protected function successResponse($data)
-    {
-        $response = new Response('{"status":"success", "data": ' . $data . '}');
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
-
-    /**
-     * @param $message
-     *
-     * @return Response
-     */
-    protected function errorResponse($message)
-    {
-        $response = new JsonResponse(
-            [
-                'status'  => 'error',
-                'message' => $message
-            ]
-        );
-
-        return $response;
-    }
-
 }
