@@ -14,7 +14,6 @@ fos_rest:
             - { path: ^/api/, priorities: [ json ], fallback_format: ~, prefer_extension: true }
 
 
-
 fos_oauth_server:
     db_driver:           orm
     client_class:        Wizardalley\WebServiceBundle\Entity\OAuthClient

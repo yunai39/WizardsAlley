@@ -2,11 +2,13 @@
 
 namespace Wizardalley\WebServiceBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\View;
 use JMS\Serializer\SerializationContext;
 use Wizardalley\CoreBundle\Entity\Page;
 use Wizardalley\CoreBundle\Entity\Publication;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\Annotations\QueryParam;
 
 /**
  * Class PublicationController
@@ -16,8 +18,16 @@ use Wizardalley\CoreBundle\Entity\Publication;
 class PublicationController extends ApiBaseController
 {
     /**
+     * Show publication properties
+     *
+     * @ApiDoc(
+     *  resource=true,
+     *  description="Show publication properties",
+     *  section="publication"
+     * )
+     * @QueryParam(name="id", requirements="\d+", description="Publication id")
      * @Get(
-     *     path = "/publication/{id}",
+     *     path = "/public/publication/{id}",
      *     name = "api_publication_show",
      *     requirements = {"id"="\d+"}
      * )
@@ -43,8 +53,15 @@ class PublicationController extends ApiBaseController
     }
 
     /**
+     * @ApiDoc(
+     *  resource=true,
+     *  description="List of publication for a page",
+     *  section="publication"
+     * )
+     * @QueryParam(name="pageId", requirements="\d+", description="Page id")
+     * @QueryParam(name="latestId", requirements="\d+", default="null", description="Last publication id displayed, this way you will get the next page")
      * @Get(
-     *     path = "/page/publicationList/{pageId}/{latestId}",
+     *     path = "/public/page/publicationList/{pageId}/{latestId}",
      *     name = "api_page_publication_list_show",
      *     requirements = {"pageId"="\d+","latestId"="\d+"}
      * )

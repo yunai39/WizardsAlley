@@ -28,6 +28,7 @@ fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
 
 
+
 _liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
 
